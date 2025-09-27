@@ -12,7 +12,7 @@ import {
   Package,
   X
 } from 'lucide-react';
-import { mockProducts, mockDailyDeals, inStockProducts, outOfStockProducts } from '../data/mock';
+import { mockProducts, mockDailyDeals, inStockProducts, outOfStockProducts } from '../data/actual-inventory';
 import ProductRating from './ProductRating';
 
 const ProductGrid = ({ category = 'all', tier = null, user, showTitle = false }) => {
