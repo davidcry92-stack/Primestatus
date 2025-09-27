@@ -147,10 +147,10 @@ const DailyDeals = ({ user }) => {
                       <div className="mb-4">
                         <div className="flex items-baseline space-x-2 mb-1">
                           <span className="text-3xl font-black text-green-400">
-                            ${discountedPrice.toFixed(2)}
+                            ${discountedPrice?.toFixed(2) || '0.00'}
                           </span>
                           <span className="text-gray-400 line-through text-xl">
-                            ${product.price.toFixed(2)}
+                            ${product?.price?.toFixed(2) || '0.00'}
                           </span>
                         </div>
                         <p className="text-yellow-400 text-sm font-medium">
