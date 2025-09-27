@@ -9,7 +9,8 @@ import {
   MapPin,
   Flame,
   Leaf,
-  Package
+  Package,
+  X
 } from 'lucide-react';
 import { mockProducts, mockDailyDeals, inStockProducts, outOfStockProducts } from '../data/mock';
 import ProductRating from './ProductRating';
