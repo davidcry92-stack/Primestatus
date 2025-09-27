@@ -161,10 +161,13 @@ const ProductGrid = ({ category = 'all' }) => {
                     {product.description}
                   </p>
                   
-                  {/* THC Info */}
+                  {/* THC Info & Weight */}
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-2">
                       <Badge variant="outline" className="border-green-400 text-green-400">
+                        {product.weight}
+                      </Badge>
+                      <Badge variant="outline" className="border-blue-400 text-blue-400">
                         THC: {product.thc}
                       </Badge>
                       {product.inStock ? (
