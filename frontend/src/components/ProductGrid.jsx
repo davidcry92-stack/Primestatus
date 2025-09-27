@@ -200,8 +200,6 @@ const ProductGrid = ({ category = 'all' }) => {
               </Card>
             );
           })}
-          </div>
-        )}
 
         {/* Load More Button */}
         <div className="text-center mt-12">
