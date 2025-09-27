@@ -20,8 +20,8 @@ import { mockUserProfile } from "./data/mock";
 const MainApp = () => {
   const [user, setUser] = useState({
     ...mockUserProfile,
-    is_verified: false, // Set to false to test verification flow
-    verification_status: 'pending',
+    is_verified: true, // Set to true to show verified user experience
+    verification_status: 'approved',
     requires_medical: false,
     age_verified: 25
   });
