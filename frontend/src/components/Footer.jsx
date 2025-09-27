@@ -79,7 +79,7 @@ const Footer = () => {
             <ul className="space-y-2">
               <li className="flex items-center space-x-2 text-gray-400">
                 <MapPin className="h-4 w-4" />
-                <span>New York City, NY</span>
+                <span>NYC Location - Members Only</span>
               </li>
               <li className="flex items-center space-x-2 text-gray-400">
                 <Mail className="h-4 w-4" />
@@ -87,7 +87,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center space-x-2 text-gray-400">
                 <Phone className="h-4 w-4" />
-                <span>Members Only</span>
+                <span>Contact via App</span>
               </li>
             </ul>
           </div>
