@@ -117,6 +117,7 @@ const InventoryManagement = () => {
       description: product.description,
       thc: product.thc,
       vendor: product.vendor,
+      tier: product.tier || 'za',
       in_stock: product.in_stock,
       rating: product.rating.toString(),
       reviews: product.reviews.toString()
