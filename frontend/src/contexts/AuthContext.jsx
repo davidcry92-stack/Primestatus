@@ -1,3 +1,173 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { authAPI } from '../services/api';
-import { useToast } from '../hooks/use-toast';\n\nconst AuthContext = createContext();\n\nexport const useAuth = () => {\n  const context = useContext(AuthContext);\n  if (!context) {\n    throw new Error('useAuth must be used within an AuthProvider');\n  }\n  return context;\n};\n\nexport const AuthProvider = ({ children }) => {\n  const [user, setUser] = useState(null);\n  const [loading, setLoading] = useState(true);\n  const { toast } = useToast();\n\n  // Load user from localStorage on mount\n  useEffect(() => {\n    const token = localStorage.getItem('access_token');\n    const userData = localStorage.getItem('user_data');\n    \n    if (token && userData) {\n      try {\n        setUser(JSON.parse(userData));\n      } catch (error) {\n        console.error('Error parsing user data:', error);\n        localStorage.removeItem('access_token');\n        localStorage.removeItem('user_data');\n      }\n    }\n    \n    setLoading(false);\n  }, []);\n\n  const login = async (credentials) => {\n    try {\n      const response = await authAPI.login(credentials);\n      const { access_token, user: userData } = response.data;\n      \n      localStorage.setItem('access_token', access_token);\n      localStorage.setItem('user_data', JSON.stringify(userData));\n      setUser(userData);\n      \n      toast({\n        title: \"Welcome back!\",\n        description: `Successfully logged in as ${userData.username}`,\n      });\n      \n      return { success: true };\n    } catch (error) {\n      const message = error.response?.data?.detail || 'Login failed';\n      toast({\n        title: \"Login failed\",\n        description: message,\n        variant: \"destructive\",\n      });\n      return { success: false, error: message };\n    }\n  };\n\n  const register = async (userData) => {\n    try {\n      const response = await authAPI.register(userData);\n      const { access_token, user: newUser } = response.data;\n      \n      localStorage.setItem('access_token', access_token);\n      localStorage.setItem('user_data', JSON.stringify(newUser));\n      setUser(newUser);\n      \n      toast({\n        title: \"Welcome to StatusXSmoakland!\",\n        description: `Account created successfully for ${newUser.username}`,\n      });\n      \n      return { success: true };\n    } catch (error) {\n      const message = error.response?.data?.detail || 'Registration failed';\n      toast({\n        title: \"Registration failed\",\n        description: message,\n        variant: \"destructive\",\n      });\n      return { success: false, error: message };\n    }\n  };\n\n  const logout = async () => {\n    try {\n      await authAPI.logout();\n    } catch (error) {\n      // Continue with logout even if API call fails\n      console.error('Logout API error:', error);\n    }\n    \n    localStorage.removeItem('access_token');\n    localStorage.removeItem('user_data');\n    setUser(null);\n    \n    toast({\n      title: \"Logged out\",\n      description: \"You have been successfully logged out\",\n    });\n  };\n\n  const updateProfile = async (updates) => {\n    try {\n      const response = await authAPI.updateProfile(updates);\n      const updatedUser = response.data;\n      \n      localStorage.setItem('user_data', JSON.stringify(updatedUser));\n      setUser(updatedUser);\n      \n      toast({\n        title: \"Profile updated\",\n        description: \"Your profile has been updated successfully\",\n      });\n      \n      return { success: true };\n    } catch (error) {\n      const message = error.response?.data?.detail || 'Profile update failed';\n      toast({\n        title: \"Update failed\",\n        description: message,\n        variant: \"destructive\",\n      });\n      return { success: false, error: message };\n    }\n  };\n\n  const value = {\n    user,\n    loading,\n    login,\n    register,\n    logout,\n    updateProfile,\n    isAuthenticated: !!user,\n  };\n\n  return (\n    <AuthContext.Provider value={value}>\n      {children}\n    </AuthContext.Provider>\n  );\n};"
+
+const AuthContext = createContext();
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
+};
+
+// Simple API call helper
+const apiCall = async (url, options = {}) => {
+  const backendUrl = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+  
+  const defaultHeaders = {
+    'Content-Type': 'application/json',
+  };
+
+  const token = localStorage.getItem('access_token');
+  if (token) {
+    defaultHeaders.Authorization = `Bearer ${token}`;
+  }
+
+  const response = await fetch(`${backendUrl}${url}`, {
+    ...options,
+    headers: {
+      ...defaultHeaders,
+      ...options.headers,
+    },
+  });
+
+  return response;
+};
+
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  // Load user from localStorage on mount
+  useEffect(() => {
+    const token = localStorage.getItem('access_token');
+    const userData = localStorage.getItem('user_data');
+    
+    if (token && userData) {
+      try {
+        setUser(JSON.parse(userData));
+      } catch (error) {
+        console.error('Error parsing user data:', error);
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('user_data');
+      }
+    }
+    
+    setLoading(false);
+  }, []);
+
+  const login = async (credentials) => {
+    try {
+      const response = await apiCall('/api/auth/login', {
+        method: 'POST',
+        body: JSON.stringify(credentials),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Login failed');
+      }
+
+      const data = await response.json();
+      const { access_token, user: userData } = data;
+      
+      localStorage.setItem('access_token', access_token);
+      localStorage.setItem('user_data', JSON.stringify(userData));
+      setUser(userData);
+      
+      return { success: true };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  };
+
+  const register = async (userData) => {
+    try {
+      const formData = new FormData();
+      
+      // Add all form fields
+      Object.keys(userData).forEach(key => {
+        if (userData[key] !== null && userData[key] !== undefined) {
+          formData.append(key, userData[key]);
+        }
+      });
+
+      const response = await apiCall('/api/auth/register', {
+        method: 'POST',
+        body: formData,
+        headers: {}, // Let browser set Content-Type for FormData
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Registration failed');
+      }
+
+      const data = await response.json();
+      const { access_token, user: newUser } = data;
+      
+      localStorage.setItem('access_token', access_token);
+      localStorage.setItem('user_data', JSON.stringify(newUser));
+      setUser(newUser);
+      
+      return { success: true };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  };
+
+  const logout = async () => {
+    try {
+      await apiCall('/api/auth/logout', { method: 'POST' });
+    } catch (error) {
+      // Continue with logout even if API call fails
+      console.error('Logout API error:', error);
+    }
+    
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('user_data');
+    setUser(null);
+  };
+
+  const updateProfile = async (updates) => {
+    try {
+      const response = await apiCall('/api/auth/profile', {
+        method: 'PUT',
+        body: JSON.stringify(updates),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Profile update failed');
+      }
+
+      const updatedUser = await response.json();
+      
+      localStorage.setItem('user_data', JSON.stringify(updatedUser));
+      setUser(updatedUser);
+      
+      return { success: true };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  };
+
+  const value = {
+    user,
+    loading,
+    login,
+    register,
+    logout,
+    updateProfile,
+    isAuthenticated: !!user,
+    apiCall, // Expose apiCall for other components
+  };
+
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export { AuthContext };"
