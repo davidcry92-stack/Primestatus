@@ -206,11 +206,16 @@ const ProductGrid = ({ category = 'all', user }) => {
                     
                     <Button 
                       onClick={() => addToCart(product)}
-                      disabled={!product.inStock}
-                      className="bg-green-600 hover:bg-green-700 text-white flex items-center space-x-2"
+                      disabled={!product.inStock || !user?.is_verified}
+                      className={`flex items-center space-x-2 ${
+                        !user?.is_verified 
+                          ? 'bg-gray-600 hover:bg-gray-700 cursor-not-allowed' 
+                          : 'bg-green-600 hover:bg-green-700'
+                      } text-white`}
+                      title={!user?.is_verified ? 'Verification required to purchase' : ''}
                     >
                       <ShoppingCart className="h-4 w-4" />
-                      <span>Add to Cart</span>
+                      <span>{!user?.is_verified ? 'Verification Required' : 'Add to Cart'}</span>
                     </Button>
                   </div>
                 </CardContent>
