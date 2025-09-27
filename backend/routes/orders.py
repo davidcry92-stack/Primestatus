@@ -62,7 +62,7 @@ async def create_order(
         "user_id": user["_id"],
         "items": validated_items,
         "total": round(total, 2),
-        "delivery_address": order_data.delivery_address,
+        "payment_method": order_data.payment_method,
         "status": "pending"
     }
     
