@@ -73,46 +73,46 @@ const AuthModal = ({ onClose }) => {
           </TabsList>
           
           {/* Login Tab */}
-          <TabsContent value=\"login\">
-            <Card className=\"bg-transparent border-none\">
-              <CardContent className=\"space-y-4 pt-4\">
-                <form onSubmit={handleLogin} className=\"space-y-4\">
-                  <div className=\"space-y-2\">
-                    <Label htmlFor=\"login-email\" className=\"text-white\">Email</Label>
-                    <div className=\"relative\">
-                      <Mail className=\"absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400\" />
+          <TabsContent value="login">
+            <Card className="bg-transparent border-none">
+              <CardContent className="space-y-4 pt-4">
+                <form onSubmit={handleLogin} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="login-email" className="text-white">Email</Label>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                       <Input
-                        id=\"login-email\"
-                        type=\"email\"
-                        placeholder=\"Enter your email\"
+                        id="login-email"
+                        type="email"
+                        placeholder="Enter your email"
                         value={loginForm.email}
                         onChange={(e) => setLoginForm({ ...loginForm, email: e.target.value })}
-                        className=\"pl-10 bg-black/50 border-gray-600 text-white placeholder-gray-400 focus:border-green-400\"
+                        className="pl-10 bg-black/50 border-gray-600 text-white placeholder-gray-400 focus:border-green-400"
                         required
                       />
                     </div>
                   </div>
                   
-                  <div className=\"space-y-2\">
-                    <Label htmlFor=\"login-password\" className=\"text-white\">Password</Label>
-                    <div className=\"relative\">
-                      <Lock className=\"absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400\" />
+                  <div className="space-y-2">
+                    <Label htmlFor="login-password" className="text-white">Password</Label>
+                    <div className="relative">
+                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                       <Input
-                        id=\"login-password\"
-                        type=\"password\"
-                        placeholder=\"Enter your password\"
+                        id="login-password"
+                        type="password"
+                        placeholder="Enter your password"
                         value={loginForm.password}
                         onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
-                        className=\"pl-10 bg-black/50 border-gray-600 text-white placeholder-gray-400 focus:border-green-400\"
+                        className="pl-10 bg-black/50 border-gray-600 text-white placeholder-gray-400 focus:border-green-400"
                         required
                       />
                     </div>
                   </div>
                   
                   <Button 
-                    type=\"submit\" 
+                    type="submit" 
                     disabled={loading}
-                    className=\"w-full bg-green-600 hover:bg-green-700 text-white\"
+                    className="w-full bg-green-600 hover:bg-green-700 text-white"
                   >
                     {loading ? 'Signing in...' : 'Sign In'}
                   </Button>
@@ -122,53 +122,53 @@ const AuthModal = ({ onClose }) => {
           </TabsContent>
           
           {/* Register Tab */}
-          <TabsContent value=\"register\">
-            <Card className=\"bg-transparent border-none\">
-              <CardContent className=\"space-y-4 pt-4\">
-                <form onSubmit={handleRegister} className=\"space-y-4\">
-                  <div className=\"space-y-2\">
-                    <Label htmlFor=\"register-username\" className=\"text-white\">Username</Label>
-                    <div className=\"relative\">
-                      <User className=\"absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400\" />
+          <TabsContent value="register">
+            <Card className="bg-transparent border-none">
+              <CardContent className="space-y-4 pt-4">
+                <form onSubmit={handleRegister} className="space-y-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="register-username" className="text-white">Username</Label>
+                    <div className="relative">
+                      <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                       <Input
-                        id=\"register-username\"
-                        type=\"text\"
-                        placeholder=\"Choose a username\"
+                        id="register-username"
+                        type="text"
+                        placeholder="Choose a username"
                         value={registerForm.username}
                         onChange={(e) => setRegisterForm({ ...registerForm, username: e.target.value })}
-                        className=\"pl-10 bg-black/50 border-gray-600 text-white placeholder-gray-400 focus:border-green-400\"
+                        className="pl-10 bg-black/50 border-gray-600 text-white placeholder-gray-400 focus:border-green-400"
                         required
                       />
                     </div>
                   </div>
                   
-                  <div className=\"space-y-2\">
-                    <Label htmlFor=\"register-email\" className=\"text-white\">Email</Label>
-                    <div className=\"relative\">
-                      <Mail className=\"absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400\" />
+                  <div className="space-y-2">
+                    <Label htmlFor="register-email" className="text-white">Email</Label>
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                       <Input
-                        id=\"register-email\"
-                        type=\"email\"
-                        placeholder=\"Enter your email\"
+                        id="register-email"
+                        type="email"
+                        placeholder="Enter your email"
                         value={registerForm.email}
                         onChange={(e) => setRegisterForm({ ...registerForm, email: e.target.value })}
-                        className=\"pl-10 bg-black/50 border-gray-600 text-white placeholder-gray-400 focus:border-green-400\"
+                        className="pl-10 bg-black/50 border-gray-600 text-white placeholder-gray-400 focus:border-green-400"
                         required
                       />
                     </div>
                   </div>
                   
-                  <div className=\"space-y-2\">
-                    <Label htmlFor=\"register-password\" className=\"text-white\">Password</Label>
-                    <div className=\"relative\">
-                      <Lock className=\"absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400\" />
+                  <div className="space-y-2">
+                    <Label htmlFor="register-password" className="text-white">Password</Label>
+                    <div className="relative">
+                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                       <Input
-                        id=\"register-password\"
-                        type=\"password\"
-                        placeholder=\"Create a password (min 8 chars)\"
+                        id="register-password"
+                        type="password"
+                        placeholder="Create a password (min 8 chars)"
                         value={registerForm.password}
                         onChange={(e) => setRegisterForm({ ...registerForm, password: e.target.value })}
-                        className=\"pl-10 bg-black/50 border-gray-600 text-white placeholder-gray-400 focus:border-green-400\"
+                        className="pl-10 bg-black/50 border-gray-600 text-white placeholder-gray-400 focus:border-green-400"
                         minLength={8}
                         required
                       />
@@ -205,9 +205,9 @@ const AuthModal = ({ onClose }) => {
                   </div>
                   
                   {/* Membership Tier */}
-                  <div className=\"space-y-3\">
-                    <Label className=\"text-white\">Membership Tier</Label>
-                    <div className=\"grid grid-cols-1 gap-3\">
+                  <div className="space-y-3">
+                    <Label className="text-white">Membership Tier</Label>
+                    <div className="grid grid-cols-1 gap-3">
                       <div 
                         className={`p-3 rounded-lg border cursor-pointer transition-all ${
                           registerForm.membership_tier === 'basic'
@@ -216,14 +216,14 @@ const AuthModal = ({ onClose }) => {
                         }`}
                         onClick={() => setRegisterForm({ ...registerForm, membership_tier: 'basic' })}
                       >
-                        <div className=\"flex items-center justify-between\">
+                        <div className="flex items-center justify-between">
                           <div>
-                            <h4 className=\"text-white font-semibold\">Basic Membership</h4>
-                            <p className=\"text-green-400 font-bold\">$4.99/month</p>
+                            <h4 className="text-white font-semibold">Basic Membership</h4>
+                            <p className="text-green-400 font-bold">$4.99/month</p>
                           </div>
-                          <div className=\"w-4 h-4 rounded-full border-2 border-green-400\">
+                          <div className="w-4 h-4 rounded-full border-2 border-green-400">
                             {registerForm.membership_tier === 'basic' && (
-                              <div className=\"w-full h-full bg-green-400 rounded-full\" />
+                              <div className="w-full h-full bg-green-400 rounded-full" />
                             )}
                           </div>
                         </div>
@@ -237,19 +237,19 @@ const AuthModal = ({ onClose }) => {
                         }`}
                         onClick={() => setRegisterForm({ ...registerForm, membership_tier: 'premium' })}
                       >
-                        <div className=\"flex items-center justify-between\">
-                          <div className=\"flex items-center space-x-2\">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center space-x-2">
                             <div>
-                              <div className=\"flex items-center space-x-2\">
-                                <h4 className=\"text-white font-semibold\">Premium + Wictionary</h4>
-                                <Crown className=\"h-4 w-4 text-yellow-400\" />
+                              <div className="flex items-center space-x-2">
+                                <h4 className="text-white font-semibold">Premium + Wictionary</h4>
+                                <Crown className="h-4 w-4 text-yellow-400" />
                               </div>
-                              <p className=\"text-yellow-400 font-bold\">$7.99/month</p>
+                              <p className="text-yellow-400 font-bold">$7.99/month</p>
                             </div>
                           </div>
-                          <div className=\"w-4 h-4 rounded-full border-2 border-yellow-400\">
+                          <div className="w-4 h-4 rounded-full border-2 border-yellow-400">
                             {registerForm.membership_tier === 'premium' && (
-                              <div className=\"w-full h-full bg-yellow-400 rounded-full\" />
+                              <div className="w-full h-full bg-yellow-400 rounded-full" />
                             )}
                           </div>
                         </div>
@@ -258,13 +258,13 @@ const AuthModal = ({ onClose }) => {
                   </div>
                   
                   {/* Delivery Area */}
-                  <div className=\"space-y-2\">
-                    <Label htmlFor=\"delivery-area\" className=\"text-white flex items-center space-x-1\">
-                      <MapPin className=\"h-4 w-4\" />
+                  <div className="space-y-2">
+                    <Label htmlFor="delivery-area" className="text-white flex items-center space-x-1">
+                      <MapPin className="h-4 w-4" />
                       <span>Delivery Area</span>
                     </Label>
                     <select
-                      id=\"delivery-area\"
+                      id="delivery-area"
                       value={registerForm.preferences.delivery_area}
                       onChange={(e) => setRegisterForm({
                         ...registerForm,
@@ -273,7 +273,7 @@ const AuthModal = ({ onClose }) => {
                           delivery_area: e.target.value
                         }
                       })}
-                      className=\"w-full bg-black/50 border border-gray-600 text-white rounded-md px-3 py-2 focus:border-green-400 focus:outline-none\"
+                      className="w-full bg-black/50 border border-gray-600 text-white rounded-md px-3 py-2 focus:border-green-400 focus:outline-none"
                     >
                       {nycNeighborhoods.map(area => (
                         <option key={area} value={area}>{area}</option>
@@ -282,9 +282,9 @@ const AuthModal = ({ onClose }) => {
                   </div>
                   
                   <Button 
-                    type=\"submit\" 
+                    type="submit" 
                     disabled={loading}
-                    className=\"w-full bg-gradient-to-r from-green-600 to-yellow-600 hover:from-green-700 hover:to-yellow-700 text-white font-bold\"
+                    className="w-full bg-gradient-to-r from-green-600 to-yellow-600 hover:from-green-700 hover:to-yellow-700 text-white font-bold"
                   >
                     {loading ? 'Creating account...' : 'Join StatusXSmoakland'}
                   </Button>
@@ -294,8 +294,8 @@ const AuthModal = ({ onClose }) => {
           </TabsContent>
         </Tabs>
         
-        <div className=\"text-center pt-4 border-t border-gray-700\">
-          <p className=\"text-gray-400 text-xs\">
+        <div className="text-center pt-4 border-t border-gray-700">
+          <p className="text-gray-400 text-xs">
             By joining, you confirm you are 21+ and not affiliated with law enforcement.
           </p>
         </div>
