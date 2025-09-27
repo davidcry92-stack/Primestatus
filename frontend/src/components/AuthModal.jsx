@@ -18,6 +18,7 @@ const AuthModal = ({ onClose }) => {
     username: '',
     email: '',
     password: '',
+    reEntryCode: '',
     membership_tier: 'basic',
     preferences: {
       delivery_area: 'Manhattan',
