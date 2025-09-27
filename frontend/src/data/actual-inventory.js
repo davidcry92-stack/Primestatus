@@ -880,7 +880,7 @@ export const inStockProducts = [
     weight: '3.5g',
     tier: 'za',
     type: 'Hybrid 50/50',
-    image: 'https://images.unsplash.com/photo-1560450038-7d847b1fb393?w=400&h=400&fit=crop',
+    image: 'https://images.unsplash.com/photo-1604953753353-42128ad7cfbd?w=400&h=400&fit=crop',
     description: 'Balanced hybrid with energizing effects',
     thc: '26-30%',
     vendor: 'Smoakland Premium',
