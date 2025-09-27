@@ -11,6 +11,7 @@ import VerificationPending from "./components/VerificationPending";
 import Header from "./components/Header";
 import HeroSection from "./components/HeroSection";
 import ProductGrid from "./components/ProductGrid";
+import ProductSelection from "./components/ProductSelection";
 import DailyDeals from "./components/DailyDeals";
 import Wictionary from "./components/Wictionary";
 import Footer from "./components/Footer";
