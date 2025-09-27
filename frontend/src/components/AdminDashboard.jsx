@@ -104,6 +104,9 @@ const AdminDashboard = ({ adminUser, onLogout }) => {
           {activeTab === 'inventory' && (
             <InventoryManagement />
           )}
+          {activeTab === 'ratings' && (
+            <AdminRatingStats />
+          )}
           {activeTab === 'verification' && (
             <IDVerification />
           )}
