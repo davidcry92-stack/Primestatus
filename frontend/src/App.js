@@ -100,7 +100,11 @@ function App() {
       return <ReEntryCodeScreen onVerified={handleReEntryCodeVerification} userEmail="demo@example.com" />;
     }
     
-    return <MainApp />;
+    return (
+      <AuthProvider>
+        <MainApp />
+      </AuthProvider>
+    );
   };
 
   return (
