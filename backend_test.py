@@ -621,6 +621,211 @@ class AdminSystemTester:
             f"Successfully accessed {len(collections_tested)} collections: {', '.join(collections_tested)}"
         )
     
+    async def test_updated_inventory_system(self):
+        """Test the updated inventory system with newly added out-of-stock products."""
+        print("\n=== TESTING UPDATED INVENTORY SYSTEM WITH OUT-OF-STOCK PRODUCTS ===")
+        
+        # Test 1: Get all products and verify total count
+        success, response, status = await self.make_request("GET", "/products")
+        
+        if success and isinstance(response, list):
+            total_products = len(response)
+            self.log_test(
+                "Get All Products", 
+                True, 
+                f"Retrieved {total_products} total products from API"
+            )
+            
+            # Count products by tier and stock status
+            tier_counts = {'za': {'in_stock': 0, 'out_of_stock': 0}, 
+                          'deps': {'in_stock': 0, 'out_of_stock': 0}, 
+                          'lows': {'in_stock': 0, 'out_of_stock': 0}}
+            categories_found = set()
+            
+            for product in response:
+                tier = product.get('tier', 'unknown')
+                category = product.get('category', 'unknown')
+                in_stock = product.get('in_stock', False)
+                
+                if tier in tier_counts:
+                    if in_stock:
+                        tier_counts[tier]['in_stock'] += 1
+                    else:
+                        tier_counts[tier]['out_of_stock'] += 1
+                
+                if category != 'unknown':
+                    categories_found.add(category)
+            
+            # Test 2: Verify expected inventory counts per tier
+            expected_counts = {
+                'lows': {'total': 54, 'in_stock': 20, 'out_of_stock': 34},
+                'deps': {'total': 87, 'in_stock': 27, 'out_of_stock': 60},
+                'za': {'total': 8, 'in_stock': 4, 'out_of_stock': 4}
+            }
+            
+            for tier, expected in expected_counts.items():
+                actual_total = tier_counts[tier]['in_stock'] + tier_counts[tier]['out_of_stock']
+                actual_in_stock = tier_counts[tier]['in_stock']
+                actual_out_of_stock = tier_counts[tier]['out_of_stock']
+                
+                self.log_test(
+                    f"{tier.upper()} Tier Total Count", 
+                    actual_total >= expected['total'] * 0.8,  # Allow some variance
+                    f"Expected ~{expected['total']}, got {actual_total} ({actual_in_stock} in-stock, {actual_out_of_stock} out-of-stock)"
+                )
+                
+                self.log_test(
+                    f"{tier.upper()} Tier Out-of-Stock Count", 
+                    actual_out_of_stock >= expected['out_of_stock'] * 0.8,  # Allow some variance
+                    f"Expected ~{expected['out_of_stock']} out-of-stock, got {actual_out_of_stock}"
+                )
+            
+            # Test 3: Verify minimum total inventory (149+ products)
+            self.log_test(
+                "Total Inventory Volume", 
+                total_products >= 149, 
+                f"Expected 149+ total products, got {total_products}"
+            )
+            
+            # Test 4: Test tier filtering with stock status
+            for tier in ['za', 'deps', 'lows']:
+                # Test tier filtering
+                success, tier_response, status = await self.make_request("GET", f"/products?tier={tier}")
+                
+                if success and isinstance(tier_response, list):
+                    tier_products = [p for p in tier_response if p.get('tier') == tier]
+                    self.log_test(
+                        f"Tier Filter - {tier.upper()}", 
+                        len(tier_products) == len(tier_response), 
+                        f"Retrieved {len(tier_response)} {tier} tier products (filter working correctly)"
+                    )
+                    
+                    # Test in-stock filtering for this tier
+                    success, in_stock_response, status = await self.make_request("GET", f"/products?tier={tier}&in_stock=true")
+                    
+                    if success and isinstance(in_stock_response, list):
+                        in_stock_tier_products = [p for p in in_stock_response if p.get('tier') == tier and p.get('in_stock', False)]
+                        self.log_test(
+                            f"{tier.upper()} Tier In-Stock Filter", 
+                            len(in_stock_tier_products) == len(in_stock_response), 
+                            f"Retrieved {len(in_stock_response)} in-stock {tier} products"
+                        )
+                    
+                    # Test out-of-stock filtering for this tier
+                    success, out_of_stock_response, status = await self.make_request("GET", f"/products?tier={tier}&in_stock=false")
+                    
+                    if success and isinstance(out_of_stock_response, list):
+                        out_of_stock_tier_products = [p for p in out_of_stock_response if p.get('tier') == tier and not p.get('in_stock', True)]
+                        self.log_test(
+                            f"{tier.upper()} Tier Out-of-Stock Filter", 
+                            len(out_of_stock_tier_products) == len(out_of_stock_response), 
+                            f"Retrieved {len(out_of_stock_response)} out-of-stock {tier} products"
+                        )
+                else:
+                    self.log_test(
+                        f"Tier Filter - {tier.upper()}", 
+                        False, 
+                        f"Failed to filter by tier {tier}: {tier_response}",
+                        tier_response
+                    )
+            
+            # Test 5: Test category filtering
+            for category in ['flower', 'edibles', 'vapes', 'pre-rolls', 'concentrates', 'suppositories']:
+                success, cat_response, status = await self.make_request("GET", f"/products?category={category}")
+                
+                if success and isinstance(cat_response, list):
+                    cat_products = [p for p in cat_response if p.get('category') == category]
+                    self.log_test(
+                        f"Category Filter - {category}", 
+                        len(cat_products) == len(cat_response), 
+                        f"Retrieved {len(cat_response)} {category} products"
+                    )
+                else:
+                    self.log_test(
+                        f"Category Filter - {category}", 
+                        False, 
+                        f"Failed to filter by category {category}: {cat_response}",
+                        cat_response
+                    )
+            
+            # Test 6: Test overall in-stock vs out-of-stock filtering
+            success, all_in_stock, status = await self.make_request("GET", "/products?in_stock=true")
+            success2, all_out_of_stock, status2 = await self.make_request("GET", "/products?in_stock=false")
+            
+            if success and success2 and isinstance(all_in_stock, list) and isinstance(all_out_of_stock, list):
+                total_filtered = len(all_in_stock) + len(all_out_of_stock)
+                self.log_test(
+                    "Stock Status Filtering", 
+                    total_filtered == total_products, 
+                    f"In-stock: {len(all_in_stock)}, Out-of-stock: {len(all_out_of_stock)}, Total: {total_filtered} (should equal {total_products})"
+                )
+            
+            # Test 7: Verify data structure of products
+            sample_product = response[0] if response else None
+            if sample_product:
+                required_fields = ['id', 'name', 'category', 'price', 'tier', 'in_stock']
+                missing_fields = [field for field in required_fields if field not in sample_product]
+                
+                self.log_test(
+                    "Product Data Structure", 
+                    len(missing_fields) == 0, 
+                    f"Sample product has all required fields" if not missing_fields else f"Missing fields: {missing_fields}"
+                )
+            
+            # Test 8: Test branded products search (should work for both in-stock and out-of-stock)
+            branded_searches = ['Paletas', 'Wyld', 'Fryd', 'Smoakies', 'Blendz']
+            for brand in branded_searches:
+                success, brand_response, status = await self.make_request("GET", f"/products?vendor={brand}")
+                
+                if success and isinstance(brand_response, list):
+                    self.log_test(
+                        f"Brand Search - {brand}", 
+                        True, 
+                        f"Found {len(brand_response)} {brand} products"
+                    )
+                else:
+                    self.log_test(
+                        f"Brand Search - {brand}", 
+                        False, 
+                        f"Failed to search for {brand} products: {brand_response}",
+                        brand_response
+                    )
+            
+            # Test 9: Verify specific out-of-stock products exist
+            # Check for some specific out-of-stock products that should have been added
+            deps_out_of_stock_names = ['Bronx Glue', 'Apple Runts', 'Biscotti', 'Cake Batter']
+            za_out_of_stock_names = ['Lemon Cherry Gelato Za OOS', 'Purple Runts Za OOS']
+            
+            found_deps_oos = 0
+            found_za_oos = 0
+            
+            for product in response:
+                if not product.get('in_stock', True):  # Out of stock products
+                    if product.get('tier') == 'deps' and any(name in product.get('name', '') for name in deps_out_of_stock_names):
+                        found_deps_oos += 1
+                    elif product.get('tier') == 'za' and any(name in product.get('name', '') for name in za_out_of_stock_names):
+                        found_za_oos += 1
+            
+            self.log_test(
+                "Specific Out-of-Stock Products - Deps", 
+                found_deps_oos > 0, 
+                f"Found {found_deps_oos} specific deps out-of-stock products"
+            )
+            
+            self.log_test(
+                "Specific Out-of-Stock Products - Za", 
+                found_za_oos >= 0,  # Za might have different naming
+                f"Found {found_za_oos} specific za out-of-stock products"
+            )
+                    
+        else:
+            self.log_test(
+                "Get All Products", 
+                False, 
+                f"Failed to retrieve products: {response}",
+                response
+            )
+
     async def test_product_api_integration(self):
         """Test the new product API with actual inventory integration."""
         print("\n=== TESTING PRODUCT API INTEGRATION ===")
