@@ -11,34 +11,48 @@ import {
   Leaf,
   Package
 } from 'lucide-react';
-import { mockProducts, mockDailyDeals } from '../data/mock';
+import { mockProducts, mockDailyDeals, inStockProducts, outOfStockProducts } from '../data/mock';
 import ProductRating from './ProductRating';
 
 const ProductGrid = ({ category = 'all', tier = null, user, showTitle = false }) => {
   const [selectedCategory, setSelectedCategory] = useState(category);
   const [cart, setCart] = useState([]);
+  const [showOutOfStock, setShowOutOfStock] = useState(false);
+  const [displayLimit, setDisplayLimit] = useState(12);
 
+  // Get all products (in-stock and out-of-stock)
+  const allProducts = [...inStockProducts, ...outOfStockProducts];
+  
   // Filter products based on category and tier
   const filteredProducts = (() => {
-    let products = mockProducts;
+    let products = category === 'all' ? allProducts : mockProducts;
     
     // Filter by category first
     if (category && category !== 'all') {
-      products = products.filter(product => product.category === category);
+      products = allProducts.filter(product => product.category === category);
     }
     
     // Then filter by tier if specified
     if (tier) {
-      products = products.filter(product => product.tier === tier);
+      products = allProducts.filter(product => product.tier === tier);
     }
     
     // Fallback for tier-based selection without category
     if (selectedCategory && selectedCategory !== 'all' && !category) {
-      products = products.filter(product => product.tier === selectedCategory);
+      products = allProducts.filter(product => product.tier === selectedCategory);
     }
     
     return products;
   })();
+
+  // Separate in-stock and out-of-stock products
+  const inStockFiltered = filteredProducts.filter(product => product.inStock);
+  const outOfStockFiltered = filteredProducts.filter(product => !product.inStock);
+  
+  // Products to display based on current view
+  const productsToShow = showOutOfStock 
+    ? [...inStockFiltered.slice(0, displayLimit), ...outOfStockFiltered.slice(0, displayLimit)]
+    : inStockFiltered.slice(0, displayLimit);
 
   const getDealForProduct = (productId) => {
     return mockDailyDeals.find(deal => deal.productId === productId);
