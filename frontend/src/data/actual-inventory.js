@@ -1282,7 +1282,7 @@ export const inStockProducts = [
     weight: '2g',
     tier: 'za',
     type: 'Indica',
-    image: 'https://images.pexels.com/photos/8139067/pexels-photo-8139067.jpeg',
+    image: 'https://customer-assets.emergentagent.com/job_statusx-cannabis/artifacts/ax0gzles_paleta%20alien%202g%20blunt.webp',
     description: 'Premium 2g indica blunt by Paletas',
     thc: '25-30%',
     vendor: 'Paletas',
