@@ -212,6 +212,16 @@ async def get_profile(current_user_email: str = Depends(verify_token)):
         )
     
     user_data = convert_object_id(user)
+    
+    # Add required fields for UserResponse
+    user_data["verification_status"] = user.get("id_verification", {}).get("verification_status", "pending")
+    user_data["requires_medical"] = user.get("id_verification", {}).get("requires_medical", False)
+    user_data["age_verified"] = user.get("id_verification", {}).get("age_verified")
+    
+    # Ensure member_since is present (use created_at if member_since is missing)
+    if "member_since" not in user_data:
+        user_data["member_since"] = user_data.get("created_at", datetime.utcnow())
+    
     return UserResponse(**user_data)
 
 @router.put("/profile", response_model=UserResponse)
