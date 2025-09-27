@@ -258,28 +258,15 @@ const AuthModal = ({ onClose }) => {
                     </div>
                   </div>
                   
-                  {/* Delivery Area */}
-                  <div className="space-y-2">
-                    <Label htmlFor="delivery-area" className="text-white flex items-center space-x-1">
+                  {/* Pickup Only Notice */}
+                  <div className="bg-yellow-900/30 border border-yellow-400/30 rounded-lg p-3">
+                    <div className="flex items-center space-x-2 text-yellow-400">
                       <MapPin className="h-4 w-4" />
-                      <span>Delivery Area</span>
-                    </Label>
-                    <select
-                      id="delivery-area"
-                      value={registerForm.preferences.delivery_area}
-                      onChange={(e) => setRegisterForm({
-                        ...registerForm,
-                        preferences: {
-                          ...registerForm.preferences,
-                          delivery_area: e.target.value
-                        }
-                      })}
-                      className="w-full bg-black/50 border border-gray-600 text-white rounded-md px-3 py-2 focus:border-green-400 focus:outline-none"
-                    >
-                      {nycNeighborhoods.map(area => (
-                        <option key={area} value={area}>{area}</option>
-                      ))}
-                    </select>
+                      <span className="font-semibold">PICKUP ONLY</span>
+                    </div>
+                    <p className="text-gray-300 text-sm mt-1">
+                      No delivery available. Members will receive pickup location details after verification.
+                    </p>
                   </div>
                   
                   <Button 
