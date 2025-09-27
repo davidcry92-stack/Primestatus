@@ -1103,29 +1103,36 @@ class AdminSystemTester:
             )
         
         # Test 5: Update existing rating (user can only rate each product once)
-        updated_rating_data = {
-            "product_id": test_product_id,
-            "rating": 5,
-            "review": "Updated review - even better than I thought!",
-            "experience": "After using it more, I'm even more impressed. Perfect product for my needs."
-        }
-        
-        success, update_response, status = await self.make_request(
-            "POST", "/ratings/", updated_rating_data, user_headers
-        )
-        
-        if success:
-            self.log_test(
-                "Update Existing Rating", 
-                True, 
-                f"Successfully updated existing rating to 5 stars"
+        if test_user_token and created_rating_id:
+            updated_rating_data = {
+                "product_id": test_product_id,
+                "rating": 5,
+                "review": "Updated review - even better than I thought!",
+                "experience": "After using it more, I'm even more impressed. Perfect product for my needs."
+            }
+            
+            success, update_response, status = await self.make_request(
+                "POST", "/ratings/", updated_rating_data, user_headers
             )
+            
+            if success:
+                self.log_test(
+                    "Update Existing Rating", 
+                    True, 
+                    f"Successfully updated existing rating to 5 stars"
+                )
+            else:
+                self.log_test(
+                    "Update Existing Rating", 
+                    False, 
+                    f"Failed to update existing rating: {update_response}",
+                    update_response
+                )
         else:
             self.log_test(
                 "Update Existing Rating", 
                 False, 
-                f"Failed to update existing rating: {update_response}",
-                update_response
+                "Skipped - no authenticated user or rating available"
             )
         
         # Test 6: Get product ratings
