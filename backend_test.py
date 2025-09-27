@@ -1060,40 +1060,47 @@ class AdminSystemTester:
             )
         
         # Test 3: Experience field length validation (500 chars max)
-        long_experience = "x" * 501  # 501 characters
-        long_data = {
-            "product_id": test_product_id,
-            "rating": 3,
-            "experience": long_experience
-        }
-        
-        success, response, status = await self.make_request(
-            "POST", "/ratings/", long_data, user_headers
-        )
-        
-        self.log_test(
-            "Experience Field Length Validation", 
-            not success and status == 422, 
-            f"Correctly rejected experience field > 500 chars" if not success else f"Incorrectly accepted experience field > 500 chars"
-        )
-        
-        # Test 4: Review field length validation (500 chars max)
-        long_review = "x" * 501  # 501 characters
-        long_review_data = {
-            "product_id": test_product_id,
-            "rating": 3,
-            "review": long_review
-        }
-        
-        success, response, status = await self.make_request(
-            "POST", "/ratings/", long_review_data, user_headers
-        )
-        
-        self.log_test(
-            "Review Field Length Validation", 
-            not success and status == 422, 
-            f"Correctly rejected review field > 500 chars" if not success else f"Incorrectly accepted review field > 500 chars"
-        )
+        if test_user_token:
+            long_experience = "x" * 501  # 501 characters
+            long_data = {
+                "product_id": test_product_id,
+                "rating": 3,
+                "experience": long_experience
+            }
+            
+            success, response, status = await self.make_request(
+                "POST", "/ratings/", long_data, user_headers
+            )
+            
+            self.log_test(
+                "Experience Field Length Validation", 
+                not success and status == 422, 
+                f"Correctly rejected experience field > 500 chars" if not success else f"Incorrectly accepted experience field > 500 chars"
+            )
+            
+            # Test 4: Review field length validation (500 chars max)
+            long_review = "x" * 501  # 501 characters
+            long_review_data = {
+                "product_id": test_product_id,
+                "rating": 3,
+                "review": long_review
+            }
+            
+            success, response, status = await self.make_request(
+                "POST", "/ratings/", long_review_data, user_headers
+            )
+            
+            self.log_test(
+                "Review Field Length Validation", 
+                not success and status == 422, 
+                f"Correctly rejected review field > 500 chars" if not success else f"Incorrectly accepted review field > 500 chars"
+            )
+        else:
+            self.log_test(
+                "Field Length Validation", 
+                False, 
+                "Skipped - no authenticated user available"
+            )
         
         # Test 5: Update existing rating (user can only rate each product once)
         updated_rating_data = {
