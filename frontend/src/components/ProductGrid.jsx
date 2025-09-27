@@ -447,7 +447,7 @@ const ProductGrid = ({ category = 'all', tier = null, user, showTitle = false })
               {/* Quantity Options */}
               <div className="space-y-3">
                 <h4 className="text-white font-semibold mb-3">Choose Amount:</h4>
-                {quantityOptions.map((option, index) => {
+                {getQuantityOptions(selectedProduct.tier).map((option, index) => {
                   const totalPrice = (selectedProduct.price * option.multiplier).toFixed(2);
                   return (
                     <button
