@@ -111,7 +111,7 @@ export const mockProducts = [
     id: '3',
     name: 'Deps 1/8',
     category: 'flower',
-    price: 12,
+    price: 15,
     originalPrice: 15,
     weight: '3.5g',
     tier: 'deps',
@@ -120,7 +120,7 @@ export const mockProducts = [
     thc: '20-24%',
     vendor: 'Smoakland Standard',
     inStock: true,
-    dailyDeal: true,
+    dailyDeal: false,
     rating: 4.5,
     reviews: 234
   },
