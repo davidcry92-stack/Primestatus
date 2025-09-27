@@ -108,7 +108,10 @@ const Header = ({ user, cartItems = [], onAuthClick }) => {
                   </Button>
                 </div>
               ) : (
-                <Button className="bg-green-600 hover:bg-green-700 text-white">
+                <Button 
+                  onClick={onAuthClick}
+                  className="bg-green-600 hover:bg-green-700 text-white"
+                >
                   Sign In
                 </Button>
               )}
