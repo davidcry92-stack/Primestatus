@@ -28,7 +28,7 @@ class OrderBase(BaseModel):
 
 class OrderCreate(BaseModel):
     items: List[OrderItemCreate]
-    delivery_address: str
+    payment_method: str = Field(default="in_app", pattern="^(in_app|cash_on_pickup)$")
 
 class Order(OrderBase):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
