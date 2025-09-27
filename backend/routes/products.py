@@ -11,7 +11,8 @@ router = APIRouter(prefix="/products", tags=["products"])
 
 @router.get("/", response_model=List[ProductResponse])
 async def get_products(
-    category: Optional[str] = Query(None, pattern="^(flower|edibles|concentrates)$"),
+    category: Optional[str] = Query(None, pattern="^(flower|edibles|concentrates|vapes)$"),
+    tier: Optional[str] = Query(None, pattern="^(za|deps|lows)$"),
     vendor: Optional[str] = None,
     in_stock: Optional[bool] = None,
     min_price: Optional[float] = None,
