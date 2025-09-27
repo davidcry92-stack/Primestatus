@@ -39,6 +39,9 @@ class DatabaseManager:
         await transactions_collection.create_index("payment_code", unique=True)
         await transactions_collection.create_index("user_id")
         await admins_collection.create_index("email", unique=True)
+        await ratings_collection.create_index([("product_id", 1), ("user_id", 1)], unique=True)
+        await ratings_collection.create_index("product_id")
+        await ratings_collection.create_index("user_id")
         
         # Insert sample data if collections are empty
         if await products_collection.count_documents({}) == 0:
