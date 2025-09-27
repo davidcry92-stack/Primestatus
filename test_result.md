@@ -242,6 +242,9 @@ backend:
         - working: true
           agent: "testing"
           comment: "✅ COMPREHENSIVE TESTING COMPLETE: Actual inventory successfully integrated into database. Seeded 26 products across all tiers (Za: 5, Deps: 10, Lows: 11) with proper categorization (Flower: 22, Edibles: 2, Vapes: 2). All branded products (Paletas, Wyld, Fryd, Smoakies, Blendz) properly imported and searchable."
+        - working: true
+          agent: "testing"
+          comment: "✅ UPDATED INVENTORY SYSTEM TESTING COMPLETE: Successfully tested updated inventory with out-of-stock products. Current status: 100 total products seeded (up from 26). LOWS TIER: Perfect ✅ 54 total (20 in-stock, 34 out-of-stock). ZA TIER: Perfect ✅ 9 total (5 in-stock, 4 out-of-stock). DEPS TIER: Partial ❌ 37 total (32 in-stock, 5 out-of-stock) - MISSING 50 more out-of-stock deps products to reach target 87 total. All API endpoints working correctly: tier filtering, category filtering, in-stock/out-of-stock filtering, brand searches. Database seeding process functional but needs completion for deps tier to reach full 149+ product inventory."
 
   - task: "Product API Integration"
     implemented: true
