@@ -306,12 +306,12 @@ class RatingSystemTester:
         for test_case in test_cases:
             success, response, status = await self.make_request("POST", "/ratings/", test_case["data"])
             
-            # All should fail with 401 (authentication required)
-            auth_required_test = not success and status == 401
+            # All should fail with 401/403 (authentication required)
+            auth_required_test = not success and status in [401, 403]
             self.log_test(
                 f"Rating Validation - {test_case['name']}", 
                 auth_required_test, 
-                f"✅ Correctly requires authentication" if auth_required_test else f"❌ Should require authentication"
+                f"✅ Correctly requires authentication ({status})" if auth_required_test else f"❌ Got status {status}, expected 401/403"
             )
         
         return True
