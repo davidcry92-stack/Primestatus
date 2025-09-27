@@ -26,7 +26,7 @@ class CartItemResponse(BaseModel):
 @router.post("/add")
 async def add_to_cart(
     item: CartItem,
-    current_user_email: str = Depends(verify_token)
+    current_user_email: str = Depends(require_verified_user)
 ):
     """Add item to cart."""
     if not ObjectId.is_valid(item.product_id):
