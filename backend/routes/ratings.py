@@ -68,6 +68,7 @@ async def create_rating(
             "user_id": user["_id"],
             "rating": rating_data.rating,
             "review": rating_data.review,
+            "experience": rating_data.experience,
             "created_at": datetime.utcnow(),
             "updated_at": datetime.utcnow()
         }
