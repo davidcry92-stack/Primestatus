@@ -105,9 +105,10 @@ const ProductGrid = ({ category = 'all' }) => {
             {['all', 'flower', 'edibles', 'concentrates'].map((cat) => (
               <Button
                 key={cat}
-                variant={category === cat ? 'default' : 'ghost'}
+                variant={selectedCategory === cat ? 'default' : 'ghost'}
+                onClick={() => setSelectedCategory(cat)}
                 className={`rounded-full px-6 py-2 capitalize ${
-                  category === cat 
+                  selectedCategory === cat 
                     ? 'bg-green-600 text-white' 
                     : 'text-gray-400 hover:text-white'
                 }`}
