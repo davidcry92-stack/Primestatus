@@ -1300,7 +1300,7 @@ export const inStockProducts = [
     weight: '1g',
     tier: 'deps',
     type: 'Sativa',
-    image: 'https://images.pexels.com/photos/8139067/pexels-photo-8139067.jpeg',
+    image: 'https://customer-assets.emergentagent.com/job_statusx-cannabis/artifacts/u9u11bp8_paletas%20sativa%20moonrock%20blunt.webp',
     description: 'Premium 1g sativa moonrock blunt',
     thc: '30-35%',
     vendor: 'Paletas',
