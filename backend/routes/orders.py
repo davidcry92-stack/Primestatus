@@ -12,11 +12,9 @@ router = APIRouter(prefix="/orders", tags=["orders"])
 @router.post("/", response_model=OrderResponse)
 async def create_order(
     order_data: OrderCreate,
-    current_user_email: str = Depends(verify_token)
+    user = Depends(get_verified_user_data)
 ):
-    """Create a new order."""
-    # Get user
-    user = await users_collection.find_one({"email": current_user_email})
+    """Create a new order (verified users only)."""
     if not user:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
