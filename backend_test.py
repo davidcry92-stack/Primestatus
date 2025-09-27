@@ -750,7 +750,7 @@ class AdminSystemTester:
         headers = {"Authorization": f"Bearer {self.admin_token}"}
         
         # Test get all wictionary terms
-        success, response, status = await self.make_request("GET", "/wictionary", headers=headers)
+        success, response, status = await self.make_request("GET", "/wictionary/", headers=headers)
         
         if success and isinstance(response, list):
             self.log_test(
