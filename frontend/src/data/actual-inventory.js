@@ -1335,7 +1335,7 @@ export const inStockProducts = [
     originalPrice: 25,
     weight: '1g',
     tier: 'deps',
-    image: 'https://images.unsplash.com/photo-1649127473471-6c6b78919415?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzl8MHwxfHNlYXJjaHwzfHxjYW5uYWJpcyUyMGNvbmNlbnRyYXRlc3xlbnwwfHx8fDE3NTkwMTEzMzB8MA&ixlib=rb-4.1.0&q=85',
+    image: 'https://customer-assets.emergentagent.com/job_statusx-cannabis/artifacts/3ft7ciun_kief.webp',
     description: 'Premium kief powder concentrate',
     thc: '50-60%',
     vendor: 'Smoakland',
