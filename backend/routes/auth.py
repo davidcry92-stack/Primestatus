@@ -1,9 +1,12 @@
-from fastapi import APIRouter, HTTPException, status, Depends
-from datetime import timedelta
+from fastapi import APIRouter, HTTPException, status, Depends, UploadFile, File, Form
+from datetime import timedelta, datetime
+from typing import Optional
 from models.user import UserCreate, UserLogin, User, UserResponse, Token
 from utils.auth import verify_password, get_password_hash, create_access_token, verify_token
 from utils.database import users_collection, convert_object_id
+from utils.file_upload import save_uploaded_file
 from bson import ObjectId
+import json
 
 router = APIRouter(prefix="/auth", tags=["authentication"])
 
