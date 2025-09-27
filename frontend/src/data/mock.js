@@ -26,7 +26,7 @@ export const mockDailyDeals = [
   },
   {
     id: 'deal-3',
-    productId: 'edible-green-gummy',
+    productId: 'edible-100mg-green',
     discount: 15,
     validUntil: '2025-01-28T23:59:59Z',
     reason: 'Edibles Flash Sale'
