@@ -12,6 +12,7 @@ class ProductBase(BaseModel):
     description: str = Field(..., max_length=500)
     thc: str
     vendor: str
+    tier: str = Field(default="za", pattern="^(za|deps|lows)$")  # Added tier field
     in_stock: bool = True
     rating: float = Field(default=0, ge=0, le=5)
     reviews: int = Field(default=0, ge=0)
