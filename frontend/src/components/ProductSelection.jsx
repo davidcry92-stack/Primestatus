@@ -1,0 +1,293 @@
+import React, { useState } from 'react';
+import ProductGrid from './ProductGrid';
+
+const ProductSelection = ({ onCategorySelect }) => {
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  const handleCategoryClick = (category, tier = null) => {
+    setSelectedCategory({ category, tier });
+    if (onCategorySelect) {
+      onCategorySelect({ category, tier });
+    }
+  };
+
+  const handleBackToSelection = () => {
+    setSelectedCategory(null);
+  };
+
+  if (selectedCategory) {
+    return (
+      <div className="min-h-screen bg-black text-white">
+        <div className="container mx-auto px-4 py-8">
+          <button
+            onClick={handleBackToSelection}
+            className="mb-6 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md transition-colors"
+          >
+            ← Back to Categories
+          </button>
+          <ProductGrid 
+            category={selectedCategory.category} 
+            tier={selectedCategory.tier}
+            showTitle={true}
+          />
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <section className="py-20 bg-black" id="products">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Section Header */}
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-black text-white mb-4">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-purple-600">
+              Choose Your Experience
+            </span>
+          </h2>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            Select from our curated categories of premium cannabis products
+          </p>
+        </div>
+
+        {/* Category Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+          
+          {/* Za (Premium) Category */}
+          <div 
+            onClick={() => handleCategoryClick('flower', 'za')}
+            className="relative group cursor-pointer transform hover:scale-105 transition-all duration-300"
+          >
+            <div className="bg-gradient-to-br from-teal-600 to-purple-700 rounded-2xl p-6 h-80 flex flex-col justify-center items-center overflow-hidden relative">
+              <div className="absolute inset-0 bg-black bg-opacity-30"></div>
+              <div className="relative z-10 text-center">
+                <div className="text-6xl font-black text-white mb-4" style={{
+                  textShadow: '3px 3px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000'
+                }}>
+                  Za.
+                </div>
+                <div className="text-2xl font-bold text-pink-300 mb-2">
+                  The Loudest
+                </div>
+                <div className="text-lg text-white mb-4">
+                  in the Room
+                </div>
+                <div className="flex justify-center space-x-4 text-yellow-300 text-sm">
+                  <span>👃 AROMA</span>
+                  <span>👅 FLAVOR</span>
+                  <span>😌 EFFECTS</span>
+                </div>
+                <div className="text-yellow-300 text-sm mt-2">
+                  SMALL BATCH
+                </div>
+              </div>
+              {/* Cannabis buds decoration */}
+              <div className="absolute top-4 left-4 w-8 h-8 bg-green-500 rounded-full opacity-70"></div>
+              <div className="absolute bottom-4 right-4 w-6 h-6 bg-green-400 rounded-full opacity-50"></div>
+              <div className="absolute top-1/2 right-6 w-4 h-4 bg-green-600 rounded-full opacity-60"></div>
+            </div>
+          </div>
+
+          {/* Deps (Mid-tier) Category */}
+          <div 
+            onClick={() => handleCategoryClick('flower', 'deps')}
+            className="relative group cursor-pointer transform hover:scale-105 transition-all duration-300"
+          >
+            <div className="bg-gradient-to-br from-yellow-400 to-green-500 rounded-2xl p-6 h-80 flex flex-col justify-center items-center overflow-hidden relative">
+              <div className="absolute inset-0 bg-black bg-opacity-20"></div>
+              <div className="relative z-10 text-center">
+                <div className="text-6xl font-black text-white mb-4" style={{
+                  textShadow: '3px 3px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000'
+                }}>
+                  Deps
+                </div>
+                <div className="text-xl font-bold text-white mb-4">
+                  The Mids that Matter
+                </div>
+                <div className="text-sm text-black font-semibold mb-2">
+                  "Noticeably more potent than Lows"
+                </div>
+                <div className="text-sm text-black font-semibold">
+                  "Smooth smoke and quality"
+                </div>
+                <div className="text-black text-xs mt-2 font-bold">
+                  Everyday elevation for the seasoned sesher
+                </div>
+              </div>
+              {/* Greenhouse/plant decoration */}
+              <div className="absolute bottom-0 left-0 w-full h-16 bg-green-600 opacity-30 rounded-b-2xl"></div>
+              <div className="absolute top-6 right-6 w-10 h-10 bg-green-700 rounded-full opacity-40"></div>
+            </div>
+          </div>
+
+          {/* Lows (Budget) Category */}
+          <div 
+            onClick={() => handleCategoryClick('flower', 'lows')}
+            className="relative group cursor-pointer transform hover:scale-105 transition-all duration-300"
+          >
+            <div className="bg-gradient-to-br from-yellow-300 to-pink-400 rounded-2xl p-6 h-80 flex flex-col justify-center items-center overflow-hidden relative">
+              <div className="absolute inset-0 bg-black bg-opacity-10"></div>
+              <div className="relative z-10 text-center">
+                <div className="text-5xl font-black text-black mb-2" style={{
+                  textShadow: '2px 2px 0px #fff'
+                }}>
+                  #LOWS
+                </div>
+                <div className="text-2xl font-bold text-pink-600 mb-4">
+                  BUDGET BUD
+                </div>
+                <div className="text-sm text-black font-bold mb-2">
+                  "SMOOTH INTRODUCTION FOR BEGINNERS"
+                </div>
+                <div className="text-sm text-black font-bold mb-2">
+                  "BASIC BUD, BUT STILL GETS THE JOB DONE"
+                </div>
+                {/* Character face with sunglasses */}
+                <div className="flex justify-center mt-4">
+                  <div className="w-16 h-12 bg-black rounded-lg flex items-center justify-center relative">
+                    <div className="w-12 h-8 bg-gradient-to-r from-red-500 via-yellow-500 via-green-500 via-blue-500 to-purple-500 rounded opacity-80"></div>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-white text-xs">😎</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* Stars decoration */}
+              <div className="absolute top-4 left-4 text-yellow-400">⭐</div>
+              <div className="absolute top-8 right-8 text-pink-400">⭐</div>
+              <div className="absolute bottom-6 left-8 text-yellow-300">⭐</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Additional Categories Row */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          
+          {/* Vapes Category */}
+          <div 
+            onClick={() => handleCategorySelect('vapes')}
+            className="relative group cursor-pointer transform hover:scale-105 transition-all duration-300"
+          >
+            <div className="bg-gradient-to-br from-teal-400 to-black rounded-2xl p-6 h-80 flex flex-col justify-center items-center overflow-hidden relative">
+              <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+              <div className="relative z-10 text-center">
+                <div className="text-5xl font-black text-white mb-4" style={{
+                  textShadow: '3px 3px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000'
+                }}>
+                  VAPES
+                </div>
+                <div className="text-lg font-bold text-blue-300 mb-4">
+                  PUFF, PLAY, REPEAT: VAPE YOUR WAY TO BLISS!
+                </div>
+                <div className="text-sm text-gray-300 mb-2">
+                  Effortless, portable, and discreet
+                </div>
+                <div className="text-xs text-gray-400">
+                  Perfect for cannabis enthusiasts and rolling rookies
+                </div>
+                {/* Vape pen illustrations */}
+                <div className="flex justify-center space-x-2 mt-4">
+                  <div className="w-2 h-8 bg-blue-500 rounded-full"></div>
+                  <div className="w-2 h-8 bg-yellow-500 rounded-full"></div>
+                  <div className="w-2 h-8 bg-pink-500 rounded-full"></div>
+                  <div className="w-2 h-8 bg-orange-500 rounded-full"></div>
+                  <div className="w-2 h-8 bg-green-500 rounded-full"></div>
+                  <div className="w-2 h-8 bg-purple-500 rounded-full"></div>
+                </div>
+              </div>
+              {/* Cannabis leaf decoration */}
+              <div className="absolute top-4 right-4 w-8 h-8 text-green-400">🍃</div>
+              <div className="absolute bottom-6 left-6 w-6 h-6 text-green-500">🍃</div>
+            </div>
+          </div>
+
+          {/* Edibles Category */}
+          <div 
+            onClick={() => handleCategoryClick('edibles')}
+            className="relative group cursor-pointer transform hover:scale-105 transition-all duration-300"
+          >
+            <div className="bg-gradient-to-br from-purple-600 to-pink-500 rounded-2xl p-6 h-80 flex flex-col justify-center items-center overflow-hidden relative">
+              <div className="absolute inset-0 bg-black bg-opacity-30"></div>
+              <div className="relative z-10 text-center">
+                <div className="text-5xl font-black text-white mb-4" style={{
+                  textShadow: '3px 3px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000'
+                }}>
+                  EDIBLES
+                </div>
+                <div className="text-lg font-bold text-blue-300 mb-4">
+                  A TASTY ALTERNATIVE FOR ASTHMA AFICIONADOS
+                </div>
+                <div className="text-sm text-gray-200 mb-2">
+                  Cannabis-infused delights
+                </div>
+                <div className="text-xs text-gray-300">
+                  Magical world without the smoky side effects
+                </div>
+                {/* Sweet treats illustrations */}
+                <div className="flex justify-center space-x-3 mt-4">
+                  <div className="w-6 h-4 bg-amber-600 rounded"></div>
+                  <div className="w-4 h-4 bg-pink-400 rounded-full"></div>
+                  <div className="w-5 h-4 bg-purple-500 rounded"></div>
+                  <div className="w-4 h-4 bg-green-400 rounded-full"></div>
+                </div>
+                {/* Cute bears */}
+                <div className="flex justify-center space-x-2 mt-2">
+                  <span className="text-pink-300">🧸</span>
+                  <span className="text-orange-300">🧸</span>
+                </div>
+              </div>
+              {/* Stars decoration */}
+              <div className="absolute top-3 left-4 text-yellow-300">⭐</div>
+              <div className="absolute bottom-4 right-6 text-white">⭐</div>
+            </div>
+          </div>
+
+          {/* Suppositories Category */}
+          <div 
+            onClick={() => handleCategoryClick('suppositories')}
+            className="relative group cursor-pointer transform hover:scale-105 transition-all duration-300"
+          >
+            <div className="bg-gradient-to-br from-purple-800 to-teal-600 rounded-2xl p-6 h-80 flex flex-col justify-center items-center overflow-hidden relative">
+              <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+              <div className="relative z-10 text-center">
+                <div className="text-4xl font-black text-white mb-4" style={{
+                  textShadow: '3px 3px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000'
+                }}>
+                  SUPPOSITORIES
+                </div>
+                <div className="text-sm font-bold text-blue-300 mb-2">
+                  EXPLORING CANNABIS SUPPOSITORIES
+                </div>
+                <div className="text-xs text-gray-300 mb-2">
+                  FOR HEALTH-CONSCIOUS CONSUMERS
+                </div>
+                <div className="text-xs text-gray-400 mb-4">
+                  Discreet world of cannabis wellness
+                </div>
+                {/* Product boxes */}
+                <div className="grid grid-cols-2 gap-2 mt-4">
+                  <div className="bg-orange-500 text-white text-xs px-2 py-1 rounded font-bold">RELEAF</div>
+                  <div className="bg-teal-500 text-white text-xs px-2 py-1 rounded font-bold">SERENITY</div>
+                  <div className="bg-red-500 text-white text-xs px-2 py-1 rounded font-bold">CALM</div>
+                  <div className="bg-green-500 text-white text-xs px-2 py-1 rounded font-bold">SOOTHED</div>
+                </div>
+              </div>
+              {/* Cannabis leaf decoration */}
+              <div className="absolute top-4 right-4 w-6 h-6 text-green-400">🍃</div>
+              <div className="absolute bottom-4 left-4 w-8 h-8 text-green-500">🍃</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer Note */}
+        <div className="text-center mt-16">
+          <p className="text-gray-400 text-sm">
+            Click any category to explore our premium selection of cannabis products
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ProductSelection;
