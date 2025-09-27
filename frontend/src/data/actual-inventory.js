@@ -952,7 +952,7 @@ export const inStockProducts = [
     originalPrice: 20,
     weight: '10 pieces',
     tier: 'deps',
-    image: 'https://images.unsplash.com/photo-1617627191898-1408bf607b4d?w=400&h=400&fit=crop',
+    image: 'https://images.pexels.com/photos/7604364/pexels-photo-7604364.jpeg?w=400&h=400&fit=crop',
     description: 'Premium pear-flavored Wyld gummies - 10mg each',
     thc: '10mg per piece',
     vendor: 'Wyld',
