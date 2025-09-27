@@ -85,40 +85,27 @@ async def register_admin(admin_data: AdminCreate):
 @router.post("/login", response_model=AdminToken)
 async def login_admin(admin_credentials: AdminLogin):
     """Authenticate admin and return token."""
-    print(f"🔍 ADMIN LOGIN ATTEMPT: {admin_credentials.email}")
-    
     # Find admin
     admin = await admins_collection.find_one({"email": admin_credentials.email})
     if not admin:
-        print(f"❌ Admin not found: {admin_credentials.email}")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password"
         )
     
-    print(f"✅ Admin found: {admin['username']}")
-    print(f"🔑 Admin password hash: {admin['password_hash'][:20]}...")
-    
     # Check if admin is active
     if not admin.get("is_active", True):
-        print(f"❌ Admin account inactive: {admin_credentials.email}")
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Admin account is inactive"
         )
     
     # Verify password
-    password_valid = verify_password(admin_credentials.password, admin["password_hash"])
-    print(f"🔐 Admin password verification: {password_valid}")
-    
-    if not password_valid:
-        print(f"❌ Admin password verification failed: {admin_credentials.email}")
+    if not verify_password(admin_credentials.password, admin["password_hash"]):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password"
         )
-    
-    print(f"✅ Admin login successful: {admin_credentials.email}")
     
     # Update last login
     await admins_collection.update_one(
