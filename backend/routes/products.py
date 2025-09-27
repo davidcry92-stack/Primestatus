@@ -25,6 +25,8 @@ async def get_products(
     query = {}
     if category:
         query["category"] = category
+    if tier:
+        query["tier"] = tier
     if vendor:
         query["vendor"] = {"$regex": vendor, "$options": "i"}
     if in_stock is not None:
