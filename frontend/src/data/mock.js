@@ -1,89 +1,39 @@
-// Mock data for StatusXSmoakland
-import { allProducts, inStockProducts, outOfStockProducts, getProductsByTier, getProductsByCategory } from './actual-inventory';
+// StatusXSmoakland Mock Data - COMPREHENSIVE VERSION WITH ALL STRAIN DEFINITIONS
 
-// Note: This file contains mock data for development
-// The app should use real API data from the backend
-export const mockProducts = allProducts;
+import { getInventoryProducts } from './actual-inventory.js';
 
-// Export inventory helper functions
-export { inStockProducts, outOfStockProducts, getProductsByTier, getProductsByCategory };
-
-// Daily deals mock data
+// Daily deals mock data 
 export const mockDailyDeals = [
   {
     id: 'deal-1',
-    productId: 'lows-6', // Smalls
-    discount: 20,
-    validUntil: '2025-01-28T23:59:59Z',
-    reason: 'Smalls Special Sale'
+    productId: 'lows-1', // Northern Lights
+    originalPrice: 12,
+    dealPrice: 8,
+    discount: 33,
+    timeLeft: '2h 30m',
+    description: 'Limited time offer on Northern Lights'
   },
   {
     id: 'deal-2',
-    productId: 'special-razzberry-diesel',
-    discount: 30,
-    validUntil: '2025-01-28T23:59:59Z',
-    reason: '3 for $25 Deal'
+    productId: 'deps-2', // Blue Cookies
+    originalPrice: 18,
+    dealPrice: 15,
+    discount: 17,
+    timeLeft: '5h 15m',
+    description: 'Flash sale on Blue Cookies'
   },
   {
     id: 'deal-3',
-    productId: 'edible-100mg-green',
-    discount: 15,
-    validUntil: '2025-01-28T23:59:59Z',
-    reason: 'Edibles Flash Sale'
+    productId: 'za-1', // Gary Payton
+    originalPrice: 30,
+    dealPrice: 25,
+    discount: 17,
+    timeLeft: '1h 45m',
+    description: 'Premium Gary Payton special'
   }
 ];
 
-// User profile mock data - VERIFIED user example
-export const mockUserProfile = {
-  id: 'user-123',
-  username: 'nyctoker420',
-  email: 'user@example.com',
-  full_name: 'Alex Rodriguez',
-  membershipTier: 'premium', // basic ($4.99) or premium ($7.99)
-  memberSince: '2024-06-15',
-  preferences: {
-    categories: ['flower', 'edibles'],
-    vendors: ['Smoakland Premium', 'Paletas'],
-    priceRange: [20, 80]
-  },
-  orderHistory: [
-    {
-      id: 'order-001',
-      date: '2025-01-20',
-      total: 85,
-      items: ['Lemon Cherry Gelato', 'Paleta Alien 2g Blunt'],
-      status: 'delivered'
-    }
-  ],
-  wictionaryAccess: true,
-  is_verified: true, // MUST be true for transactions
-  verification_status: 'approved',
-  requires_medical: false,
-  age_verified: 25
-};
-
-// Unverified user example (for testing verification flow)
-export const mockUnverifiedUser = {
-  id: 'user-456',
-  username: 'newuser21',
-  email: 'newuser@example.com',
-  full_name: 'Jordan Smith',
-  membershipTier: 'basic',
-  memberSince: '2025-01-27',
-  preferences: {
-    categories: [],
-    vendors: [],
-    priceRange: [10, 100]
-  },
-  orderHistory: [],
-  wictionaryAccess: false,
-  is_verified: false, // NOT verified - cannot make transactions
-  verification_status: 'pending', // pending, needs_medical, approved, rejected
-  requires_medical: false,
-  age_verified: 22
-};
-
-// Weed dictionary (Wictionary) mock data - COMPLETE COMPREHENSIVE VERSION
+// COMPLETE COMPREHENSIVE Weed dictionary (Wictionary) with ALL strain definitions
 export const mockWictionary = [
   // Cannabis Terms & Slang
   {
@@ -171,7 +121,7 @@ export const mockWictionary = [
     etymology: 'Cannabis effect terminology'
   },
 
-  // ZA TIER STRAINS (Premium)
+  // ========== ZA TIER STRAINS (Premium) ==========
   {
     id: 'strain-gary-payton',
     term: 'Gary Payton',
@@ -201,8 +151,8 @@ export const mockWictionary = [
     etymology: 'Sports reference reflecting its energizing effects'
   },
   {
-    id: 'strain-purpl3-runtz',
-    term: 'Purpl3 Runtz',
+    id: 'strain-purpl-runtz',
+    term: 'Purpl Runtz',
     definition: 'Indica-dominant Hybrid (80% Indica / 20% Sativa). THC: 19-26%. Effects: Sedated, happy, euphoric. Taste: Fruity, grape, candy. Helps with insomnia, pain, anxiety.',
     category: 'strain',
     etymology: 'Purple variation of the popular Runtz strain'
@@ -236,7 +186,7 @@ export const mockWictionary = [
     etymology: 'Unique strain name with creative effects profile'
   },
 
-  // DEPS TIER STRAINS (Mid-tier)
+  // ========== DEPS TIER STRAINS (Mid-tier) ==========
   {
     id: 'strain-blu-berry-space-cake',
     term: 'Blu Berry Spac3 Cak3',
@@ -665,7 +615,7 @@ export const mockWictionary = [
     etymology: 'Chemical/diesel flavor sativa strain'
   },
 
-  // LOWS TIER STRAINS (Budget)
+  // ========== LOWS TIER STRAINS (Budget) ==========
   {
     id: 'strain-animal-cookies',
     term: 'Animal Cookies',
@@ -1018,29 +968,27 @@ export const mockWictionary = [
   }
 ];
 
-// Inventory mock data for admin
-export const mockInventory = [
+// Sample transactions
+export const mockTransactions = [
   {
-    id: 'inv-1',
-    productId: 'za-1',
-    quantity: 150,
-    lowStockThreshold: 20,
-    lastRestocked: '2025-01-15',
-    vendor: 'Smoakland Premium'
-  },
-  {
-    id: 'inv-2',
-    productId: 'deps-1',
-    quantity: 8,
-    lowStockThreshold: 10,
-    lastRestocked: '2025-01-10',
-    vendor: 'Smoakland Standard'
+    id: 'tx-001',
+    userId: 'user-123',
+    items: [
+      { productId: 'lows-1', quantity: 1, price: 8 },
+      { productId: 'deps-2', quantity: 1, price: 15 }
+    ],
+    total: 23,
+    status: 'completed',
+    pickupCode: 'ABC123',
+    timestamp: '2024-03-15T10:30:00Z',
+    paymentMethod: 'cash'
   }
 ];
 
-// NYC neighborhoods for delivery (pickup only for now)
+// NYC neighborhoods for member profiles
 export const nycNeighborhoods = [
   'Manhattan', 'Brooklyn', 'Queens', 'Bronx', 'Staten Island',
-  'Harlem', 'SoHo', 'Tribeca', 'East Village', 'West Village',
+  'East Village', 'West Village', 'SoHo', 'Tribeca', 'Chelsea',
+  'Upper East Side', 'Upper West Side', 'Harlem', 'Washington Heights',
   'Williamsburg', 'Park Slope', 'Long Island City', 'Astoria'
 ];
