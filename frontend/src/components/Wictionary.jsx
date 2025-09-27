@@ -14,13 +14,13 @@ import {
 } from 'lucide-react';
 import { mockWictionary, mockUserProfile } from '../data/mock';
 
-const Wictionary = () => {
+const Wictionary = ({ user = null }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [showUpgrade, setShowUpgrade] = useState(false);
 
-  const user = mockUserProfile;
-  const hasAccess = user.membershipTier === 'premium';
+  // TEMPORARY: Grant access for demonstration
+  const hasAccess = true; // user?.membershipTier === 'premium' || user?.membership_tier === 'premium';
 
   const categories = ['all', 'slang', 'science', 'culture', 'legal'];
 
