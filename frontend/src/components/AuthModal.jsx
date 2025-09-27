@@ -53,12 +53,12 @@ const AuthModal = ({ onClose }) => {
 
   return (
     <Dialog open={true} onOpenChange={onClose}>
-      <DialogContent className=\"sm:max-w-md bg-gradient-to-br from-gray-900 to-black border-green-400/30\">
+      <DialogContent className="sm:max-w-md bg-gradient-to-br from-gray-900 to-black border-green-400/30">
         <DialogHeader>
-          <DialogTitle className=\"text-white text-center flex items-center justify-center space-x-2\">
-            <span className=\"text-green-400\">Status</span>
-            <span className=\"text-yellow-400\">X</span>
-            <span className=\"text-green-400\">Smoakland</span>
+          <DialogTitle className="text-white text-center flex items-center justify-center space-x-2">
+            <span className="text-green-400">Status</span>
+            <span className="text-yellow-400">X</span>
+            <span className="text-green-400">Smoakland</span>
           </DialogTitle>
         </DialogHeader>
         
