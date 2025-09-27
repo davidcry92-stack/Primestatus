@@ -150,7 +150,7 @@ class RatingSystemTester:
         self.log_test(
             "Authentication Required for Rating Creation", 
             auth_required_test, 
-            f"✅ Correctly requires authentication" if auth_required_test else f"❌ Should require authentication"
+            f"✅ Correctly requires authentication (401)" if auth_required_test else f"❌ Got status {status}, expected 401. Response: {response}"
         )
         
         # Test 4: Test authentication required for user ratings
