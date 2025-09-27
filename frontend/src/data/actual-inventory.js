@@ -969,7 +969,7 @@ export const inStockProducts = [
     originalPrice: 20,
     weight: '10 pieces',
     tier: 'deps',
-    image: 'https://images.unsplash.com/photo-1639219579198-7695986aaf01?w=400&h=400&fit=crop',
+    image: 'https://images.pexels.com/photos/7668051/pexels-photo-7668051.jpeg?w=400&h=400&fit=crop',
     description: 'Premium apple-flavored Wyld gummies - 10mg each',
     thc: '10mg per piece',
     vendor: 'Wyld',
