@@ -251,6 +251,16 @@ async def update_profile(updates: dict, current_user_email: str = Depends(verify
     # Get updated user
     updated_user = await users_collection.find_one({"email": current_user_email})
     user_data = convert_object_id(updated_user)
+    
+    # Add required fields for UserResponse
+    user_data["verification_status"] = updated_user.get("id_verification", {}).get("verification_status", "pending")
+    user_data["requires_medical"] = updated_user.get("id_verification", {}).get("requires_medical", False)
+    user_data["age_verified"] = updated_user.get("id_verification", {}).get("age_verified")
+    
+    # Ensure member_since is present (use created_at if member_since is missing)
+    if "member_since" not in user_data:
+        user_data["member_since"] = user_data.get("created_at", datetime.utcnow())
+    
     return UserResponse(**user_data)
 
 @router.post("/verify-reentry", response_model=UserResponse)
