@@ -49,7 +49,12 @@ const MainApp = () => {
       <main>
         <HeroSection onAuthClick={handleAuthClick} />
         {/* TEMPORARY: Show all features for demonstration */}
-        <ProductSelection />
+        <ProductSelection user={isAuthenticated ? user : {
+          username: "DemoUser",
+          membership_tier: "premium",
+          membershipTier: "premium",
+          is_verified: true
+        }} />
         <DailyDeals user={isAuthenticated ? user : {
           username: "DemoUser",
           membership_tier: "premium",
