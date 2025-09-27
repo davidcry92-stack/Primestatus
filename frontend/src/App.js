@@ -79,6 +79,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={getAppContent()} />
+            <Route path="/admin/*" element={<AdminApp />} />
           </Routes>
         </BrowserRouter>
       </div>
