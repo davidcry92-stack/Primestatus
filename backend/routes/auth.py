@@ -183,6 +183,12 @@ async def login(user_credentials: UserLogin):
     )
     
     user_response_data = convert_object_id(user)
+    
+    # Add required fields for UserResponse
+    user_response_data["verification_status"] = user.get("id_verification", {}).get("verification_status", "pending")
+    user_response_data["requires_medical"] = user.get("id_verification", {}).get("requires_medical", False)
+    user_response_data["age_verified"] = user.get("id_verification", {}).get("age_verified")
+    
     user_response = UserResponse(**user_response_data)
     
     return Token(
