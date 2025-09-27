@@ -41,16 +41,15 @@ const Header = ({ user, cartItems = [], onAuthClick }) => {
                 <span className="text-yellow-400">X</span>
                 <span className="text-green-400">Smoakland</span>
               </div>
-              {/* Sign In Button - moved from right side */}
-              {!user && (
+              {/* Sign In Button or NYC EXCLUSIVE Badge */}
+              {!user ? (
                 <Button 
                   onClick={onAuthClick}
                   className="bg-green-600 hover:bg-green-700 text-white font-bold px-4 py-2 text-sm"
                 >
                   Sign In
                 </Button>
-              )}
-              {user && (
+              ) : (
                 <Badge className="bg-yellow-500 text-black font-bold text-xs">
                   NYC EXCLUSIVE
                 </Badge>
