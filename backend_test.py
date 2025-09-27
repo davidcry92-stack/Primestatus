@@ -1034,22 +1034,29 @@ class AdminSystemTester:
             )
         
         # Test 2: Rating validation - invalid rating values
-        invalid_ratings = [0, 6, -1, 10]
-        for invalid_rating in invalid_ratings:
-            invalid_data = {
-                "product_id": test_product_id,
-                "rating": invalid_rating,
-                "review": "Test invalid rating"
-            }
-            
-            success, response, status = await self.make_request(
-                "POST", "/ratings/", invalid_data, user_headers
-            )
-            
+        if test_user_token:
+            invalid_ratings = [0, 6, -1, 10]
+            for invalid_rating in invalid_ratings:
+                invalid_data = {
+                    "product_id": test_product_id,
+                    "rating": invalid_rating,
+                    "review": "Test invalid rating"
+                }
+                
+                success, response, status = await self.make_request(
+                    "POST", "/ratings/", invalid_data, user_headers
+                )
+                
+                self.log_test(
+                    f"Invalid Rating Validation ({invalid_rating})", 
+                    not success and status == 422, 
+                    f"Correctly rejected invalid rating {invalid_rating}" if not success else f"Incorrectly accepted invalid rating {invalid_rating}"
+                )
+        else:
             self.log_test(
-                f"Invalid Rating Validation ({invalid_rating})", 
-                not success and status == 422, 
-                f"Correctly rejected invalid rating {invalid_rating}" if not success else f"Incorrectly accepted invalid rating {invalid_rating}"
+                "Invalid Rating Validation", 
+                False, 
+                "Skipped - no authenticated user available"
             )
         
         # Test 3: Experience field length validation (500 chars max)
