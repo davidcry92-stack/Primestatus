@@ -986,7 +986,7 @@ export const inStockProducts = [
     originalPrice: 20,
     weight: '10 pieces',
     tier: 'deps',
-    image: 'https://images.unsplash.com/photo-1582058091505-f87a2e55a40f?w=400&h=400&fit=crop',
+    image: 'https://images.unsplash.com/photo-1629398778375-39113a6d6d1a?w=400&h=400&fit=crop',
     description: 'Premium cherry-flavored Wyld gummies - 10mg each',
     thc: '10mg per piece',
     vendor: 'Wyld',
