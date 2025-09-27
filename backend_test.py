@@ -950,23 +950,28 @@ class AdminSystemTester:
                 "password": password
             }
         
-        success, login_response, status = await self.make_request("POST", "/auth/login", login_data)
+            success, login_response, status = await self.make_request("POST", "/auth/login", login_data)
+            
+            if success and "access_token" in login_response:
+                test_user_token = login_response["access_token"]
+                self.log_test(
+                    "Test User Authentication", 
+                    True, 
+                    f"Successfully authenticated test user {test_user_email} for rating tests"
+                )
+                break
         
-        if success and "access_token" in login_response:
-            test_user_token = login_response["access_token"]
-            self.log_test(
-                "Test User Authentication", 
-                True, 
-                f"Successfully authenticated test user for rating tests"
-            )
-        else:
+        if not test_user_token:
+            # If we can't authenticate any existing user, we'll skip user-specific tests
+            # but still test the endpoints that don't require user authentication
             self.log_test(
                 "Test User Authentication", 
                 False, 
-                f"Failed to authenticate test user: {login_response}",
-                login_response
+                f"Could not authenticate any existing user for rating tests. Will test admin endpoints only."
             )
-            return False
+            
+            # Continue with admin-only tests
+            test_user_token = None
         
         # Get a product to test with
         success, products_response, status = await self.make_request("GET", "/products?limit=1")
