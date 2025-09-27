@@ -15,12 +15,6 @@ async def create_order(
     user = Depends(get_verified_user_data)
 ):
     """Create a new order (verified users only)."""
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="User not found"
-        )
-    
     # Validate products and calculate total
     total = 0
     validated_items = []
