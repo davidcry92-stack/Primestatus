@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../contexts/AuthContext';
+import MembersManagement from './MembersManagement';
+import PickupVerification from './PickupVerification';
+import InventoryManagement from './InventoryManagement';
 
 const AdminDashboard = ({ adminUser, onLogout }) => {
   const [activeTab, setActiveTab] = useState('dashboard');
