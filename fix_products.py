@@ -54,7 +54,7 @@ async def fix_products():
     total_products = await products_collection.count_documents({})
     print(f"Total products in database: {total_products}")
     
-    await client.close()
+    client.close()
 
 if __name__ == "__main__":
     asyncio.run(fix_products())
