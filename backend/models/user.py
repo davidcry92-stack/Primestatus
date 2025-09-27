@@ -54,11 +54,16 @@ class UserResponse(BaseModel):
     id: str
     username: str
     email: str
+    full_name: str
     membership_tier: str
     member_since: datetime
     preferences: UserPreferences
     wictionary_access: bool
     order_history: List[str] = []
+    is_verified: bool
+    verification_status: str
+    requires_medical: bool
+    age_verified: Optional[int] = None
 
 class Token(BaseModel):
     access_token: str
