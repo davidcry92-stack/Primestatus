@@ -693,6 +693,7 @@ async def get_recent_reviews(product_id, limit=5):
             "username": user.get("username", "Anonymous") if user else "Anonymous",
             "rating": review["rating"],
             "review": review["review"],
+            "experience": review.get("experience"),
             "created_at": review["created_at"]
         })
     
