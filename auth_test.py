@@ -21,7 +21,7 @@ class AuthenticationTester:
         self.session = None
         self.test_results = []
         self.test_user_token = None
-        self.test_user_email = "testuser123@statusx.com"
+        self.test_user_email = f"testuser{datetime.now().strftime('%Y%m%d%H%M%S')}@statusx.com"
         self.test_user_password = "testpassword123"
         self.test_re_entry_code = "5678"
         
