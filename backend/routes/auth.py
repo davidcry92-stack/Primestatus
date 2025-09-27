@@ -233,6 +233,31 @@ async def update_profile(updates: dict, current_user_email: str = Depends(verify
     user_data = convert_object_id(updated_user)
     return UserResponse(**user_data)
 
+@router.post("/verify-reentry", response_model=UserResponse)
+async def verify_re_entry_code(verification: ReEntryVerification):
+    """Verify re-entry code for app access."""
+    # Find user
+    user = await users_collection.find_one({"email": verification.email})
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid credentials"
+        )
+    
+    # Verify re-entry code
+    if not verify_password(verification.re_entry_code, user.get("re_entry_code_hash", "")):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid re-entry code"
+        )
+    
+    user_response_data = convert_object_id(user)
+    user_response_data["verification_status"] = user.get("id_verification", {}).get("verification_status", "pending")
+    user_response_data["requires_medical"] = user.get("id_verification", {}).get("requires_medical", False)
+    user_response_data["age_verified"] = user.get("id_verification", {}).get("age_verified")
+    
+    return UserResponse(**user_response_data)
+
 @router.post("/logout")
 async def logout():
     """Logout user (client should remove token)."""
