@@ -54,6 +54,7 @@ class ProductResponse(BaseModel):
     description: str
     thc: str
     vendor: str
+    tier: str
     in_stock: bool
     rating: float
     reviews: int
