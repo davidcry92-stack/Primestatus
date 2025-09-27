@@ -1,101 +1,139 @@
 {
   "summary": {
-    "total": 12,
-    "passed": 8,
-    "failed": 4,
-    "success_rate": "66.7%"
+    "total": 15,
+    "passed": 13,
+    "failed": 2,
+    "success_rate": "86.7%"
   },
   "results": [
     {
       "test": "Admin Login",
       "success": true,
       "details": "Successfully logged in as admin@statusxsmoakland.com with role super_admin",
-      "timestamp": "2025-09-27T16:29:08.768453",
+      "timestamp": "2025-09-27T16:31:17.827256",
       "response_data": null
     },
     {
       "test": "Admin Token Validation",
       "success": true,
       "details": "Token valid, profile retrieved for admin@statusxsmoakland.com",
-      "timestamp": "2025-09-27T16:29:08.795967",
+      "timestamp": "2025-09-27T16:31:17.839775",
       "response_data": null
     },
     {
       "test": "Get All Members",
       "success": true,
       "details": "Retrieved 0 members",
-      "timestamp": "2025-09-27T16:29:09.499956",
+      "timestamp": "2025-09-27T16:31:17.888798",
       "response_data": null
     },
     {
       "test": "Member Search",
       "success": true,
       "details": "Search returned 0 results",
-      "timestamp": "2025-09-27T16:29:09.519080",
+      "timestamp": "2025-09-27T16:31:17.938597",
       "response_data": null
     },
     {
       "test": "Member Status Filter",
       "success": true,
       "details": "Status filter returned 0 results",
-      "timestamp": "2025-09-27T16:29:09.899834",
+      "timestamp": "2025-09-27T16:31:17.949515",
       "response_data": null
     },
     {
       "test": "Member Transactions",
       "success": false,
       "details": "No members found to test transactions with",
-      "timestamp": "2025-09-27T16:29:09.910334",
+      "timestamp": "2025-09-27T16:31:17.962609",
       "response_data": null
     },
     {
       "test": "Pickup Code Lookup",
       "success": true,
       "details": "Correctly returned 404 for non-existent payment code 123456",
-      "timestamp": "2025-09-27T16:29:09.960128",
+      "timestamp": "2025-09-27T16:31:18.012711",
       "response_data": null
     },
     {
       "test": "Pickup Processing",
       "success": true,
       "details": "Correctly returned 404 for non-existent payment code in processing",
-      "timestamp": "2025-09-27T16:29:10.001799",
+      "timestamp": "2025-09-27T16:31:18.022791",
       "response_data": null
     },
     {
       "test": "Get Inventory",
+      "success": true,
+      "details": "Retrieved 3 products from inventory",
+      "timestamp": "2025-09-27T16:31:18.031946",
+      "response_data": null
+    },
+    {
+      "test": "Inventory Category Filter",
+      "success": true,
+      "details": "Category filter returned 1 products",
+      "timestamp": "2025-09-27T16:31:18.081791",
+      "response_data": null
+    },
+    {
+      "test": "Inventory Search",
+      "success": true,
+      "details": "Search returned 1 products",
+      "timestamp": "2025-09-27T16:31:18.091461",
+      "response_data": null
+    },
+    {
+      "test": "Add Product",
       "success": false,
-      "details": "Failed to retrieve inventory: {'error': 'Invalid JSON response', 'text': 'Internal Server Error'}",
-      "timestamp": "2025-09-27T16:29:10.012168",
+      "details": "Failed to create product: {'detail': [{'type': 'missing', 'loc': ['body', 'image'], 'msg': 'Field required', 'input': {'name': 'Test Product Admin', 'category': 'flower', 'price': 50.0, 'original_price': 60.0, 'description': 'Test product for admin system testing', 'thc': '20%', 'vendor': 'Test Vendor', 'in_stock': True, 'tier': 'za'}, 'url': 'https://errors.pydantic.dev/2.11/v/missing'}]}",
+      "timestamp": "2025-09-27T16:31:18.140837",
       "response_data": {
-        "error": "Invalid JSON response",
-        "text": "Internal Server Error"
+        "detail": [
+          {
+            "type": "missing",
+            "loc": [
+              "body",
+              "image"
+            ],
+            "msg": "Field required",
+            "input": {
+              "name": "Test Product Admin",
+              "category": "flower",
+              "price": 50.0,
+              "original_price": 60.0,
+              "description": "Test product for admin system testing",
+              "thc": "20%",
+              "vendor": "Test Vendor",
+              "in_stock": true,
+              "tier": "za"
+            },
+            "url": "https://errors.pydantic.dev/2.11/v/missing"
+          }
+        ]
       }
     },
     {
       "test": "Dashboard Stats",
-      "success": false,
-      "details": "Failed to retrieve dashboard stats: {'error': 'Invalid JSON response', 'text': 'Internal Server Error'}",
-      "timestamp": "2025-09-27T16:29:10.021254",
-      "response_data": {
-        "error": "Invalid JSON response",
-        "text": "Internal Server Error"
-      }
+      "success": true,
+      "details": "Retrieved complete dashboard stats: 4 sections",
+      "timestamp": "2025-09-27T16:31:18.153448",
+      "response_data": null
     },
     {
       "test": "Transaction System Overview",
       "success": true,
       "details": "Found 0 total transactions across 0 members",
-      "timestamp": "2025-09-27T16:29:10.036526",
+      "timestamp": "2025-09-27T16:31:18.203609",
       "response_data": null
     },
     {
       "test": "Database Collections Access",
-      "success": false,
-      "details": "Successfully accessed 2 collections: users, admins",
-      "timestamp": "2025-09-27T16:29:10.267915",
+      "success": true,
+      "details": "Successfully accessed 3 collections: users, products, admins",
+      "timestamp": "2025-09-27T16:31:18.322848",
       "response_data": null
     }
   ],
-  "timestamp": "2025-09-27T16:29:10.268082"
+  "timestamp": "2025-09-27T16:31:18.323027"
 }
