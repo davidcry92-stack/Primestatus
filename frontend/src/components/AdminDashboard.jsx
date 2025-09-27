@@ -203,10 +203,7 @@ const DashboardOverview = ({ stats, loading }) => {
   );
 };
 
-// Placeholder components for other tabs
-const MembersManagement = () => <div>Members Management - Coming Soon</div>;
-const PickupVerification = () => <div>Pickup Verification - Coming Soon</div>;
-const InventoryManagement = () => <div>Inventory Management - Coming Soon</div>;
+// Placeholder component for ID verification
 const IDVerification = () => <div>ID Verification - Coming Soon</div>;
 
 export default AdminDashboard;
