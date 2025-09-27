@@ -1370,7 +1370,7 @@ export const inStockProducts = [
     weight: 'pack',
     tier: 'deps',
     type: 'Sativa',
-    image: 'https://images.pexels.com/photos/8139067/pexels-photo-8139067.jpeg',
+    image: 'https://customer-assets.emergentagent.com/job_statusx-cannabis/artifacts/of16ul7u_paletas%20moonrock%20minis%20joints.jpg',
     description: 'Moonrock mini joints - sativa blend',
     thc: '28-32%',
     vendor: 'Paletas',
