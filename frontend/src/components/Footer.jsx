@@ -21,7 +21,7 @@ const Footer = () => {
               </div>
             </div>
             <p className="text-gray-400 mb-6 max-w-md">
-              NYC's premier members-only cannabis marketplace. Premium products, daily deals, and secure pickup at our exclusive location.
+              NYC's premier members-only cannabis marketplace. Premium products, daily deals, and **PICKUP ONLY** at our exclusive location. Cash accepted in store.
             </p>
             
             {/* Social Media */}
