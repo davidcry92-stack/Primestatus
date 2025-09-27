@@ -1,0 +1,94 @@
+{
+  "summary": {
+    "total": 11,
+    "passed": 5,
+    "failed": 6,
+    "success_rate": "45.5%"
+  },
+  "results": [
+    {
+      "test": "User Registration",
+      "success": false,
+      "details": "Registration failed with status 400: {'detail': \"File upload failed: [Errno 2] No such file or directory: '/app/uploads/ids/testuser123@statusx.com'\"}",
+      "timestamp": "2025-09-27T19:20:50.837636",
+      "response_data": {
+        "detail": "File upload failed: [Errno 2] No such file or directory: '/app/uploads/ids/testuser123@statusx.com'"
+      }
+    },
+    {
+      "test": "User Login",
+      "success": false,
+      "details": "Login failed with status 401: {'detail': 'Invalid email or password'}",
+      "timestamp": "2025-09-27T19:20:50.852787",
+      "response_data": {
+        "detail": "Invalid email or password"
+      }
+    },
+    {
+      "test": "Authentication Validation",
+      "success": false,
+      "details": "No user token available for testing",
+      "timestamp": "2025-09-27T19:20:50.852833",
+      "response_data": null
+    },
+    {
+      "test": "Re-entry Code Verification",
+      "success": false,
+      "details": "Re-entry code verification failed: {'detail': 'Invalid credentials'}",
+      "timestamp": "2025-09-27T19:20:50.901886",
+      "response_data": {
+        "detail": "Invalid credentials"
+      }
+    },
+    {
+      "test": "Re-entry Code Wrong Code",
+      "success": true,
+      "details": "Correctly rejected wrong re-entry code (status 401)",
+      "timestamp": "2025-09-27T19:20:50.950716",
+      "response_data": null
+    },
+    {
+      "test": "Re-entry Code Non-existent User",
+      "success": true,
+      "details": "Correctly rejected non-existent user (status 401)",
+      "timestamp": "2025-09-27T19:20:50.959111",
+      "response_data": null
+    },
+    {
+      "test": "Database Integration",
+      "success": false,
+      "details": "No user token available for testing",
+      "timestamp": "2025-09-27T19:20:50.959137",
+      "response_data": null
+    },
+    {
+      "test": "Profile Update",
+      "success": false,
+      "details": "No user token available for testing",
+      "timestamp": "2025-09-27T19:20:50.959144",
+      "response_data": null
+    },
+    {
+      "test": "Duplicate Email Validation",
+      "success": true,
+      "details": "Correctly rejected duplicate email registration",
+      "timestamp": "2025-09-27T19:20:51.009772",
+      "response_data": null
+    },
+    {
+      "test": "Law Enforcement Rejection",
+      "success": true,
+      "details": "Correctly rejected law enforcement registration",
+      "timestamp": "2025-09-27T19:20:51.059484",
+      "response_data": null
+    },
+    {
+      "test": "Invalid Re-entry Code Format",
+      "success": true,
+      "details": "Correctly rejected non-numeric re-entry code",
+      "timestamp": "2025-09-27T19:20:51.068518",
+      "response_data": null
+    }
+  ],
+  "timestamp": "2025-09-27T19:20:51.068663"
+}
