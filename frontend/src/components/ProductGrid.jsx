@@ -14,32 +14,15 @@ import {
 import { mockProducts, mockDailyDeals } from '../data/mock';
 
 const ProductGrid = ({ category = 'all' }) => {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(category);
-  const { user } = useAuth();
-  const { toast } = useToast();
+  const [cart, setCart] = useState([]);
 
-  useEffect(() => {
-    fetchProducts();
-  }, [selectedCategory]);
+  const filteredProducts = selectedCategory === 'all' 
+    ? mockProducts 
+    : mockProducts.filter(product => product.category === selectedCategory);
 
-  const fetchProducts = async () => {
-    try {
-      setLoading(true);
-      const params = selectedCategory !== 'all' ? { category: selectedCategory } : {};
-      const response = await productsAPI.getAll(params);
-      setProducts(response.data);
-    } catch (error) {
-      console.error('Error fetching products:', error);
-      toast({
-        title: "Error",
-        description: "Failed to load products",
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
+  const getDealForProduct = (productId) => {
+    return mockDailyDeals.find(deal => deal.productId === productId);
   };
 
   const addToCart = async (product) => {
