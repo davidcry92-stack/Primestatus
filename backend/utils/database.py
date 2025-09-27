@@ -14,6 +14,8 @@ daily_deals_collection = db.daily_deals
 orders_collection = db.orders
 wictionary_collection = db.wictionary
 inventory_collection = db.inventory
+transactions_collection = db.transactions
+admins_collection = db.admins
 
 class DatabaseManager:
     @staticmethod
