@@ -634,6 +634,7 @@ async def get_user_rating_history(
                 "product_name": product.get("name", "Unknown") if product else "Unknown",
                 "rating": rating["rating"],
                 "review": rating.get("review"),
+                "experience": rating.get("experience"),
                 "created_at": rating["created_at"]
             })
         
