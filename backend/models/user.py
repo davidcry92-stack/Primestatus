@@ -40,6 +40,10 @@ class UserLogin(BaseModel):
     email: EmailStr
     password: str
 
+class ReEntryVerification(BaseModel):
+    email: EmailStr
+    re_entry_code: str = Field(..., min_length=4, max_length=8)
+
 class User(UserBase):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     member_since: datetime = Field(default_factory=datetime.utcnow)
