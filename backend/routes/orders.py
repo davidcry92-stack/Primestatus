@@ -3,6 +3,7 @@ from typing import List, Optional
 from models.order import Order, OrderCreate, OrderResponse, OrderItemResponse
 from utils.database import orders_collection, products_collection, users_collection, convert_object_id
 from utils.auth import verify_token
+from utils.verification import require_verified_user, get_verified_user_data
 from bson import ObjectId
 from datetime import datetime
 
