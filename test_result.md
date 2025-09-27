@@ -263,10 +263,10 @@ backend:
 
   - task: "Wictionary System"
     implemented: true
-    working: true
+    working: false
     file: "/app/backend/routes/wictionary.py"
-    stuck_count: 0
-    priority: "medium"
+    stuck_count: 1
+    priority: "high"
     needs_retesting: false
     status_history:
         - working: "unknown"
@@ -275,6 +275,9 @@ backend:
         - working: true
           agent: "testing"
           comment: "✅ COMPREHENSIVE TESTING COMPLETE: Wictionary system fully operational with 25 cannabis terms and strain definitions. Successfully tested: GET /api/wictionary/ (25 terms), category filtering (slang: 10, science: 5, culture: 10), search functionality for 'za', 'cannabis', 'strain', and stats endpoint. All expected cannabis terms present: Za, Deps, Lows, Sesher, Mids, Terps. Fixed admin authentication bypass for premium membership requirement."
+        - working: false
+          agent: "testing"
+          comment: "❌ CRITICAL ISSUE IDENTIFIED: Comprehensive strain definitions (100+ strains) exist in frontend mock data (/app/frontend/src/data/actual-inventory.js) but are NOT seeded in backend database. Backend only has 4 basic terms (Loud, Fire, Terpenes, Bodega). Frontend shows mock data when not authenticated but 'No terms found' when trying to fetch from backend API. User's uploaded strain definitions for Za tier (9 strains), Deps tier (50+ strains), and Lows tier (50+ strains) with detailed THC content, effects, taste, and ailments information are present in frontend but missing from backend database. REQUIRES: Database seeding of comprehensive strain definitions from mockWictionary data to backend wictionary_collection."
 
 frontend:
   - task: "Visual Product Selection Interface"
