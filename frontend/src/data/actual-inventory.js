@@ -1388,7 +1388,7 @@ export const inStockProducts = [
     weight: 'pack',
     tier: 'deps',
     type: 'Indica',
-    image: 'https://images.pexels.com/photos/8139067/pexels-photo-8139067.jpeg',
+    image: 'https://customer-assets.emergentagent.com/job_statusx-cannabis/artifacts/6ajpemz9_paletas%20moonwalkers.jpg',
     description: 'Moonwalkers indica pre-rolls',
     thc: '26-30%',
     vendor: 'Paletas',
