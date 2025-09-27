@@ -29,6 +29,9 @@ class DatabaseManager:
         await daily_deals_collection.create_index("valid_until")
         await wictionary_collection.create_index("term")
         await wictionary_collection.create_index("category")
+        await transactions_collection.create_index("payment_code", unique=True)
+        await transactions_collection.create_index("user_id")
+        await admins_collection.create_index("email", unique=True)
         
         # Insert sample data if collections are empty
         if await products_collection.count_documents({}) == 0:
@@ -36,6 +39,9 @@ class DatabaseManager:
         
         if await wictionary_collection.count_documents({}) == 0:
             await DatabaseManager.seed_wictionary()
+        
+        if await admins_collection.count_documents({}) == 0:
+            await DatabaseManager.seed_admin()
     
     @staticmethod
     async def seed_products():
