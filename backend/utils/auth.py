@@ -15,14 +15,16 @@ security = HTTPBearer()
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """Verify a password against its hash."""
-    return pwd_context.verify(plain_password, hashed_password)
+    # Simple SHA-256 based verification for MVP
+    salt = "statusxsmoakland_salt_2024"
+    hashed_input = hashlib.sha256((plain_password + salt).encode()).hexdigest()
+    return hashed_input == hashed_password
 
 def get_password_hash(password: str) -> str:
     """Hash a password."""
-    # Truncate password to 72 bytes to prevent bcrypt error
-    password_bytes = password.encode('utf-8')[:72]
-    password_truncated = password_bytes.decode('utf-8', errors='ignore')
-    return pwd_context.hash(password_truncated)
+    # Simple SHA-256 based hashing for MVP
+    salt = "statusxsmoakland_salt_2024"
+    return hashlib.sha256((password + salt).encode()).hexdigest()
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     """Create a JWT access token."""
