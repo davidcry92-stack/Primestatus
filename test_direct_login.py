@@ -7,7 +7,7 @@ import aiohttp
 import json
 
 async def test_direct_login():
-    backend_url = "https://smoakland-mvp.preview.emergentagent.com/api"
+    backend_url = "https://statusx-cannabis.preview.emergentagent.com/api"
     
     # Test with exact same format as frontend
     login_data = {
