@@ -190,7 +190,7 @@ const DailyDeals = ({ user }) => {
                             ? 'bg-gray-600 hover:bg-gray-700 cursor-not-allowed' 
                             : 'bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 hover:scale-105'
                         } text-white`}
-                        title={!user?.is_verified ? 'Verification required to purchase' : ''}
+                        title={!user?.is_verified ? 'Verification required to purchase' : 'Pickup only - no delivery available'}
                         onClick={() => {
                           if (!user?.is_verified) {
                             alert('Membership verification required before making any purchases. Please complete your ID verification process.');
@@ -198,7 +198,7 @@ const DailyDeals = ({ user }) => {
                         }}
                       >
                         <ShoppingCart className="h-5 w-5 mr-2" />
-                        {!user?.is_verified ? 'Verification Required' : 'Grab This Deal'}
+                        {!user?.is_verified ? 'Verification Required' : 'Order for Pickup - Cash OK'}
                       </Button>
                     </CardContent>
                   </div>
