@@ -7,7 +7,6 @@ class UserPreferences(BaseModel):
     categories: List[str] = []
     vendors: List[str] = []
     price_range: List[float] = [0, 200]
-    delivery_area: str = "Manhattan"
 
 class UserBase(BaseModel):
     username: str = Field(..., min_length=3, max_length=50)
