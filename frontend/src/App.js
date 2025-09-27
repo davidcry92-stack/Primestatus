@@ -40,7 +40,7 @@ const MainApp = () => {
       <Header user={user} cartItems={cartItems} />
       <main>
         <HeroSection />
-        <ProductGrid user={user} />
+        <ProductSelection />
         <DailyDeals user={user} />
         <Wictionary />
       </main>
