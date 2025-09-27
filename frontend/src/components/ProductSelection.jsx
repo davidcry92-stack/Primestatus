@@ -242,6 +242,79 @@ const ProductSelection = ({ onCategorySelect }) => {
             </div>
           </div>
 
+          {/* Pre-rolls Category */}
+          <div 
+            onClick={() => handleCategoryClick('pre-rolls')}
+            className="relative group cursor-pointer transform hover:scale-105 transition-all duration-300"
+          >
+            <div className="bg-gradient-to-br from-green-600 to-yellow-500 rounded-2xl p-6 h-80 flex flex-col justify-center items-center overflow-hidden relative">
+              <div className="absolute inset-0 bg-black bg-opacity-30"></div>
+              <div className="relative z-10 text-center">
+                <div className="text-4xl font-black text-white mb-4" style={{
+                  textShadow: '3px 3px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000'
+                }}>
+                  PRE-ROLLS
+                </div>
+                <div className="text-lg font-bold text-black mb-4">
+                  READY TO LIGHT & ENJOY
+                </div>
+                <div className="text-sm text-gray-800 mb-2">
+                  Premium rolled joints and blunts
+                </div>
+                <div className="text-xs text-gray-700">
+                  From budget Super J to premium Paletas
+                </div>
+                {/* Joint illustrations */}
+                <div className="flex justify-center space-x-2 mt-4">
+                  <div className="w-1 h-8 bg-white rounded-full opacity-80"></div>
+                  <div className="w-1 h-8 bg-orange-300 rounded-full opacity-80"></div>
+                  <div className="w-1 h-8 bg-yellow-200 rounded-full opacity-80"></div>
+                  <div className="w-1 h-8 bg-green-300 rounded-full opacity-80"></div>
+                  <div className="w-1 h-8 bg-white rounded-full opacity-80"></div>
+                </div>
+              </div>
+              {/* Smoke decoration */}
+              <div className="absolute top-4 right-4 w-6 h-6 text-gray-300">💨</div>
+              <div className="absolute bottom-6 left-6 w-4 h-4 text-gray-400">💨</div>
+            </div>
+          </div>
+
+          {/* Concentrates Category */}
+          <div 
+            onClick={() => handleCategoryClick('concentrates')}
+            className="relative group cursor-pointer transform hover:scale-105 transition-all duration-300"
+          >
+            <div className="bg-gradient-to-br from-orange-600 to-red-500 rounded-2xl p-6 h-80 flex flex-col justify-center items-center overflow-hidden relative">
+              <div className="absolute inset-0 bg-black bg-opacity-30"></div>
+              <div className="relative z-10 text-center">
+                <div className="text-3xl font-black text-white mb-4" style={{
+                  textShadow: '3px 3px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000'
+                }}>
+                  CONCENTRATES
+                </div>
+                <div className="text-lg font-bold text-yellow-300 mb-4">
+                  POTENT & PURE
+                </div>
+                <div className="text-sm text-gray-200 mb-2">
+                  Kief, Shatter, Sauce & More
+                </div>
+                <div className="text-xs text-gray-300">
+                  High-potency cannabis extracts
+                </div>
+                {/* Concentrate types */}
+                <div className="grid grid-cols-2 gap-2 mt-4">
+                  <div className="bg-yellow-600 text-white text-xs px-2 py-1 rounded font-bold">KIEF</div>
+                  <div className="bg-orange-600 text-white text-xs px-2 py-1 rounded font-bold">SHATTER</div>
+                  <div className="bg-red-600 text-white text-xs px-2 py-1 rounded font-bold">SAUCE</div>
+                  <div className="bg-amber-600 text-white text-xs px-2 py-1 rounded font-bold">WAX</div>
+                </div>
+              </div>
+              {/* Fire decoration */}
+              <div className="absolute top-4 right-4 w-6 h-6 text-orange-400">🔥</div>
+              <div className="absolute bottom-4 left-4 w-8 h-8 text-red-400">🔥</div>
+            </div>
+          </div>
+
           {/* Suppositories Category */}
           <div 
             onClick={() => handleCategoryClick('suppositories')}
@@ -250,26 +323,26 @@ const ProductSelection = ({ onCategorySelect }) => {
             <div className="bg-gradient-to-br from-purple-800 to-teal-600 rounded-2xl p-6 h-80 flex flex-col justify-center items-center overflow-hidden relative">
               <div className="absolute inset-0 bg-black bg-opacity-40"></div>
               <div className="relative z-10 text-center">
-                <div className="text-4xl font-black text-white mb-4" style={{
+                <div className="text-3xl font-black text-white mb-4" style={{
                   textShadow: '3px 3px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000'
                 }}>
-                  SUPPOSITORIES
+                  WELLNESS
                 </div>
                 <div className="text-sm font-bold text-blue-300 mb-2">
-                  EXPLORING CANNABIS SUPPOSITORIES
+                  CANNABIS WELLNESS PRODUCTS
                 </div>
                 <div className="text-xs text-gray-300 mb-2">
                   FOR HEALTH-CONSCIOUS CONSUMERS
                 </div>
                 <div className="text-xs text-gray-400 mb-4">
-                  Discreet world of cannabis wellness
+                  Suppositories, drops, and capsules
                 </div>
                 {/* Product boxes */}
                 <div className="grid grid-cols-2 gap-2 mt-4">
-                  <div className="bg-orange-500 text-white text-xs px-2 py-1 rounded font-bold">RELEAF</div>
-                  <div className="bg-teal-500 text-white text-xs px-2 py-1 rounded font-bold">SERENITY</div>
-                  <div className="bg-red-500 text-white text-xs px-2 py-1 rounded font-bold">CALM</div>
-                  <div className="bg-green-500 text-white text-xs px-2 py-1 rounded font-bold">SOOTHED</div>
+                  <div className="bg-teal-500 text-white text-xs px-2 py-1 rounded font-bold">LUV DROPS</div>
+                  <div className="bg-purple-500 text-white text-xs px-2 py-1 rounded font-bold">BALANCE</div>
+                  <div className="bg-green-500 text-white text-xs px-2 py-1 rounded font-bold">ABUNDANCE</div>
+                  <div className="bg-blue-500 text-white text-xs px-2 py-1 rounded font-bold">WELLNESS</div>
                 </div>
               </div>
               {/* Cannabis leaf decoration */}
