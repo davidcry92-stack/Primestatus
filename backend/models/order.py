@@ -39,7 +39,7 @@ class OrderBase(BaseModel):
     items: List[OrderItem]
     total: float = Field(..., gt=0)
     delivery_address: str
-    status: str = Field(default="pending", regex="^(pending|confirmed|preparing|out_for_delivery|delivered|cancelled)$")
+    status: str = Field(default="pending", pattern="^(pending|confirmed|preparing|out_for_delivery|delivered|cancelled)$")
 
 class OrderCreate(BaseModel):
     items: List[OrderItemCreate]
