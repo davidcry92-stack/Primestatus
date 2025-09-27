@@ -44,24 +44,22 @@ function App() {
 
   return (
     <ScreenshotProtection>
-      <AuthProvider>
-        <div className="App">
-          <BrowserRouter>
-            <Routes>
-              <Route 
-                path="/" 
-                element={
-                  isVerified ? (
-                    <MainApp />
-                  ) : (
-                    <LawEnforcementScreen onVerified={handleVerification} />
-                  )
-                } 
-              />
-            </Routes>
-          </BrowserRouter>
-        </div>
-      </AuthProvider>
+      <div className="App">
+        <BrowserRouter>
+          <Routes>
+            <Route 
+              path="/" 
+              element={
+                isVerified ? (
+                  <MainApp />
+                ) : (
+                  <LawEnforcementScreen onVerified={handleVerification} />
+                )
+              } 
+            />
+          </Routes>
+        </BrowserRouter>
+      </div>
     </ScreenshotProtection>
   );
 }
