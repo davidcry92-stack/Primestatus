@@ -212,10 +212,10 @@ const ProductGrid = ({ category = 'all', user }) => {
                           ? 'bg-gray-600 hover:bg-gray-700 cursor-not-allowed' 
                           : 'bg-green-600 hover:bg-green-700'
                       } text-white`}
-                      title={!user?.is_verified ? 'Verification required to purchase' : ''}
+                      title={!user?.is_verified ? 'Verification required to purchase' : 'Pickup only - no delivery'}
                     >
                       <ShoppingCart className="h-4 w-4" />
-                      <span>{!user?.is_verified ? 'Verification Required' : 'Add to Cart'}</span>
+                      <span>{!user?.is_verified ? 'Verification Required' : 'Order for Pickup'}</span>
                     </Button>
                   </div>
                 </CardContent>
