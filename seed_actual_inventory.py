@@ -570,6 +570,13 @@ async def seed_database():
     print("Clearing existing wictionary terms...")
     await wictionary_collection.delete_many({})
     
+    # Add missing fields to wictionary terms
+    for term in wictionary_terms:
+        term["examples"] = []
+        term["related_terms"] = []
+        term["created_at"] = datetime.utcnow()
+        term["updated_at"] = datetime.utcnow()
+    
     # Insert wictionary terms
     print(f"Inserting {len(wictionary_terms)} wictionary terms...")
     result = await wictionary_collection.insert_many(wictionary_terms)
