@@ -994,36 +994,44 @@ class AdminSystemTester:
             return False
         
         # Test headers for authenticated requests
-        user_headers = {"Authorization": f"Bearer {test_user_token}"}
         admin_headers = {"Authorization": f"Bearer {self.admin_token}"}
+        created_rating_id = None
         
-        # Test 1: Create a new rating
-        rating_data = {
-            "product_id": test_product_id,
-            "rating": 4,
-            "review": "Great product! Really enjoyed the quality and effects.",
-            "experience": "Smooth smoke, great taste, perfect for evening relaxation. Would definitely recommend to friends."
-        }
-        
-        success, create_response, status = await self.make_request(
-            "POST", "/ratings/", rating_data, user_headers
-        )
-        
-        if success:
-            created_rating_id = create_response.get("id")
-            self.log_test(
-                "Create Rating", 
-                True, 
-                f"Successfully created rating with ID {created_rating_id}"
+        if test_user_token:
+            user_headers = {"Authorization": f"Bearer {test_user_token}"}
+            
+            # Test 1: Create a new rating
+            rating_data = {
+                "product_id": test_product_id,
+                "rating": 4,
+                "review": "Great product! Really enjoyed the quality and effects.",
+                "experience": "Smooth smoke, great taste, perfect for evening relaxation. Would definitely recommend to friends."
+            }
+            
+            success, create_response, status = await self.make_request(
+                "POST", "/ratings/", rating_data, user_headers
             )
+            
+            if success:
+                created_rating_id = create_response.get("id")
+                self.log_test(
+                    "Create Rating", 
+                    True, 
+                    f"Successfully created rating with ID {created_rating_id}"
+                )
+            else:
+                self.log_test(
+                    "Create Rating", 
+                    False, 
+                    f"Failed to create rating: {create_response}",
+                    create_response
+                )
         else:
             self.log_test(
                 "Create Rating", 
                 False, 
-                f"Failed to create rating: {create_response}",
-                create_response
+                "Skipped - no authenticated user available"
             )
-            return False
         
         # Test 2: Rating validation - invalid rating values
         invalid_ratings = [0, 6, -1, 10]
