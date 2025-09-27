@@ -10,7 +10,7 @@ import {
   TrendingUp,
   Timer
 } from 'lucide-react';
-import { mockProducts, mockDailyDeals } from '../data/mock';
+import { mockProducts, mockDailyDeals } from '../data/actual-inventory';
 
 const DailyDeals = ({ user }) => {
   const [timeLeft, setTimeLeft] = useState({});
