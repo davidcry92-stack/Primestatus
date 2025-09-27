@@ -76,15 +76,51 @@ const ProductGrid = ({ category = 'all', tier = null, user, showTitle = false })
     ? [...inStockFiltered.slice(0, displayLimit), ...outOfStockFiltered.slice(0, displayLimit)]
     : inStockFiltered.slice(0, displayLimit);
 
-  // Quantity options with pricing (based on Lows tier - $10 per eighth)
-  const quantityOptions = [
-    { weight: '1/8', grams: '3.5g', multiplier: 1, label: 'Eighth' },
-    { weight: '1/2 oz', grams: '14g', multiplier: 3.5, label: 'Half Ounce' },
-    { weight: '1 oz', grams: '28g', multiplier: 6, label: 'Ounce' },
-    { weight: '1/4 lb', grams: '112g', multiplier: 17.5, label: 'Quarter Pound' },
-    { weight: '1/2 lb', grams: '224g', multiplier: 25, label: 'Half Pound' },
-    { weight: '1 lb', grams: '448g', multiplier: 45, label: 'Pound' }
-  ];
+  // Get quantity options with tier-specific pricing
+  const getQuantityOptions = (productTier) => {
+    switch(productTier) {
+      case 'lows':
+        // Lows: $10 base
+        return [
+          { weight: '1/8', grams: '3.5g', multiplier: 1, label: 'Eighth' },
+          { weight: '1/2 oz', grams: '14g', multiplier: 3.5, label: 'Half Ounce' }, // $35
+          { weight: '1 oz', grams: '28g', multiplier: 6, label: 'Ounce' }, // $60
+          { weight: '1/4 lb', grams: '112g', multiplier: 17.5, label: 'Quarter Pound' }, // $175
+          { weight: '1/2 lb', grams: '224g', multiplier: 25, label: 'Half Pound' }, // $250
+          { weight: '1 lb', grams: '448g', multiplier: 47.5, label: 'Pound' } // $450-500 (avg $475)
+        ];
+      case 'deps':
+        // Deps: $15 base
+        return [
+          { weight: '1/8', grams: '3.5g', multiplier: 1, label: 'Eighth' },
+          { weight: '1/2 oz', grams: '14g', multiplier: 3.67, label: 'Half Ounce' }, // $55
+          { weight: '1 oz', grams: '28g', multiplier: 6.67, label: 'Ounce' }, // $100
+          { weight: '1/4 lb', grams: '112g', multiplier: 20, label: 'Quarter Pound' }, // $300
+          { weight: '1/2 lb', grams: '224g', multiplier: 40, label: 'Half Pound' }, // $600
+          { weight: '1 lb', grams: '448g', multiplier: 58.33, label: 'Pound' } // $800-950 (avg $875)
+        ];
+      case 'za':
+        // Za: $25 base
+        return [
+          { weight: '1/8', grams: '3.5g', multiplier: 1, label: 'Eighth' },
+          { weight: '1/2 oz', grams: '14g', multiplier: 4, label: 'Half Ounce' }, // $100
+          { weight: '1 oz', grams: '28g', multiplier: 7, label: 'Ounce' }, // $175
+          { weight: '1/4 lb', grams: '112g', multiplier: 24, label: 'Quarter Pound' }, // $600
+          { weight: '1/2 lb', grams: '224g', multiplier: 36, label: 'Half Pound' }, // $900
+          { weight: '1 lb', grams: '448g', multiplier: 65, label: 'Pound' } // $1500-1750 (avg $1625)
+        ];
+      default:
+        // Default to lows pricing
+        return [
+          { weight: '1/8', grams: '3.5g', multiplier: 1, label: 'Eighth' },
+          { weight: '1/2 oz', grams: '14g', multiplier: 3.5, label: 'Half Ounce' },
+          { weight: '1 oz', grams: '28g', multiplier: 6, label: 'Ounce' },
+          { weight: '1/4 lb', grams: '112g', multiplier: 17.5, label: 'Quarter Pound' },
+          { weight: '1/2 lb', grams: '224g', multiplier: 25, label: 'Half Pound' },
+          { weight: '1 lb', grams: '448g', multiplier: 47.5, label: 'Pound' }
+        ];
+    }
+  };
 
   const getDealForProduct = (productId) => {
     return mockDailyDeals.find(deal => deal.productId === productId);
