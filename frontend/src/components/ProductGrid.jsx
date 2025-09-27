@@ -372,6 +372,78 @@ const ProductGrid = ({ category = 'all', tier = null, user, showTitle = false })
           </div>
         </div>
       </div>
+
+      {/* Quantity Selection Modal */}
+      {showQuantityModal && selectedProduct && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+          <div className="bg-gray-900 rounded-xl border border-gray-700 max-w-md w-full max-h-[80vh] overflow-y-auto">
+            <div className="p-6">
+              {/* Modal Header */}
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-bold text-white">Select Quantity</h3>
+                <button
+                  onClick={() => setShowQuantityModal(false)}
+                  className="text-gray-400 hover:text-white"
+                >
+                  <X className="h-6 w-6" />
+                </button>
+              </div>
+
+              {/* Product Info */}
+              <div className="flex items-center space-x-4 mb-6 p-3 bg-gray-800 rounded-lg">
+                <img 
+                  src={selectedProduct.image} 
+                  alt={selectedProduct.name}
+                  className="w-16 h-16 object-cover rounded-lg"
+                />
+                <div>
+                  <h4 className="text-white font-semibold">{selectedProduct.name}</h4>
+                  <p className="text-gray-400 text-sm">{selectedProduct.type}</p>
+                  <div className="flex items-center space-x-2 mt-1">
+                    <Badge variant="outline" className="border-green-400 text-green-400 text-xs">
+                      THC: {selectedProduct.thc}
+                    </Badge>
+                  </div>
+                </div>
+              </div>
+
+              {/* Quantity Options */}
+              <div className="space-y-3">
+                <h4 className="text-white font-semibold mb-3">Choose Amount:</h4>
+                {quantityOptions.map((option, index) => {
+                  const totalPrice = (selectedProduct.price * option.multiplier).toFixed(2);
+                  return (
+                    <button
+                      key={index}
+                      onClick={() => addToCart(selectedProduct, option)}
+                      className="w-full flex items-center justify-between p-4 bg-gray-800 hover:bg-gray-700 rounded-lg border border-gray-600 hover:border-green-400 transition-all duration-200 group"
+                    >
+                      <div className="flex items-center space-x-3">
+                        <div className="w-3 h-3 rounded-full border-2 border-green-400 group-hover:bg-green-400 transition-colors"></div>
+                        <div>
+                          <span className="text-white font-semibold">{option.weight}</span>
+                          <span className="text-gray-400 ml-2">({option.grams})</span>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-green-400 font-bold text-lg">${totalPrice}</div>
+                        <div className="text-gray-400 text-sm">{option.label}</div>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Price Note */}
+              <div className="mt-6 p-3 bg-yellow-900/30 border border-yellow-400/30 rounded-lg">
+                <p className="text-yellow-200 text-sm">
+                  <strong>Pickup Only:</strong> All orders must be picked up in-store. No delivery available.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
