@@ -38,6 +38,7 @@ api_router.include_router(daily_deals.router)
 api_router.include_router(wictionary.router)
 api_router.include_router(orders.router)
 api_router.include_router(cart.router)
+api_router.include_router(admin.router)
 
 # Include the main router in the app
 app.include_router(api_router)
