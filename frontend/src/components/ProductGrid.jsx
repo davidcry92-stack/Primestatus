@@ -64,22 +64,27 @@ const ProductGrid = ({ category = 'all' }) => {
           </p>
         </div>
 
-        {/* Category Filter */}
+        {/* Tier Filter */}
         <div className="flex justify-center mb-12">
           <div className="flex flex-wrap gap-2 bg-black/50 rounded-full p-2 border border-gray-700">
-            {['all', 'flower', 'edibles', 'concentrates'].map((cat) => (
+            {[
+              { key: 'all', label: 'All Products', icon: '🔥' },
+              { key: 'za', label: 'ZA (Premium)', icon: '💎' },
+              { key: 'deps', label: 'Deps (Regular)', icon: '⚡' },
+              { key: 'lows', label: 'Lows (Budget)', icon: '💰' }
+            ].map((tier) => (
               <Button
-                key={cat}
-                variant={selectedCategory === cat ? 'default' : 'ghost'}
-                onClick={() => setSelectedCategory(cat)}
-                className={`rounded-full px-6 py-2 capitalize ${
-                  selectedCategory === cat 
+                key={tier.key}
+                variant={selectedCategory === tier.key ? 'default' : 'ghost'}
+                onClick={() => setSelectedCategory(tier.key)}
+                className={`rounded-full px-6 py-2 ${
+                  selectedCategory === tier.key 
                     ? 'bg-green-600 text-white' 
                     : 'text-gray-400 hover:text-white'
                 }`}
               >
-                {getCategoryIcon(cat)}
-                <span className="ml-2">{cat === 'all' ? 'All Products' : cat}</span>
+                <span className="mr-2">{tier.icon}</span>
+                <span>{tier.label}</span>
               </Button>
             ))}
           </div>
