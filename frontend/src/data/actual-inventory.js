@@ -1441,7 +1441,7 @@ export const inStockProducts = [
     originalPrice: 30,
     weight: 'bottle',
     tier: 'za',
-    image: 'https://images.pexels.com/photos/5495435/pexels-photo-5495435.jpeg',
+    image: 'https://customer-assets.emergentagent.com/job_statusx-cannabis/artifacts/hw2rhex2_luv%20drops.webp',
     description: 'Premium wellness luv drops',
     thc: 'Various',
     vendor: 'Wellness',
