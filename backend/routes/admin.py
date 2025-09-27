@@ -2,8 +2,10 @@ from fastapi import APIRouter, HTTPException, status, Depends, Query
 from typing import List, Optional
 from datetime import datetime
 from models.user import UserResponse
-from utils.auth import verify_token
-from utils.database import users_collection, convert_object_id
+from models.transaction import TransactionResponse, AdminTransactionUpdate
+from models.product import Product, ProductCreate, ProductUpdate, ProductResponse
+from routes.admin_auth import verify_admin_token, get_admin_data
+from utils.database import users_collection, transactions_collection, products_collection, convert_object_id
 from utils.file_upload import get_file_url
 from bson import ObjectId
 from pydantic import BaseModel
@@ -30,18 +32,21 @@ class UserVerificationDetails(BaseModel):
     verification_status: str
     submitted_at: datetime
 
-# TODO: Add admin role checking middleware
-def check_admin_role(current_user_email: str = Depends(verify_token)):
-    """Check if user has admin privileges."""
-    # For now, this is a placeholder. In production, implement proper admin role checking
-    # You might want to have an admin_emails list or admin role field in user document
-    admin_emails = ["admin@statusxsmoakland.com", "support@statusxsmoakland.com"]
-    if current_user_email not in admin_emails:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Admin access required"
-        )
-    return current_user_email
+class UserProfileDetails(BaseModel):
+    id: str
+    username: str
+    email: str
+    full_name: str
+    date_of_birth: str
+    membership_tier: str
+    is_verified: bool
+    verification_status: str
+    member_since: datetime
+    order_count: int = 0
+    total_spent: float = 0.0
+    last_order: Optional[datetime] = None
+    wictionary_access: bool
+    parent_email: Optional[str] = None
 
 @router.get("/verification/pending", response_model=List[UserVerificationDetails])
 async def get_pending_verifications(
