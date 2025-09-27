@@ -8,7 +8,6 @@ import { Badge } from './ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
 import { X, Mail, Lock, User, Crown, MapPin, Shield } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import { nycNeighborhoods } from '../data/mock';
 
 const AuthModal = ({ onClose }) => {
   const { login, register } = useAuth();
