@@ -48,9 +48,114 @@ class UserProfileDetails(BaseModel):
     wictionary_access: bool
     parent_email: Optional[str] = None
 
+# ===== MEMBER MANAGEMENT =====
+
+@router.get("/members", response_model=List[UserProfileDetails])
+async def get_all_members(
+    admin = Depends(get_admin_data),
+    skip: int = Query(0, ge=0),
+    limit: int = Query(50, ge=1, le=100),
+    search: Optional[str] = Query(None, description="Search by email, username, or full name"),
+    status: Optional[str] = Query(None, description="Filter by verification status"),
+    membership_tier: Optional[str] = Query(None, description="Filter by membership tier")
+):
+    """Get all member profiles with transaction summary."""
+    
+    # Build query
+    query = {}
+    if search:
+        query["$or"] = [
+            {"email": {"$regex": search, "$options": "i"}},
+            {"username": {"$regex": search, "$options": "i"}},
+            {"full_name": {"$regex": search, "$options": "i"}}
+        ]
+    
+    if status:
+        query["id_verification.verification_status"] = status
+    
+    if membership_tier:
+        query["membership_tier"] = membership_tier
+    
+    # Get users
+    cursor = users_collection.find(query).skip(skip).limit(limit)
+    users = await cursor.to_list(length=limit)
+    
+    member_profiles = []
+    for user in users:
+        user_data = convert_object_id(user)
+        
+        # Get transaction summary for this user
+        transaction_pipeline = [
+            {"$match": {"user_id": user["_id"]}},
+            {"$group": {
+                "_id": None,
+                "total_spent": {"$sum": "$total"},
+                "order_count": {"$sum": 1},
+                "last_order": {"$max": "$created_at"}
+            }}
+        ]
+        
+        transaction_summary = await transactions_collection.aggregate(transaction_pipeline).to_list(length=1)
+        summary = transaction_summary[0] if transaction_summary else {}
+        
+        profile = UserProfileDetails(
+            id=user_data["id"],
+            username=user.get("username", ""),
+            email=user.get("email", ""),
+            full_name=user.get("full_name", ""),
+            date_of_birth=user.get("date_of_birth", ""),
+            membership_tier=user.get("membership_tier", "basic"),
+            is_verified=user.get("is_verified", False),
+            verification_status=user.get("id_verification", {}).get("verification_status", "pending"),
+            member_since=user.get("created_at", datetime.utcnow()),
+            order_count=summary.get("order_count", 0),
+            total_spent=round(summary.get("total_spent", 0.0), 2),
+            last_order=summary.get("last_order"),
+            wictionary_access=user.get("wictionary_access", False),
+            parent_email=user.get("parent_email")
+        )
+        member_profiles.append(profile)
+    
+    return member_profiles
+
+@router.get("/members/{user_id}/transactions", response_model=List[TransactionResponse])
+async def get_member_transactions(
+    user_id: str,
+    admin = Depends(get_admin_data),
+    skip: int = Query(0, ge=0),
+    limit: int = Query(20, ge=1, le=50)
+):
+    """Get all transactions for a specific member."""
+    
+    if not ObjectId.is_valid(user_id):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid user ID"
+        )
+    
+    # Verify user exists
+    user = await users_collection.find_one({"_id": ObjectId(user_id)})
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Member not found"
+        )
+    
+    # Get transactions
+    cursor = transactions_collection.find({"user_id": ObjectId(user_id)})
+    cursor = cursor.sort("created_at", -1).skip(skip).limit(limit)
+    transactions = await cursor.to_list(length=limit)
+    
+    transaction_responses = []
+    for transaction in transactions:
+        transaction_data = convert_object_id(transaction)
+        transaction_responses.append(TransactionResponse(**transaction_data))
+    
+    return transaction_responses
+
 @router.get("/verification/pending", response_model=List[UserVerificationDetails])
 async def get_pending_verifications(
-    admin_email: str = Depends(check_admin_role),
+    admin = Depends(get_admin_data),
     skip: int = Query(0, ge=0),
     limit: int = Query(20, ge=1, le=100)
 ):
