@@ -1,175 +1,186 @@
 {
   "summary": {
-    "total": 23,
-    "passed": 22,
-    "failed": 1,
-    "success_rate": "95.7%"
+    "total": 25,
+    "passed": 25,
+    "failed": 0,
+    "success_rate": "100.0%"
   },
   "results": [
     {
       "test": "User Registration",
-      "success": false,
-      "details": "Registration failed with status 500: {'error': 'Invalid JSON response', 'text': 'Internal Server Error'}",
-      "timestamp": "2025-09-27T19:25:55.132157",
-      "response_data": {
-        "error": "Invalid JSON response",
-        "text": "Internal Server Error"
-      }
+      "success": true,
+      "details": "Successfully registered user testuser123 with email testuser20250927192623@statusx.com",
+      "timestamp": "2025-09-27T19:26:23.696345",
+      "response_data": null
+    },
+    {
+      "test": "Registration Response Structure",
+      "success": true,
+      "details": "All required user fields present in response",
+      "timestamp": "2025-09-27T19:26:23.696372",
+      "response_data": null
+    },
+    {
+      "test": "JWT Token Format",
+      "success": true,
+      "details": "Valid JWT token format with 3 parts",
+      "timestamp": "2025-09-27T19:26:23.696377",
+      "response_data": null
     },
     {
       "test": "User Login",
       "success": true,
       "details": "Successfully logged in user testuser123",
-      "timestamp": "2025-09-27T19:25:55.144672",
+      "timestamp": "2025-09-27T19:26:23.708533",
       "response_data": null
     },
     {
       "test": "Login User Data Verification",
       "success": true,
-      "details": "Correct user data returned for testuser20250927192555@statusx.com",
-      "timestamp": "2025-09-27T19:25:55.144693",
+      "details": "Correct user data returned for testuser20250927192623@statusx.com",
+      "timestamp": "2025-09-27T19:26:23.708552",
       "response_data": null
     },
     {
       "test": "New JWT Token on Login",
       "success": true,
       "details": "JWT token generated on login",
-      "timestamp": "2025-09-27T19:25:55.144698",
+      "timestamp": "2025-09-27T19:26:23.708557",
       "response_data": null
     },
     {
       "test": "Protected Endpoint with Valid Token",
       "success": true,
-      "details": "Successfully accessed profile for user testuser20250927192555@statusx.com",
-      "timestamp": "2025-09-27T19:25:55.209623",
+      "details": "Successfully accessed profile for user testuser20250927192623@statusx.com",
+      "timestamp": "2025-09-27T19:26:23.720847",
       "response_data": null
     },
     {
       "test": "Protected Endpoint without Token",
       "success": true,
       "details": "Correctly rejected request without token (status 403)",
-      "timestamp": "2025-09-27T19:25:55.219765",
+      "timestamp": "2025-09-27T19:26:23.729699",
       "response_data": null
     },
     {
       "test": "Protected Endpoint with Invalid Token",
       "success": true,
       "details": "Correctly rejected request with invalid token (status 401)",
-      "timestamp": "2025-09-27T19:25:55.267769",
+      "timestamp": "2025-09-27T19:26:23.739231",
       "response_data": null
     },
     {
       "test": "Re-entry Code Verification",
       "success": true,
-      "details": "Successfully verified re-entry code for user testuser20250927192555@statusx.com",
-      "timestamp": "2025-09-27T19:25:55.317444",
+      "details": "Successfully verified re-entry code for user testuser20250927192623@statusx.com",
+      "timestamp": "2025-09-27T19:26:23.787289",
       "response_data": null
     },
     {
       "test": "Re-entry Code User Data",
       "success": true,
       "details": "Correct user data returned after re-entry verification",
-      "timestamp": "2025-09-27T19:25:55.317471",
+      "timestamp": "2025-09-27T19:26:23.787309",
       "response_data": null
     },
     {
       "test": "Re-entry Code Wrong Code",
       "success": true,
       "details": "Correctly rejected wrong re-entry code (status 401)",
-      "timestamp": "2025-09-27T19:25:55.325820",
+      "timestamp": "2025-09-27T19:26:23.797394",
       "response_data": null
     },
     {
       "test": "Re-entry Code Non-existent User",
       "success": true,
       "details": "Correctly rejected non-existent user (status 401)",
-      "timestamp": "2025-09-27T19:25:55.374484",
+      "timestamp": "2025-09-27T19:26:23.805240",
       "response_data": null
     },
     {
       "test": "Database Field Verification - email",
       "success": true,
-      "details": "Correct value: testuser20250927192555@statusx.com",
-      "timestamp": "2025-09-27T19:25:55.383584",
+      "details": "Correct value: testuser20250927192623@statusx.com",
+      "timestamp": "2025-09-27T19:26:23.853208",
       "response_data": null
     },
     {
       "test": "Database Field Verification - username",
       "success": true,
       "details": "Correct value: testuser123",
-      "timestamp": "2025-09-27T19:25:55.383606",
+      "timestamp": "2025-09-27T19:26:23.853229",
       "response_data": null
     },
     {
       "test": "Database Field Verification - full_name",
       "success": true,
       "details": "Correct value: Test User StatusX",
-      "timestamp": "2025-09-27T19:25:55.383610",
+      "timestamp": "2025-09-27T19:26:23.853233",
       "response_data": null
     },
     {
       "test": "Database Field Verification - membership_tier",
       "success": true,
       "details": "Correct value: basic",
-      "timestamp": "2025-09-27T19:25:55.383614",
+      "timestamp": "2025-09-27T19:26:23.853237",
       "response_data": null
     },
     {
       "test": "Database User Storage",
       "success": true,
       "details": "User correctly stored in database with all fields",
-      "timestamp": "2025-09-27T19:25:55.383617",
+      "timestamp": "2025-09-27T19:26:23.853241",
       "response_data": null
     },
     {
       "test": "Password Hashing Verification",
       "success": true,
       "details": "Password correctly hashed and verified during login",
-      "timestamp": "2025-09-27T19:25:55.432656",
+      "timestamp": "2025-09-27T19:26:23.862463",
       "response_data": null
     },
     {
       "test": "Password Hash Security",
       "success": true,
       "details": "Wrong password correctly rejected - password hashing secure",
-      "timestamp": "2025-09-27T19:25:55.440279",
+      "timestamp": "2025-09-27T19:26:23.873081",
       "response_data": null
     },
     {
       "test": "Profile Update",
       "success": true,
       "details": "Profile successfully updated with new values",
-      "timestamp": "2025-09-27T19:25:55.489402",
+      "timestamp": "2025-09-27T19:26:23.921188",
       "response_data": null
     },
     {
       "test": "Wictionary Access Update",
       "success": true,
       "details": "Wictionary access correctly granted for premium membership",
-      "timestamp": "2025-09-27T19:25:55.489426",
+      "timestamp": "2025-09-27T19:26:23.921208",
       "response_data": null
     },
     {
       "test": "Duplicate Email Validation",
       "success": true,
       "details": "Correctly rejected duplicate email registration",
-      "timestamp": "2025-09-27T19:25:55.540506",
+      "timestamp": "2025-09-27T19:26:23.929563",
       "response_data": null
     },
     {
       "test": "Law Enforcement Rejection",
       "success": true,
       "details": "Correctly rejected law enforcement registration",
-      "timestamp": "2025-09-27T19:25:55.589456",
+      "timestamp": "2025-09-27T19:26:23.978137",
       "response_data": null
     },
     {
       "test": "Invalid Re-entry Code Format",
       "success": true,
       "details": "Correctly rejected non-numeric re-entry code",
-      "timestamp": "2025-09-27T19:25:55.598161",
+      "timestamp": "2025-09-27T19:26:23.986639",
       "response_data": null
     }
   ],
-  "timestamp": "2025-09-27T19:25:55.598330"
+  "timestamp": "2025-09-27T19:26:23.986803"
 }
