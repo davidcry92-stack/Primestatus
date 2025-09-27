@@ -345,10 +345,7 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Visual Product Selection Interface"
-    - "Product Grid Integration"
-    - "Main App Integration"
-    - "Wictionary Frontend Display"
+    - "Rating System Implementation"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
