@@ -50,9 +50,26 @@ const MainApp = () => {
 
 function App() {
   const [isLawEnforcementVerified, setIsLawEnforcementVerified] = useState(false);
+  const [isReEntryCodeVerified, setIsReEntryCodeVerified] = useState(false);
 
   const handleLawEnforcementVerification = () => {
     setIsLawEnforcementVerified(true);
+  };
+
+  const handleReEntryCodeVerification = () => {
+    setIsReEntryCodeVerified(true);
+  };
+
+  const getAppContent = () => {
+    if (!isLawEnforcementVerified) {
+      return <LawEnforcementScreen onVerified={handleLawEnforcementVerification} />;
+    }
+    
+    if (!isReEntryCodeVerified) {
+      return <ReEntryCodeScreen onVerified={handleReEntryCodeVerification} userEmail="demo@example.com" />;
+    }
+    
+    return <MainApp />;
   };
 
   return (
@@ -60,16 +77,7 @@ function App() {
       <div className="App">
         <BrowserRouter>
           <Routes>
-            <Route 
-              path="/" 
-              element={
-                isLawEnforcementVerified ? (
-                  <MainApp />
-                ) : (
-                  <LawEnforcementScreen onVerified={handleLawEnforcementVerification} />
-                )
-              } 
-            />
+            <Route path="/" element={getAppContent()} />
           </Routes>
         </BrowserRouter>
       </div>
