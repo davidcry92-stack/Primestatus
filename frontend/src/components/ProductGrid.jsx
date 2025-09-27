@@ -25,34 +25,18 @@ const ProductGrid = ({ category = 'all' }) => {
     return mockDailyDeals.find(deal => deal.productId === productId);
   };
 
-  const addToCart = async (product) => {
-    if (!user) {
-      toast({
-        title: "Authentication required",
-        description: "Please sign in to add items to cart",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    try {
-      await cartAPI.add({
-        product_id: product.id,
-        quantity: 1
-      });
-      
-      toast({
-        title: "Added to cart",
-        description: `${product.name} has been added to your cart`,
-      });
-    } catch (error) {
-      console.error('Error adding to cart:', error);
-      toast({
-        title: "Error",
-        description: "Failed to add item to cart",
-        variant: "destructive",
-      });
-    }
+  const addToCart = (product) => {
+    setCart(prev => {
+      const existing = prev.find(item => item.id === product.id);
+      if (existing) {
+        return prev.map(item => 
+          item.id === product.id 
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      }
+      return [...prev, { ...product, quantity: 1 }];
+    });
   };
 
   const getCategoryIcon = (category) => {
