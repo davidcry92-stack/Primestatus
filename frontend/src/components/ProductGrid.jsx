@@ -12,6 +12,7 @@ import {
   Package
 } from 'lucide-react';
 import { mockProducts, mockDailyDeals } from '../data/mock';
+import ProductRating from './ProductRating';
 
 const ProductGrid = ({ category = 'all', tier = null, user, showTitle = false }) => {
   const [selectedCategory, setSelectedCategory] = useState(category);
