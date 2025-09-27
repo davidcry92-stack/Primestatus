@@ -1,0 +1,97 @@
+// Out-of-stock Deps products - user specifications
+// This will be added to the actual-inventory.js file
+
+const depsOutOfStock = [
+  {
+    id: 'deps-oos-1',
+    name: 'Bronx Glue',
+    category: 'flower',
+    price: 15,
+    originalPrice: 18,
+    weight: '3.5g',
+    tier: 'deps',
+    type: 'Indica Dominant Hybrid',
+    image: 'https://images.unsplash.com/photo-1560450038-7d847b1fb393?w=400&h=400&fit=crop',
+    description: 'NYC-inspired indica-dominant hybrid',
+    thc: '19-23%',
+    vendor: 'Smoakland Standard',
+    inStock: false,
+    dailyDeal: false,
+    rating: 4.4,
+    reviews: 145
+  },
+  {
+    id: 'deps-oos-2',
+    name: 'Blueberry Gelato',
+    category: 'flower',
+    price: 15,
+    originalPrice: 18,
+    weight: '3.5g',
+    tier: 'deps',
+    type: 'Indica Hybrid',
+    image: 'https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=400&h=400&fit=crop',
+    description: 'Sweet blueberry gelato indica hybrid',
+    thc: '18-22%',
+    vendor: 'Smoakland Standard',
+    inStock: false,
+    dailyDeal: false,
+    rating: 4.3,
+    reviews: 178
+  },
+  {
+    id: 'deps-oos-3',
+    name: 'Blue Blush',
+    category: 'flower',
+    price: 15,
+    originalPrice: 18,
+    weight: '3.5g',
+    tier: 'deps',
+    type: 'Indica 100%',
+    image: 'https://images.unsplash.com/photo-1570737174876-b1d5dc7b5de4?w=400&h=400&fit=crop',
+    description: 'Pure blue indica with blushing effects',
+    thc: '20-24%',
+    vendor: 'Smoakland Standard',
+    inStock: false,
+    dailyDeal: false,
+    rating: 4.2,
+    reviews: 156
+  },
+  {
+    id: 'deps-oos-4',
+    name: 'Blue Slushy',
+    category: 'flower',
+    price: 15,
+    originalPrice: 18,
+    weight: '3.5g',
+    tier: 'deps',
+    type: 'Indica Hybrid',
+    image: 'https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=400&h=400&fit=crop',
+    description: 'Refreshing blue slushy indica hybrid',
+    thc: '19-23%',
+    vendor: 'Smoakland Standard',
+    inStock: false,
+    dailyDeal: false,
+    rating: 4.1,
+    reviews: 134
+  },
+  {
+    id: 'deps-oos-5',
+    name: 'Blue ZUSHI',
+    category: 'flower',
+    price: 15,
+    originalPrice: 18,
+    weight: '3.5g',
+    tier: 'deps',
+    type: 'Indica Hybrid',
+    image: 'https://images.unsplash.com/photo-1570737174876-b1d5dc7b5de4?w=400&h=400&fit=crop',
+    description: 'Blue ZUSHI indica hybrid with exotic flavors',
+    thc: '18-22%',
+    vendor: 'Smoakland Standard',
+    inStock: false,
+    dailyDeal: false,
+    rating: 4.3,
+    reviews: 167
+  }
+];
+
+console.log('Sample out-of-stock Deps products created. Full list would continue...');
