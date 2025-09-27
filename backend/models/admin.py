@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field, EmailStr
 from typing import Optional
 from datetime import datetime
+from bson import ObjectId
 from .common import PyObjectId
 
 class AdminBase(BaseModel):
