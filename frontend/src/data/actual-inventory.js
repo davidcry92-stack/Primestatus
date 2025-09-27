@@ -1122,7 +1122,7 @@ export const inStockProducts = [
     originalPrice: 5,
     weight: '1 gummy',
     tier: 'lows',
-    image: 'https://customer-assets.emergentagent.com/job_statusx-cannabis/artifacts/wj92gqi8_sway%20wild%20strawberry.webp',
+    image: 'https://customer-assets.emergentagent.com/job_statusx-cannabis/artifacts/agh626pf_sway%20wild%20strawberry.webp',
     description: 'Wild strawberry sativa gummy for energy and focus',
     thc: '10mg sativa',
     vendor: 'Sway',
