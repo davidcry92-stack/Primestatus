@@ -75,6 +75,16 @@ const ProductGrid = ({ category = 'all', tier = null, user, showTitle = false })
     ? [...inStockFiltered.slice(0, displayLimit), ...outOfStockFiltered.slice(0, displayLimit)]
     : inStockFiltered.slice(0, displayLimit);
 
+  // Quantity options with pricing (based on Lows tier - $10 per eighth)
+  const quantityOptions = [
+    { weight: '1/8', grams: '3.5g', multiplier: 1, label: 'Eighth' },
+    { weight: '1/2 oz', grams: '14g', multiplier: 3.5, label: 'Half Ounce' },
+    { weight: '1 oz', grams: '28g', multiplier: 6, label: 'Ounce' },
+    { weight: '1/4 lb', grams: '112g', multiplier: 17.5, label: 'Quarter Pound' },
+    { weight: '1/2 lb', grams: '224g', multiplier: 25, label: 'Half Pound' },
+    { weight: '1 lb', grams: '448g', multiplier: 45, label: 'Pound' }
+  ];
+
   const getDealForProduct = (productId) => {
     return mockDailyDeals.find(deal => deal.productId === productId);
   };
