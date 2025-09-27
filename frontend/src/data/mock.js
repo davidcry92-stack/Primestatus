@@ -149,17 +149,24 @@ export const mockProducts = [
 export const mockDailyDeals = [
   {
     id: 'deal-1',
-    productId: '1',
-    discount: 25,
+    productId: '3',
+    discount: 33,
     validUntil: '2025-01-28T23:59:59Z',
-    reason: 'High inventory'
+    reason: 'Deps Flash Sale'
   },
   {
     id: 'deal-2',
-    productId: '3',
-    discount: 21,
+    productId: '4',
+    discount: 22,
     validUntil: '2025-01-28T23:59:59Z',
-    reason: 'Bulk stock clearance'
+    reason: 'Half Ounce Special'
+  },
+  {
+    id: 'deal-3',
+    productId: '5',
+    discount: 20,
+    validUntil: '2025-01-28T23:59:59Z',
+    reason: 'Full Ounce Deal'
   }
 ];
 
