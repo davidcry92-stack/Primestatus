@@ -141,15 +141,20 @@ async def get_categories(
     current_user_email: str = Depends(verify_token)
 ):
     """Get available wictionary categories (premium members only)."""
-    # Check if user has premium membership
-    user = await users_collection.find_one({"email": current_user_email})
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="User not found"
-        )
+    # Check if user is admin or has premium membership
+    from utils.database import admins_collection
+    admin = await admins_collection.find_one({"email": current_user_email})
     
-    require_premium_membership(user)
+    if not admin:
+        # Check if user has premium membership
+        user = await users_collection.find_one({"email": current_user_email})
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="User not found"
+            )
+        
+        require_premium_membership(user)
     
     # Get category counts
     pipeline = [
