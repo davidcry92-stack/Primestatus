@@ -1450,10 +1450,10 @@ export const inStockProducts = [
     rating: 4.5,
     reviews: 189
   },
-  // BLENDZ PRODUCTS - IN STOCK
+  // BLENDZ PRODUCTS - IN STOCK (Separate flavors with Blendz $30 format)
   {
     id: 'blendz-sativa',
-    name: 'Sativa Blendz',
+    name: 'Blendz $30 Sativa Blendz',
     category: 'flower',
     price: 30,
     originalPrice: 30,
@@ -1471,7 +1471,7 @@ export const inStockProducts = [
   },
   {
     id: 'blendz-hybrid',
-    name: 'Hybrid Blendz',
+    name: 'Blendz $30 Hybrid Blendz',
     category: 'flower',
     price: 30,
     originalPrice: 30,
@@ -1489,7 +1489,7 @@ export const inStockProducts = [
   },
   {
     id: 'blendz-indica',
-    name: 'Indica Blendz',
+    name: 'Blendz $30 Indica Blendz',
     category: 'flower',
     price: 30,
     originalPrice: 30,
