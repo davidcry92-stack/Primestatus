@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Comprehensive Backend Testing for StatusXSmoakland Admin System
-Tests admin authentication, member management, pickup verification, and inventory management.
+Comprehensive Backend Testing for StatusXSmoakland Complete System
+Tests actual inventory integration, product APIs, Wictionary system, and admin functionality.
 """
 
 import asyncio
@@ -15,6 +15,10 @@ from typing import Dict, Any, Optional
 BACKEND_URL = "https://primestatus.preview.emergentagent.com/api"
 ADMIN_EMAIL = "admin@statusxsmoakland.com"
 ADMIN_PASSWORD = "Admin123!"
+
+# Test user for Wictionary (premium member)
+TEST_USER_EMAIL = "testuser@example.com"
+TEST_USER_PASSWORD = "TestPass123!"
 
 class AdminSystemTester:
     def __init__(self):
