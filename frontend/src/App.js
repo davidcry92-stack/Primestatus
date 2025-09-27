@@ -48,30 +48,14 @@ const MainApp = () => {
       />
       <main>
         <HeroSection onAuthClick={handleAuthClick} />
-        {isAuthenticated ? (
-          <>
-            <ProductSelection />
-            <DailyDeals user={user} />
-            <Wictionary />
-          </>
-        ) : (
-          <>
-            <ProductSelection />
-            <DailyDeals user={null} />
-            <div className="min-h-[50vh] flex items-center justify-center">
-              <div className="text-center text-white">
-                <h2 className="text-2xl font-bold mb-4">Premium Features</h2>
-                <p className="text-gray-400 mb-6">Sign in to access Wictionary and premium member features</p>
-                <button
-                  onClick={handleAuthClick}
-                  className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-bold"
-                >
-                  Sign In for Premium Access
-                </button>
-              </div>
-            </div>
-          </>
-        )}
+        {/* TEMPORARY: Show all features for demonstration */}
+        <ProductSelection />
+        <DailyDeals user={isAuthenticated ? user : {
+          username: "DemoUser",
+          membership_tier: "premium",
+          membershipTier: "premium"
+        }} />
+        <Wictionary />
       </main>
       <Footer />
       <Toaster />
