@@ -261,6 +261,19 @@ const ProductGrid = ({ category = 'all', tier = null, user, showTitle = false })
                       <span>{!user?.is_verified ? 'Verification Required' : 'Order for Pickup'}</span>
                     </Button>
                   </div>
+                  
+                  {/* Product Rating Component */}
+                  <div className="mt-4 pt-4 border-t border-gray-700">
+                    <ProductRating 
+                      productId={product.id}
+                      productName={product.name}
+                      currentRating={product.rating}
+                      onRatingSubmitted={() => {
+                        // Could refresh product data here if needed
+                        console.log('Rating submitted for', product.name);
+                      }}
+                    />
+                  </div>
                 </CardContent>
               </Card>
             );
