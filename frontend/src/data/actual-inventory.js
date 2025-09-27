@@ -1088,7 +1088,7 @@ export const inStockProducts = [
     originalPrice: 15,
     weight: '1 gummy',
     tier: 'deps',
-    image: 'https://images.pexels.com/photos/7667728/pexels-photo-7667728.jpeg?w=400&h=400&fit=crop',
+    image: 'https://customer-assets.emergentagent.com/job_statusx-cannabis/artifacts/rlgbwdsk_100%20mg%20green%20gummy.webp',
     description: 'High-dose green gummy for experienced users',
     thc: '100mg total',
     vendor: 'StatusX Edibles',
