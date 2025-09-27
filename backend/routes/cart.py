@@ -182,7 +182,7 @@ async def clear_cart(
 
 @router.get("/summary")
 async def get_cart_summary(
-    current_user_email: str = Depends(verify_token)
+    current_user_email: str = Depends(require_verified_user)
 ):
     """Get cart summary (total items, total price)."""
     if current_user_email not in cart_storage:
