@@ -106,7 +106,11 @@ const HeroSection = ({ onAuthClick }) => {
             >
               Join StatusXSmoakland
             </Button>
-            <Button variant="outline" className="border-white text-white hover:bg-white hover:text-black text-lg px-8 py-4 rounded-full font-bold">
+            <Button 
+              variant="outline" 
+              onClick={handleLearnMore}
+              className="border-white text-white hover:bg-white hover:text-black text-lg px-8 py-4 rounded-full font-bold"
+            >
               Learn More
             </Button>
           </div>
