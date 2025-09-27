@@ -142,7 +142,7 @@ async def update_cart_item(
 @router.delete("/{product_id}")
 async def remove_from_cart(
     product_id: str,
-    current_user_email: str = Depends(verify_token)
+    current_user_email: str = Depends(require_verified_user)
 ):
     """Remove item from cart."""
     if not ObjectId.is_valid(product_id):
