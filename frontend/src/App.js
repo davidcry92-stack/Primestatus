@@ -1,53 +1,66 @@
-import { useEffect } from "react";
-import "@/App.css";
+import React, { useState, useEffect } from "react";
+import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import axios from "axios";
+import { Toaster } from "./components/ui/toaster";
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
-const API = `${BACKEND_URL}/api`;
+// Components
+import ScreenshotProtection from "./components/ScreenshotProtection";
+import LawEnforcementScreen from "./components/LawEnforcementScreen";
+import Header from "./components/Header";
+import HeroSection from "./components/HeroSection";
+import ProductGrid from "./components/ProductGrid";
+import DailyDeals from "./components/DailyDeals";
+import Wictionary from "./components/Wictionary";
+import Footer from "./components/Footer";
 
-const Home = () => {
-  const helloWorldApi = async () => {
-    try {
-      const response = await axios.get(`${API}/`);
-      console.log(response.data.message);
-    } catch (e) {
-      console.error(e, `errored out requesting / api`);
-    }
-  };
+// Mock data
+import { mockUserProfile } from "./data/mock";
 
-  useEffect(() => {
-    helloWorldApi();
-  }, []);
+const MainApp = () => {
+  const [user, setUser] = useState(mockUserProfile);
+  const [cartItems, setCartItems] = useState([]);
 
   return (
-    <div>
-      <header className="App-header">
-        <a
-          className="App-link"
-          href="https://emergent.sh"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <img src="https://avatars.githubusercontent.com/in/1201222?s=120&u=2686cf91179bbafbc7a71bfbc43004cf9ae1acea&v=4" />
-        </a>
-        <p className="mt-5">Building something incredible ~!</p>
-      </header>
+    <div className="min-h-screen bg-black">
+      <Header user={user} cartItems={cartItems} />
+      <main>
+        <HeroSection />
+        <ProductGrid />
+        <DailyDeals />
+        <Wictionary />
+      </main>
+      <Footer />
+      <Toaster />
     </div>
   );
 };
 
 function App() {
+  const [isVerified, setIsVerified] = useState(false);
+
+  const handleVerification = () => {
+    setIsVerified(true);
+  };
+
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />}>
-            <Route index element={<Home />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
+    <ScreenshotProtection>
+      <div className="App">
+        <BrowserRouter>
+          <Routes>
+            <Route 
+              path="/" 
+              element={
+                isVerified ? (
+                  <MainApp />
+                ) : (
+                  <LawEnforcementScreen onVerified={handleVerification} />
+                )
+              } 
+            />
+          </Routes>
+        </BrowserRouter>
+      </div>
+    </ScreenshotProtection>
   );
 }
 
