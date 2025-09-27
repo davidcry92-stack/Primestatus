@@ -1533,7 +1533,7 @@ class AdminSystemTester:
 
     async def run_all_tests(self):
         """Run all comprehensive system tests."""
-        print("🚀 Starting StatusXSmoakland Complete System Backend Tests")
+        print("🚀 Starting StatusXSmoakland Updated Inventory System Backend Tests")
         print(f"Testing against: {BACKEND_URL}")
         print("=" * 70)
         
@@ -1541,22 +1541,29 @@ class AdminSystemTester:
         auth_success = await self.test_admin_authentication()
         
         if auth_success:
-            # Test RATING SYSTEM FIRST (as per review request)
-            await self.test_rating_system_comprehensive()
+            # Test UPDATED INVENTORY SYSTEM FIRST (as per review request)
+            await self.test_updated_inventory_system()
             
-            # Test new inventory integration and product APIs
-            await self.test_product_api_integration()
-            await self.test_wictionary_system()
+            # Test database seeding verification
             await self.test_database_seeding_verification()
             
+            # Test product API integration
+            await self.test_product_api_integration()
+            
             # Test existing admin functionality
+            await self.test_inventory_management()
+            await self.test_dashboard_stats()
+            
+            # Test other systems
+            await self.test_wictionary_system()
             await self.test_member_management()
             await self.test_member_transactions()
             await self.test_pickup_verification()
-            await self.test_inventory_management()
-            await self.test_dashboard_stats()
             await self.test_transaction_system()
             await self.test_database_collections()
+            
+            # Test rating system
+            await self.test_rating_system_comprehensive()
         else:
             print("❌ Authentication failed - skipping other tests")
         
