@@ -21,7 +21,6 @@ const AuthModal = ({ onClose }) => {
     reEntryCode: '',
     membership_tier: 'basic',
     preferences: {
-      delivery_area: 'Manhattan',
       categories: [],
       price_range: [20, 100]
     }
