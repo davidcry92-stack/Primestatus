@@ -21,7 +21,7 @@ class PyObjectId(ObjectId):
 class WictionaryBase(BaseModel):
     term: str = Field(..., min_length=1, max_length=100)
     definition: str = Field(..., min_length=1, max_length=1000)
-    category: str = Field(..., regex="^(slang|science|culture|legal)$")
+    category: str = Field(..., pattern="^(slang|science|culture|legal)$")
     etymology: Optional[str] = None
 
 class WictionaryCreate(WictionaryBase):
@@ -30,7 +30,7 @@ class WictionaryCreate(WictionaryBase):
 class WictionarySuggest(BaseModel):
     term: str = Field(..., min_length=1, max_length=100)
     definition: str = Field(..., min_length=1, max_length=1000)
-    category: str = Field(..., regex="^(slang|science|culture|legal)$")
+    category: str = Field(..., pattern="^(slang|science|culture|legal)$")
     etymology: Optional[str] = None
     suggested_by: str  # user email
 
