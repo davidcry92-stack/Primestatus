@@ -62,12 +62,12 @@ const AuthModal = ({ onClose }) => {
           </DialogTitle>
         </DialogHeader>
         
-        <Tabs defaultValue=\"login\" className=\"w-full\">
-          <TabsList className=\"grid w-full grid-cols-2 bg-black/50\">
-            <TabsTrigger value=\"login\" className=\"data-[state=active]:bg-green-600 data-[state=active]:text-white\">
+        <Tabs defaultValue="login" className="w-full">
+          <TabsList className="grid w-full grid-cols-2 bg-black/50">
+            <TabsTrigger value="login" className="data-[state=active]:bg-green-600 data-[state=active]:text-white">
               Sign In
             </TabsTrigger>
-            <TabsTrigger value=\"register\" className=\"data-[state=active]:bg-green-600 data-[state=active]:text-white\">
+            <TabsTrigger value="register" className="data-[state=active]:bg-green-600 data-[state=active]:text-white">
               Join Now
             </TabsTrigger>
           </TabsList>
