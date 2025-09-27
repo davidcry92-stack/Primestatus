@@ -172,7 +172,7 @@ async def remove_from_cart(
 
 @router.delete("/")
 async def clear_cart(
-    current_user_email: str = Depends(verify_token)
+    current_user_email: str = Depends(require_verified_user)
 ):
     """Clear user's cart."""
     if current_user_email in cart_storage:
