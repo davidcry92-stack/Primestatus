@@ -6,7 +6,7 @@ from .common import PyObjectId
 
 class ProductBase(BaseModel):
     name: str = Field(..., min_length=1, max_length=100)
-    category: str = Field(..., pattern="^(flower|edibles|concentrates)$")
+    category: str = Field(..., pattern="^(flower|edibles|concentrates|vapes)$")
     price: float = Field(..., gt=0)
     original_price: Optional[float] = None
     image: str
