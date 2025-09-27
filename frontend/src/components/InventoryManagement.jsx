@@ -294,6 +294,20 @@ const InventoryManagement = () => {
                 </div>
 
                 <div>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">Tier</label>
+                  <select
+                    required
+                    className="w-full px-3 py-2 bg-gray-800 border border-gray-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-red-500"
+                    value={formData.tier}
+                    onChange={(e) => setFormData({...formData, tier: e.target.value})}
+                  >
+                    <option value="za">Za (Premium)</option>
+                    <option value="deps">Deps (Mid-tier)</option>
+                    <option value="lows">Lows (Budget)</option>
+                  </select>
+                </div>
+
+                <div>
                   <label className="block text-sm font-medium text-gray-300 mb-2">Rating (0-5)</label>
                   <input
                     type="number"
