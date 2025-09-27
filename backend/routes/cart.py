@@ -101,7 +101,7 @@ async def get_cart(
 async def update_cart_item(
     product_id: str,
     quantity: int,
-    current_user_email: str = Depends(verify_token)
+    current_user_email: str = Depends(require_verified_user)
 ):
     """Update cart item quantity."""
     if not ObjectId.is_valid(product_id):
