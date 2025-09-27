@@ -16,36 +16,65 @@ import DailyDeals from "./components/DailyDeals";
 import Wictionary from "./components/Wictionary";
 import Footer from "./components/Footer";
 import AdminApp from "./components/AdminApp";
+import AuthModal from "./components/AuthModal";
 
-// Mock data (temporary) - Updated to show unverified user
-import { mockUserProfile } from "./data/mock";
+// Auth Context
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
 
 const MainApp = () => {
-  const [user, setUser] = useState({
-    ...mockUserProfile,
-    is_verified: true, // Set to true to show verified user experience
-    verification_status: 'approved',
-    requires_medical: false,
-    age_verified: 25
-  });
+  const { user, isAuthenticated } = useAuth();
   const [cartItems, setCartItems] = useState([]);
+  const [showAuthModal, setShowAuthModal] = useState(false);
 
-  // If user is not verified, show verification pending screen
-  if (!user.is_verified) {
+  const handleAuthClick = () => {
+    setShowAuthModal(true);
+  };
+
+  const handleCloseAuth = () => {
+    setShowAuthModal(false);
+  };
+
+  // If user is authenticated but not verified, show verification pending screen
+  if (isAuthenticated && user && !user.is_verified) {
     return <VerificationPending user={user} />;
   }
 
   return (
     <div className="min-h-screen bg-black">
-      <Header user={user} cartItems={cartItems} />
+      <Header 
+        user={isAuthenticated ? user : null} 
+        cartItems={cartItems} 
+        onAuthClick={handleAuthClick}
+      />
       <main>
-        <HeroSection />
-        <ProductSelection />
-        <DailyDeals user={user} />
-        <Wictionary />
+        <HeroSection onAuthClick={handleAuthClick} />
+        {isAuthenticated ? (
+          <>
+            <ProductSelection />
+            <DailyDeals user={user} />
+            <Wictionary />
+          </>
+        ) : (
+          <div className="min-h-[50vh] flex items-center justify-center">
+            <div className="text-center text-white">
+              <h2 className="text-2xl font-bold mb-4">Welcome to StatusXSmoakland</h2>
+              <p className="text-gray-400 mb-6">Please sign in or register to access our premium cannabis marketplace</p>
+              <button
+                onClick={handleAuthClick}
+                className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-bold"
+              >
+                Join Now
+              </button>
+            </div>
+          </div>
+        )}
       </main>
       <Footer />
       <Toaster />
+      
+      {showAuthModal && (
+        <AuthModal onClose={handleCloseAuth} />
+      )}
     </div>
   );
 };
