@@ -935,7 +935,7 @@ export const inStockProducts = [
     originalPrice: 15,
     weight: '1 piece',
     tier: 'deps',
-    image: 'https://images.unsplash.com/photo-1560999448-1288f5c62468?w=400&h=400&fit=crop',
+    image: 'https://customer-assets.emergentagent.com/job_statusx-cannabis/artifacts/k6pau3fg_hard%20rocks%20edible.webp',
     description: 'Premium hard rock edibles with long-lasting effects',
     thc: 'Varies',
     vendor: 'Hard Rocks',
