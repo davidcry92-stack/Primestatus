@@ -17,6 +17,7 @@ async def register(
     password: str = Form(...),
     full_name: str = Form(...),
     date_of_birth: str = Form(...),
+    re_entry_code: str = Form(..., description="4-8 digit verification code"),
     membership_tier: str = Form("basic"),
     is_law_enforcement: bool = Form(False),
     parent_email: Optional[str] = Form(None),
