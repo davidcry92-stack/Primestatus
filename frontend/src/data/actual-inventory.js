@@ -1352,7 +1352,7 @@ export const inStockProducts = [
     originalPrice: 20,
     weight: '4 joints',
     tier: 'deps',
-    image: 'https://images.unsplash.com/photo-1651736310660-cb7101e369f2?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzZ8MHwxfHNlYXJjaHwyfHxjYW5uYWJpcyUyMHByZS1yb2xscyUyMGpvaW50c3xlbnwwfHx8fDE3NTkwMTEzMjV8MA&ixlib=rb-4.1.0&q=85',
+    image: 'https://customer-assets.emergentagent.com/job_statusx-cannabis/artifacts/x6ggqmsx_smoakies%204%20pack.webp',
     description: '4-pack of premium pre-rolled joints',
     thc: '18-23%',
     vendor: 'Smoakies',
