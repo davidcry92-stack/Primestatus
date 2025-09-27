@@ -74,7 +74,7 @@ async def add_to_cart(
 
 @router.get("/", response_model=List[CartItemResponse])
 async def get_cart(
-    current_user_email: str = Depends(verify_token)
+    current_user_email: str = Depends(require_verified_user)
 ):
     """Get user's cart items."""
     if current_user_email not in cart_storage:
