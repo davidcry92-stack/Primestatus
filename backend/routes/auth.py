@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, status, Depends, UploadFile, File, Form
 from datetime import timedelta, datetime
 from typing import Optional
-from models.user import UserCreate, UserLogin, User, UserResponse, Token
+from models.user import UserCreate, UserLogin, User, UserResponse, Token, ReEntryVerification
 from utils.auth import verify_password, get_password_hash, create_access_token, verify_token
 from utils.database import users_collection, convert_object_id
 from utils.file_upload import save_uploaded_file
