@@ -74,16 +74,18 @@ function App() {
   };
 
   return (
-    <ScreenshotProtection>
-      <div className="App">
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={getAppContent()} />
-            <Route path="/admin/*" element={<AdminApp />} />
-          </Routes>
-        </BrowserRouter>
-      </div>
-    </ScreenshotProtection>
+    <div className="App">
+      <BrowserRouter>
+        <Routes>
+          <Route path="/admin/*" element={<AdminApp />} />
+          <Route path="/" element={
+            <ScreenshotProtection>
+              {getAppContent()}
+            </ScreenshotProtection>
+          } />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 
