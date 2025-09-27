@@ -446,7 +446,7 @@ export const inStockProducts = [
     weight: '3.5g',
     tier: 'deps',
     type: 'Indica Hybrid',
-    image: 'https://images.unsplash.com/photo-1570737174876-b1d5dc7b5de4?w=400&h=400&fit=crop',
+    image: 'https://images.unsplash.com/photo-1630678692476-acf8b341003d?w=400&h=400&fit=crop',
     description: 'Blue-tinted indica hybrid with cookie flavors',
     thc: '18-22%',
     vendor: 'Smoakland Standard',
