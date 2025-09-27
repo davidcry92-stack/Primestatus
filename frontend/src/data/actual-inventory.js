@@ -1318,7 +1318,7 @@ export const inStockProducts = [
     weight: '1g',
     tier: 'deps',
     type: 'Indica',
-    image: 'https://images.pexels.com/photos/8139067/pexels-photo-8139067.jpeg',
+    image: 'https://customer-assets.emergentagent.com/job_statusx-cannabis/artifacts/k1nla7yw_paletas%20indica%20moonrock%20blunt.webp',
     description: 'Premium 1g indica moonrock blunt',
     thc: '30-35%',
     vendor: 'Paletas',
