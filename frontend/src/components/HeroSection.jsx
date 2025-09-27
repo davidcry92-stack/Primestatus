@@ -89,7 +89,10 @@ const HeroSection = ({ onAuthClick }) => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
-            <Button className="bg-green-600 hover:bg-green-700 text-white text-lg px-8 py-4 rounded-full font-bold shadow-lg transform hover:scale-105 transition-all duration-200">
+            <Button 
+              onClick={onAuthClick}
+              className="bg-green-600 hover:bg-green-700 text-white text-lg px-8 py-4 rounded-full font-bold shadow-lg transform hover:scale-105 transition-all duration-200"
+            >
               Join StatusXSmoakland
             </Button>
             <Button variant="outline" className="border-white text-white hover:bg-white hover:text-black text-lg px-8 py-4 rounded-full font-bold">
