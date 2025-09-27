@@ -33,6 +33,7 @@ class RatingResponse(BaseModel):
     user_id: str
     rating: int
     review: Optional[str] = None
+    experience: Optional[str] = None
     created_at: datetime
     updated_at: datetime
 
