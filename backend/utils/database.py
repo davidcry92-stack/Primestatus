@@ -121,6 +121,25 @@ class DatabaseManager:
         ]
         
         await wictionary_collection.insert_many(sample_terms)
+    
+    @staticmethod
+    async def seed_admin():
+        """Seed initial admin user."""
+        from utils.auth import get_password_hash
+        from datetime import datetime
+        
+        admin_user = {
+            "username": "admin",
+            "email": "admin@statusxsmoakland.com",
+            "password_hash": get_password_hash("Admin123!"),
+            "full_name": "System Administrator",
+            "role": "super_admin",
+            "is_active": True,
+            "created_at": datetime.utcnow(),
+            "updated_at": datetime.utcnow()
+        }
+        
+        await admins_collection.insert_one(admin_user)
 
 def convert_object_id(data):
     """Convert ObjectId to string in MongoDB documents."""
