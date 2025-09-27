@@ -20,6 +20,7 @@ const InventoryManagement = () => {
     description: '',
     thc: '',
     vendor: '',
+    tier: 'za',
     in_stock: true,
     rating: '',
     reviews: ''
