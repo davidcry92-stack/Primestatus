@@ -31,6 +31,11 @@ const Header = ({ user, cartItems = [], onAuthClick }) => {
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <div className="flex items-center space-x-4">
+              <img 
+                src="https://customer-assets.emergentagent.com/job_herbal-memberhub/artifacts/g7wqgiz2_Logo.png" 
+                alt="StatusXSmoakland Logo" 
+                className="h-12 w-auto"
+              />
               <div className="text-2xl font-bold text-white">
                 <span className="text-green-400">Status</span>
                 <span className="text-yellow-400">X</span>
