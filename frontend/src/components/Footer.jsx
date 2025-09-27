@@ -142,6 +142,9 @@ const Footer = () => {
             This platform is for authorized members only. Must be 21+ years old. Cannabis products have not been evaluated by the FDA. 
             Please consume responsibly and in accordance with local laws. Keep out of reach of children and pets.
           </p>
+          <p className="text-gray-500 text-xs text-center mt-2">
+            Download "PrimeStatus" from Apple App Store or Google Play Store
+          </p>
         </div>
       </div>
     </footer>
