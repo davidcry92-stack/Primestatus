@@ -55,7 +55,11 @@ const MainApp = () => {
           membership_tier: "premium",
           membershipTier: "premium"
         }} />
-        <Wictionary />
+        <Wictionary user={isAuthenticated ? user : {
+          username: "DemoUser",
+          membership_tier: "premium",
+          membershipTier: "premium"
+        }} />
       </main>
       <Footer />
       <Toaster />
