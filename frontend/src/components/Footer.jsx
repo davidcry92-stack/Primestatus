@@ -8,10 +8,17 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
-            <div className="text-2xl font-bold text-white mb-4">
-              <span className="text-green-400">Status</span>
-              <span className="text-yellow-400">X</span>
-              <span className="text-green-400">Smoakland</span>
+            <div className="flex items-center space-x-4 mb-4">
+              <img 
+                src="https://customer-assets.emergentagent.com/job_herbal-memberhub/artifacts/g7wqgiz2_Logo.png" 
+                alt="StatusXSmoakland Logo" 
+                className="h-10 w-auto"
+              />
+              <div className="text-2xl font-bold text-white">
+                <span className="text-green-400">Status</span>
+                <span className="text-yellow-400">X</span>
+                <span className="text-green-400">Smoakland</span>
+              </div>
             </div>
             <p className="text-gray-400 mb-6 max-w-md">
               NYC's premier members-only cannabis marketplace. Premium products, daily deals, and secure delivery across all 5 boroughs.
