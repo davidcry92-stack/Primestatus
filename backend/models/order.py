@@ -23,8 +23,8 @@ class OrderBase(BaseModel):
     user_id: PyObjectId
     items: List[OrderItem]
     total: float = Field(..., gt=0)
-    delivery_address: str
-    status: str = Field(default="pending", pattern="^(pending|confirmed|preparing|out_for_delivery|delivered|cancelled)$")
+    payment_method: str = Field(default="in_app", pattern="^(in_app|cash_on_pickup)$")
+    status: str = Field(default="pending", pattern="^(pending|confirmed|preparing|ready_for_pickup|completed|cancelled)$")
 
 class OrderCreate(BaseModel):
     items: List[OrderItemCreate]
