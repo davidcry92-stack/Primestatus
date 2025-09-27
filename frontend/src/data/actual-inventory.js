@@ -392,7 +392,7 @@ export const inStockProducts = [
     weight: '3.5g',
     tier: 'deps',
     type: 'Sativa Hybrid',
-    image: 'https://images.unsplash.com/photo-1560450038-7d847b1fb393?w=400&h=400&fit=crop',
+    image: 'https://images.unsplash.com/photo-1518465444133-93542d08fdd9?w=400&h=400&fit=crop',
     description: 'Energizing sativa hybrid with spicy notes',
     thc: '18-23%',
     vendor: 'Smoakland Standard',
