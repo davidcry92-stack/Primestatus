@@ -1523,43 +1523,9 @@ export const inStockProducts = [
     reviews: 189
   },
 
-  // WELLNESS/SUPPOSITORIES - IN STOCK
+  // SUPPOSITORIES SECTION - IN STOCK
   {
-    id: 'wellness-luv-drops',
-    name: 'Luv Drops',
-    category: 'suppositories',
-    price: 30,
-    originalPrice: 30,
-    weight: 'bottle',
-    tier: 'za',
-    image: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=400&h=400&fit=crop',
-    description: 'Premium wellness drops',
-    thc: 'Various',
-    vendor: 'Wellness',
-    inStock: true,
-    dailyDeal: false,
-    rating: 4.4,
-    reviews: 134
-  },
-  {
-    id: 'wellness-balance-oil',
-    name: 'Balance Oil Capsules',
-    category: 'suppositories',
-    price: 30,
-    originalPrice: 30,
-    weight: 'bottle',
-    tier: 'za',
-    image: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=400&h=400&fit=crop',
-    description: 'Balance oil capsules for wellness',
-    thc: 'Various',
-    vendor: 'Wellness',
-    inStock: true,
-    dailyDeal: false,
-    rating: 4.5,
-    reviews: 167
-  },
-  {
-    id: 'wellness-abundance-suppositories',
+    id: 'abundance-suppositories',
     name: 'Abundance Suppositories',
     category: 'suppositories',
     price: 30,
@@ -1574,60 +1540,6 @@ export const inStockProducts = [
     dailyDeal: false,
     rating: 4.6,
     reviews: 178
-  },
-
-  // ADDITIONAL VAPES - IN STOCK
-  {
-    id: 'vape-twist-battery',
-    name: 'Twist Battery',
-    category: 'vapes',
-    price: 25,
-    originalPrice: 25,
-    weight: '1 battery',
-    tier: 'deps',
-    image: 'https://images.unsplash.com/photo-1605117913123-1f455435b384?w=400&h=400&fit=crop',
-    description: 'Twist variable voltage battery',
-    thc: 'N/A',
-    vendor: 'Hardware',
-    inStock: true,
-    dailyDeal: false,
-    rating: 4.2,
-    reviews: 89
-  },
-  {
-    id: 'vape-fryd-something-purple',
-    name: 'Fryd Cart \"Something Purple\"',
-    category: 'vapes',
-    price: 30,
-    originalPrice: 30,
-    weight: '1g',
-    tier: 'deps',
-    type: 'Sativa',
-    image: 'https://images.unsplash.com/photo-1605117913123-1f455435b384?w=400&h=400&fit=crop',
-    description: 'Something purple flavored sativa vape cart',
-    thc: '85-90%',
-    vendor: 'Fryd',
-    inStock: true,
-    dailyDeal: false,
-    rating: 4.4,
-    reviews: 156
-  },
-  {
-    id: 'smoakies-4pack',
-    name: 'Smoakies 4 Pack',
-    category: 'flower',
-    price: 20,
-    originalPrice: 20,
-    weight: '4 joints',
-    tier: 'deps',
-    image: 'https://images.unsplash.com/photo-1625565828426-c4b6ce15b76d?w=400&h=400&fit=crop',
-    description: '4-pack of premium pre-rolled joints',
-    thc: '18-23%',
-    vendor: 'Smoakies',
-    inStock: true,
-    dailyDeal: false,
-    rating: 4.4,
-    reviews: 189
   },
 
   // 3 FOR $25 SPECIAL
