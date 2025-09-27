@@ -46,6 +46,7 @@ const AdminDashboard = ({ adminUser, onLogout }) => {
     { id: 'members', label: 'Members', icon: '👥' },
     { id: 'pickup', label: 'Pickup Verification', icon: '📦' },
     { id: 'inventory', label: 'Inventory', icon: '📦' },
+    { id: 'ratings', label: 'Rating Stats', icon: '⭐' },
     { id: 'verification', label: 'ID Verification', icon: '🆔' }
   ];
 
