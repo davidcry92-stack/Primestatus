@@ -1458,7 +1458,7 @@ export const inStockProducts = [
     originalPrice: 30,
     weight: 'bottle',
     tier: 'za',
-    image: 'https://images.pexels.com/photos/5495435/pexels-photo-5495435.jpeg',
+    image: 'https://customer-assets.emergentagent.com/job_statusx-cannabis/artifacts/0w0hy7q2_balance%20oil%20capsule.webp',
     description: 'Balance oil capsules for wellness',
     thc: 'Various',
     vendor: 'Wellness',
