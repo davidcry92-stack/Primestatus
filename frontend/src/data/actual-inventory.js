@@ -1398,24 +1398,7 @@ export const inStockProducts = [
     reviews: 145
   },
 
-  // CONCENTRATES CATEGORY - IN STOCK
-  {
-    id: 'concentrate-kief',
-    name: 'Kief 1g',
-    category: 'concentrates',
-    price: 25,
-    originalPrice: 25,
-    weight: '1g',
-    tier: 'deps',
-    image: 'https://images.unsplash.com/photo-1649127473471-6c6b78919415?w=400&h=400&fit=crop',
-    description: 'Premium kief concentrate',
-    thc: '50-60%',
-    vendor: 'Local',
-    inStock: true,
-    dailyDeal: false,
-    rating: 4.3,
-    reviews: 134
-  },
+  // CONCENTRATES SECTION - IN STOCK
   {
     id: 'concentrate-shatter',
     name: 'Shatter 1g',
@@ -1427,7 +1410,7 @@ export const inStockProducts = [
     image: 'https://images.unsplash.com/photo-1598052163236-4ec4140c4c49?w=400&h=400&fit=crop',
     description: 'Premium shatter concentrate',
     thc: '70-80%',
-    vendor: 'Local',
+    vendor: 'Smoakland',
     inStock: true,
     dailyDeal: false,
     rating: 4.4,
@@ -1444,11 +1427,45 @@ export const inStockProducts = [
     image: 'https://images.unsplash.com/photo-1649127473471-6c6b78919415?w=400&h=400&fit=crop',
     description: 'Premium sauce concentrate',
     thc: '65-75%',
-    vendor: 'Local',
+    vendor: 'Smoakland',
     inStock: true,
     dailyDeal: false,
     rating: 4.5,
     reviews: 189
+  },
+  {
+    id: 'luv-drops',
+    name: 'Luv Drops',
+    category: 'concentrates',
+    price: 30,
+    originalPrice: 30,
+    weight: 'bottle',
+    tier: 'za',
+    image: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=400&h=400&fit=crop',
+    description: 'Premium wellness luv drops',
+    thc: 'Various',
+    vendor: 'Wellness',
+    inStock: true,
+    dailyDeal: false,
+    rating: 4.4,
+    reviews: 134
+  },
+  {
+    id: 'balance-oil-capsules',
+    name: 'Balance Oil Capsules',
+    category: 'concentrates',
+    price: 30,
+    originalPrice: 30,
+    weight: 'bottle',
+    tier: 'za',
+    image: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=400&h=400&fit=crop',
+    description: 'Balance oil capsules for wellness',
+    thc: 'Various',
+    vendor: 'Wellness',
+    inStock: true,
+    dailyDeal: false,
+    rating: 4.5,
+    reviews: 167
   },
   // BLENDZ PRODUCTS - IN STOCK (Separate flavors with Blendz $30 format)
   {
