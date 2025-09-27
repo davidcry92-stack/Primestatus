@@ -114,6 +114,30 @@ const ProductGrid = ({ category = 'all', tier = null, user, showTitle = false })
           </div>
         </div>
 
+        {/* Category Title */}
+        {showTitle && (category || tier) && (
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-white mb-4">
+              {tier && tier !== 'all' && (
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-purple-600">
+                  {tier.charAt(0).toUpperCase() + tier.slice(1)} Tier
+                </span>
+              )}
+              {category && category !== 'all' && !tier && (
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-purple-600">
+                  {category.charAt(0).toUpperCase() + category.slice(1)}
+                </span>
+              )}
+              {category && tier && (
+                <span className="text-gray-300"> - {category.charAt(0).toUpperCase() + category.slice(1)}</span>
+              )}
+            </h2>
+            <p className="text-gray-400">
+              {filteredProducts.length} {filteredProducts.length === 1 ? 'product' : 'products'} available
+            </p>
+          </div>
+        )}
+
         {/* Products Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProducts.map((product) => {
