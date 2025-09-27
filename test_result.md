@@ -366,8 +366,11 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Rating System Implementation"
-  stuck_tasks: []
+    - "Wictionary System"
+    - "Wictionary Frontend Display"
+  stuck_tasks:
+    - "Wictionary System"
+    - "Wictionary Frontend Display"
   test_all: false
   test_priority: "high_first"
 
