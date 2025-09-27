@@ -774,7 +774,7 @@ class AdminSystemTester:
             for category in ['slang', 'science', 'culture']:
                 success, cat_response, status = await self.make_request(
                     "GET", 
-                    f"/wictionary?category={category}", 
+                    f"/wictionary/?category={category}", 
                     headers=headers
                 )
                 
