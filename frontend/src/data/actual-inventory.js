@@ -1173,7 +1173,7 @@ export const inStockProducts = [
     originalPrice: 30,
     weight: '1 pack',
     tier: 'za',
-    image: 'https://images.pexels.com/photos/5871309/pexels-photo-5871309.jpeg',
+    image: 'https://customer-assets.emergentagent.com/job_statusx-cannabis/artifacts/15f64ujy_good%20tide%20pineapple%20gummies.webp',
     description: 'Premium pineapple gummies - tropical paradise',
     thc: '100mg total',
     vendor: 'Goodtide',
