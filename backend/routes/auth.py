@@ -110,6 +110,7 @@ async def register(
         "username": username,
         "email": email,
         "password": get_password_hash(password),
+        "re_entry_code_hash": get_password_hash(re_entry_code),
         "full_name": full_name,
         "date_of_birth": date_of_birth,
         "membership_tier": membership_tier,
