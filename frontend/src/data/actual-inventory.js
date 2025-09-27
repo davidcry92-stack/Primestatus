@@ -374,7 +374,7 @@ export const inStockProducts = [
     weight: '3.5g',
     tier: 'deps',
     type: 'Indica Hybrid',
-    image: 'https://images.unsplash.com/photo-1605197788044-5a32c7078486?w=400&h=400&fit=crop',
+    image: 'https://images.unsplash.com/photo-1559558260-dfa522cfd57c?w=400&h=400&fit=crop',
     description: 'Popping indica hybrid with sweet flavors',
     thc: '20-24%',
     vendor: 'Smoakland Standard',
