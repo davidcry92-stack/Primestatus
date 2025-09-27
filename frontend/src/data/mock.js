@@ -1,7 +1,8 @@
 // Mock data for StatusXSmoakland
 import { allProducts, inStockProducts, outOfStockProducts, getProductsByTier, getProductsByCategory } from './actual-inventory';
 
-// Use actual inventory data
+// Note: This file contains mock data for development
+// The app should use real API data from the backend
 export const mockProducts = allProducts;
 
 // Export inventory helper functions
