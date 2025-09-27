@@ -29,6 +29,7 @@ const ProductSelection = ({ onCategorySelect, user }) => {
           <ProductGrid 
             category={selectedCategory.category} 
             tier={selectedCategory.tier}
+            user={user}
             showTitle={true}
           />
         </div>
