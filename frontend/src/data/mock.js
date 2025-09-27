@@ -551,6 +551,7 @@ export const mockUnverifiedUser = {
 
 // Weed dictionary (Wictionary) mock data
 export const mockWictionary = [
+  // Original terms
   {
     id: 'term-1',
     term: 'Loud',
@@ -571,6 +572,147 @@ export const mockWictionary = [
     definition: 'Aromatic compounds that contribute to cannabis flavor and effects',
     category: 'science',
     etymology: 'Scientific terminology'
+  },
+
+  // Za (Premium) Tier Strains
+  {
+    id: 'strain-gary-payton',
+    term: 'Gary Payton',
+    definition: 'Hybrid (50% Indica / 50% Sativa). THC: 19-25%. Effects: Uplifted, focused, relaxed. Taste: Diesel, herbal, spicy. Helps with stress, anxiety, depression.',
+    category: 'strain',
+    etymology: 'Named after NBA Hall of Fame basketball player Gary Payton'
+  },
+  {
+    id: 'strain-lemon-cherry-gelato',
+    term: 'Lemon Cherry Gelato',
+    definition: 'Indica-dominant Hybrid (60% Indica / 40% Sativa). THC: 21-28%. Effects: Euphoric, relaxed, blissful. Taste: Citrus, cherry, creamy. Helps with pain, mood swings, insomnia.',
+    category: 'strain',
+    etymology: 'Named for its distinctive lemon and cherry flavor profile'
+  },
+  {
+    id: 'strain-lemon-cherry-push-pop',
+    term: 'Lemon Cherry Push Pop',
+    definition: 'Indica-dominant Hybrid (70% Indica / 30% Sativa). THC: 22-27%. Effects: Relaxed, cheerful, creative. Taste: Sweet, fruity, citrus. Helps with anxiety, stress, appetite loss.',
+    category: 'strain',
+    etymology: 'Named after the popular frozen treat for its sweet flavor'
+  },
+  {
+    id: 'strain-playmaker',
+    term: 'Playmaker',
+    definition: 'Hybrid (50% Sativa / 50% Indica). THC: 20-26%. Effects: Energized, focused, happy. Taste: Earthy, citrus, spicy. Helps with fatigue, depression, stress.',
+    category: 'strain',
+    etymology: 'Sports reference reflecting its energizing effects'
+  },
+  {
+    id: 'strain-super-runtz',
+    term: 'Super Runtz',
+    definition: 'Hybrid (60% Indica / 40% Sativa). THC: 21-27%. Effects: Mellow, cheerful, creative. Taste: Candy, sweet, tropical. Helps with anxiety, appetite loss, pain.',
+    category: 'strain',
+    etymology: 'Enhanced version of the popular Runtz strain'
+  },
+
+  // Deps (Mid-tier) Strains
+  {
+    id: 'strain-blu-cookies',
+    term: 'Blu Cookies',
+    definition: 'Hybrid (75% Indica / 25% Sativa). THC: 20-26%. Effects: Relaxed, happy, sedated. Taste: Sweet, vanilla, berry. Helps with anxiety, pain, insomnia.',
+    category: 'strain',
+    etymology: 'Variation of classic Girl Scout Cookies with blueberry genetics'
+  },
+  {
+    id: 'strain-gelato-41',
+    term: 'Gelato 41',
+    definition: 'Sativa Dominant Hybrid (60% Sativa / 40% Indica). THC: 25-29%. Effects: Uplifted, euphoric, creative, focused, relaxed. Taste: Sweet, creamy, citrus, earthy, berry. Helps with depression, anxiety, fatigue.',
+    category: 'strain',
+    etymology: 'Specific phenotype (#41) of the famous Gelato strain'
+  },
+  {
+    id: 'strain-jealousy',
+    term: 'Jealousy',
+    definition: 'Indica Dominant Hybrid (70% Indica / 30% Sativa). THC: 26-30%. Effects: Relaxed, euphoric, focused, uplifted, creative. Taste: Sweet, creamy, earthy, citrus, floral. Helps with stress, anxiety, depression.',
+    category: 'strain',
+    etymology: 'Named for its coveted status among cannabis connoisseurs'
+  },
+  {
+    id: 'strain-obama-runtz',
+    term: 'Obama Runtz',
+    definition: 'Indica Dominant Hybrid (70% Indica / 30% Sativa). THC: 24-28%. Effects: Relaxed, euphoric, giggly, calm, sleepy. Taste: Sweet, fruity, berry, citrus, creamy. Helps with stress, anxiety, depression.',
+    category: 'strain',
+    etymology: 'Presidential tribute crossed with popular Runtz genetics'
+  },
+
+  // Lows (Budget) Strains
+  {
+    id: 'strain-animal-cookies',
+    term: 'Animal Cookies',
+    definition: 'Hybrid (75% Indica / 25% Sativa). THC: 18-27%. Effects: Relaxing, sleepy, euphoric. Taste: Nutty, sweet, vanilla. Helps with insomnia, chronic pain, depression, anxiety, stress.',
+    category: 'strain',
+    etymology: 'Cross between Animal Crackers and Girl Scout Cookies'
+  },
+  {
+    id: 'strain-bubba-kush',
+    term: 'Bubba Kush',
+    definition: 'Indica (65% Indica / 35% Sativa). THC: 14-22%. Effects: Sleepy, calm, body high. Taste: Coffee, chocolate, earthy. Helps with stress, insomnia, pain, muscle spasms.',
+    category: 'strain',
+    etymology: 'Named after breeder "Bubba" who developed this classic indica'
+  },
+  {
+    id: 'strain-northern-lights',
+    term: 'Northern Lights',
+    definition: 'Hybrid (50% Indica / 50% Sativa). THC: 16-22%. Effects: Relaxed, euphoric, dreamy. Taste: Earthy, sweet, pine. Helps with insomnia, chronic pain, depression, stress.',
+    category: 'strain',
+    etymology: 'Named after the Aurora Borealis phenomenon'
+  },
+  {
+    id: 'strain-white-widow',
+    term: 'White Widow',
+    definition: 'Sativa Dominant Hybrid (60% Sativa / 40% Indica). THC: 22-26%. Effects: Uplifted, euphoric, energetic, creative, focused. Taste: Earthy, pungent, woody, spicy, herbal. Helps with depression, stress, fatigue.',
+    category: 'strain',
+    etymology: 'Named for its white, resinous appearance'
+  },
+
+  // Cannabis Terms & Slang
+  {
+    id: 'term-za',
+    term: 'Za',
+    definition: 'Premium, top-shelf cannabis. The loudest in the room with exceptional aroma, flavor, and effects. Small batch, high-quality product.',
+    category: 'slang',
+    etymology: 'Modern slang for "exotic" or premium cannabis'
+  },
+  {
+    id: 'term-deps',
+    term: 'Deps',
+    definition: 'Mid-tier cannabis that matters. Noticeably more potent than Lows with smooth smoke and quality terp profiles. Everyday elevation for the seasoned sesher.',
+    category: 'slang',
+    etymology: 'Short for "dependable" or reliable mid-grade cannabis'
+  },
+  {
+    id: 'term-lows',
+    term: 'Lows',
+    definition: 'Budget-friendly cannabis. Basic bud that still gets the job done. Smooth introduction for beginners with consistent effects.',
+    category: 'slang',
+    etymology: 'Reference to lower-priced, entry-level cannabis products'
+  },
+  {
+    id: 'term-sesher',
+    term: 'Sesher',
+    definition: 'Someone who regularly participates in cannabis smoking sessions. An experienced cannabis consumer.',
+    category: 'slang',
+    etymology: 'Derived from "session" - a group smoking experience'
+  },
+  {
+    id: 'term-mids',
+    term: 'Mids',
+    definition: 'Mid-grade cannabis. Not the highest quality but better than schwag. The middle tier of cannabis quality.',
+    category: 'slang',
+    etymology: 'Short for "middles" - middle-grade cannabis'
+  },
+  {
+    id: 'term-terps',
+    term: 'Terps',
+    definition: 'Short for terpenes. The aromatic compounds in cannabis that contribute to flavor and effects profiles.',
+    category: 'slang',
+    etymology: 'Abbreviated form of terpenes'
   }
 ];
 
