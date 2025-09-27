@@ -1,7 +1,8 @@
 // Mock data for StatusXSmoakland
+import { allProducts, inStockProducts, outOfStockProducts, getProductsByTier, getProductsByCategory } from './actual-inventory';
 
-// Products mock data with realistic Smoakland strains and pricing
-export const mockProducts = [
+// Use actual inventory data
+export const mockProducts = allProducts;
   // ZA (Premium Tier) Products - Top shelf strains
   {
     id: '1',
