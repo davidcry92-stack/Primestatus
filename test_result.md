@@ -327,11 +327,11 @@ frontend:
 
   - task: "Wictionary Frontend Display"
     implemented: true
-    working: true
+    working: false
     file: "/app/frontend/src/components/Wictionary.jsx"
-    stuck_count: 0
-    priority: "medium"
-    needs_retesting: false
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: true
     status_history:
         - working: "unknown"
           agent: "main"
@@ -339,6 +339,9 @@ frontend:
         - working: true
           agent: "testing"
           comment: "✅ COMPREHENSIVE TESTING COMPLETE: Wictionary Frontend Display working perfectly! Accessible via navigation menu, displays premium exclusive content with proper upgrade prompts. Premium membership requirement correctly implemented. Visual design matches app theme with proper integration."
+        - working: false
+          agent: "testing"
+          comment: "❌ FRONTEND-BACKEND INTEGRATION ISSUE: Wictionary frontend displays comprehensive strain definitions (100+ strains) when using mock data, but shows 'No terms found' when fetching from backend API. Frontend component correctly implemented with search functionality, category filtering (All/Slang/Science/Culture), and beautiful UI design. However, backend integration fails because comprehensive strain definitions are not seeded in database. Frontend falls back to mock data in some scenarios but not consistently. REQUIRES: Backend database seeding to match frontend mock data OR frontend modification to consistently use mock data until backend is properly seeded."
 
   - task: "Main App Integration"
     implemented: true
