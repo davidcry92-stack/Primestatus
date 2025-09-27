@@ -25,21 +25,40 @@ const ProductGrid = ({ category = 'all', tier = null, user, showTitle = false })
   
   // Filter products based on category and tier
   const filteredProducts = (() => {
-    let products = category === 'all' ? allProducts : mockProducts;
+    let products = allProducts;
     
-    // Filter by category first
+    console.log('Filtering - Category:', category, 'Tier:', tier);
+    
+    // Handle 'all' category - show everything
+    if (category === 'all') {
+      return allProducts;
+    }
+    
+    // Handle tier-based filtering (Za/Deps/Lows should only show flower)
+    if (tier && (tier === 'za' || tier === 'deps' || tier === 'lows')) {
+      products = allProducts.filter(product => 
+        product.category === 'flower' && product.tier === tier
+      );
+      console.log(`Filtered ${tier} flower products:`, products.length);
+      return products;
+    }
+    
+    // Handle category-based filtering (pre-rolls, edibles, wellness, etc.)
     if (category && category !== 'all') {
       products = allProducts.filter(product => product.category === category);
+      console.log(`Filtered ${category} products:`, products.length);
+      return products;
     }
     
-    // Then filter by tier if specified
-    if (tier) {
-      products = allProducts.filter(product => product.tier === tier);
-    }
-    
-    // Fallback for tier-based selection without category
-    if (selectedCategory && selectedCategory !== 'all' && !category) {
-      products = allProducts.filter(product => product.tier === selectedCategory);
+    // Fallback for selectedCategory state
+    if (selectedCategory && selectedCategory !== 'all') {
+      if (selectedCategory === 'za' || selectedCategory === 'deps' || selectedCategory === 'lows') {
+        products = allProducts.filter(product => 
+          product.category === 'flower' && product.tier === selectedCategory
+        );
+      } else {
+        products = allProducts.filter(product => product.category === selectedCategory);
+      }
     }
     
     return products;
