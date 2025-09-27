@@ -300,7 +300,7 @@ const ProductGrid = ({ category = 'all', tier = null, user, showTitle = false })
                     </div>
                     
                     <Button 
-                      onClick={() => addToCart(product)}
+                      onClick={() => handleAddToCartClick(product)}
                       disabled={!product.inStock || !user?.is_verified}
                       className={`flex items-center space-x-2 ${
                         !user?.is_verified 
@@ -310,7 +310,7 @@ const ProductGrid = ({ category = 'all', tier = null, user, showTitle = false })
                       title={!user?.is_verified ? 'Verification required to purchase' : 'Pickup only - no delivery'}
                     >
                       <ShoppingCart className="h-4 w-4" />
-                      <span>{!user?.is_verified ? 'Verification Required' : 'Order for Pickup'}</span>
+                      <span>{!user?.is_verified ? 'Verification Required' : 'Select Quantity'}</span>
                     </Button>
                   </div>
                   
