@@ -178,11 +178,11 @@ const ProductGrid = ({ category = 'all' }) => {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
                       <span className="text-2xl font-bold text-green-400">
-                        ${product.price.toFixed(2)}
+                        ${discountedPrice.toFixed(2)}
                       </span>
-                      {product.original_price && product.original_price > product.price && (
+                      {deal && (
                         <span className="text-gray-400 line-through text-lg">
-                          ${product.original_price.toFixed(2)}
+                          ${product.originalPrice}
                         </span>
                       )}
                     </div>
