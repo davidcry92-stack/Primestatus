@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import { mockProducts, mockDailyDeals } from '../data/mock';
 
-const DailyDeals = () => {
+const DailyDeals = ({ user }) => {
   const [timeLeft, setTimeLeft] = useState({});
 
   // Calculate time remaining for deals
