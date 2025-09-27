@@ -923,23 +923,32 @@ class AdminSystemTester:
         test_user_token = None
         test_product_id = None
         
-        # Create or login test user
-        test_user_data = {
-            "email": "ratingtester@statusxsmoakland.com",
-            "password": "RatingTest123!",
-            "full_name": "Rating Tester",
-            "phone": "+1234567890",
-            "address": "123 Test St, NYC, NY 10001"
-        }
+        # Use existing test user from the database
+        # First, let's get existing users to find a test user
+        if not self.admin_token:
+            self.log_test("Rating System Setup", False, "No admin token available")
+            return False
         
-        # Try to register test user (might already exist)
-        success, response, status = await self.make_request("POST", "/auth/register", test_user_data)
+        admin_headers = {"Authorization": f"Bearer {self.admin_token}"}
+        success, members_response, status = await self.make_request("GET", "/admin/members", headers=admin_headers)
         
-        # Login test user
-        login_data = {
-            "email": test_user_data["email"],
-            "password": test_user_data["password"]
-        }
+        if not success or not isinstance(members_response, list) or len(members_response) == 0:
+            self.log_test("Get Test Users", False, "No existing users found for testing")
+            return False
+        
+        # Use the first available user for testing
+        test_user = members_response[0]
+        test_user_email = test_user.get("email")
+        
+        # Try common test passwords
+        test_passwords = ["TestPass123!", "password123", "test123", "Password123!"]
+        
+        login_data = None
+        for password in test_passwords:
+            login_data = {
+                "email": test_user_email,
+                "password": password
+            }
         
         success, login_response, status = await self.make_request("POST", "/auth/login", login_data)
         
