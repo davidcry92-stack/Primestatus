@@ -95,7 +95,7 @@ async def create_order(
 
 @router.get("/", response_model=List[OrderResponse])
 async def get_user_orders(
-    status: Optional[str] = Query(None, regex="^(pending|confirmed|preparing|out_for_delivery|delivered|cancelled)$"),
+    status: Optional[str] = Query(None, pattern="^(pending|confirmed|preparing|out_for_delivery|delivered|cancelled)$"),
     skip: int = Query(0, ge=0),
     limit: int = Query(20, ge=1, le=100),
     current_user_email: str = Depends(verify_token)
