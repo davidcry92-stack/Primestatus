@@ -3354,3 +3354,87 @@ export const getInStockProducts = () => {
 export const getOutOfStockProducts = () => {
   return outOfStockProducts;
 };
+
+// Mock data exports for compatibility
+export const mockProducts = allProducts;
+
+export const mockDailyDeals = [
+  {
+    id: 'deal-1',
+    productId: 'lows-5', // Blackberry Kush
+    originalPrice: 12,
+    dealPrice: 10,
+    discount: 17,
+    timeLeft: '2h 30m',
+    description: 'Limited time offer on Blackberry Kush'
+  },
+  {
+    id: 'deal-2',
+    productId: 'deps-10', // Granddaddy Purple
+    originalPrice: 18,
+    dealPrice: 15,
+    discount: 17,
+    timeLeft: '5h 15m',
+    description: 'Flash sale on Granddaddy Purple'
+  },
+  {
+    id: 'deal-3',
+    productId: 'za-1', // Lemon Cherry Gelato
+    originalPrice: 30,
+    dealPrice: 25,
+    discount: 17,
+    timeLeft: '1h 45m',
+    description: 'Premium Lemon Cherry Gelato special'
+  }
+];
+
+export const mockWictionary = [
+  {
+    id: 'term-1',
+    term: 'Za',
+    definition: 'Premium, top-shelf cannabis with exceptional quality, potency, and flavor profile',
+    category: 'slang',
+    etymology: 'NYC street term for the highest grade cannabis'
+  },
+  {
+    id: 'term-2',
+    term: 'Deps',
+    definition: 'Mid-tier cannabis that is dependable and consistent, better than lows but not premium',
+    category: 'slang',
+    etymology: 'Short for "dependable" - reliable quality cannabis'
+  },
+  {
+    id: 'term-3',
+    term: 'Lows',
+    definition: 'Budget-friendly cannabis, entry-level quality but still effective',
+    category: 'slang',
+    etymology: 'Lower tier pricing and quality classification'
+  },
+  {
+    id: 'term-4',
+    term: 'Loud',
+    definition: 'High-quality cannabis with a strong aroma and potent effects',
+    category: 'slang',
+    etymology: 'NYC street term popularized in the 2000s'
+  },
+  {
+    id: 'term-5',
+    term: 'Fire',
+    definition: 'Exceptionally good quality cannabis',
+    category: 'slang',
+    etymology: 'Street slang indicating top-quality product'
+  }
+];
+
+export const mockUserProfile = {
+  id: 'user-1',
+  username: 'DemoUser',
+  email: 'demo@statusxsmoakland.com',
+  membership_tier: 'premium',
+  membershipTier: 'premium',
+  is_verified: true,
+  member_since: '2024-01-15',
+  total_orders: 12,
+  favorite_categories: ['flower', 'edibles'],
+  points: 850
+};
