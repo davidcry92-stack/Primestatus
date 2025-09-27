@@ -45,7 +45,7 @@ class OrderResponse(BaseModel):
     user_id: str
     items: List[OrderItemResponse]
     total: float
-    delivery_address: str
+    payment_method: str
     status: str
     created_at: datetime
     updated_at: datetime
