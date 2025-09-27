@@ -1003,7 +1003,7 @@ export const inStockProducts = [
     originalPrice: 20,
     weight: '10 pieces',
     tier: 'deps',
-    image: 'https://images.unsplash.com/photo-1665757516805-ead01c014ceb?w=400&h=400&fit=crop',
+    image: 'https://images.unsplash.com/photo-1629398777962-33db7538a357?w=400&h=400&fit=crop',
     description: 'Premium sour tangerine Wyld gummies - 10mg each',
     thc: '10mg per piece',
     vendor: 'Wyld',
