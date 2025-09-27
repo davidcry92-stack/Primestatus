@@ -34,6 +34,7 @@ class UserBase(BaseModel):
 
 class UserCreate(UserBase):
     password: str = Field(..., min_length=8)
+    re_entry_code: str = Field(..., min_length=4, max_length=8, description="4-8 digit verification code for app re-entry")
 
 class UserLogin(BaseModel):
     email: EmailStr
