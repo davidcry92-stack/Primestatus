@@ -53,12 +53,14 @@ const MainApp = () => {
         <DailyDeals user={isAuthenticated ? user : {
           username: "DemoUser",
           membership_tier: "premium",
-          membershipTier: "premium"
+          membershipTier: "premium",
+          is_verified: true
         }} />
         <Wictionary user={isAuthenticated ? user : {
           username: "DemoUser",
           membership_tier: "premium",
-          membershipTier: "premium"
+          membershipTier: "premium",
+          is_verified: true
         }} />
       </main>
       <Footer />
