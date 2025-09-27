@@ -11,10 +11,22 @@ import json
 router = APIRouter(prefix="/auth", tags=["authentication"])
 
 @router.post("/register", response_model=Token)
-async def register(user_data: UserCreate):
-    """Register a new user."""
+async def register(
+    username: str = Form(...),
+    email: str = Form(...),
+    password: str = Form(...),
+    full_name: str = Form(...),
+    date_of_birth: str = Form(...),
+    membership_tier: str = Form("basic"),
+    is_law_enforcement: bool = Form(False),
+    parent_email: Optional[str] = Form(None),
+    id_front: UploadFile = File(..., description="Front of state-issued ID"),
+    id_back: UploadFile = File(..., description="Back of state-issued ID"),
+    medical_document: Optional[UploadFile] = File(None, description="Medical prescription (required for under 21)")
+):
+    """Register a new user with ID verification."""
     # Check if user already exists
-    existing_user = await users_collection.find_one({"email": user_data.email})
+    existing_user = await users_collection.find_one({"email": email})
     if existing_user:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -22,20 +34,88 @@ async def register(user_data: UserCreate):
         )
     
     # Check law enforcement verification
-    if user_data.is_law_enforcement:
+    if is_law_enforcement:
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Law enforcement personnel are not permitted to access this platform"
         )
     
+    # Calculate age from date of birth
+    try:
+        birth_date = datetime.strptime(date_of_birth, "%Y-%m-%d")
+        today = datetime.today()
+        age = today.year - birth_date.year - ((today.month, today.day) < (birth_date.month, birth_date.day))
+    except ValueError:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid date of birth format. Use YYYY-MM-DD"
+        )
+    
+    # Check age requirements
+    if age < 18:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Must be at least 18 years old to register"
+        )
+    
+    requires_medical = age < 21
+    
+    # For users under 21, require medical document and parent email
+    if requires_medical:
+        if not medical_document:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Medical prescription required for users under 21"
+            )
+        if not parent_email:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Parent/guardian email required for users under 21"
+            )
+    
+    # Save uploaded files
+    try:
+        id_front_path = await save_uploaded_file(id_front, f"ids/{email}")
+        id_back_path = await save_uploaded_file(id_back, f"ids/{email}")
+        
+        medical_doc_path = None
+        if medical_document and requires_medical:
+            medical_doc_path = await save_uploaded_file(medical_document, f"medical/{email}")
+        
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"File upload failed: {str(e)}"
+        )
+    
     # Set wictionary access based on membership tier
-    wictionary_access = user_data.membership_tier == "premium"
+    wictionary_access = membership_tier == "premium"
     
     # Create user document
-    user_dict = user_data.dict()
-    user_dict["password"] = get_password_hash(user_data.password)
-    user_dict["wictionary_access"] = wictionary_access
-    user_dict["order_history"] = []
+    user_dict = {
+        "username": username,
+        "email": email,
+        "password": get_password_hash(password),
+        "full_name": full_name,
+        "date_of_birth": date_of_birth,
+        "membership_tier": membership_tier,
+        "is_law_enforcement": is_law_enforcement,
+        "parent_email": parent_email,
+        "preferences": {"categories": [], "vendors": [], "price_range": [0, 200]},
+        "wictionary_access": wictionary_access,
+        "order_history": [],
+        "is_verified": False,  # Will be set to True after admin verification
+        "id_verification": {
+            "id_front_url": id_front_path,
+            "id_back_url": id_back_path,
+            "medical_document_url": medical_doc_path,
+            "verification_status": "needs_medical" if requires_medical else "pending",
+            "verified_at": None,
+            "rejected_reason": None,
+            "age_verified": age,
+            "requires_medical": requires_medical
+        }
+    }
     
     # Insert user
     result = await users_collection.insert_one(user_dict)
@@ -44,9 +124,14 @@ async def register(user_data: UserCreate):
     created_user = await users_collection.find_one({"_id": result.inserted_id})
     user_response_data = convert_object_id(created_user)
     
-    # Create access token
+    # Add verification status fields to response
+    user_response_data["verification_status"] = user_dict["id_verification"]["verification_status"]
+    user_response_data["requires_medical"] = requires_medical
+    user_response_data["age_verified"] = age
+    
+    # Create access token (limited access until verified)
     access_token = create_access_token(
-        data={"sub": user_data.email},
+        data={"sub": email},
         expires_delta=timedelta(minutes=60 * 24 * 7)  # 7 days
     )
     
