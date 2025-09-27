@@ -50,7 +50,53 @@ const ProductSelection = ({ onCategorySelect }) => {
           </p>
         </div>
 
-        {/* Category Grid */}
+        {/* Top-Level Category Buttons */}
+        <div className="flex flex-wrap justify-center gap-4 mb-12">
+          <button 
+            onClick={() => handleCategoryClick('all')}
+            className="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-full transition-colors"
+          >
+            All Products
+          </button>
+          <button 
+            onClick={() => handleCategoryClick('flower', 'za')}
+            className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-full transition-colors"
+          >
+            Za (Premium)
+          </button>
+          <button 
+            onClick={() => handleCategoryClick('flower', 'deps')}
+            className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-6 rounded-full transition-colors"
+          >
+            Deps (Regular)
+          </button>
+          <button 
+            onClick={() => handleCategoryClick('flower', 'lows')}
+            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full transition-colors"
+          >
+            Lows (Budget)
+          </button>
+          <button 
+            onClick={() => handleCategoryClick('pre_roll')}
+            className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-full transition-colors"
+          >
+            Pre-rolls
+          </button>
+          <button 
+            onClick={() => handleCategoryClick('edibles')}
+            className="bg-pink-600 hover:bg-pink-700 text-white font-bold py-3 px-6 rounded-full transition-colors"
+          >
+            Edibles
+          </button>
+          <button 
+            onClick={() => handleCategoryClick('wellness')}
+            className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-6 rounded-full transition-colors"
+          >
+            Wellness
+          </button>
+        </div>
+
+        {/* Visual Category Grid - Keep the beautiful cards for visual appeal */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           
           {/* Za (Premium) Category */}
