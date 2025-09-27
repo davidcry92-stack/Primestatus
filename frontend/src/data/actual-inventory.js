@@ -536,7 +536,7 @@ export const inStockProducts = [
     weight: '3.5g',
     tier: 'deps',
     type: 'Indica 100%',
-    image: 'https://images.unsplash.com/photo-1570737174876-b1d5dc7b5de4?w=400&h=400&fit=crop',
+    image: 'https://images.unsplash.com/photo-1630678691613-0ee767e22250?w=400&h=400&fit=crop',
     description: 'Classic purple indica with grape flavors',
     thc: '20-24%',
     vendor: 'Smoakland Standard',
