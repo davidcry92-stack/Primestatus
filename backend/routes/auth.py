@@ -165,32 +165,20 @@ async def register(
 @router.post("/login", response_model=Token)
 async def login(user_credentials: UserLogin):
     """Authenticate user and return token."""
-    print(f"🔍 LOGIN ATTEMPT: {user_credentials.email}")
-    
     # Find user
     user = await users_collection.find_one({"email": user_credentials.email})
     if not user:
-        print(f"❌ User not found: {user_credentials.email}")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password"
         )
-    
-    print(f"✅ User found: {user['username']}")
-    print(f"🔑 Password hash from DB: {user['password'][:20]}...")
     
     # Verify password
-    password_valid = verify_password(user_credentials.password, user["password"])
-    print(f"🔐 Password verification result: {password_valid}")
-    
-    if not password_valid:
-        print(f"❌ Password verification failed for: {user_credentials.email}")
+    if not verify_password(user_credentials.password, user["password"]):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password"
         )
-    
-    print(f"✅ Login successful for: {user_credentials.email}")
     
     # Create access token
     access_token = create_access_token(
