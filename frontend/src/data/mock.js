@@ -3,24 +3,7 @@ import { allProducts, inStockProducts, outOfStockProducts, getProductsByTier, ge
 
 // Use actual inventory data
 export const mockProducts = allProducts;
-  // ZA (Premium Tier) Products - Top shelf strains
-  {
-    id: '1',
-    name: 'Platinum Cookies',
-    category: 'flower',
-    price: 25,
-    originalPrice: 25,
-    weight: '3.5g',
-    tier: 'za',
-    image: 'https://images.unsplash.com/photo-1536658979405-4223fdb31410?w=400&h=400&fit=crop',
-    description: 'Premium ZA strain with sweet, earthy aroma and potent effects',
-    thc: '28-32%',
-    vendor: 'Smoakland Premium',
-    inStock: true,
-    dailyDeal: false,
-    rating: 4.9,
-    reviews: 89
-  },
+  // Actual inventory is now loaded from actual-inventory.js
   {
     id: '2',
     name: 'Sunset Sherbet',
