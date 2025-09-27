@@ -3,6 +3,7 @@ import { AuthContext } from '../contexts/AuthContext';
 import MembersManagement from './MembersManagement';
 import PickupVerification from './PickupVerification';
 import InventoryManagement from './InventoryManagement';
+import AdminRatingStats from './AdminRatingStats';
 
 const AdminDashboard = ({ adminUser, onLogout }) => {
   const [activeTab, setActiveTab] = useState('dashboard');
