@@ -106,7 +106,7 @@ const Header = ({ user, cartItems = [], onAuthClick }) => {
               </Button>
 
               {/* User Profile */}
-              {user ? (
+              {user && (
                 <div className="flex items-center space-x-2">
                   <div className="hidden sm:block text-right">
                     <p className="text-white text-sm font-medium">{user.username}</p>
@@ -123,13 +123,6 @@ const Header = ({ user, cartItems = [], onAuthClick }) => {
                     <User className="h-5 w-5" />
                   </Button>
                 </div>
-              ) : (
-                <Button 
-                  onClick={onAuthClick}
-                  className="bg-green-600 hover:bg-green-700 text-white"
-                >
-                  Sign In
-                </Button>
               )}
 
               {/* Mobile menu button */}
