@@ -915,6 +915,356 @@ class AdminSystemTester:
                 products_response
             )
 
+    async def test_rating_system_comprehensive(self):
+        """Comprehensive testing of the rating system."""
+        print("\n=== TESTING RATING SYSTEM COMPREHENSIVE ===")
+        
+        # First, we need to get a test user token and a product to rate
+        test_user_token = None
+        test_product_id = None
+        
+        # Create or login test user
+        test_user_data = {
+            "email": "ratingtester@statusxsmoakland.com",
+            "password": "RatingTest123!",
+            "full_name": "Rating Tester",
+            "phone": "+1234567890",
+            "address": "123 Test St, NYC, NY 10001"
+        }
+        
+        # Try to register test user (might already exist)
+        success, response, status = await self.make_request("POST", "/auth/register", test_user_data)
+        
+        # Login test user
+        login_data = {
+            "email": test_user_data["email"],
+            "password": test_user_data["password"]
+        }
+        
+        success, login_response, status = await self.make_request("POST", "/auth/login", login_data)
+        
+        if success and "access_token" in login_response:
+            test_user_token = login_response["access_token"]
+            self.log_test(
+                "Test User Authentication", 
+                True, 
+                f"Successfully authenticated test user for rating tests"
+            )
+        else:
+            self.log_test(
+                "Test User Authentication", 
+                False, 
+                f"Failed to authenticate test user: {login_response}",
+                login_response
+            )
+            return False
+        
+        # Get a product to test with
+        success, products_response, status = await self.make_request("GET", "/products?limit=1")
+        
+        if success and isinstance(products_response, list) and len(products_response) > 0:
+            test_product_id = products_response[0].get("id")
+            product_name = products_response[0].get("name", "Unknown Product")
+            self.log_test(
+                "Get Test Product", 
+                True, 
+                f"Using product '{product_name}' (ID: {test_product_id}) for rating tests"
+            )
+        else:
+            self.log_test(
+                "Get Test Product", 
+                False, 
+                f"Failed to get test product: {products_response}",
+                products_response
+            )
+            return False
+        
+        # Test headers for authenticated requests
+        user_headers = {"Authorization": f"Bearer {test_user_token}"}
+        admin_headers = {"Authorization": f"Bearer {self.admin_token}"}
+        
+        # Test 1: Create a new rating
+        rating_data = {
+            "product_id": test_product_id,
+            "rating": 4,
+            "review": "Great product! Really enjoyed the quality and effects.",
+            "experience": "Smooth smoke, great taste, perfect for evening relaxation. Would definitely recommend to friends."
+        }
+        
+        success, create_response, status = await self.make_request(
+            "POST", "/ratings/", rating_data, user_headers
+        )
+        
+        if success:
+            created_rating_id = create_response.get("id")
+            self.log_test(
+                "Create Rating", 
+                True, 
+                f"Successfully created rating with ID {created_rating_id}"
+            )
+        else:
+            self.log_test(
+                "Create Rating", 
+                False, 
+                f"Failed to create rating: {create_response}",
+                create_response
+            )
+            return False
+        
+        # Test 2: Rating validation - invalid rating values
+        invalid_ratings = [0, 6, -1, 10]
+        for invalid_rating in invalid_ratings:
+            invalid_data = {
+                "product_id": test_product_id,
+                "rating": invalid_rating,
+                "review": "Test invalid rating"
+            }
+            
+            success, response, status = await self.make_request(
+                "POST", "/ratings/", invalid_data, user_headers
+            )
+            
+            self.log_test(
+                f"Invalid Rating Validation ({invalid_rating})", 
+                not success and status == 422, 
+                f"Correctly rejected invalid rating {invalid_rating}" if not success else f"Incorrectly accepted invalid rating {invalid_rating}"
+            )
+        
+        # Test 3: Experience field length validation (500 chars max)
+        long_experience = "x" * 501  # 501 characters
+        long_data = {
+            "product_id": test_product_id,
+            "rating": 3,
+            "experience": long_experience
+        }
+        
+        success, response, status = await self.make_request(
+            "POST", "/ratings/", long_data, user_headers
+        )
+        
+        self.log_test(
+            "Experience Field Length Validation", 
+            not success and status == 422, 
+            f"Correctly rejected experience field > 500 chars" if not success else f"Incorrectly accepted experience field > 500 chars"
+        )
+        
+        # Test 4: Review field length validation (500 chars max)
+        long_review = "x" * 501  # 501 characters
+        long_review_data = {
+            "product_id": test_product_id,
+            "rating": 3,
+            "review": long_review
+        }
+        
+        success, response, status = await self.make_request(
+            "POST", "/ratings/", long_review_data, user_headers
+        )
+        
+        self.log_test(
+            "Review Field Length Validation", 
+            not success and status == 422, 
+            f"Correctly rejected review field > 500 chars" if not success else f"Incorrectly accepted review field > 500 chars"
+        )
+        
+        # Test 5: Update existing rating (user can only rate each product once)
+        updated_rating_data = {
+            "product_id": test_product_id,
+            "rating": 5,
+            "review": "Updated review - even better than I thought!",
+            "experience": "After using it more, I'm even more impressed. Perfect product for my needs."
+        }
+        
+        success, update_response, status = await self.make_request(
+            "POST", "/ratings/", updated_rating_data, user_headers
+        )
+        
+        if success:
+            self.log_test(
+                "Update Existing Rating", 
+                True, 
+                f"Successfully updated existing rating to 5 stars"
+            )
+        else:
+            self.log_test(
+                "Update Existing Rating", 
+                False, 
+                f"Failed to update existing rating: {update_response}",
+                update_response
+            )
+        
+        # Test 6: Get product ratings
+        success, product_ratings, status = await self.make_request(
+            "GET", f"/ratings/product/{test_product_id}"
+        )
+        
+        if success and isinstance(product_ratings, list):
+            self.log_test(
+                "Get Product Ratings", 
+                True, 
+                f"Retrieved {len(product_ratings)} ratings for product"
+            )
+            
+            # Verify our rating is in the list
+            our_rating = next((r for r in product_ratings if r.get("id") == created_rating_id), None)
+            if our_rating:
+                self.log_test(
+                    "Verify Rating in Product List", 
+                    True, 
+                    f"Found our rating in product ratings list with rating {our_rating.get('rating')}"
+                )
+            else:
+                self.log_test(
+                    "Verify Rating in Product List", 
+                    False, 
+                    f"Our rating not found in product ratings list"
+                )
+        else:
+            self.log_test(
+                "Get Product Ratings", 
+                False, 
+                f"Failed to get product ratings: {product_ratings}",
+                product_ratings
+            )
+        
+        # Test 7: Get user's own ratings
+        success, user_ratings, status = await self.make_request(
+            "GET", "/ratings/user/my-ratings", headers=user_headers
+        )
+        
+        if success and isinstance(user_ratings, list):
+            self.log_test(
+                "Get User's Own Ratings", 
+                True, 
+                f"Retrieved {len(user_ratings)} ratings by current user"
+            )
+        else:
+            self.log_test(
+                "Get User's Own Ratings", 
+                False, 
+                f"Failed to get user's ratings: {user_ratings}",
+                user_ratings
+            )
+        
+        # Test 8: Admin rating statistics
+        if self.admin_token:
+            success, rating_stats, status = await self.make_request(
+                "GET", "/admin/ratings/stats", headers=admin_headers
+            )
+            
+            if success and isinstance(rating_stats, list):
+                self.log_test(
+                    "Admin Rating Statistics", 
+                    True, 
+                    f"Retrieved rating statistics for {len(rating_stats)} products"
+                )
+                
+                # Find our test product in the stats
+                our_product_stats = next((s for s in rating_stats if s.get("product_id") == test_product_id), None)
+                if our_product_stats:
+                    total_ratings = our_product_stats.get("total_ratings", 0)
+                    avg_rating = our_product_stats.get("average_rating", 0)
+                    rating_distribution = our_product_stats.get("rating_distribution", {})
+                    
+                    self.log_test(
+                        "Product Rating Statistics Detail", 
+                        True, 
+                        f"Product has {total_ratings} ratings, avg {avg_rating}, distribution: {rating_distribution}"
+                    )
+            else:
+                self.log_test(
+                    "Admin Rating Statistics", 
+                    False, 
+                    f"Failed to get admin rating stats: {rating_stats}",
+                    rating_stats
+                )
+            
+            # Test 9: Admin user rating history
+            success, user_rating_history, status = await self.make_request(
+                "GET", "/admin/ratings/users", headers=admin_headers
+            )
+            
+            if success and isinstance(user_rating_history, list):
+                self.log_test(
+                    "Admin User Rating History", 
+                    True, 
+                    f"Retrieved rating history for {len(user_rating_history)} users"
+                )
+            else:
+                self.log_test(
+                    "Admin User Rating History", 
+                    False, 
+                    f"Failed to get user rating history: {user_rating_history}",
+                    user_rating_history
+                )
+        
+        # Test 10: Authentication required for rating creation
+        success, response, status = await self.make_request(
+            "POST", "/ratings/", rating_data
+        )
+        
+        self.log_test(
+            "Authentication Required for Rating", 
+            not success and status == 401, 
+            f"Correctly rejected unauthenticated rating creation" if not success else f"Incorrectly allowed unauthenticated rating"
+        )
+        
+        # Test 11: Delete rating (only own ratings)
+        if created_rating_id:
+            success, delete_response, status = await self.make_request(
+                "DELETE", f"/ratings/{created_rating_id}", headers=user_headers
+            )
+            
+            if success:
+                self.log_test(
+                    "Delete Own Rating", 
+                    True, 
+                    f"Successfully deleted own rating"
+                )
+                
+                # Verify rating is deleted
+                success, verify_response, status = await self.make_request(
+                    "GET", f"/ratings/product/{test_product_id}"
+                )
+                
+                if success and isinstance(verify_response, list):
+                    deleted_rating = next((r for r in verify_response if r.get("id") == created_rating_id), None)
+                    self.log_test(
+                        "Verify Rating Deletion", 
+                        deleted_rating is None, 
+                        f"Rating successfully removed from product ratings" if deleted_rating is None else f"Rating still exists after deletion"
+                    )
+            else:
+                self.log_test(
+                    "Delete Own Rating", 
+                    False, 
+                    f"Failed to delete own rating: {delete_response}",
+                    delete_response
+                )
+        
+        # Test 12: Product rating integration (verify product stats update)
+        success, updated_product, status = await self.make_request(
+            "GET", f"/products?limit=100"
+        )
+        
+        if success and isinstance(updated_product, list):
+            test_product = next((p for p in updated_product if p.get("id") == test_product_id), None)
+            if test_product:
+                product_rating = test_product.get("rating", 0)
+                product_reviews = test_product.get("reviews", 0)
+                self.log_test(
+                    "Product Rating Integration", 
+                    True, 
+                    f"Product now shows rating: {product_rating}, reviews: {product_reviews}"
+                )
+            else:
+                self.log_test(
+                    "Product Rating Integration", 
+                    False, 
+                    f"Test product not found in products list"
+                )
+        
+        return True
+
     async def run_all_tests(self):
         """Run all comprehensive system tests."""
         print("🚀 Starting StatusXSmoakland Complete System Backend Tests")
@@ -925,6 +1275,9 @@ class AdminSystemTester:
         auth_success = await self.test_admin_authentication()
         
         if auth_success:
+            # Test RATING SYSTEM FIRST (as per review request)
+            await self.test_rating_system_comprehensive()
+            
             # Test new inventory integration and product APIs
             await self.test_product_api_integration()
             await self.test_wictionary_system()
