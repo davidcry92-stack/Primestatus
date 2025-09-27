@@ -20,7 +20,7 @@ class PyObjectId(ObjectId):
 
 class ProductBase(BaseModel):
     name: str = Field(..., min_length=1, max_length=100)
-    category: str = Field(..., regex="^(flower|edibles|concentrates)$")
+    category: str = Field(..., pattern="^(flower|edibles|concentrates)$")
     price: float = Field(..., gt=0)
     original_price: Optional[float] = None
     image: str
