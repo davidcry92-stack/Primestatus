@@ -8,13 +8,28 @@ class UserPreferences(BaseModel):
     vendors: List[str] = []
     price_range: List[float] = [0, 200]
 
+class IDVerification(BaseModel):
+    id_front_url: Optional[str] = None
+    id_back_url: Optional[str] = None
+    medical_document_url: Optional[str] = None  # For under 21 users
+    verification_status: str = Field(default="pending", pattern="^(pending|approved|rejected|needs_medical)$")
+    verified_at: Optional[datetime] = None
+    rejected_reason: Optional[str] = None
+    age_verified: Optional[int] = None  # Age from ID verification
+    requires_medical: bool = Field(default=False)  # True if under 21
+
 class UserBase(BaseModel):
     username: str = Field(..., min_length=3, max_length=50)
     email: EmailStr
+    full_name: str = Field(..., min_length=2, max_length=100)
+    date_of_birth: str = Field(..., description="YYYY-MM-DD format")
     membership_tier: str = Field(default="basic", pattern="^(basic|premium)$")
     is_law_enforcement: bool = Field(default=False)
     preferences: UserPreferences = Field(default_factory=UserPreferences)
     wictionary_access: bool = Field(default=False)
+    id_verification: IDVerification = Field(default_factory=IDVerification)
+    is_verified: bool = Field(default=False)
+    parent_email: Optional[str] = None  # For under 21 users
 
 class UserCreate(UserBase):
     password: str = Field(..., min_length=8)
