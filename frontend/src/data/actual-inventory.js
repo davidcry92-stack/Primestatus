@@ -1071,7 +1071,7 @@ export const inStockProducts = [
     originalPrice: 15,
     weight: '1 gummy',
     tier: 'deps',
-    image: 'https://images.pexels.com/photos/7852642/pexels-photo-7852642.jpeg',
+    image: 'https://images.pexels.com/photos/7667728/pexels-photo-7667728.jpeg?w=400&h=400&fit=crop',
     description: 'High-dose green gummy for experienced users',
     thc: '100mg total',
     vendor: 'StatusX Edibles',
