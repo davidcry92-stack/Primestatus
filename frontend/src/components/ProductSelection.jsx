@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ProductGrid from './ProductGrid';
 
-const ProductSelection = ({ onCategorySelect }) => {
+const ProductSelection = ({ onCategorySelect, user }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const handleCategoryClick = (category, tier = null) => {
