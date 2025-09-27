@@ -89,24 +89,28 @@ const ProductGrid = ({ category = 'all', tier = null, user, showTitle = false })
     return mockDailyDeals.find(deal => deal.productId === productId);
   };
 
-  const addToCart = (product) => {
+  const handleAddToCartClick = (product) => {
+    setSelectedProduct(product);
+    setShowQuantityModal(true);
+  };
+
+  const addToCart = (product, quantity) => {
     // Block all transactions for unverified users
     if (!user || !user.is_verified) {
       alert('Membership verification required before making any purchases. Please complete your ID verification process.');
       return;
     }
 
-    setCart(prev => {
-      const existing = prev.find(item => item.id === product.id);
-      if (existing) {
-        return prev.map(item => 
-          item.id === product.id 
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      }
-      return [...prev, { ...product, quantity: 1 }];
-    });
+    const cartItem = {
+      ...product,
+      quantity: quantity,
+      totalPrice: (product.price * quantity.multiplier).toFixed(2)
+    };
+    setCart(prevCart => [...prevCart, cartItem]);
+    setShowQuantityModal(false);
+    setSelectedProduct(null);
+    // Could integrate with actual cart API here
+    console.log('Added to cart:', cartItem);
   };
 
   const getCategoryIcon = (category) => {
