@@ -3,17 +3,6 @@ import { Badge } from './ui/badge';
 import { Smartphone, Apple, Play, Crown, Zap } from 'lucide-react';
 
 const HeroSection = ({ onAuthClick }) => {
-  const handleLearnMore = () => {
-    // Smooth scroll to the product selection section
-    const productSection = document.querySelector('#products') || document.querySelector('[data-section="products"]');
-    if (productSection) {
-      productSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    } else {
-      // Fallback: scroll to a reasonable position if product section not found
-      window.scrollTo({ top: window.innerHeight, behavior: 'smooth' });
-    }
-  };
-
   return (
     <section className="relative min-h-screen bg-gradient-to-br from-green-900 via-black to-yellow-900 overflow-hidden">
       {/* Background Pattern */}
