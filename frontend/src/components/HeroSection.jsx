@@ -2,7 +2,7 @@ import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Smartphone, Apple, Play, Crown, Zap } from 'lucide-react';
 
-const HeroSection = () => {
+const HeroSection = ({ onAuthClick }) => {
   return (
     <section className="relative min-h-screen bg-gradient-to-br from-green-900 via-black to-yellow-900 overflow-hidden">
       {/* Background Pattern */}
