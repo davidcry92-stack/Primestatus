@@ -36,10 +36,10 @@ const MainApp = () => {
 };
 
 function App() {
-  const [isVerified, setIsVerified] = useState(false);
+  const [isLawEnforcementVerified, setIsLawEnforcementVerified] = useState(false);
 
-  const handleVerification = () => {
-    setIsVerified(true);
+  const handleLawEnforcementVerification = () => {
+    setIsLawEnforcementVerified(true);
   };
 
   return (
@@ -50,10 +50,10 @@ function App() {
             <Route 
               path="/" 
               element={
-                isVerified ? (
+                isLawEnforcementVerified ? (
                   <MainApp />
                 ) : (
-                  <LawEnforcementScreen onVerified={handleVerification} />
+                  <LawEnforcementScreen onVerified={handleLawEnforcementVerification} />
                 )
               } 
             />
