@@ -78,7 +78,7 @@ const ProductSelection = ({ onCategorySelect }) => {
             Lows (Budget)
           </button>
           <button 
-            onClick={() => handleCategoryClick('pre_roll')}
+            onClick={() => handleCategoryClick('pre-rolls')}
             className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-full transition-colors"
           >
             Pre-rolls
@@ -90,7 +90,19 @@ const ProductSelection = ({ onCategorySelect }) => {
             Edibles
           </button>
           <button 
-            onClick={() => handleCategoryClick('wellness')}
+            onClick={() => handleCategoryClick('vapes')}
+            className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-full transition-colors"
+          >
+            Vapes
+          </button>
+          <button 
+            onClick={() => handleCategoryClick('concentrates')}
+            className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-full transition-colors"
+          >
+            Concentrates
+          </button>
+          <button 
+            onClick={() => handleCategoryClick('suppositories')}
             className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-6 rounded-full transition-colors"
           >
             Wellness
