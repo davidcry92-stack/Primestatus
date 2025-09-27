@@ -174,6 +174,7 @@ const AuthModal = ({ onClose }) => {
                       />
                     </div>
                   </div>
+                  
                   <div className="space-y-2">
                     <Label htmlFor="register-reentry-code" className="text-white flex items-center space-x-2">
                       <Shield className="h-4 w-4 text-green-400" />
@@ -304,4 +305,4 @@ const AuthModal = ({ onClose }) => {
   );
 };
 
-export default AuthModal;"
+export default AuthModal;
