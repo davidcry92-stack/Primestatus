@@ -126,11 +126,14 @@ const ProductGrid = ({ category = 'all' }) => {
                     )}
                   </div>
 
-                  {/* Category Badge */}
+                  {/* Tier Badge */}
                   <div className="absolute top-3 right-3">
-                    <Badge className="bg-black/70 text-white flex items-center space-x-1">
-                      {getCategoryIcon(product.category)}
-                      <span className="capitalize">{product.category}</span>
+                    <Badge className={`text-white font-bold flex items-center space-x-1 ${
+                      product.tier === 'za' ? 'bg-purple-600' :
+                      product.tier === 'deps' ? 'bg-blue-600' :
+                      'bg-green-600'
+                    }`}>
+                      <span className="uppercase">{product.tier}</span>
                     </Badge>
                   </div>
                 </div>
