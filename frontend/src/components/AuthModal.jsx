@@ -174,6 +174,35 @@ const AuthModal = ({ onClose }) => {
                       />
                     </div>
                   </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="register-reentry-code" className="text-white flex items-center space-x-2">
+                      <Shield className="h-4 w-4 text-green-400" />
+                      <span>Re-Entry Verification Code</span>
+                    </Label>
+                    <div className="relative">
+                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                      <Input
+                        id="register-reentry-code"
+                        type="password"
+                        placeholder="Create 4-8 digit code"
+                        value={registerForm.reEntryCode || ''}
+                        onChange={(e) => {
+                          const value = e.target.value.replace(/\D/g, ''); // Only numbers
+                          if (value.length <= 8) {
+                            setRegisterForm({ ...registerForm, reEntryCode: value });
+                          }
+                        }}
+                        className="pl-10 bg-black/50 border-gray-600 text-white placeholder-gray-400 focus:border-green-400 text-center tracking-widest"
+                        minLength={4}
+                        maxLength={8}
+                        pattern="\d{4,8}"
+                        required
+                      />
+                    </div>
+                    <p className="text-gray-400 text-xs">
+                      You'll need this code each time you access the app. Numbers only, 4-8 digits.
+                    </p>
+                  </div>
                   
                   {/* Membership Tier */}
                   <div className=\"space-y-3\">
