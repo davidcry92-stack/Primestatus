@@ -165,7 +165,7 @@ const ProductSelection = ({ onCategorySelect }) => {
           
           {/* Vapes Category */}
           <div 
-            onClick={() => handleCategorySelect('vapes')}
+            onClick={() => handleCategoryClick('vapes')}
             className="relative group cursor-pointer transform hover:scale-105 transition-all duration-300"
           >
             <div className="bg-gradient-to-br from-teal-400 to-black rounded-2xl p-6 h-80 flex flex-col justify-center items-center overflow-hidden relative">
