@@ -93,19 +93,24 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Service Areas */}
+        {/* Payment Options */}
         <div className="mt-12 pt-8 border-t border-gray-800">
-          <h3 className="text-white font-semibold mb-4">NYC Delivery Areas</h3>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            {[
-              'Manhattan', 'Brooklyn', 'Queens', 'Bronx', 'Staten Island',
-              'Harlem', 'SoHo', 'Tribeca', 'East Village', 'West Village',
-              'Williamsburg', 'Park Slope', 'Long Island City', 'Astoria', 'More Areas'
-            ].map((area) => (
-              <div key={area} className="text-gray-400 text-sm hover:text-white transition-colors cursor-pointer">
-                {area}
-              </div>
-            ))}
+          <h3 className="text-white font-semibold mb-4">Payment & Pickup</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="bg-green-900/30 rounded-lg p-4 border border-green-400/30">
+              <h4 className="text-green-400 font-semibold mb-2 flex items-center space-x-2">
+                <Zap className="h-4 w-4" />
+                <span>In-App Payment</span>
+              </h4>
+              <p className="text-gray-300 text-sm">Pre-order and pay in app for fastest pickup. Skip the wait!</p>
+            </div>
+            <div className="bg-yellow-900/30 rounded-lg p-4 border border-yellow-400/30">
+              <h4 className="text-yellow-400 font-semibold mb-2 flex items-center space-x-2">
+                <span>💰</span>
+                <span>Cash on Pickup</span>
+              </h4>
+              <p className="text-gray-300 text-sm">Cash accepted at pickup. Allow extra time for processing.</p>
+            </div>
           </div>
         </div>
 
