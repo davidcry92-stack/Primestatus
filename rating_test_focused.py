@@ -146,28 +146,31 @@ class RatingSystemTester:
         
         success, response, status = await self.make_request("POST", "/ratings/", rating_data)
         
+        auth_required_test = not success and status == 401
         self.log_test(
             "Authentication Required for Rating Creation", 
-            not success and status == 401, 
-            f"Correctly requires authentication" if not success else f"Should require authentication"
+            auth_required_test, 
+            f"✅ Correctly requires authentication" if auth_required_test else f"❌ Should require authentication"
         )
         
         # Test 4: Test authentication required for user ratings
         success, response, status = await self.make_request("GET", "/ratings/user/my-ratings")
         
+        auth_required_test = not success and status == 401
         self.log_test(
             "Authentication Required for User Ratings", 
-            not success and status == 401, 
-            f"Correctly requires authentication" if not success else f"Should require authentication"
+            auth_required_test, 
+            f"✅ Correctly requires authentication" if auth_required_test else f"❌ Should require authentication"
         )
         
         # Test 5: Test authentication required for rating deletion
         success, response, status = await self.make_request("DELETE", "/ratings/fake_rating_id")
         
+        auth_required_test = not success and status == 401
         self.log_test(
             "Authentication Required for Rating Deletion", 
-            not success and status == 401, 
-            f"Correctly requires authentication" if not success else f"Should require authentication"
+            auth_required_test, 
+            f"✅ Correctly requires authentication" if auth_required_test else f"❌ Should require authentication"
         )
         
         return True
