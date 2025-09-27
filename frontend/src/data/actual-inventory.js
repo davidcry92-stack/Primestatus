@@ -48,7 +48,7 @@ export const inStockProducts = [
     weight: '3.5g',
     tier: 'lows',
     type: 'Hybrid Indica Dominant',
-    image: 'https://images.unsplash.com/photo-1570737174876-b1d5dc7b5de4?w=400&h=400&fit=crop',
+    image: 'https://images.unsplash.com/photo-1629851047755-818331c3cc08?w=400&h=400&fit=crop',
     description: 'Classic indica-dominant hybrid for relaxation',
     thc: '16-18%',
     vendor: 'Smoakland Budget',
