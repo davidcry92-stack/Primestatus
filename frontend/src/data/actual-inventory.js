@@ -1037,7 +1037,7 @@ export const inStockProducts = [
     originalPrice: 20,
     weight: '10 pieces',
     tier: 'deps',
-    image: 'https://images.pexels.com/photos/884509/pexels-photo-884509.jpeg',
+    image: 'https://customer-assets.emergentagent.com/job_statusx-cannabis/artifacts/pc8wwhkj_wyld%20gummies%20blood%20orange.webp',
     description: 'Premium blood orange Wyld gummies - 10mg each',
     thc: '10mg per piece',
     vendor: 'Wyld',
