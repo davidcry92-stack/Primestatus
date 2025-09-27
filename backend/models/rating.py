@@ -15,6 +15,7 @@ class RatingCreate(BaseModel):
     product_id: str
     rating: int = Field(..., ge=1, le=5)
     review: Optional[str] = Field(None, max_length=500)
+    experience: Optional[str] = Field(None, max_length=500, description="What's your experience with this product?")
 
 class Rating(RatingBase):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
