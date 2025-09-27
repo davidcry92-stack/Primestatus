@@ -22,6 +22,7 @@ wictionary_collection = db.wictionary
 inventory_collection = db.inventory
 transactions_collection = db.transactions
 admins_collection = db.admins
+ratings_collection = db.ratings
 
 class DatabaseManager:
     @staticmethod
