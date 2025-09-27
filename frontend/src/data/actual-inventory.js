@@ -1175,7 +1175,7 @@ export const inStockProducts = [
     originalPrice: 25,
     weight: '1g',
     tier: 'deps',
-    image: 'https://images.unsplash.com/photo-1605117913123-1f455435b384?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHwxfHxjYW5uYWJpcyUyMHZhcGUlMjBjYXJ0cmlkZ2V8ZW58MHx8fHwxNzU5MDExMzIwfDA&ixlib=rb-4.1.0&q=85',
+    image: 'https://customer-assets.emergentagent.com/job_statusx-cannabis/artifacts/i9xugokp_smoakland%20vape.jpg',
     description: 'Smoakland premium 1g vape cartridge',
     thc: '80-85%',
     vendor: 'Smoakland',
