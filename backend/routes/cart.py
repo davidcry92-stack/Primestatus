@@ -3,6 +3,7 @@ from typing import List, Dict, Optional
 from pydantic import BaseModel
 from utils.database import products_collection, users_collection
 from utils.auth import verify_token
+from utils.verification import require_verified_user
 from bson import ObjectId
 
 router = APIRouter(prefix="/cart", tags=["cart"])
