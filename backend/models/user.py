@@ -30,6 +30,7 @@ class UserBase(BaseModel):
     id_verification: IDVerification = Field(default_factory=IDVerification)
     is_verified: bool = Field(default=False)
     parent_email: Optional[str] = None  # For under 21 users
+    re_entry_code_hash: Optional[str] = None  # Hashed re-entry verification code
 
 class UserCreate(UserBase):
     password: str = Field(..., min_length=8)
