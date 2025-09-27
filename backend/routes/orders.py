@@ -129,21 +129,13 @@ async def get_user_orders(
 @router.get("/{order_id}", response_model=OrderResponse)
 async def get_order(
     order_id: str,
-    current_user_email: str = Depends(verify_token)
+    user = Depends(get_verified_user_data)
 ):
-    """Get a specific order."""
+    """Get a specific order (verified users only)."""
     if not ObjectId.is_valid(order_id):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Invalid order ID"
-        )
-    
-    # Get user
-    user = await users_collection.find_one({"email": current_user_email})
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="User not found"
         )
     
     # Get order (ensure it belongs to the user)
