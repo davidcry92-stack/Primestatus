@@ -350,8 +350,7 @@ export const mockUserProfile = {
   preferences: {
     categories: ['flower', 'edibles'],
     vendors: ['Brooklyn Botanicals', 'Queens Confections'],
-    priceRange: [20, 80],
-    deliveryArea: 'Manhattan'
+    priceRange: [20, 80]
   },
   orderHistory: [
     {
