@@ -1238,7 +1238,24 @@ export const inStockProducts = [
     reviews: 156
   },
 
-  // PRE-ROLLS CATEGORY - IN STOCK
+  // PRE-ROLLS SECTION - IN STOCK
+  {
+    id: 'smoakland-prerolls',
+    name: 'Smoakland Pre Rolls',
+    category: 'pre-rolls',
+    price: 7,
+    originalPrice: 7,
+    weight: '1 joint',
+    tier: 'deps',
+    image: 'https://images.unsplash.com/photo-1625565828426-c4b6ce15b76d?w=400&h=400&fit=crop',
+    description: 'Smoakland premium pre-rolled joints - $7 each, 2 for $10',
+    thc: '18-22%',
+    vendor: 'Smoakland',
+    inStock: true,
+    dailyDeal: false,
+    rating: 4.2,
+    reviews: 134
+  },
   {
     id: 'preroll-super-j',
     name: 'Super J',
@@ -1248,8 +1265,8 @@ export const inStockProducts = [
     weight: '1 joint',
     tier: 'lows',
     image: 'https://images.unsplash.com/photo-1625565828426-c4b6ce15b76d?w=400&h=400&fit=crop',
-    description: 'Super J pre-rolled joint',
-    thc: '18-22%',
+    description: 'Super J budget pre-rolled joint',
+    thc: '16-20%',
     vendor: 'Local',
     inStock: true,
     dailyDeal: false,
@@ -1258,7 +1275,7 @@ export const inStockProducts = [
   },
   {
     id: 'preroll-paletas-alien-2g',
-    name: 'Paleta Alien 2g Blunt',
+    name: 'Paletas Alien 2g Blunt',
     category: 'pre-rolls',
     price: 35,
     originalPrice: 35,
@@ -1308,6 +1325,23 @@ export const inStockProducts = [
     inStock: true,
     dailyDeal: false,
     rating: 4.7,
+    reviews: 134
+  },
+  {
+    id: 'kief-1g',
+    name: 'Kief 1g',
+    category: 'pre-rolls',
+    price: 25,
+    originalPrice: 25,
+    weight: '1g',
+    tier: 'deps',
+    image: 'https://images.unsplash.com/photo-1649127473471-6c6b78919415?w=400&h=400&fit=crop',
+    description: 'Premium kief powder concentrate',
+    thc: '50-60%',
+    vendor: 'Smoakland',
+    inStock: true,
+    dailyDeal: false,
+    rating: 4.3,
     reviews: 134
   },
   {
