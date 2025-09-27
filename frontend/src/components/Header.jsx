@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import { mockUserProfile } from '../data/mock';
 
-const Header = ({ user, cartItems = [] }) => {
+const Header = ({ user, cartItems = [], onAuthClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
