@@ -1,139 +1,122 @@
 {
   "summary": {
     "total": 15,
-    "passed": 13,
-    "failed": 2,
-    "success_rate": "86.7%"
+    "passed": 11,
+    "failed": 4,
+    "success_rate": "73.3%"
   },
   "results": [
     {
       "test": "Admin Login",
       "success": true,
       "details": "Successfully logged in as admin@statusxsmoakland.com with role super_admin",
-      "timestamp": "2025-09-27T16:31:17.827256",
+      "timestamp": "2025-09-27T16:32:01.197260",
       "response_data": null
     },
     {
       "test": "Admin Token Validation",
       "success": true,
       "details": "Token valid, profile retrieved for admin@statusxsmoakland.com",
-      "timestamp": "2025-09-27T16:31:17.839775",
+      "timestamp": "2025-09-27T16:32:01.207438",
       "response_data": null
     },
     {
       "test": "Get All Members",
-      "success": true,
-      "details": "Retrieved 0 members",
-      "timestamp": "2025-09-27T16:31:17.888798",
-      "response_data": null
-    },
-    {
-      "test": "Member Search",
-      "success": true,
-      "details": "Search returned 0 results",
-      "timestamp": "2025-09-27T16:31:17.938597",
-      "response_data": null
-    },
-    {
-      "test": "Member Status Filter",
-      "success": true,
-      "details": "Status filter returned 0 results",
-      "timestamp": "2025-09-27T16:31:17.949515",
-      "response_data": null
+      "success": false,
+      "details": "Failed to retrieve members: {'error': 'Invalid JSON response', 'text': 'Internal Server Error'}",
+      "timestamp": "2025-09-27T16:32:01.217965",
+      "response_data": {
+        "error": "Invalid JSON response",
+        "text": "Internal Server Error"
+      }
     },
     {
       "test": "Member Transactions",
       "success": false,
       "details": "No members found to test transactions with",
-      "timestamp": "2025-09-27T16:31:17.962609",
+      "timestamp": "2025-09-27T16:32:01.227887",
       "response_data": null
     },
     {
       "test": "Pickup Code Lookup",
       "success": true,
       "details": "Correctly returned 404 for non-existent payment code 123456",
-      "timestamp": "2025-09-27T16:31:18.012711",
+      "timestamp": "2025-09-27T16:32:01.278666",
       "response_data": null
     },
     {
       "test": "Pickup Processing",
       "success": true,
       "details": "Correctly returned 404 for non-existent payment code in processing",
-      "timestamp": "2025-09-27T16:31:18.022791",
+      "timestamp": "2025-09-27T16:32:01.289442",
       "response_data": null
     },
     {
       "test": "Get Inventory",
       "success": true,
       "details": "Retrieved 3 products from inventory",
-      "timestamp": "2025-09-27T16:31:18.031946",
+      "timestamp": "2025-09-27T16:32:01.303409",
       "response_data": null
     },
     {
       "test": "Inventory Category Filter",
       "success": true,
       "details": "Category filter returned 1 products",
-      "timestamp": "2025-09-27T16:31:18.081791",
+      "timestamp": "2025-09-27T16:32:01.352807",
       "response_data": null
     },
     {
       "test": "Inventory Search",
       "success": true,
       "details": "Search returned 1 products",
-      "timestamp": "2025-09-27T16:31:18.091461",
+      "timestamp": "2025-09-27T16:32:01.362226",
       "response_data": null
     },
     {
       "test": "Add Product",
-      "success": false,
-      "details": "Failed to create product: {'detail': [{'type': 'missing', 'loc': ['body', 'image'], 'msg': 'Field required', 'input': {'name': 'Test Product Admin', 'category': 'flower', 'price': 50.0, 'original_price': 60.0, 'description': 'Test product for admin system testing', 'thc': '20%', 'vendor': 'Test Vendor', 'in_stock': True, 'tier': 'za'}, 'url': 'https://errors.pydantic.dev/2.11/v/missing'}]}",
-      "timestamp": "2025-09-27T16:31:18.140837",
-      "response_data": {
-        "detail": [
-          {
-            "type": "missing",
-            "loc": [
-              "body",
-              "image"
-            ],
-            "msg": "Field required",
-            "input": {
-              "name": "Test Product Admin",
-              "category": "flower",
-              "price": 50.0,
-              "original_price": 60.0,
-              "description": "Test product for admin system testing",
-              "thc": "20%",
-              "vendor": "Test Vendor",
-              "in_stock": true,
-              "tier": "za"
-            },
-            "url": "https://errors.pydantic.dev/2.11/v/missing"
-          }
-        ]
-      }
+      "success": true,
+      "details": "Successfully created product with ID 68d8118185e405b38aec35da",
+      "timestamp": "2025-09-27T16:32:01.371793",
+      "response_data": null
+    },
+    {
+      "test": "Update Product",
+      "success": true,
+      "details": "Successfully updated product 68d8118185e405b38aec35da",
+      "timestamp": "2025-09-27T16:32:01.382223",
+      "response_data": null
+    },
+    {
+      "test": "Delete Product",
+      "success": true,
+      "details": "Successfully deleted product 68d8118185e405b38aec35da",
+      "timestamp": "2025-09-27T16:32:01.433193",
+      "response_data": null
     },
     {
       "test": "Dashboard Stats",
       "success": true,
       "details": "Retrieved complete dashboard stats: 4 sections",
-      "timestamp": "2025-09-27T16:31:18.153448",
+      "timestamp": "2025-09-27T16:32:01.443377",
       "response_data": null
     },
     {
       "test": "Transaction System Overview",
-      "success": true,
-      "details": "Found 0 total transactions across 0 members",
-      "timestamp": "2025-09-27T16:31:18.203609",
-      "response_data": null
+      "success": false,
+      "details": "Failed to retrieve member data for transaction testing: {'error': 'Invalid JSON response', 'text': 'Internal Server Error'}",
+      "timestamp": "2025-09-27T16:32:01.453265",
+      "response_data": {
+        "error": "Invalid JSON response",
+        "text": "Internal Server Error"
+      }
     },
     {
       "test": "Database Collections Access",
-      "success": true,
-      "details": "Successfully accessed 3 collections: users, products, admins",
-      "timestamp": "2025-09-27T16:31:18.322848",
+      "success": false,
+      "details": "Successfully accessed 2 collections: products, admins",
+      "timestamp": "2025-09-27T16:32:01.530840",
       "response_data": null
     }
   ],
-  "timestamp": "2025-09-27T16:31:18.323027"
+  "timestamp": "2025-09-27T16:32:01.531015"
 }
