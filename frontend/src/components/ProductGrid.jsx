@@ -16,15 +16,32 @@ import { useAuth } from '../contexts/AuthContext';
 import { useToast } from '../hooks/use-toast';
 
 const ProductGrid = ({ category = 'all' }) => {
-  const [cart, setCart] = useState([]);
-  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState(category);
+  const { user } = useAuth();
+  const { toast } = useToast();
 
-  const filteredProducts = category === 'all' 
-    ? mockProducts 
-    : mockProducts.filter(product => product.category === category);
+  useEffect(() => {
+    fetchProducts();
+  }, [selectedCategory]);
 
-  const getDealForProduct = (productId) => {
-    return mockDailyDeals.find(deal => deal.productId === productId);
+  const fetchProducts = async () => {
+    try {
+      setLoading(true);
+      const params = selectedCategory !== 'all' ? { category: selectedCategory } : {};
+      const response = await productsAPI.getAll(params);
+      setProducts(response.data);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      toast({
+        title: "Error",
+        description: "Failed to load products",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const addToCart = (product) => {
