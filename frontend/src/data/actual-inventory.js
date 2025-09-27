@@ -1166,23 +1166,40 @@ export const inStockProducts = [
     reviews: 112
   },
 
-  // VAPES & CONCENTRATES - IN STOCK
+  // VAPES SECTION - IN STOCK
   {
-    id: 'vape-1g',
-    name: 'Vape 1g',
+    id: 'smoakland-vape-1g',
+    name: 'Smoakland Vape 1g',
     category: 'vapes',
     price: 25,
     originalPrice: 25,
     weight: '1g',
     tier: 'deps',
     image: 'https://images.unsplash.com/photo-1605118363618-757344cd6efb?w=400&h=400&fit=crop',
-    description: 'Premium 1g vape cartridge',
+    description: 'Smoakland premium 1g vape cartridge',
     thc: '80-85%',
-    vendor: 'Local',
+    vendor: 'Smoakland',
     inStock: true,
     dailyDeal: false,
     rating: 4.4,
     reviews: 156
+  },
+  {
+    id: 'twist-battery',
+    name: 'Twist Battery',
+    category: 'vapes',
+    price: 25,
+    originalPrice: 25,
+    weight: '1 battery',
+    tier: 'deps',
+    image: 'https://images.unsplash.com/photo-1605117913123-1f455435b384?w=400&h=400&fit=crop',
+    description: 'Twist variable voltage vape battery',
+    thc: 'N/A',
+    vendor: 'Hardware',
+    inStock: true,
+    dailyDeal: false,
+    rating: 4.2,
+    reviews: 89
   },
   {
     id: 'fryd-blue-razz',
@@ -1201,6 +1218,24 @@ export const inStockProducts = [
     dailyDeal: false,
     rating: 4.5,
     reviews: 178
+  },
+  {
+    id: 'fryd-something-purple',
+    name: 'Fryd Cart "Something Purple"',
+    category: 'vapes',
+    price: 30,
+    originalPrice: 30,
+    weight: '1g',
+    tier: 'deps',
+    type: 'Sativa',
+    image: 'https://images.unsplash.com/photo-1605117913123-1f455435b384?w=400&h=400&fit=crop',
+    description: 'Something purple flavored sativa vape cart',
+    thc: '85-90%',
+    vendor: 'Fryd',
+    inStock: true,
+    dailyDeal: false,
+    rating: 4.4,
+    reviews: 156
   },
 
   // PRE-ROLLS CATEGORY - IN STOCK
