@@ -249,7 +249,7 @@ async def update_verification_status(
     }
 
 @router.get("/verification/stats")
-async def get_verification_stats(admin_email: str = Depends(check_admin_role)):
+async def get_verification_stats(admin = Depends(get_admin_data)):
     """Get verification statistics."""
     
     # Count users by verification status
@@ -273,4 +273,255 @@ async def get_verification_stats(admin_email: str = Depends(check_admin_role)):
         "verification_stats": {stat["_id"]: stat["count"] for stat in stats},
         "medical_required_count": medical_required,
         "total_users": await users_collection.count_documents({})
+    }
+
+# ===== PICKUP VERIFICATION =====
+
+@router.get("/pickup/{payment_code}", response_model=TransactionResponse)
+async def get_pickup_details(
+    payment_code: str,
+    admin = Depends(get_admin_data)
+):
+    """Get transaction details by payment code for pickup verification."""
+    
+    transaction = await transactions_collection.find_one({"payment_code": payment_code})
+    if not transaction:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Invalid pickup code"
+        )
+    
+    # Get user details for pickup verification
+    user = await users_collection.find_one({"_id": transaction["user_id"]})
+    
+    transaction_data = convert_object_id(transaction)
+    
+    # Add user info for verification
+    if user:
+        transaction_data["customer_name"] = user.get("full_name", "Unknown")
+        transaction_data["customer_email"] = user.get("email", "Unknown")
+    
+    return TransactionResponse(**transaction_data)
+
+@router.put("/pickup/process")
+async def process_pickup(
+    update_data: AdminTransactionUpdate,
+    admin = Depends(get_admin_data)
+):
+    """Process pickup - mark as picked up or cash paid."""
+    
+    # Find transaction by payment code
+    transaction = await transactions_collection.find_one({"payment_code": update_data.payment_code})
+    if not transaction:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Transaction not found with this payment code"
+        )
+    
+    # Update based on action
+    update_fields = {
+        "updated_at": datetime.utcnow(),
+        "picked_up_at": datetime.utcnow(),
+        "admin_who_processed": update_data.admin_email
+    }
+    
+    if update_data.notes:
+        update_fields["notes"] = update_data.notes
+    
+    if update_data.action == "mark_picked_up":
+        # For in-app payments, mark as picked up
+        update_fields["status"] = "picked_up"
+        
+    elif update_data.action == "mark_cash_paid":
+        # For cash payments, mark as cash paid in store
+        update_fields["status"] = "cash_paid_in_store"
+    
+    # Update transaction
+    result = await transactions_collection.update_one(
+        {"payment_code": update_data.payment_code},
+        {"$set": update_fields}
+    )
+    
+    if result.matched_count == 0:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Transaction not found"
+        )
+    
+    return {
+        "message": f"Pickup processed successfully",
+        "payment_code": update_data.payment_code,
+        "action": update_data.action,
+        "processed_by": update_data.admin_email,
+        "processed_at": datetime.utcnow()
+    }
+
+# ===== INVENTORY MANAGEMENT =====
+
+@router.get("/inventory", response_model=List[ProductResponse])
+async def get_inventory(
+    admin = Depends(get_admin_data),
+    skip: int = Query(0, ge=0),
+    limit: int = Query(50, ge=1, le=100),
+    category: Optional[str] = Query(None, description="Filter by category"),
+    in_stock: Optional[bool] = Query(None, description="Filter by stock status"),
+    search: Optional[str] = Query(None, description="Search by name or vendor")
+):
+    """Get all products in inventory."""
+    
+    # Build query
+    query = {}
+    if category:
+        query["category"] = category
+    if in_stock is not None:
+        query["in_stock"] = in_stock
+    if search:
+        query["$or"] = [
+            {"name": {"$regex": search, "$options": "i"}},
+            {"vendor": {"$regex": search, "$options": "i"}}
+        ]
+    
+    cursor = products_collection.find(query).skip(skip).limit(limit)
+    products = await cursor.to_list(length=limit)
+    
+    product_responses = []
+    for product in products:
+        product_data = convert_object_id(product)
+        product_responses.append(ProductResponse(**product_data))
+    
+    return product_responses
+
+@router.post("/inventory", response_model=ProductResponse)
+async def add_product(
+    product_data: ProductCreate,
+    admin = Depends(get_admin_data)
+):
+    """Add new product to inventory."""
+    
+    # Create product document
+    product_dict = product_data.dict()
+    product_dict["created_at"] = datetime.utcnow()
+    product_dict["updated_at"] = datetime.utcnow()
+    
+    result = await products_collection.insert_one(product_dict)
+    
+    # Get created product
+    created_product = await products_collection.find_one({"_id": result.inserted_id})
+    product_response_data = convert_object_id(created_product)
+    
+    return ProductResponse(**product_response_data)
+
+@router.put("/inventory/{product_id}", response_model=ProductResponse)
+async def update_product(
+    product_id: str,
+    product_updates: ProductUpdate,
+    admin = Depends(get_admin_data)
+):
+    """Update product in inventory."""
+    
+    if not ObjectId.is_valid(product_id):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid product ID"
+        )
+    
+    # Only update provided fields
+    update_data = {k: v for k, v in product_updates.dict().items() if v is not None}
+    update_data["updated_at"] = datetime.utcnow()
+    
+    result = await products_collection.update_one(
+        {"_id": ObjectId(product_id)},
+        {"$set": update_data}
+    )
+    
+    if result.matched_count == 0:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Product not found"
+        )
+    
+    # Get updated product
+    updated_product = await products_collection.find_one({"_id": ObjectId(product_id)})
+    product_response_data = convert_object_id(updated_product)
+    
+    return ProductResponse(**product_response_data)
+
+@router.delete("/inventory/{product_id}")
+async def delete_product(
+    product_id: str,
+    admin = Depends(get_admin_data)
+):
+    """Delete product from inventory."""
+    
+    if not ObjectId.is_valid(product_id):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid product ID"
+        )
+    
+    result = await products_collection.delete_one({"_id": ObjectId(product_id)})
+    
+    if result.deleted_count == 0:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Product not found"
+        )
+    
+    return {"message": "Product deleted successfully", "product_id": product_id}
+
+# ===== DASHBOARD STATS =====
+
+@router.get("/dashboard/stats")
+async def get_dashboard_stats(admin = Depends(get_admin_data)):
+    """Get admin dashboard statistics."""
+    
+    # User statistics
+    total_users = await users_collection.count_documents({})
+    verified_users = await users_collection.count_documents({"is_verified": True})
+    pending_verifications = await users_collection.count_documents({
+        "id_verification.verification_status": {"$in": ["pending", "needs_medical"]}
+    })
+    
+    # Transaction statistics
+    total_transactions = await transactions_collection.count_documents({})
+    pending_pickups = await transactions_collection.count_documents({
+        "status": {"$in": ["pending", "paid_in_app", "awaiting_pickup"]}
+    })
+    
+    # Revenue statistics (last 30 days)
+    thirty_days_ago = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
+    thirty_days_ago = thirty_days_ago - timedelta(days=30)
+    
+    revenue_pipeline = [
+        {"$match": {
+            "status": {"$in": ["picked_up", "cash_paid_in_store"]},
+            "created_at": {"$gte": thirty_days_ago}
+        }},
+        {"$group": {"_id": None, "total_revenue": {"$sum": "$total"}}}
+    ]
+    
+    revenue_result = await transactions_collection.aggregate(revenue_pipeline).to_list(length=1)
+    monthly_revenue = revenue_result[0]["total_revenue"] if revenue_result else 0.0
+    
+    # Product statistics
+    total_products = await products_collection.count_documents({})
+    out_of_stock = await products_collection.count_documents({"in_stock": False})
+    
+    return {
+        "users": {
+            "total": total_users,
+            "verified": verified_users,
+            "pending_verification": pending_verifications
+        },
+        "transactions": {
+            "total": total_transactions,
+            "pending_pickups": pending_pickups
+        },
+        "revenue": {
+            "monthly": round(monthly_revenue, 2)
+        },
+        "inventory": {
+            "total_products": total_products,
+            "out_of_stock": out_of_stock
+        }
     }
