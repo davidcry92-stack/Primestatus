@@ -23,6 +23,13 @@ class WictionaryUpdate(BaseModel):
     examples: Optional[list[str]] = None
     related_terms: Optional[list[str]] = None
 
+class WictionarySuggest(BaseModel):
+    term: str = Field(..., min_length=1, max_length=100)
+    definition: str = Field(..., min_length=1, max_length=1000)
+    category: str = Field(..., pattern="^(slang|science|culture|strain)$")
+    etymology: Optional[str] = None
+    suggested_by: Optional[str] = None
+
 class Wictionary(WictionaryBase):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     created_at: datetime = Field(default_factory=datetime.utcnow)
