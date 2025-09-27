@@ -269,15 +269,18 @@ const ProductGrid = ({ category = 'all', tier = null, user, showTitle = false })
 
                   {/* Pricing */}
                   <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-2">
-                      <span className="text-2xl font-bold text-green-400">
-                        ${discountedPrice.toFixed(2)}
-                      </span>
-                      {deal && (
-                        <span className="text-gray-400 line-through text-lg">
-                          ${product.originalPrice}
+                    <div className="flex flex-col">
+                      <div className="flex items-center space-x-2">
+                        <span className="text-2xl font-bold text-green-400">
+                          ${discountedPrice.toFixed(2)}
                         </span>
-                      )}
+                        {deal && (
+                          <span className="text-gray-400 line-through text-lg">
+                            ${product.originalPrice}
+                          </span>
+                        )}
+                      </div>
+                      <span className="text-gray-400 text-sm">per 1/8 (3.5g)</span>
                     </div>
                     
                     <Button 
