@@ -1054,7 +1054,7 @@ export const inStockProducts = [
     originalPrice: 20,
     weight: '10 pieces',
     tier: 'deps',
-    image: 'https://images.pexels.com/photos/2231611/pexels-photo-2231611.jpeg',
+    image: 'https://customer-assets.emergentagent.com/job_statusx-cannabis/artifacts/sxlfneyi_wyld%20gummies%20pomegranate.webp',
     description: 'Premium pomegranate Wyld gummies - 10mg each',
     thc: '10mg per piece',
     vendor: 'Wyld',
