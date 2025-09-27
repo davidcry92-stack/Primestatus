@@ -9,6 +9,7 @@ class RatingBase(BaseModel):
     user_id: PyObjectId
     rating: int = Field(..., ge=1, le=5, description="Rating from 1 to 5 stars")
     review: Optional[str] = Field(None, max_length=500, description="Optional review text")
+    experience: Optional[str] = Field(None, max_length=500, description="User's detailed experience with the product")
 
 class RatingCreate(BaseModel):
     product_id: str
