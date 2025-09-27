@@ -3389,6 +3389,7 @@ export const mockDailyDeals = [
 ];
 
 export const mockWictionary = [
+  // Tier Definitions
   {
     id: 'term-1',
     term: 'Za',
@@ -3423,6 +3424,845 @@ export const mockWictionary = [
     definition: 'Exceptionally good quality cannabis',
     category: 'slang',
     etymology: 'Street slang indicating top-quality product'
+  },
+
+  // ZA (ZAZA) TIER STRAINS
+  {
+    id: 'za-gary-payton',
+    term: 'Gary Payton',
+    definition: 'Hybrid (50% Indica / 50% Sativa) - THC: 19-25%. Effects: Uplifted, focused, relaxed. Taste: Diesel, herbal, spicy. Helps with stress, anxiety, depression.',
+    category: 'za-strain',
+    etymology: 'Premium za strain named after NBA legend Gary Payton'
+  },
+  {
+    id: 'za-lemon-cherry-gelato',
+    term: 'Lemon Cherry Gelato',
+    definition: 'Indica-dominant Hybrid (60% Indica / 40% Sativa) - THC: 21-28%. Effects: Euphoric, relaxed, blissful. Taste: Citrus, cherry, creamy. Helps with pain, mood swings, insomnia.',
+    category: 'za-strain',
+    etymology: 'Popular za-tier gelato phenotype with citrus cherry terpenes'
+  },
+  {
+    id: 'za-lemon-cherry-push-pop',
+    term: 'Lemon Cherry Push Pop',
+    definition: 'Indica-dominant Hybrid (70% Indica / 30% Sativa) - THC: 22-27%. Effects: Relaxed, cheerful, creative. Taste: Sweet, fruity, citrus. Helps with anxiety, stress, appetite loss.',
+    category: 'za-strain',
+    etymology: 'Za strain with dessert-like push pop candy flavors'
+  },
+  {
+    id: 'za-playmaker',
+    term: 'Playmaker',
+    definition: 'Hybrid (50% Sativa / 50% Indica) - THC: 20-26%. Effects: Energized, focused, happy. Taste: Earthy, citrus, spicy. Helps with fatigue, depression, stress.',
+    category: 'za-strain',
+    etymology: 'Za-tier balanced hybrid for peak performance'
+  },
+  {
+    id: 'za-purple-runtz',
+    term: 'Purple Runtz',
+    definition: 'Indica-dominant Hybrid (80% Indica / 20% Sativa) - THC: 19-26%. Effects: Sedated, happy, euphoric. Taste: Fruity, grape, candy. Helps with insomnia, pain, anxiety.',
+    category: 'za-strain',
+    etymology: 'Premium purple phenotype of the famous Runtz strain'
+  },
+  {
+    id: 'za-super-dope',
+    term: 'Super Dope',
+    definition: 'Hybrid (50% Indica / 50% Sativa) - THC: 23-28%. Effects: Powerful, euphoric, relaxing. Taste: Fruity, herbal, earthy. Helps with stress, chronic pain, depression.',
+    category: 'za-strain',
+    etymology: 'High-potency za strain with exceptional effects'
+  },
+  {
+    id: 'za-super-runtz',
+    term: 'Super Runtz',
+    definition: 'Hybrid (60% Indica / 40% Sativa) - THC: 21-27%. Effects: Mellow, cheerful, creative. Taste: Candy, sweet, tropical. Helps with anxiety, appetite loss, pain.',
+    category: 'za-strain',
+    etymology: 'Enhanced version of classic Runtz genetics'
+  },
+  {
+    id: 'za-superman-og',
+    term: 'Superman OG',
+    definition: 'Indica-dominant Hybrid (75% Indica / 25% Sativa) - THC: 20-26%. Effects: Heavy, calming, couch-lock. Taste: Diesel, pine, spicy. Helps with insomnia, stress, chronic pain.',
+    category: 'za-strain',
+    etymology: 'Powerful za-tier OG strain with superhero strength'
+  },
+  {
+    id: 'za-tunchi',
+    term: 'Tunchi',
+    definition: 'Hybrid (60% Sativa / 40% Indica) - THC: 22-27%. Effects: Creative, social, uplifted. Taste: Fruity, sour, floral. Helps with fatigue, anxiety, stress.',
+    category: 'za-strain',
+    etymology: 'Unique za strain with distinctive flavor profile'
+  },
+
+  // DEPS TIER STRAINS
+  {
+    id: 'deps-blueberry-space-cake',
+    term: 'Blueberry Space Cake',
+    definition: 'Indica-dominant Hybrid (70% Indica / 30% Sativa) - THC: 18-24%. Effects: Relaxed, euphoric, sleepy. Taste: Berry, creamy, earthy. Helps with stress, insomnia, pain.',
+    category: 'deps-strain',
+    etymology: 'Deps-tier indica with out-of-this-world blueberry flavors'
+  },
+  {
+    id: 'deps-blue-blush',
+    term: 'Blue Blush',
+    definition: 'Sativa (100% Sativa) - THC: 19-24%. Effects: Energetic, creative, uplifting. Taste: Berry, citrus, floral. Helps with fatigue, depression, low focus, social anxiety.',
+    category: 'deps-strain',
+    etymology: 'Pure sativa with distinctive blue-tinted buds'
+  },
+  {
+    id: 'deps-blue-cookies',
+    term: 'Blue Cookies',
+    definition: 'Hybrid (75% Indica / 25% Sativa) - THC: 20-26%. Effects: Relaxed, happy, sedated. Taste: Sweet, vanilla, berry. Helps with anxiety, pain, insomnia.',
+    category: 'deps-strain',
+    etymology: 'Blue-phenotype Girl Scout Cookies hybrid'
+  },
+  {
+    id: 'deps-blue-dreams',
+    term: 'Blue Dreams',
+    definition: 'Sativa-dominant Hybrid (70% Sativa / 30% Indica) - THC: 18-24%. Effects: Uplifted, focused, mentally relaxed. Taste: Berry, sweet, herbal. Helps with stress, fatigue, depression, mild pain.',
+    category: 'deps-strain',
+    etymology: 'Blue Dream variant with enhanced sativa genetics'
+  },
+  {
+    id: 'deps-blue-slushies',
+    term: 'Blue Slushies',
+    definition: 'Balanced Hybrid (60% Indica / 40% Sativa) - THC: 19-25%. Effects: Happy, euphoric, calm. Taste: Fruity, icy, berry. Helps with depression, stress, nausea.',
+    category: 'deps-strain',
+    etymology: 'Hybrid with refreshing slushie-like flavor profile'
+  },
+  {
+    id: 'deps-blue-zushi',
+    term: 'Blue Zushi',
+    definition: 'Hybrid (60% Indica / 40% Sativa) - THC: 21-27%. Effects: Relaxed, euphoric, balanced. Taste: Fruity, earthy, diesel. Helps with pain, insomnia, anxiety.',
+    category: 'deps-strain',
+    etymology: 'Blue phenotype of exotic Zushi genetics'
+  },
+  {
+    id: 'deps-bronx-glue',
+    term: 'Bronx Glue',
+    definition: 'Hybrid (60% Indica / 40% Sativa) - THC: 20-25%. Effects: Heavy, stony, couch-lock. Taste: Diesel, earthy, pungent. Helps with chronic pain, stress, insomnia.',
+    category: 'deps-strain',
+    etymology: 'NYC-bred Gorilla Glue phenotype from the Bronx'
+  },
+  {
+    id: 'deps-candy-kush',
+    term: 'Candy Kush',
+    definition: 'Indica-dominant Hybrid (70% Indica / 30% Sativa) - THC: 14-19%. Effects: Relaxed, sleepy, euphoric. Taste: Sweet, floral, sugary. Helps with anxiety, insomnia, pain.',
+    category: 'deps-strain',
+    etymology: 'Sweet indica hybrid with candy-like terpenes'
+  },
+  {
+    id: 'deps-candy-land',
+    term: 'Candy Land',
+    definition: 'Sativa-dominant Hybrid (75% Sativa / 25% Indica) - THC: 18-24%. Effects: Energetic, social, creative. Taste: Sweet, earthy, berry. Helps with fatigue, depression, stress.',
+    category: 'deps-strain',
+    etymology: 'Uplifting sativa with childhood candy nostalgia'
+  },
+  {
+    id: 'deps-chucky-runtz',
+    term: 'Chucky Runtz',
+    definition: 'Hybrid (60% Indica / 40% Sativa) - THC: 21-27%. Effects: Relaxed, cheerful, dreamy. Taste: Fruity, candy, earthy. Helps with stress, anxiety, chronic pain.',
+    category: 'deps-strain',
+    etymology: 'Runtz phenotype with mischievous potency'
+  },
+  {
+    id: 'deps-crostata',
+    term: 'Crostata',
+    definition: 'Indica-dominant Hybrid - THC: 18-24%. Effects: Relaxing, euphoric, comforting. Taste: Pastry, fruit, vanilla. Helps with stress, mood swings, insomnia.',
+    category: 'deps-strain',
+    etymology: 'Italian-inspired dessert strain with pastry flavors'
+  },
+  {
+    id: 'deps-e85',
+    term: 'E-85',
+    definition: 'Balanced Hybrid (50% Sativa / 50% Indica) - THC: 26-30%. Effects: Euphoric, relaxed, tingly, uplifted. Taste: Sweet, fruity, citrus, creamy vanilla, diesel. Helps with anxiety, stress, depression, chronic pain, muscle spasms.',
+    category: 'deps-strain',
+    etymology: 'High-octane hybrid named after racing fuel'
+  },
+  {
+    id: 'deps-elf-cookies',
+    term: 'Elf Cookies',
+    definition: 'Balanced Hybrid (50% Sativa / 50% Indica) - THC: 24-28%. Effects: Relaxed, euphoric, creative, happy, uplifted. Taste: Sweet, earthy, vanilla, mint, nutty. Helps with stress, anxiety, depression, chronic pain, insomnia.',
+    category: 'deps-strain',
+    etymology: 'Magical cookie strain with holiday spirit'
+  },
+  {
+    id: 'deps-flushing-mints',
+    term: 'Flushing Mints',
+    definition: 'Hybrid (50% Indica / 50% Sativa) - THC: 22-28%. Effects: Relaxed, euphoric, focused. Taste: Minty, earthy, herbal. Helps with stress, fatigue, depression, inflammation.',
+    category: 'deps-strain',
+    etymology: 'Queens-bred mint strain from Flushing, NY'
+  },
+  {
+    id: 'deps-fruit-punch',
+    term: 'Fruit Punch',
+    definition: 'Sativa-dominant Hybrid (70% Sativa / 30% Indica) - THC: 18-23%. Effects: Energetic, creative, happy. Taste: Sweet, fruity, tropical. Helps with fatigue, stress, mood swings.',
+    category: 'deps-strain',
+    etymology: 'Tropical sativa with fruit punch flavor profile'
+  },
+  {
+    id: 'deps-gas-mints',
+    term: 'Gas Mints',
+    definition: 'Indica-dominant Hybrid (75% Indica / 25% Sativa) - THC: 22-27%. Effects: Relaxed, calm, heavy. Taste: Gas, mint, earthy. Helps with pain, insomnia, anxiety.',
+    category: 'deps-strain',
+    etymology: 'Gassy indica hybrid with cooling mint finish'
+  },
+  {
+    id: 'deps-gelato-41',
+    term: 'Gelato 41',
+    definition: 'Sativa Dominant Hybrid (60% Sativa / 40% Indica) - THC: 25-29%. Effects: Uplifted, euphoric, creative, focused, relaxed. Taste: Sweet, creamy, citrus, earthy, berry. Helps with depression, anxiety, fatigue, mood swings, chronic stress.',
+    category: 'deps-strain',
+    etymology: 'Sativa-leaning Gelato phenotype #41'
+  },
+  {
+    id: 'deps-gelato-kush',
+    term: 'Gelato Kush',
+    definition: 'Indica-dominant Hybrid (60% Indica / 40% Sativa) - THC: 18-24%. Effects: Calm, relaxed, sleepy. Taste: Creamy, earthy, herbal. Helps with insomnia, stress, anxiety.',
+    category: 'deps-strain',
+    etymology: 'Indica-leaning Gelato crossed with Kush genetics'
+  },
+  {
+    id: 'deps-girl-scout-cookies',
+    term: 'Girl Scout Cookies',
+    definition: 'Hybrid (60% Indica / 40% Sativa) - THC: 17-28%. Effects: Happy, relaxed, euphoric. Taste: Sweet, earthy, mint. Helps with chronic pain, appetite loss, stress.',
+    category: 'deps-strain',
+    etymology: 'Classic cookie strain from California genetics'
+  },
+  {
+    id: 'deps-gorilla-glue-4',
+    term: 'Gorilla Glue #4',
+    definition: 'Hybrid (60% Indica / 40% Sativa) - THC: 20-28%. Effects: Heavy, relaxed, sleepy. Taste: Earthy, pine, sour. Helps with insomnia, stress, pain.',
+    category: 'deps-strain',
+    etymology: 'Sticky indica hybrid that glues you to the couch'
+  },
+  {
+    id: 'deps-gorilla-glue-3',
+    term: 'Gorilla Glue #3',
+    definition: 'Indica-dominant Hybrid (65% Indica / 35% Sativa) - THC: 22-27%. Effects: Sedated, euphoric, couch-lock. Taste: Diesel, pine, chocolate. Helps with pain, insomnia, anxiety.',
+    category: 'deps-strain',
+    etymology: 'Earlier Gorilla Glue phenotype with heavy sedation'
+  },
+  {
+    id: 'deps-granddaddy-purple',
+    term: 'Granddaddy Purple',
+    definition: 'Indica (100%) - THC: 17-23%. Effects: Sleepy, relaxed, euphoric. Taste: Grape, berry, sweet. Helps with insomnia, muscle spasms, appetite loss.',
+    category: 'deps-strain',
+    etymology: 'Classic California purple indica strain'
+  },
+  {
+    id: 'deps-grape-cake',
+    term: 'Grape Cake',
+    definition: 'Indica-dominant Hybrid (80% Indica / 20% Sativa) - THC: 20-25%. Effects: Relaxed, happy, mellow. Taste: Grape, vanilla, earthy. Helps with stress, insomnia, mood swings.',
+    category: 'deps-strain',
+    etymology: 'Dessert strain combining grape and cake genetics'
+  },
+  {
+    id: 'deps-grapes-n-cream',
+    term: 'Grapes and Cream',
+    definition: 'Balanced Hybrid (50% Sativa / 50% Indica) - THC: 24-28%. Effects: Euphoric, relaxed, creative, happy, soothing. Taste: Grape, creamy, sweet, berry, earthy. Helps with anxiety, stress, depression, mood swings, mild pain.',
+    category: 'deps-strain',
+    etymology: 'Smooth hybrid with grape cream flavors'
+  },
+  {
+    id: 'deps-grape-soda',
+    term: 'Grape Soda',
+    definition: 'Balanced Hybrid (50% Sativa / 50% Indica) - THC: 22-26%. Effects: Relaxed, uplifted, euphoric, happy, calm. Taste: Grape, sweet, berry, citrus, floral. Helps with stress, anxiety, depression, chronic pain, fatigue.',
+    category: 'deps-strain',
+    etymology: 'Fizzy grape-flavored balanced hybrid'
+  },
+  {
+    id: 'deps-gush-mints',
+    term: 'Gush Mints',
+    definition: 'Indica-dominant Hybrid (80% Indica / 20% Sativa) - THC: 20-26%. Effects: Calming, euphoric, sedative. Taste: Mint, gassy, earthy. Helps with stress, depression, insomnia.',
+    category: 'deps-strain',
+    etymology: 'Minty indica with gushing flavor explosion'
+  },
+  {
+    id: 'deps-ice-cream-man',
+    term: 'Ice Cream Man',
+    definition: 'Hybrid (60% Indica / 40% Sativa) - THC: 18-23%. Effects: Uplifted, relaxed, creative. Taste: Vanilla, sweet, fruity. Helps with fatigue, mood swings, stress.',
+    category: 'deps-strain',
+    etymology: 'Creamy dessert strain with nostalgic appeal'
+  },
+  {
+    id: 'deps-jealousy',
+    term: 'Jealousy',
+    definition: 'Indica Dominant Hybrid (70% Indica / 30% Sativa) - THC: 26-30%. Effects: Relaxed, euphoric, focused, uplifted, creative. Taste: Sweet, creamy, earthy, citrus, floral. Helps with stress, anxiety, depression, chronic pain, insomnia.',
+    category: 'deps-strain',
+    etymology: 'Potent indica that makes others jealous'
+  },
+  {
+    id: 'deps-jingletown-grape',
+    term: 'Jingletown Grape',
+    definition: '100% Indica - THC: 24-27%. Effects: Sedative, relaxed, sleepy, body high, calming. Taste: Grape, sweet, earthy, berry, herbal. Helps with insomnia, chronic pain, anxiety, muscle spasms, stress.',
+    category: 'deps-strain',
+    etymology: 'Pure indica from Oakland\'s Jingletown district'
+  },
+  {
+    id: 'deps-la-pop-rocks',
+    term: 'LA Pop Rocks',
+    definition: 'Indica Dominant Hybrid (70% Indica / 30% Sativa) - THC: 25-29%. Effects: Relaxed, euphoric, sleepy, calm, uplifted. Taste: Sweet, fruity, candy, berry, creamy. Helps with insomnia, stress, anxiety, chronic pain, appetite loss.',
+    category: 'deps-strain',
+    etymology: 'Los Angeles strain with popping candy flavors'
+  },
+  {
+    id: 'deps-larry-bird',
+    term: 'Larry Bird',
+    definition: 'Balanced Hybrid (50% Sativa / 50% Indica) - THC: 24-28%. Effects: Euphoric, relaxed, creative, uplifted, focused. Taste: Sweet, berry, citrus, earthy, grape. Helps with stress, anxiety, depression, chronic pain, fatigue.',
+    category: 'deps-strain',
+    etymology: 'Championship strain named after basketball legend'
+  },
+  {
+    id: 'deps-love-triangle',
+    term: 'Love Triangle',
+    definition: 'Hybrid (60% Indica / 40% Sativa) - THC: 19-24%. Effects: Relaxed, euphoric, aroused. Taste: Berry, earthy, floral. Helps with anxiety, stress, chronic pain.',
+    category: 'deps-strain',
+    etymology: 'Romantic hybrid with complex terpene relationships'
+  },
+  {
+    id: 'deps-manhattan-cookies',
+    term: 'Manhattan Cookies',
+    definition: 'Hybrid (60% Sativa / 40% Indica) - THC: 20-26%. Effects: Uplifted, creative, focused. Taste: Sweet, citrus, herbal. Helps with fatigue, stress, depression.',
+    category: 'deps-strain',
+    etymology: 'NYC cookie strain from Manhattan genetics'
+  },
+  {
+    id: 'deps-maui-waui',
+    term: 'Maui Waui',
+    definition: 'Sativa (100%) - THC: 17-23%. Effects: Energetic, happy, euphoric. Taste: Pineapple, tropical, citrus. Helps with fatigue, depression, anxiety.',
+    category: 'deps-strain',
+    etymology: 'Classic Hawaiian sativa landrace strain'
+  },
+  {
+    id: 'deps-mochi',
+    term: 'Mochi',
+    definition: 'Indica-dominant Hybrid (70% Indica / 30% Sativa) - THC: 20-25%. Effects: Relaxed, creative, sleepy. Taste: Sweet, minty, creamy. Helps with stress, insomnia, chronic pain.',
+    category: 'deps-strain',
+    etymology: 'Japanese-inspired dessert strain with sticky texture'
+  },
+  {
+    id: 'deps-obama-grape',
+    term: 'Obama Grape',
+    definition: 'Indica Dominant Hybrid (80% Indica / 20% Sativa) - THC: 22-26%. Effects: Relaxed, euphoric, uplifted, calm, sleepy. Taste: Grape, berry, earthy, sweet, herbal. Helps with stress, anxiety, depression, insomnia, chronic pain.',
+    category: 'deps-strain',
+    etymology: 'Presidential purple strain with grape genetics'
+  },
+  {
+    id: 'deps-obama-kush',
+    term: 'Obama Kush',
+    definition: 'Indica (100%) - THC: 16-21%. Effects: Chill, relaxed, focused. Taste: Woody, herbal, pine. Helps with stress, mood swings, inflammation.',
+    category: 'deps-strain',
+    etymology: 'Presidential indica strain with leadership qualities'
+  },
+  {
+    id: 'deps-obama-runtz',
+    term: 'Obama Runtz',
+    definition: 'Indica Dominant Hybrid (70% Indica / 30% Sativa) - THC: 24-28%. Effects: Relaxed, euphoric, giggly, calm, sleepy. Taste: Sweet, fruity, berry, citrus, creamy. Helps with stress, anxiety, depression, insomnia, mood swings.',
+    category: 'deps-strain',
+    etymology: 'Presidential Runtz phenotype with executive potency'
+  },
+  {
+    id: 'deps-og-glue',
+    term: 'OG Glue',
+    definition: 'Sativa Dominant Hybrid (60% Sativa / 40% Indica) - THC: 25-30%. Effects: Uplifted, focused, euphoric, energetic, creative. Taste: Earthy, pine, diesel, herbal, citrus. Helps with stress, fatigue, depression, ADHD, chronic pain.',
+    category: 'deps-strain',
+    etymology: 'Sativa-leaning OG Kush and Gorilla Glue cross'
+  },
+  {
+    id: 'deps-og-kush',
+    term: 'OG Kush',
+    definition: 'Hybrid (55% Indica / 45% Sativa) - THC: 19-26%. Effects: Relaxed, happy, hungry. Taste: Earthy, pine, woody. Helps with stress, migraines, depression.',
+    category: 'deps-strain',
+    etymology: 'Original Gangster California strain'
+  },
+  {
+    id: 'deps-orange-cake-kush',
+    term: 'Orange Cake Kush',
+    definition: 'Sativa Dominant Hybrid (60% Sativa / 40% Indica) - THC: 24-28%. Effects: Uplifted, creative, euphoric, focused, energized. Taste: Orange, citrus, vanilla, sweet, earthy. Helps with depression, fatigue, stress, mood swings, headaches.',
+    category: 'deps-strain',
+    etymology: 'Citrus dessert strain with energizing effects'
+  },
+  {
+    id: 'deps-oreo-cookies',
+    term: 'Oreo Cookies',
+    definition: 'Indica-dominant Hybrid (70% Indica / 30% Sativa) - THC: 22-28%. Effects: Sedated, euphoric, hungry. Taste: Creamy, chocolate, sweet. Helps with insomnia, pain, stress.',
+    category: 'deps-strain',
+    etymology: 'Cookie strain with chocolate cream filling'
+  },
+  {
+    id: 'deps-purple-candy',
+    term: 'Purple Candy',
+    definition: 'Indica-dominant Hybrid (75% Indica / 25% Sativa) - THC: 17-23%. Effects: Relaxed, mellow, giggly. Taste: Sweet, fruity, berry. Helps with stress, anxiety, insomnia.',
+    category: 'deps-strain',
+    etymology: 'Sweet purple indica with candy flavors'
+  },
+  {
+    id: 'deps-purple-kush',
+    term: 'Purple Kush',
+    definition: 'Indica (100%) - THC: 17-27%. Effects: Sleepy, relaxed, euphoric. Taste: Grape, earthy, spicy. Helps with insomnia, pain, muscle spasms.',
+    category: 'deps-strain',
+    etymology: 'Pure purple indica from Hindu Kush mountains'
+  },
+  {
+    id: 'deps-purple-monster-cookies',
+    term: 'Purple Monster Cookies',
+    definition: 'Indica-dominant Hybrid (80% Indica / 20% Sativa) - THC: 21-26%. Effects: Sedated, relaxed, blissful. Taste: Sweet, grape, vanilla. Helps with pain, insomnia, anxiety.',
+    category: 'deps-strain',
+    etymology: 'Monstrous purple cookie strain with heavy effects'
+  },
+  {
+    id: 'deps-purple-panty-dropper',
+    term: 'Purple Panty Dropper',
+    definition: 'Indica-dominant Hybrid (70% Indica / 30% Sativa) - THC: 18-24%. Effects: Aroused, relaxed, euphoric. Taste: Berry, grape, sweet. Helps with stress, insomnia, lack of appetite, pain.',
+    category: 'deps-strain',
+    etymology: 'Seductive purple strain with aphrodisiac effects'
+  },
+  {
+    id: 'deps-purple-punch',
+    term: 'Purple Punch',
+    definition: 'Indica-dominant Hybrid (80% Indica / 20% Sativa) - THC: 18-24%. Effects: Calming, euphoric, sleepy. Taste: Grape, berry, candy. Helps with insomnia, chronic pain, anxiety.',
+    category: 'deps-strain',
+    etymology: 'Knockout purple strain with fruity punch flavor'
+  },
+  {
+    id: 'deps-queens-kush',
+    term: 'Queens Kush',
+    definition: '100% Indica - THC: 23-27%. Effects: Sedative, relaxed, sleepy, body high, tranquil. Taste: Earthy, kush, spicy, herbal, gassy. Helps with insomnia, chronic pain, stress, anxiety, muscle spasms.',
+    category: 'deps-strain',
+    etymology: 'Royal indica strain from Queens, New York'
+  },
+  {
+    id: 'deps-san-fernando-valley-og',
+    term: 'San Fernando Valley OG',
+    definition: 'Sativa Dominant Hybrid (70% Sativa / 30% Indica) - THC: 24-29%. Effects: Uplifted, euphoric, creative, focused, relaxed. Taste: Lemon, pine, earthy, diesel, herbal. Helps with stress, depression, chronic pain, fatigue, headaches.',
+    category: 'deps-strain',
+    etymology: 'Valley OG strain from San Fernando Valley'
+  },
+  {
+    id: 'deps-slushies',
+    term: 'Slushies',
+    definition: 'Balanced Hybrid (50% Sativa / 50% Indica) - THC: 23-27%. Effects: Euphoric, relaxed, happy, uplifted, creative. Taste: Fruity, sweet, berry, citrus, candy. Helps with stress, anxiety, depression, chronic pain, fatigue.',
+    category: 'deps-strain',
+    etymology: 'Refreshing hybrid with frozen drink flavors'
+  },
+  {
+    id: 'deps-sour-diesel',
+    term: 'Sour Diesel',
+    definition: '100% Sativa - THC: 25-30%. Effects: Energized, uplifted, euphoric, focused, creative. Taste: Diesel, citrus, pungent, earthy, herbal. Helps with depression, fatigue, stress, ADHD, mood disorders.',
+    category: 'deps-strain',
+    etymology: 'Classic energizing sativa with diesel aroma'
+  },
+  {
+    id: 'deps-spiderman-runtz',
+    term: 'Spiderman Runtz',
+    definition: 'Indica Dominant Hybrid (70% Indica / 30% Sativa) - THC: 25-29%. Effects: Relaxed, euphoric, sleepy, giggly, calm. Taste: Sweet, berry, tropical, creamy, earthy. Helps with stress, anxiety, insomnia, depression, chronic pain.',
+    category: 'deps-strain',
+    etymology: 'Web-slinging Runtz with superhero potency'
+  },
+  {
+    id: 'deps-super-sour-diesel',
+    term: 'Super Sour Diesel',
+    definition: 'Sativa Dominant Hybrid (90% Sativa / 10% Indica) - THC: 25-29%. Effects: Energized, euphoric, uplifted, creative, focused. Taste: Diesel, pungent, citrus, earthy, skunky. Helps with depression, fatigue, stress, mood disorders, ADHD.',
+    category: 'deps-strain',
+    etymology: 'Enhanced version of classic Sour Diesel'
+  },
+  {
+    id: 'deps-tropical-skittles',
+    term: 'Tropical Skittles',
+    definition: 'Indica Dominant Hybrid (70% Indica / 30% Sativa) - THC: 24-28%. Effects: Relaxed, euphoric, happy, sleepy, uplifted. Taste: Tropical, fruity, sweet, berry, citrus. Helps with stress, anxiety, insomnia, depression, chronic pain.',
+    category: 'deps-strain',
+    etymology: 'Tropical candy strain with skittles flavor'
+  },
+  {
+    id: 'deps-violet-fog',
+    term: 'Violet Fog',
+    definition: 'Indica Dominant Hybrid (80% Indica / 20% Sativa) - THC: 25-29%. Effects: Relaxed, sedative, euphoric, calm, sleepy. Taste: Floral, grape, earthy, sweet, herbal. Helps with insomnia, stress, chronic pain, anxiety, muscle spasms.',
+    category: 'deps-strain',
+    etymology: 'Mysterious purple strain with foggy effects'
+  },
+  {
+    id: 'deps-watermelon-cookies',
+    term: 'Watermelon Cookies',
+    definition: 'Indica-dominant Hybrid (80% Indica / 20% Sativa) - THC: 18-26%. Effects: Relaxed, happy, sedated. Taste: Watermelon, sweet, earthy. Helps with anxiety, insomnia, pain, appetite loss.',
+    category: 'deps-strain',
+    etymology: 'Refreshing cookie strain with watermelon genetics'
+  },
+  {
+    id: 'deps-white-runtz',
+    term: 'White Runtz',
+    definition: 'Sativa Dominant Hybrid (60% Sativa / 40% Indica) - THC: 24-29%. Effects: Euphoric, uplifted, creative, focused, relaxed. Taste: Sweet, fruity, candy, creamy, citrus. Helps with stress, depression, fatigue, anxiety, mood swings.',
+    category: 'deps-strain',
+    etymology: 'White phenotype Runtz with sativa dominance'
+  },
+  {
+    id: 'deps-white-widow',
+    term: 'White Widow',
+    definition: 'Sativa Dominant Hybrid (60% Sativa / 40% Indica) - THC: 22-26%. Effects: Uplifted, euphoric, energetic, creative, focused. Taste: Earthy, pungent, woody, spicy, herbal. Helps with depression, stress, fatigue, chronic pain, PTSD.',
+    category: 'deps-strain',
+    etymology: 'Classic Dutch sativa hybrid with white trichomes'
+  },
+  {
+    id: 'deps-zaza-runtz',
+    term: 'Zaza Runtz',
+    definition: 'Hybrid (60% Indica / 40% Sativa) - THC: 22-29%. Effects: Relaxed, euphoric, sedative. Taste: Fruity, candy, earthy. Helps with insomnia, anxiety, pain, stress.',
+    category: 'deps-strain',
+    etymology: 'Premium Runtz phenotype with za-level genetics'
+  },
+  {
+    id: 'deps-ze-chem',
+    term: 'Ze Chem',
+    definition: '100% Sativa - THC: 26-30%. Effects: Energized, focused, euphoric, uplifted, creative. Taste: Diesel, citrus, herbal, spicy, earthy. Helps with fatigue, depression, stress, ADHD, mood swings.',
+    category: 'deps-strain',
+    etymology: 'High-energy chemical sativa strain'
+  },
+
+  // LOWS TIER STRAINS
+  {
+    id: 'lows-animal-cookies',
+    term: 'Animal Cookies',
+    definition: 'Hybrid (75% Indica / 25% Sativa) - Known for relaxing and sleepy effects, often leading to euphoria. Nutty, sweet, and vanilla taste. Helps with insomnia, chronic pain, depression, anxiety, and stress.',
+    category: 'lows-strain',
+    etymology: 'Budget-tier cookie strain with animal genetics'
+  },
+  {
+    id: 'lows-animal-mints',
+    term: 'Animal Mints',
+    definition: 'Hybrid (70% Indica / 30% Sativa) - Provides relaxing effects with giggliness and appetite boost. Mint, cookie, and earthy taste. Helps with appetite loss, anxiety, chronic stress, and depression.',
+    category: 'lows-strain',
+    etymology: 'Minty cookie strain with animal genetics'
+  },
+  {
+    id: 'lows-blackberry-kush',
+    term: 'Blackberry Kush',
+    definition: 'Indica (80% Indica / 20% Sativa) - Delivers relaxing and sleepy sensations with euphoria. Berry, earthy, and sweet flavor. Helps with insomnia, pain, stress, depression, and anxiety.',
+    category: 'lows-strain',
+    etymology: 'Classic blackberry indica strain'
+  },
+  {
+    id: 'lows-black-runtz',
+    term: 'Black Runtz',
+    definition: 'Hybrid (50% Indica / 50% Sativa) - Offers euphoric, relaxing, and long-lasting effects. Sweet, fruity, and earthy taste. Helps with stress, anxiety, chronic pain, and depression.',
+    category: 'lows-strain',
+    etymology: 'Dark phenotype of popular Runtz strain'
+  },
+  {
+    id: 'lows-blue-haze',
+    term: 'Blue Haze',
+    definition: 'Sativa (80% Sativa / 20% Indica) - Characterized by uplifting, energetic, and focused effects. Sweet with blueberry and herbal undertones. Helps with fatigue, stress, depression, and ADHD.',
+    category: 'lows-strain',
+    etymology: 'Blue phenotype of classic Haze genetics'
+  },
+  {
+    id: 'lows-blue-skittles',
+    term: 'Blue Skittles',
+    definition: 'Hybrid (60% Indica / 40% Sativa) - Induces relaxing, happy, and euphoric feelings. Berry, fruity, and candy flavor. Helps with anxiety, depression, chronic pain, and mood swings.',
+    category: 'lows-strain',
+    etymology: 'Blue candy strain with skittles genetics'
+  },
+  {
+    id: 'lows-boogie-nights',
+    term: 'Boogie Nights',
+    definition: 'Hybrid (50% Indica / 50% Sativa) - Provides uplifting, relaxed, and creative effects. Grape, berry, and floral taste. Helps with fatigue, mood swings, mild pain, and anxiety.',
+    category: 'lows-strain',
+    etymology: 'Disco-era inspired balanced hybrid'
+  },
+  {
+    id: 'lows-brooklyn-kush',
+    term: 'Brooklyn Kush',
+    definition: 'Indica (80% Indica / 20% Sativa) - Known for heavy, sedative, and mellow effects. Diesel, earthy, and pine taste. Helps with insomnia, pain, stress, and muscle tension.',
+    category: 'lows-strain',
+    etymology: 'NYC indica strain from Brooklyn'
+  },
+  {
+    id: 'lows-bubba-kush',
+    term: 'Bubba Kush',
+    definition: 'Indica (65% Indica / 35% Sativa) - Induces sleepy, calm, and body-focused sensations. Coffee, chocolate, and earthy taste. Helps with stress, insomnia, pain, and muscle spasms.',
+    category: 'lows-strain',
+    etymology: 'Classic indica with coffee shop vibes'
+  },
+  {
+    id: 'lows-bubba',
+    term: 'Bubba',
+    definition: 'Indica (85% Indica / 15% Sativa) - Similar to Bubba Kush with sleepy, calm, body-high effects. Coffee, chocolate, and earthy flavors. Helps with stress, insomnia, pain, and muscle spasms.',
+    category: 'lows-strain',
+    etymology: 'Shortened version of Bubba Kush'
+  },
+  {
+    id: 'lows-business-town',
+    term: 'Business Town',
+    definition: 'Hybrid (60% Indica / 40% Sativa) - Offers focused, uplifting, and mildly sedative effects. Earthy, pine, and citrus zest taste. Helps with stress, fatigue, anxiety, and mood imbalance.',
+    category: 'lows-strain',
+    etymology: 'Professional strain for business hours'
+  },
+  {
+    id: 'lows-cali-gas',
+    term: 'Cali Gas',
+    definition: 'Indica (70% Indica / 30% Sativa) - Produces relaxed, happy, and hungry feelings. Diesel, skunky, and earthy flavors. Helps with appetite loss, chronic pain, and depression.',
+    category: 'lows-strain',
+    etymology: 'California gas strain with fuel aroma'
+  },
+  {
+    id: 'lows-chem-dawg',
+    term: 'Chem Dawg',
+    definition: 'Hybrid (55% Sativa / 45% Indica) - Delivers euphoric, relaxed, and happy sensations. Diesel, pine, and spicy taste. Helps with stress, pain, depression, and anxiety.',
+    category: 'lows-strain',
+    etymology: 'Chemical dog strain with pungent aroma'
+  },
+  {
+    id: 'lows-cherry-runtz',
+    term: 'Cherry Runtz',
+    definition: 'Hybrid (50% Sativa / 50% Indica) - Induces relaxed, creative, and euphoric effects. Cherry, candy, and fruity flavors. Helps with depression, mood swings, and chronic stress.',
+    category: 'lows-strain',
+    etymology: 'Cherry-flavored Runtz phenotype'
+  },
+  {
+    id: 'lows-chocolate-truffle',
+    term: 'Chocolate Truffle',
+    definition: 'Indica (70% Indica / 30% Sativa) - Known for sleepy, calm, and tingly sensations. Rich chocolate, nutty, and earthy taste. Helps with insomnia, chronic pain, and stress.',
+    category: 'lows-strain',
+    etymology: 'Dessert strain with chocolate flavors'
+  },
+  {
+    id: 'lows-crash-out',
+    term: 'Crash Out',
+    definition: 'Indica (90% Indica / 10% Sativa) - Highly sedative strain inducing deep relaxation. Herbal, fuel, and earthy taste. Primarily used for insomnia, anxiety, and pain relief.',
+    category: 'lows-strain',
+    etymology: 'Heavy indica for complete crash out'
+  },
+  {
+    id: 'lows-dosi-doh',
+    term: 'Dosi Doh',
+    definition: 'Indica (70% Indica / 30% Sativa) - Provides relaxing, euphoric, and sleepy effects. Sweet, mint, and nutty taste. Helps with anxiety, stress, and chronic pain.',
+    category: 'lows-strain',
+    etymology: 'Dosidos cookie strain variant'
+  },
+  {
+    id: 'lows-durban-poison',
+    term: 'Durban Poison',
+    definition: 'Sativa (100% Sativa) - Pure sativa with energizing, uplifting, and focused effects. Sweet, pine, and citrus flavor. Helps with fatigue, depression, and ADHD.',
+    category: 'lows-strain',
+    etymology: 'South African landrace sativa strain'
+  },
+  {
+    id: 'lows-exotic-rays',
+    term: 'Exotic Rays',
+    definition: 'Sativa (70% Sativa / 30% Indica) - Offers creative, uplifting, and relaxed sensations. Tropical blend with citrus and floral notes. Helps with depression, fatigue, and stress.',
+    category: 'lows-strain',
+    etymology: 'Exotic sativa with sunny ray effects'
+  },
+  {
+    id: 'lows-forbidden-fruit',
+    term: 'Forbidden Fruit',
+    definition: 'Indica (60% Indica / 40% Sativa) - Induces sleepy, tingly, and relaxed feelings. Grapefruit, sweet, and spicy taste. Helps with stress, pain, and insomnia.',
+    category: 'lows-strain',
+    etymology: 'Forbidden indica with fruity genetics'
+  },
+  {
+    id: 'lows-gelato',
+    term: 'Gelato',
+    definition: 'Hybrid (55% Indica / 45% Sativa) - Provides uplifted, relaxed, and happy sensations. Sweet, creamy, and citrusy flavor. Helps with depression, fatigue, mood swings, and stress.',
+    category: 'lows-strain',
+    etymology: 'Italian ice cream inspired strain'
+  },
+  {
+    id: 'lows-gorilla-kush',
+    term: 'Gorilla Kush',
+    definition: 'Hybrid (70% Indica / 30% Sativa) - Known for sedative, heavy body high, and calming effects. Pungent, earthy, and piney taste. Helps with pain, insomnia, anxiety, and muscle spasms.',
+    category: 'lows-strain',
+    etymology: 'Gorilla genetics crossed with Kush'
+  },
+  {
+    id: 'lows-green-crack',
+    term: 'Green Crack',
+    definition: 'Hybrid (65% Sativa / 35% Indica) - Offers energetic, happy, and focused effects. Citrus, tropical, and earthy taste. Helps with fatigue, depression, and stress.',
+    category: 'lows-strain',
+    etymology: 'Energizing sativa with crack-like energy'
+  },
+  {
+    id: 'lows-ice-cream-cake',
+    term: 'Ice Cream Cake',
+    definition: 'Hybrid (75% Indica / 25% Sativa) - Induces relaxed, happy, and sleepy sensations. Vanilla, creamy, and nutty flavor. Helps with pain, insomnia, and anxiety.',
+    category: 'lows-strain',
+    etymology: 'Dessert strain with ice cream genetics'
+  },
+  {
+    id: 'lows-ice-cream-creamsicle',
+    term: 'Ice Cream Creamsicle',
+    definition: 'Hybrid (60% Indica / 40% Sativa) - Provides euphoric, calming, and body-high effects. Orange, vanilla, and sweet taste. Helps with stress, depression, and muscle tension.',
+    category: 'lows-strain',
+    etymology: 'Creamsicle dessert strain with citrus notes'
+  },
+  {
+    id: 'lows-incredible-hulk',
+    term: 'Incredible Hulk',
+    definition: 'Hybrid (60% Sativa / 40% Indica) - Delivers energized, happy, and uplifted feelings. Pineapple, berry, and diesel taste. Helps with fatigue, pain, and stress.',
+    category: 'lows-strain',
+    etymology: 'Superhero strain with incredible strength'
+  },
+  {
+    id: 'lows-larry-og',
+    term: 'Larry OG',
+    definition: 'Hybrid (60% Indica / 40% Sativa) - Known for relaxed, happy, and mellow effects. Citrus, pine, and earthy taste. Helps with stress, depression, chronic pain, and anxiety.',
+    category: 'lows-strain',
+    etymology: 'OG strain named after Larry'
+  },
+  {
+    id: 'lows-lemon-cherry-dosilato',
+    term: 'Lemon Cherry Dosilato',
+    definition: 'Indica-dominant Hybrid (70% Indica / 30% Sativa) - Offers calming, body-high, and euphoric effects. Sweet cherry, lemon, and earthy spice flavor. Helps with stress, insomnia, chronic pain, and anxiety.',
+    category: 'lows-strain',
+    etymology: 'Citrus cherry Dosidos phenotype'
+  },
+  {
+    id: 'lows-lemon-tree',
+    term: 'Lemon Tree',
+    definition: 'Sativa (100% Sativa) - Pure sativa promoting relaxed, happy, and euphoric feelings. Distinct lemon, citrus, and diesel taste. Helps with depression, stress, and chronic pain.',
+    category: 'lows-strain',
+    etymology: 'Citrus sativa with lemon tree genetics'
+  },
+  {
+    id: 'lows-lovers-lane',
+    term: 'Lovers Lane',
+    definition: 'Hybrid (40% Indica / 60% Sativa) - Provides relaxed, euphoric, and tingly sensations. Fruity, floral, and creamy taste. Helps with stress, anxiety, muscle spasms, and depression.',
+    category: 'lows-strain',
+    etymology: 'Romantic strain for intimate moments'
+  },
+  {
+    id: 'lows-mac-1',
+    term: 'Mac 1',
+    definition: 'Hybrid (60% Indica / 50% Sativa) - Known for balanced, creative, and euphoric effects. Citrus, diesel, and creamy flavors. Helps with stress, depression, mood swings, and fatigue.',
+    category: 'lows-strain',
+    etymology: 'Miracle Alien Cookies phenotype #1'
+  },
+  {
+    id: 'lows-midnight',
+    term: 'Midnight',
+    definition: 'Hybrid (40% Indica / 60% Sativa) - Offers calm, clear-headed, and mildly euphoric effects. Herbal, earthy, and floral taste. Helps with anxiety, inflammation, chronic pain, and insomnia.',
+    category: 'lows-strain',
+    etymology: 'Night-time strain for midnight sessions'
+  },
+  {
+    id: 'lows-new-york-skunk',
+    term: 'New York Skunk',
+    definition: 'Hybrid (65% Sativa / 35% Indica) - Delivers energetic, uplifting, and focused effects. Skunky, citrus, and diesel taste. Helps with fatigue, depression, stress, and lack of focus.',
+    category: 'lows-strain',
+    etymology: 'NYC skunk strain with city energy'
+  },
+  {
+    id: 'lows-northern-lights',
+    term: 'Northern Lights',
+    definition: 'Hybrid (50% Indica / 50% Sativa) - Induces relaxed, euphoric, and dreamy sensations. Earthy, sweet, and piney flavor. Helps with insomnia, chronic pain, depression, and stress.',
+    category: 'lows-strain',
+    etymology: 'Classic strain named after aurora borealis'
+  },
+  {
+    id: 'lows-og-kush',
+    term: 'OG Kush',
+    definition: 'Indica-dominant Hybrid (75% Indica / 25% Sativa) - Known for relaxed, euphoric, and mentally uplifting effects. Earthy, pine, and citrus taste. Helps with stress, anxiety, chronic pain, and depression.',
+    category: 'lows-strain',
+    etymology: 'Original Gangster California classic'
+  },
+  {
+    id: 'lows-oil-tanker',
+    term: 'Oil Tanker',
+    definition: 'Sativa-dominant Hybrid (65% Sativa / 35% Indica) - Offers energizing, creative, and cerebral buzz effects. Diesel, pungent, and herbal taste. Helps with fatigue, low mood, mild pain, and stress.',
+    category: 'lows-strain',
+    etymology: 'Heavy-hitting strain like an oil tanker'
+  },
+  {
+    id: 'lows-pml-smalls',
+    term: 'PML Smalls',
+    definition: 'Sativa-dominant Hybrid (60% Sativa / 40% Indica) - Provides uplifted, focused, and lightly energizing effects. Sweet, herbal, with light diesel undertone. Helps with stress, fatigue, mild depression, and low motivation.',
+    category: 'lows-strain',
+    etymology: 'Small buds with premium genetics'
+  },
+  {
+    id: 'lows-premium-blue-cookies',
+    term: 'Premium Blue Cookies',
+    definition: 'Hybrid (65% Indica / 35% Sativa) - Delivers euphoric, mellow, and body buzz sensations. Berry, nutty, and vanilla flavor. Helps with insomnia, stress, and appetite loss.',
+    category: 'lows-strain',
+    etymology: 'Premium blue cookie phenotype'
+  },
+  {
+    id: 'lows-premium-blue-runtz',
+    term: 'Premium Blue Runtz',
+    definition: 'Hybrid (60% Indica / 40% Sativa) - Induces relaxed, uplifted, and focused effects. Fruity, creamy, and sweet taste. Helps with chronic fatigue, anxiety, and depression.',
+    category: 'lows-strain',
+    etymology: 'Premium blue Runtz phenotype'
+  },
+  {
+    id: 'lows-premium-brownie-goods',
+    term: 'Premium Brownie Goods',
+    definition: 'Indica (75% Indica / 25% Sativa) - Known for calm, sleepy, and content effects. Chocolate, earthy, and sweet taste. Helps with stress, insomnia, and mild pain.',
+    category: 'lows-strain',
+    etymology: 'Premium brownie dessert genetics'
+  },
+  {
+    id: 'lows-premium-northern-lights',
+    term: 'Premium Northern Lights',
+    definition: 'Indica-dominant Hybrid (80% Indica / 20% Sativa) - Offers sedative, peaceful, and mentally calming effects. Earthy, sweet, and piney flavor. Helps with insomnia, chronic pain, anxiety, and stress.',
+    category: 'lows-strain',
+    etymology: 'Enhanced Northern Lights genetics'
+  },
+  {
+    id: 'lows-premium-white-widow',
+    term: 'Premium White Widow',
+    definition: 'Hybrid (50% Indica / 50% Sativa) - Provides balanced, energetic, and creative effects. Pine, citrus, and earthy taste. Helps with depression, fatigue, stress, and mood swings.',
+    category: 'lows-strain',
+    etymology: 'Premium White Widow phenotype'
+  },
+  {
+    id: 'lows-raspberry-pie',
+    term: 'Raspberry Pie',
+    definition: 'Hybrid (70% Indica / 30% Sativa) - Induces relaxing, giggly, and body-heavy sensations. Berry, creamy, and sweet flavor. Helps with pain, nausea, and stress.',
+    category: 'lows-strain',
+    etymology: 'Dessert strain with raspberry pie genetics'
+  },
+  {
+    id: 'lows-runtz',
+    term: 'Runtz',
+    definition: 'Hybrid (50% Indica / 50% Sativa) - Offers balanced, tingly, and happy effects. Candy, fruity, and tropical taste. Helps with anxiety, depression, and appetite loss.',
+    category: 'lows-strain',
+    etymology: 'Candy strain with runts genetics'
+  },
+  {
+    id: 'lows-skittles',
+    term: 'Skittles',
+    definition: 'Hybrid (70% Indica / 30% Sativa) - Known for relaxed, sleepy, and blissful effects. Fruity, candy, and berry flavor. Helps with chronic pain, insomnia, and stress.',
+    category: 'lows-strain',
+    etymology: 'Candy strain with skittles genetics'
+  },
+  {
+    id: 'lows-skywalker-og',
+    term: 'Skywalker OG',
+    definition: 'Hybrid (70% Indica / 30% Sativa) - Delivers sedative, heavy, and euphoric effects. Earthy, herbal, and spicy taste. Helps with insomnia, PTSD, and chronic pain.',
+    category: 'lows-strain',
+    etymology: 'Jedi-level OG strain from galaxy far away'
+  },
+  {
+    id: 'lows-smalls',
+    term: 'Smalls',
+    definition: 'Hybrid (Varies by strain) - Mild strain providing calming and light buzz effects. Light, earthy, and smooth taste. Suitable for beginners, minor stress, and anxiety.',
+    category: 'lows-strain',
+    etymology: 'Small buds with gentle effects'
+  },
+  {
+    id: 'lows-stingray-runtz',
+    term: 'Stingray Runtz',
+    definition: 'Hybrid (60% Indica / 40% Sativa) - Induces tingly, mellow, and cerebral effects. Fruity, creamy, and floral taste. Helps with stress, muscle tension, and creative fatigue.',
+    category: 'lows-strain',
+    etymology: 'Stingray Runtz with oceanic vibes'
+  },
+  {
+    id: 'lows-stone-ward',
+    term: 'Stone Ward',
+    definition: 'Indica (80% Indica / 20% Sativa) - Known for heavy, couch-lock, and dreamy effects. Earthy, woody, and citrus taste. Helps with insomnia, anxiety, and appetite loss.',
+    category: 'lows-strain',
+    etymology: 'Stone-warding indica for protection'
+  },
+  {
+    id: 'lows-strawberry-cough',
+    term: 'Strawberry Cough',
+    definition: 'Sativa (80% Sativa / 20% Indica) - Provides uplifted, euphoric, and creative effects. Sweet strawberry with herbal undertones. Helps with stress, fatigue, and social anxiety.',
+    category: 'lows-strain',
+    etymology: 'Strawberry sativa with coughing effects'
   }
 ];
 
