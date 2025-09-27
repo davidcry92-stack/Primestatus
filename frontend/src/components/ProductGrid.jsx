@@ -19,6 +19,8 @@ const ProductGrid = ({ category = 'all', tier = null, user, showTitle = false })
   const [cart, setCart] = useState([]);
   const [showOutOfStock, setShowOutOfStock] = useState(false);
   const [displayLimit, setDisplayLimit] = useState(12);
+  const [showQuantityModal, setShowQuantityModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   // Get all products (in-stock and out-of-stock)
   const allProducts = [...inStockProducts, ...outOfStockProducts];
