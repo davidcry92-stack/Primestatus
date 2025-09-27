@@ -43,7 +43,7 @@ const HeroSection = ({ onAuthClick }) => {
               Members-Only Cannabis Marketplace
             </p>
             <p className="text-lg text-gray-400">
-              Premium products • Daily deals • Secure pickup • Members-only location
+              Premium products • Daily deals • **PICKUP ONLY** • Members-only location
             </p>
           </div>
 
