@@ -29,6 +29,7 @@ class ProductUpdate(BaseModel):
     description: Optional[str] = None
     thc: Optional[str] = None
     vendor: Optional[str] = None
+    tier: Optional[str] = None
     in_stock: Optional[bool] = None
     rating: Optional[float] = None
     reviews: Optional[int] = None
