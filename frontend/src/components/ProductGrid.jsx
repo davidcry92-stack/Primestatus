@@ -85,17 +85,13 @@ const ProductGrid = ({ category = 'all' }) => {
           </div>
         </div>
 
-        {/* Loading State */}
-        {loading ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {[1, 2, 3, 4, 5, 6].map((i) => (
-              <div key={i} className="bg-gray-800 rounded-lg h-96 animate-pulse" />
-            ))}
-          </div>
-        ) : (
-          /* Products Grid */
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {products.map((product) => {
+        {/* Products Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredProducts.map((product) => {
+            const deal = getDealForProduct(product.id);
+            const discountedPrice = deal 
+              ? product.price * (1 - deal.discount / 100)
+              : product.price;
 
             return (
               <Card 
