@@ -111,11 +111,14 @@ backend:
     file: "/app/backend/routes/admin_auth.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
         - working: true
           agent: "main"
           comment: "Created separate admin authentication with register and login endpoints. Admin user created successfully."
+        - working: true
+          agent: "main"
+          comment: "Updated with simple SHA-256 hashing to resolve bcrypt issues. Admin login functional."
         - working: true
           agent: "testing"
           comment: "✅ COMPREHENSIVE TESTING COMPLETE: Admin authentication system fully functional. Successfully tested admin login with email admin@statusxsmoakland.com, token generation, and token validation. Admin profile retrieval working correctly with super_admin role."
