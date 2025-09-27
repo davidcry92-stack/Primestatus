@@ -6,7 +6,7 @@ import { Label } from './ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Badge } from './ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from './ui/dialog';
-import { X, Mail, Lock, User, Crown, MapPin } from 'lucide-react';
+import { X, Mail, Lock, User, Crown, MapPin, Shield } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { nycNeighborhoods } from '../data/mock';
 
