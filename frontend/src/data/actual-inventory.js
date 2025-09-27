@@ -898,7 +898,7 @@ export const inStockProducts = [
     weight: '3.5g',
     tier: 'za',
     type: 'Indica Hybrid',
-    image: 'https://images.unsplash.com/photo-1652054647785-7e33ab510110?w=400&h=400&fit=crop',
+    image: 'https://images.unsplash.com/photo-1597266028950-1c782e8b23c2?w=400&h=400&fit=crop',
     description: 'Purple za strain with candy-like flavors',
     thc: '24-28%',
     vendor: 'Smoakland Premium',
