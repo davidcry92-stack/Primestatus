@@ -682,7 +682,7 @@ async def get_rating_distribution(product_id):
 async def get_recent_reviews(product_id, limit=5):
     """Get recent reviews for a product."""
     cursor = ratings_collection.find(
-        {"product_id": product_id, "review": {"$ne": None}}
+        {"product_id": product_id, "$or": [{"review": {"$ne": None}}, {"experience": {"$ne": None}}]}
     ).sort("created_at", -1).limit(limit)
     
     reviews = await cursor.to_list(length=limit)
