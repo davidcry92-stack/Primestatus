@@ -82,9 +82,7 @@ async def get_all_members(
     
     member_profiles = []
     for user in users:
-        user_data = convert_object_id(user)
-        
-        # Get transaction summary for this user
+        # Get transaction summary for this user (before converting ObjectId)
         transaction_pipeline = [
             {"$match": {"user_id": user["_id"]}},
             {"$group": {
@@ -97,6 +95,9 @@ async def get_all_members(
         
         transaction_summary = await transactions_collection.aggregate(transaction_pipeline).to_list(length=1)
         summary = transaction_summary[0] if transaction_summary else {}
+        
+        # Now convert ObjectId for response
+        user_data = convert_object_id(user)
         
         profile = UserProfileDetails(
             id=user_data["id"],
