@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Button } from './ui/button';
 import { Card, CardContent, CardHeader } from './ui/card';
 import { Badge } from './ui/badge';
@@ -11,9 +11,7 @@ import {
   Leaf,
   Package
 } from 'lucide-react';
-import { productsAPI, cartAPI } from '../services/api';
-import { useAuth } from '../contexts/AuthContext';
-import { useToast } from '../hooks/use-toast';
+import { mockProducts, mockDailyDeals } from '../data/mock';
 
 const ProductGrid = ({ category = 'all' }) => {
   const [products, setProducts] = useState([]);
