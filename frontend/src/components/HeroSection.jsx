@@ -29,11 +29,11 @@ const HeroSection = ({ onAuthClick }) => {
             </span>
             <br />
             <span className="text-white">
-              GET IT
+              PICKUP
             </span>
             <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">
-              DELIVERED
+              ONLY
             </span>
           </h1>
 
