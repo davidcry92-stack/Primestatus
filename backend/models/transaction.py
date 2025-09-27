@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field
 from typing import List, Optional
 from datetime import datetime
+from bson import ObjectId
 from .common import PyObjectId
 from enum import Enum
 
@@ -47,7 +48,7 @@ class Transaction(TransactionBase):
     class Config:
         allow_population_by_field_name = True
         arbitrary_types_allowed = True
-        json_encoders = {PyObjectId: str}
+        json_encoders = {ObjectId: str}
 
 class TransactionResponse(BaseModel):
     id: str
