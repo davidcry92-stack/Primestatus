@@ -525,5 +525,175 @@ async def get_dashboard_stats(admin = Depends(get_admin_data)):
         "inventory": {
             "total_products": total_products,
             "out_of_stock": out_of_stock
+        },
+        "ratings": {
+            "total_ratings": await ratings_collection.count_documents({}),
+            "avg_rating_all_products": await get_overall_average_rating()
         }
     }
+
+@router.get("/ratings/stats", response_model=List[ProductRatingStats])
+async def get_product_rating_stats(
+    admin = Depends(get_admin_data),
+    skip: int = Query(0, ge=0),
+    limit: int = Query(50, ge=1, le=100)
+):
+    """Get detailed rating statistics for all products."""
+    
+    # Get products with their rating stats
+    pipeline = [
+        {"$lookup": {
+            "from": "ratings",
+            "localField": "_id",
+            "foreignField": "product_id",
+            "as": "product_ratings"
+        }},
+        {"$addFields": {
+            "total_ratings": {"$size": "$product_ratings"},
+            "average_rating": {
+                "$cond": {
+                    "if": {"$gt": [{"$size": "$product_ratings"}, 0]},
+                    "then": {"$avg": "$product_ratings.rating"},
+                    "else": 0
+                }
+            }
+        }},
+        {"$sort": {"total_ratings": -1}},
+        {"$skip": skip},
+        {"$limit": limit}
+    ]
+    
+    products = await products_collection.aggregate(pipeline).to_list(length=limit)
+    
+    rating_stats = []
+    for product in products:
+        # Get rating distribution
+        rating_distribution = await get_rating_distribution(product["_id"])
+        
+        # Get recent reviews
+        recent_reviews = await get_recent_reviews(product["_id"], limit=5)
+        
+        stats = ProductRatingStats(
+            product_id=str(product["_id"]),
+            product_name=product.get("name", "Unknown"),
+            total_ratings=product.get("total_ratings", 0),
+            average_rating=round(product.get("average_rating", 0), 2),
+            rating_distribution=rating_distribution,
+            recent_reviews=recent_reviews
+        )
+        rating_stats.append(stats)
+    
+    return rating_stats
+
+@router.get("/ratings/users", response_model=List[UserRatingHistory])
+async def get_user_rating_history(
+    admin = Depends(get_admin_data),
+    skip: int = Query(0, ge=0),
+    limit: int = Query(20, ge=1, le=50)
+):
+    """Get user rating history for admin analysis."""
+    
+    # Get users with their rating activity
+    pipeline = [
+        {"$lookup": {
+            "from": "ratings",
+            "localField": "_id",
+            "foreignField": "user_id",
+            "as": "user_ratings"
+        }},
+        {"$addFields": {
+            "total_ratings_given": {"$size": "$user_ratings"},
+            "average_rating_given": {
+                "$cond": {
+                    "if": {"$gt": [{"$size": "$user_ratings"}, 0]},
+                    "then": {"$avg": "$user_ratings.rating"},
+                    "else": 0
+                }
+            }
+        }},
+        {"$match": {"total_ratings_given": {"$gt": 0}}},
+        {"$sort": {"total_ratings_given": -1}},
+        {"$skip": skip},
+        {"$limit": limit}
+    ]
+    
+    users = await users_collection.aggregate(pipeline).to_list(length=limit)
+    
+    user_histories = []
+    for user in users:
+        # Get recent ratings
+        recent_ratings = await ratings_collection.find(
+            {"user_id": user["_id"]}
+        ).sort("created_at", -1).limit(5).to_list(length=5)
+        
+        # Convert recent ratings for response
+        recent_ratings_data = []
+        for rating in recent_ratings:
+            product = await products_collection.find_one({"_id": rating["product_id"]})
+            recent_ratings_data.append({
+                "product_name": product.get("name", "Unknown") if product else "Unknown",
+                "rating": rating["rating"],
+                "review": rating.get("review"),
+                "created_at": rating["created_at"]
+            })
+        
+        history = UserRatingHistory(
+            user_id=str(user["_id"]),
+            username=user.get("username", "Unknown"),
+            total_ratings_given=user.get("total_ratings_given", 0),
+            average_rating_given=round(user.get("average_rating_given", 0), 2),
+            recent_ratings=recent_ratings_data
+        )
+        user_histories.append(history)
+    
+    return user_histories
+
+async def get_overall_average_rating():
+    """Get overall average rating across all products."""
+    pipeline = [
+        {"$group": {
+            "_id": None,
+            "overall_average": {"$avg": "$rating"}
+        }}
+    ]
+    
+    result = await ratings_collection.aggregate(pipeline).to_list(length=1)
+    return round(result[0]["overall_average"], 2) if result else 0.0
+
+async def get_rating_distribution(product_id):
+    """Get rating distribution (1-5 stars) for a product."""
+    pipeline = [
+        {"$match": {"product_id": product_id}},
+        {"$group": {
+            "_id": "$rating",
+            "count": {"$sum": 1}
+        }}
+    ]
+    
+    result = await ratings_collection.aggregate(pipeline).to_list(length=None)
+    distribution = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0}
+    
+    for item in result:
+        distribution[item["_id"]] = item["count"]
+    
+    return distribution
+
+async def get_recent_reviews(product_id, limit=5):
+    """Get recent reviews for a product."""
+    cursor = ratings_collection.find(
+        {"product_id": product_id, "review": {"$ne": None}}
+    ).sort("created_at", -1).limit(limit)
+    
+    reviews = await cursor.to_list(length=limit)
+    recent_reviews = []
+    
+    for review in reviews:
+        user = await users_collection.find_one({"_id": review["user_id"]})
+        recent_reviews.append({
+            "username": user.get("username", "Anonymous") if user else "Anonymous",
+            "rating": review["rating"],
+            "review": review["review"],
+            "created_at": review["created_at"]
+        })
+    
+    return recent_reviews
