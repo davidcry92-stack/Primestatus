@@ -51,7 +51,7 @@ const HeroSection = ({ onAuthClick }) => {
           <div className="flex flex-wrap justify-center gap-4 mb-12">
             <div className="flex items-center space-x-2 bg-black/50 rounded-full px-4 py-2 border border-green-400/30">
               <Zap className="h-4 w-4 text-yellow-400" />
-              <span className="text-white text-sm font-medium">Same Day Delivery</span>
+              <span className="text-white text-sm font-medium">Ready for Pickup</span>
             </div>
             <div className="flex items-center space-x-2 bg-black/50 rounded-full px-4 py-2 border border-green-400/30">
               <Crown className="h-4 w-4 text-yellow-400" />
