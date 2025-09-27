@@ -1170,22 +1170,29 @@ class AdminSystemTester:
             )
         
         # Test 7: Get user's own ratings
-        success, user_ratings, status = await self.make_request(
-            "GET", "/ratings/user/my-ratings", headers=user_headers
-        )
-        
-        if success and isinstance(user_ratings, list):
-            self.log_test(
-                "Get User's Own Ratings", 
-                True, 
-                f"Retrieved {len(user_ratings)} ratings by current user"
+        if test_user_token:
+            success, user_ratings, status = await self.make_request(
+                "GET", "/ratings/user/my-ratings", headers=user_headers
             )
+            
+            if success and isinstance(user_ratings, list):
+                self.log_test(
+                    "Get User's Own Ratings", 
+                    True, 
+                    f"Retrieved {len(user_ratings)} ratings by current user"
+                )
+            else:
+                self.log_test(
+                    "Get User's Own Ratings", 
+                    False, 
+                    f"Failed to get user's ratings: {user_ratings}",
+                    user_ratings
+                )
         else:
             self.log_test(
                 "Get User's Own Ratings", 
                 False, 
-                f"Failed to get user's ratings: {user_ratings}",
-                user_ratings
+                "Skipped - no authenticated user available"
             )
         
         # Test 8: Admin rating statistics
