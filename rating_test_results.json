@@ -1,0 +1,131 @@
+{
+  "summary": {
+    "total": 20,
+    "passed": 12,
+    "failed": 8,
+    "success_rate": "60.0%"
+  },
+  "results": [
+    {
+      "test": "Admin Authentication",
+      "success": true,
+      "details": "Successfully authenticated admin",
+      "timestamp": "2025-09-27T18:49:00.006733"
+    },
+    {
+      "test": "Get Test Product",
+      "success": true,
+      "details": "Using product ID: 68d829feebea8673c0b9138d",
+      "timestamp": "2025-09-27T18:49:00.067300"
+    },
+    {
+      "test": "Get Product Ratings Endpoint",
+      "success": true,
+      "details": "Retrieved 0 ratings for product",
+      "timestamp": "2025-09-27T18:49:00.119311"
+    },
+    {
+      "test": "Invalid Product ID Validation",
+      "success": true,
+      "details": "Correctly rejected invalid product ID",
+      "timestamp": "2025-09-27T18:49:00.843043"
+    },
+    {
+      "test": "Authentication Required for Rating Creation",
+      "success": false,
+      "details": "Correctly requires authentication",
+      "timestamp": "2025-09-27T18:49:00.850467"
+    },
+    {
+      "test": "Authentication Required for User Ratings",
+      "success": false,
+      "details": "Correctly requires authentication",
+      "timestamp": "2025-09-27T18:49:00.898768"
+    },
+    {
+      "test": "Authentication Required for Rating Deletion",
+      "success": false,
+      "details": "Correctly requires authentication",
+      "timestamp": "2025-09-27T18:49:01.039714"
+    },
+    {
+      "test": "Admin Product Rating Statistics",
+      "success": true,
+      "details": "Retrieved rating statistics for 26 products",
+      "timestamp": "2025-09-27T18:49:01.140031"
+    },
+    {
+      "test": "Rating Statistics Structure",
+      "success": true,
+      "details": "All required fields present",
+      "timestamp": "2025-09-27T18:49:01.140058"
+    },
+    {
+      "test": "Rating Distribution Structure",
+      "success": true,
+      "details": "Rating distribution has all 1-5 star keys",
+      "timestamp": "2025-09-27T18:49:01.140069"
+    },
+    {
+      "test": "Admin User Rating History",
+      "success": true,
+      "details": "Retrieved user rating history for 0 users",
+      "timestamp": "2025-09-27T18:49:01.149066"
+    },
+    {
+      "test": "Dashboard Rating Statistics",
+      "success": true,
+      "details": "Dashboard includes rating stats: total=0, avg=0.0",
+      "timestamp": "2025-09-27T18:49:01.300174"
+    },
+    {
+      "test": "Rating Validation - Rating 0 (Invalid)",
+      "success": false,
+      "details": "Correctly requires authentication for rating creation",
+      "timestamp": "2025-09-27T18:49:02.047185"
+    },
+    {
+      "test": "Rating Validation - Rating 6 (Invalid)",
+      "success": false,
+      "details": "Correctly requires authentication for rating creation",
+      "timestamp": "2025-09-27T18:49:02.094352"
+    },
+    {
+      "test": "Rating Validation - Long Experience Field",
+      "success": false,
+      "details": "Correctly requires authentication for rating creation",
+      "timestamp": "2025-09-27T18:49:02.239786"
+    },
+    {
+      "test": "Rating Validation - Long Review Field",
+      "success": false,
+      "details": "Correctly requires authentication for rating creation",
+      "timestamp": "2025-09-27T18:49:02.345729"
+    },
+    {
+      "test": "Rating Validation - Valid Rating Structure",
+      "success": false,
+      "details": "Correctly requires authentication for rating creation",
+      "timestamp": "2025-09-27T18:49:02.360007"
+    },
+    {
+      "test": "Product Rating Field Integration",
+      "success": true,
+      "details": "10/10 products have rating field",
+      "timestamp": "2025-09-27T18:49:02.440110"
+    },
+    {
+      "test": "Product Review Count Integration",
+      "success": true,
+      "details": "10/10 products have reviews field",
+      "timestamp": "2025-09-27T18:49:02.440135"
+    },
+    {
+      "test": "Product Rating Data Types",
+      "success": true,
+      "details": "Sample product rating: 4.2, reviews: 145",
+      "timestamp": "2025-09-27T18:49:02.440144"
+    }
+  ],
+  "timestamp": "2025-09-27T18:49:02.440313"
+}
