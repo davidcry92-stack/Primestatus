@@ -183,9 +183,22 @@ const DailyDeals = ({ user }) => {
                       )}
 
                       {/* CTA Button */}
-                      <Button className="w-full bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white font-bold py-3 text-lg transform hover:scale-105 transition-all duration-200">
+                      <Button 
+                        disabled={!user?.is_verified}
+                        className={`w-full font-bold py-3 text-lg transform transition-all duration-200 ${
+                          !user?.is_verified 
+                            ? 'bg-gray-600 hover:bg-gray-700 cursor-not-allowed' 
+                            : 'bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 hover:scale-105'
+                        } text-white`}
+                        title={!user?.is_verified ? 'Verification required to purchase' : ''}
+                        onClick={() => {
+                          if (!user?.is_verified) {
+                            alert('Membership verification required before making any purchases. Please complete your ID verification process.');
+                          }
+                        }}
+                      >
                         <ShoppingCart className="h-5 w-5 mr-2" />
-                        Grab This Deal
+                        {!user?.is_verified ? 'Verification Required' : 'Grab This Deal'}
                       </Button>
                     </CardContent>
                   </div>
