@@ -12,7 +12,7 @@ import {
   Sparkles,
   Lock
 } from 'lucide-react';
-import { mockWictionary, mockUserProfile } from '../data/mock';
+import { mockWictionary, mockUserProfile } from '../data/actual-inventory';
 
 const Wictionary = ({ user = null }) => {
   const [searchTerm, setSearchTerm] = useState('');
