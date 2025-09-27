@@ -27,7 +27,7 @@ class UserPreferences(BaseModel):
 class UserBase(BaseModel):
     username: str = Field(..., min_length=3, max_length=50)
     email: EmailStr
-    membership_tier: str = Field(default="basic", regex="^(basic|premium)$")
+    membership_tier: str = Field(default="basic", pattern="^(basic|premium)$")
     is_law_enforcement: bool = Field(default=False)
     preferences: UserPreferences = Field(default_factory=UserPreferences)
     wictionary_access: bool = Field(default=False)
