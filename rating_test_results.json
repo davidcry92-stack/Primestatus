@@ -10,122 +10,122 @@
       "test": "Admin Authentication",
       "success": true,
       "details": "Successfully authenticated admin",
-      "timestamp": "2025-09-27T18:49:25.102934"
+      "timestamp": "2025-09-27T18:49:36.987507"
     },
     {
       "test": "Get Test Product",
       "success": true,
       "details": "Using product ID: 68d829feebea8673c0b9138d",
-      "timestamp": "2025-09-27T18:49:25.125886"
+      "timestamp": "2025-09-27T18:49:37.013643"
     },
     {
       "test": "Get Product Ratings Endpoint",
       "success": true,
       "details": "Retrieved 0 ratings for product",
-      "timestamp": "2025-09-27T18:49:25.176283"
+      "timestamp": "2025-09-27T18:49:37.061327"
     },
     {
       "test": "Invalid Product ID Validation",
       "success": true,
       "details": "Correctly rejected invalid product ID",
-      "timestamp": "2025-09-27T18:49:25.224974"
+      "timestamp": "2025-09-27T18:49:37.071247"
     },
     {
       "test": "Authentication Required for Rating Creation",
       "success": false,
-      "details": "\u274c Should require authentication",
-      "timestamp": "2025-09-27T18:49:25.232275"
+      "details": "\u274c Got status 403, expected 401. Response: {'detail': 'Not authenticated'}",
+      "timestamp": "2025-09-27T18:49:37.080945"
     },
     {
       "test": "Authentication Required for User Ratings",
       "success": false,
       "details": "\u274c Should require authentication",
-      "timestamp": "2025-09-27T18:49:25.281308"
+      "timestamp": "2025-09-27T18:49:37.087440"
     },
     {
       "test": "Authentication Required for Rating Deletion",
       "success": false,
       "details": "\u274c Should require authentication",
-      "timestamp": "2025-09-27T18:49:25.290657"
+      "timestamp": "2025-09-27T18:49:37.093892"
     },
     {
       "test": "Admin Product Rating Statistics",
       "success": true,
       "details": "Retrieved rating statistics for 26 products",
-      "timestamp": "2025-09-27T18:49:25.315554"
+      "timestamp": "2025-09-27T18:49:37.118381"
     },
     {
       "test": "Rating Statistics Structure",
       "success": true,
       "details": "All required fields present",
-      "timestamp": "2025-09-27T18:49:25.315574"
+      "timestamp": "2025-09-27T18:49:37.118404"
     },
     {
       "test": "Rating Distribution Structure",
       "success": true,
       "details": "Rating distribution has all 1-5 star keys",
-      "timestamp": "2025-09-27T18:49:25.315581"
+      "timestamp": "2025-09-27T18:49:37.118411"
     },
     {
       "test": "Admin User Rating History",
       "success": true,
       "details": "Retrieved user rating history for 0 users",
-      "timestamp": "2025-09-27T18:49:25.324625"
+      "timestamp": "2025-09-27T18:49:37.127193"
     },
     {
       "test": "Dashboard Rating Statistics",
       "success": true,
       "details": "Dashboard includes rating stats: total=0, avg=0.0",
-      "timestamp": "2025-09-27T18:49:25.376458"
+      "timestamp": "2025-09-27T18:49:37.177858"
     },
     {
       "test": "Rating Validation - Rating 0 (Invalid)",
       "success": false,
       "details": "\u274c Should require authentication",
-      "timestamp": "2025-09-27T18:49:25.442974"
+      "timestamp": "2025-09-27T18:49:37.245174"
     },
     {
       "test": "Rating Validation - Rating 6 (Invalid)",
       "success": false,
       "details": "\u274c Should require authentication",
-      "timestamp": "2025-09-27T18:49:25.450125"
+      "timestamp": "2025-09-27T18:49:37.292812"
     },
     {
       "test": "Rating Validation - Long Experience Field",
       "success": false,
       "details": "\u274c Should require authentication",
-      "timestamp": "2025-09-27T18:49:25.498517"
+      "timestamp": "2025-09-27T18:49:37.299672"
     },
     {
       "test": "Rating Validation - Long Review Field",
       "success": false,
       "details": "\u274c Should require authentication",
-      "timestamp": "2025-09-27T18:49:25.505581"
+      "timestamp": "2025-09-27T18:49:37.347102"
     },
     {
       "test": "Rating Validation - Valid Rating Structure",
       "success": false,
       "details": "\u274c Should require authentication",
-      "timestamp": "2025-09-27T18:49:25.552243"
+      "timestamp": "2025-09-27T18:49:37.353968"
     },
     {
       "test": "Product Rating Field Integration",
       "success": true,
       "details": "10/10 products have rating field",
-      "timestamp": "2025-09-27T18:49:25.569431"
+      "timestamp": "2025-09-27T18:49:37.369492"
     },
     {
       "test": "Product Review Count Integration",
       "success": true,
       "details": "10/10 products have reviews field",
-      "timestamp": "2025-09-27T18:49:25.569449"
+      "timestamp": "2025-09-27T18:49:37.369512"
     },
     {
       "test": "Product Rating Data Types",
       "success": true,
       "details": "Sample product rating: 4.2, reviews: 145",
-      "timestamp": "2025-09-27T18:49:25.569457"
+      "timestamp": "2025-09-27T18:49:37.369521"
     }
   ],
-  "timestamp": "2025-09-27T18:49:25.569607"
+  "timestamp": "2025-09-27T18:49:37.369685"
 }
