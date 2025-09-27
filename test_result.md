@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: Complete admin system for StatusXSmoakland with separate admin authentication, member management, pickup verification, and inventory management capabilities.
+user_problem_statement: Complete StatusXSmoakland cannabis marketplace with admin system, visual product selection, actual inventory integration, and comprehensive Wictionary.
 
 backend:
   - task: "Admin Authentication System"
