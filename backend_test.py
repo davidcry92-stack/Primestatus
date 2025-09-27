@@ -380,6 +380,7 @@ class AdminSystemTester:
                 "category": "flower",
                 "price": 50.0,
                 "original_price": 60.0,
+                "image": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=400&fit=crop",
                 "description": "Test product for admin system testing",
                 "thc": "20%",
                 "vendor": "Test Vendor",
