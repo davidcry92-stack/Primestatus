@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { mockProducts, mockDailyDeals } from '../data/mock';
 
-const ProductGrid = ({ category = 'all' }) => {
+const ProductGrid = ({ category = 'all', user }) => {
   const [selectedCategory, setSelectedCategory] = useState(category);
   const [cart, setCart] = useState([]);
 
@@ -26,6 +26,12 @@ const ProductGrid = ({ category = 'all' }) => {
   };
 
   const addToCart = (product) => {
+    // Block all transactions for unverified users
+    if (!user || !user.is_verified) {
+      alert('Membership verification required before making any purchases. Please complete your ID verification process.');
+      return;
+    }
+
     setCart(prev => {
       const existing = prev.find(item => item.id === product.id);
       if (existing) {
