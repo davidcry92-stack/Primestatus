@@ -53,6 +53,8 @@ class DatabaseManager:
     @staticmethod
     async def seed_products():
         """Seed initial products."""
+        from datetime import datetime
+        
         sample_products = [
             {
                 "name": "NYC Haze",
@@ -63,9 +65,12 @@ class DatabaseManager:
                 "description": "Premium sativa strain perfect for the city that never sleeps",
                 "thc": "24%",
                 "vendor": "Brooklyn Botanicals",
+                "tier": "za",
                 "in_stock": True,
                 "rating": 4.8,
-                "reviews": 156
+                "reviews": 156,
+                "created_at": datetime.utcnow(),
+                "updated_at": datetime.utcnow()
             },
             {
                 "name": "Manhattan Melt",
@@ -76,9 +81,12 @@ class DatabaseManager:
                 "description": "Smooth chocolate edibles with a sophisticated NYC twist",
                 "thc": "10mg per piece",
                 "vendor": "Queens Confections",
+                "tier": "deps",
                 "in_stock": True,
                 "rating": 4.6,
-                "reviews": 89
+                "reviews": 89,
+                "created_at": datetime.utcnow(),
+                "updated_at": datetime.utcnow()
             },
             {
                 "name": "Bronx Blaze",
@@ -89,9 +97,12 @@ class DatabaseManager:
                 "description": "High-quality concentrate for experienced users",
                 "thc": "85%",
                 "vendor": "Uptown Extracts",
+                "tier": "za",
                 "in_stock": True,
                 "rating": 4.9,
-                "reviews": 234
+                "reviews": 234,
+                "created_at": datetime.utcnow(),
+                "updated_at": datetime.utcnow()
             }
         ]
         
