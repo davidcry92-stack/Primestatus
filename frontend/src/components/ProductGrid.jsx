@@ -294,11 +294,44 @@ const ProductGrid = ({ category = 'all', tier = null, user, showTitle = false })
           })}
         </div>
 
-        {/* Load More Button */}
-        <div className="text-center mt-12">
-          <Button className="bg-gradient-to-r from-green-600 to-yellow-600 hover:from-green-700 hover:to-yellow-700 text-white px-8 py-3 rounded-full font-bold">
-            Load More Products
-          </Button>
+        {/* Load More and Stock Controls */}
+        <div className="text-center mt-12 space-y-4">
+          {/* Stock Status Summary */}
+          <div className="mb-6 text-center">
+            <p className="text-gray-300 text-lg mb-4">
+              Showing <span className="text-green-400 font-bold">{inStockFiltered.length}</span> in-stock products
+              {outOfStockFiltered.length > 0 && (
+                <span>, <span className="text-red-400 font-bold">{outOfStockFiltered.length}</span> out-of-stock</span>
+              )}
+            </p>
+          </div>
+
+          {/* Controls */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            {/* Show Out of Stock Toggle */}
+            {outOfStockFiltered.length > 0 && (
+              <Button 
+                onClick={() => setShowOutOfStock(!showOutOfStock)}
+                variant={showOutOfStock ? "default" : "outline"}
+                className={showOutOfStock 
+                  ? "bg-red-600 hover:bg-red-700 text-white" 
+                  : "border-red-400 text-red-400 hover:bg-red-600 hover:text-white"
+                }
+              >
+                {showOutOfStock ? "Hide" : "Show"} Out of Stock ({outOfStockFiltered.length})
+              </Button>
+            )}
+            
+            {/* Load More Button */}
+            {(displayLimit < (showOutOfStock ? filteredProducts.length : inStockFiltered.length)) && (
+              <Button 
+                onClick={() => setDisplayLimit(prev => prev + 12)}
+                className="bg-gradient-to-r from-green-600 to-yellow-600 hover:from-green-700 hover:to-yellow-700 text-white px-8 py-3 rounded-full font-bold"
+              >
+                Load More Products
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     </section>
