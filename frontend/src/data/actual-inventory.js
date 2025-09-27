@@ -1156,7 +1156,7 @@ export const inStockProducts = [
     originalPrice: 30,
     weight: '1 pack',
     tier: 'za',
-    image: 'https://images.pexels.com/photos/2204634/pexels-photo-2204634.png',
+    image: 'https://customer-assets.emergentagent.com/job_statusx-cannabis/artifacts/4newt8j6_good%20tide%20guva%20gummies.webp',
     description: 'Premium guava gummies - artisanal quality',
     thc: '100mg total',
     vendor: 'Good Tide',
