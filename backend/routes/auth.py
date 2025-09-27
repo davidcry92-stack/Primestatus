@@ -59,6 +59,19 @@ async def register(
             detail="Must be at least 18 years old to register"
         )
     
+    # Validate re-entry code
+    if not re_entry_code.isdigit():
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Re-entry code must contain only numbers"
+        )
+    
+    if len(re_entry_code) < 4 or len(re_entry_code) > 8:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Re-entry code must be 4-8 digits"
+        )
+    
     requires_medical = age < 21
     
     # For users under 21, require medical document and parent email
