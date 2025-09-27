@@ -14,6 +14,7 @@ import ProductGrid from "./components/ProductGrid";
 import DailyDeals from "./components/DailyDeals";
 import Wictionary from "./components/Wictionary";
 import Footer from "./components/Footer";
+import AdminApp from "./components/AdminApp";
 
 // Mock data (temporary) - Updated to show unverified user
 import { mockUserProfile } from "./data/mock";
