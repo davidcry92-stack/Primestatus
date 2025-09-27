@@ -5,6 +5,7 @@ const ProductSelection = ({ onCategorySelect }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   const handleCategoryClick = (category, tier = null) => {
+    console.log('Category clicked:', category, 'Tier:', tier);
     setSelectedCategory({ category, tier });
     if (onCategorySelect) {
       onCategorySelect({ category, tier });
