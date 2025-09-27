@@ -996,6 +996,23 @@ export const inStockProducts = [
     reviews: 145
   },
   {
+    id: 'edible-wyld-peach',
+    name: 'Wyld Gummies $20 Peach',
+    category: 'edibles',
+    price: 20,
+    originalPrice: 20,
+    weight: '10 pieces',
+    tier: 'deps',
+    image: 'https://customer-assets.emergentagent.com/job_statusx-cannabis/artifacts/iru06u09_wyld%20gummies%20peach.webp',
+    description: 'Premium peach-flavored Wyld gummies - 10mg each',
+    thc: '10mg per piece',
+    vendor: 'Wyld',
+    inStock: true,
+    dailyDeal: false,
+    rating: 4.5,
+    reviews: 156
+  },
+  {
     id: 'edible-wyld-sour-tangerine',
     name: 'Wyld Gummies $20 Sour Tangerine',
     category: 'edibles',
