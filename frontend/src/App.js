@@ -22,39 +22,63 @@ import AuthModal from "./components/AuthModal";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 
 const MainApp = () => {
+  const { user, isAuthenticated } = useAuth();
   const [cartItems, setCartItems] = useState([]);
-  
-  // TEMPORARY: Mock premium user for feature demonstration
-  const mockPremiumUser = {
-    id: "demo-user-123",
-    username: "DemoUser",
-    email: "demo@smoakland.com",
-    full_name: "Demo Premium User",
-    membership_tier: "premium",
-    membershipTier: "premium", // Also add camelCase version for compatibility
-    is_verified: true,
-    wictionary_access: true,
-    preferences: {
-      categories: ["flower", "edibles", "vapes"],
-      price_range: [20, 150]
-    }
+  const [showAuthModal, setShowAuthModal] = useState(false);
+
+  const handleAuthClick = () => {
+    setShowAuthModal(true);
   };
+
+  const handleCloseAuth = () => {
+    setShowAuthModal(false);
+  };
+
+  // If user is authenticated but not verified, show verification pending screen
+  if (isAuthenticated && user && !user.is_verified) {
+    return <VerificationPending user={user} />;
+  }
 
   return (
     <div className="min-h-screen bg-black">
       <Header 
-        user={mockPremiumUser} 
+        user={isAuthenticated ? user : null} 
         cartItems={cartItems} 
-        onAuthClick={() => {}} // No-op since we're showing as logged in
+        onAuthClick={handleAuthClick}
       />
       <main>
-        <HeroSection onAuthClick={() => {}} />
-        <ProductSelection />
-        <DailyDeals user={mockPremiumUser} />
-        <Wictionary />
+        <HeroSection onAuthClick={handleAuthClick} />
+        {isAuthenticated ? (
+          <>
+            <ProductSelection />
+            <DailyDeals user={user} />
+            <Wictionary />
+          </>
+        ) : (
+          <>
+            <ProductSelection />
+            <DailyDeals user={null} />
+            <div className="min-h-[50vh] flex items-center justify-center">
+              <div className="text-center text-white">
+                <h2 className="text-2xl font-bold mb-4">Premium Features</h2>
+                <p className="text-gray-400 mb-6">Sign in to access Wictionary and premium member features</p>
+                <button
+                  onClick={handleAuthClick}
+                  className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-bold"
+                >
+                  Sign In for Premium Access
+                </button>
+              </div>
+            </div>
+          </>
+        )}
       </main>
       <Footer />
       <Toaster />
+      
+      {showAuthModal && (
+        <AuthModal onClose={handleCloseAuth} />
+      )}
     </div>
   );
 };
