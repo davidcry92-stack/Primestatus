@@ -10,7 +10,7 @@ router = APIRouter(prefix="/wictionary", tags=["wictionary"])
 
 @router.get("/", response_model=List[WictionaryResponse])
 async def get_wictionary_terms(
-    category: Optional[str] = Query(None, regex="^(slang|science|culture|legal)$"),
+    category: Optional[str] = Query(None, pattern="^(slang|science|culture|legal)$"),
     search: Optional[str] = None,
     skip: int = Query(0, ge=0),
     limit: int = Query(50, ge=1, le=100),
