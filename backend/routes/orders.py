@@ -91,16 +91,9 @@ async def get_user_orders(
     status: Optional[str] = Query(None, pattern="^(pending|confirmed|preparing|ready_for_pickup|completed|cancelled)$"),
     skip: int = Query(0, ge=0),
     limit: int = Query(20, ge=1, le=100),
-    current_user_email: str = Depends(verify_token)
+    user = Depends(get_verified_user_data)
 ):
-    """Get user's orders."""
-    # Get user
-    user = await users_collection.find_one({"email": current_user_email})
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="User not found"
-        )
+    """Get user's orders (verified users only)."""
     
     # Build query
     query = {"user_id": user["_id"]}
