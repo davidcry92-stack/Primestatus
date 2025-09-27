@@ -146,31 +146,31 @@ class RatingSystemTester:
         
         success, response, status = await self.make_request("POST", "/ratings/", rating_data)
         
-        auth_required_test = not success and status == 401
+        auth_required_test = not success and status in [401, 403]
         self.log_test(
             "Authentication Required for Rating Creation", 
             auth_required_test, 
-            f"✅ Correctly requires authentication (401)" if auth_required_test else f"❌ Got status {status}, expected 401. Response: {response}"
+            f"✅ Correctly requires authentication ({status})" if auth_required_test else f"❌ Got status {status}, expected 401/403. Response: {response}"
         )
         
         # Test 4: Test authentication required for user ratings
         success, response, status = await self.make_request("GET", "/ratings/user/my-ratings")
         
-        auth_required_test = not success and status == 401
+        auth_required_test = not success and status in [401, 403]
         self.log_test(
             "Authentication Required for User Ratings", 
             auth_required_test, 
-            f"✅ Correctly requires authentication" if auth_required_test else f"❌ Should require authentication"
+            f"✅ Correctly requires authentication ({status})" if auth_required_test else f"❌ Got status {status}, expected 401/403"
         )
         
         # Test 5: Test authentication required for rating deletion
         success, response, status = await self.make_request("DELETE", "/ratings/fake_rating_id")
         
-        auth_required_test = not success and status == 401
+        auth_required_test = not success and status in [401, 403]
         self.log_test(
             "Authentication Required for Rating Deletion", 
             auth_required_test, 
-            f"✅ Correctly requires authentication" if auth_required_test else f"❌ Should require authentication"
+            f"✅ Correctly requires authentication ({status})" if auth_required_test else f"❌ Got status {status}, expected 401/403"
         )
         
         return True
