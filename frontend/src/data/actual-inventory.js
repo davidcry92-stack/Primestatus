@@ -862,7 +862,7 @@ export const inStockProducts = [
     weight: '3.5g',
     tier: 'za',
     type: 'Indica Hybrid',
-    image: 'https://images.unsplash.com/photo-1605197788044-5a32c7078486?w=400&h=400&fit=crop',
+    image: 'https://images.unsplash.com/photo-1604953669129-4dd694ba16d3?w=400&h=400&fit=crop',
     description: 'Premium za strain with citrus and cherry notes',
     thc: '25-30%',
     vendor: 'Smoakland Premium',
