@@ -203,7 +203,7 @@ async def update_order_status(
             detail="Invalid order ID"
         )
     
-    valid_statuses = ["pending", "confirmed", "preparing", "out_for_delivery", "delivered", "cancelled"]
+    valid_statuses = ["pending", "confirmed", "preparing", "ready_for_pickup", "completed", "cancelled"]
     if new_status not in valid_statuses:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
