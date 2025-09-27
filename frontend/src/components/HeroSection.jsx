@@ -58,7 +58,7 @@ const HeroSection = ({ onAuthClick }) => {
               <span className="text-white text-sm font-medium">Members Only</span>
             </div>
             <div className="flex items-center space-x-2 bg-black/50 rounded-full px-4 py-2 border border-green-400/30">
-              <span className="text-white text-sm font-medium">🔒 Secure & Discreet</span>
+              <span className="text-white text-sm font-medium">💰 Cash Accepted</span>
             </div>
           </div>
 
