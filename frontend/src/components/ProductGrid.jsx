@@ -13,13 +13,31 @@ import {
 } from 'lucide-react';
 import { mockProducts, mockDailyDeals } from '../data/mock';
 
-const ProductGrid = ({ category = 'all', user }) => {
+const ProductGrid = ({ category = 'all', tier = null, user, showTitle = false }) => {
   const [selectedCategory, setSelectedCategory] = useState(category);
   const [cart, setCart] = useState([]);
 
-  const filteredProducts = selectedCategory === 'all' 
-    ? mockProducts 
-    : mockProducts.filter(product => product.tier === selectedCategory);
+  // Filter products based on category and tier
+  const filteredProducts = (() => {
+    let products = mockProducts;
+    
+    // Filter by category first
+    if (category && category !== 'all') {
+      products = products.filter(product => product.category === category);
+    }
+    
+    // Then filter by tier if specified
+    if (tier) {
+      products = products.filter(product => product.tier === tier);
+    }
+    
+    // Fallback for tier-based selection without category
+    if (selectedCategory && selectedCategory !== 'all' && !category) {
+      products = products.filter(product => product.tier === selectedCategory);
+    }
+    
+    return products;
+  })();
 
   const getDealForProduct = (productId) => {
     return mockDailyDeals.find(deal => deal.productId === productId);
