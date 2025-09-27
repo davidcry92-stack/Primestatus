@@ -19,7 +19,7 @@ const ProductGrid = ({ category = 'all' }) => {
 
   const filteredProducts = selectedCategory === 'all' 
     ? mockProducts 
-    : mockProducts.filter(product => product.category === selectedCategory);
+    : mockProducts.filter(product => product.tier === selectedCategory);
 
   const getDealForProduct = (productId) => {
     return mockDailyDeals.find(deal => deal.productId === productId);
