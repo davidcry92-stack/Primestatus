@@ -340,11 +340,12 @@ export const mockDailyDeals = [
   }
 ];
 
-// User profile mock data
+// User profile mock data - VERIFIED user example
 export const mockUserProfile = {
   id: 'user-123',
   username: 'nyctoker420',
   email: 'user@example.com',
+  full_name: 'Alex Rodriguez',
   membershipTier: 'premium', // basic ($4.99) or premium ($7.99)
   memberSince: '2024-06-15',
   preferences: {
@@ -361,7 +362,32 @@ export const mockUserProfile = {
       status: 'delivered'
     }
   ],
-  wictionaryAccess: true
+  wictionaryAccess: true,
+  is_verified: true, // MUST be true for transactions
+  verification_status: 'approved',
+  requires_medical: false,
+  age_verified: 25
+};
+
+// Unverified user example (for testing verification flow)
+export const mockUnverifiedUser = {
+  id: 'user-456',
+  username: 'newuser21',
+  email: 'newuser@example.com',
+  full_name: 'Jordan Smith',
+  membershipTier: 'basic',
+  memberSince: '2025-01-27',
+  preferences: {
+    categories: [],
+    vendors: [],
+    priceRange: [10, 100]
+  },
+  orderHistory: [],
+  wictionaryAccess: false,
+  is_verified: false, // NOT verified - cannot make transactions
+  verification_status: 'pending', // pending, needs_medical, approved, rejected
+  requires_medical: false,
+  age_verified: 22
 };
 
 // Weed dictionary (Wictionary) mock data
