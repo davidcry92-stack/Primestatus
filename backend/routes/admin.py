@@ -197,7 +197,7 @@ async def get_pending_verifications(
 @router.post("/verification/update")
 async def update_verification_status(
     verification_update: VerificationUpdate,
-    admin_email: str = Depends(check_admin_role)
+    admin = Depends(get_admin_data)
 ):
     """Update user verification status."""
     if not ObjectId.is_valid(verification_update.user_id):
