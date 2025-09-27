@@ -147,12 +147,7 @@ const ProductGrid = ({ category = 'all' }) => {
                   
                   {/* Badges */}
                   <div className="absolute top-3 left-3 flex flex-col gap-2">
-                    {deal && (
-                      <Badge className="bg-red-500 text-white font-bold">
-                        -{deal.discount}% OFF
-                      </Badge>
-                    )}
-                    {product.dailyDeal && (
+                    {product.daily_deal && (
                       <Badge className="bg-yellow-500 text-black font-bold flex items-center space-x-1">
                         <Clock className="h-3 w-3" />
                         <span>Daily Deal</span>
