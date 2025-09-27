@@ -1,279 +1,333 @@
 {
   "summary": {
-    "total": 38,
-    "passed": 37,
-    "failed": 1,
-    "success_rate": "97.4%"
+    "total": 46,
+    "passed": 46,
+    "failed": 0,
+    "success_rate": "100.0%"
   },
   "results": [
     {
       "test": "Admin Login",
       "success": true,
       "details": "Successfully logged in as admin@statusxsmoakland.com with role super_admin",
-      "timestamp": "2025-09-27T18:16:44.491019",
+      "timestamp": "2025-09-27T18:17:37.649783",
       "response_data": null
     },
     {
       "test": "Admin Token Validation",
       "success": true,
       "details": "Token valid, profile retrieved for admin@statusxsmoakland.com",
-      "timestamp": "2025-09-27T18:16:44.543081",
+      "timestamp": "2025-09-27T18:17:37.661961",
       "response_data": null
     },
     {
       "test": "Get All Products",
       "success": true,
       "details": "Retrieved 26 products from API",
-      "timestamp": "2025-09-27T18:16:44.568188",
+      "timestamp": "2025-09-27T18:17:38.394515",
       "response_data": null
     },
     {
       "test": "Product Data Structure",
       "success": true,
-      "details": "Found tiers: ['lows', 'za', 'deps'], categories: ['edibles', 'vapes', 'flower'], in-stock: 23",
-      "timestamp": "2025-09-27T18:16:44.568221",
+      "details": "Found tiers: ['deps', 'za', 'lows'], categories: ['flower', 'vapes', 'edibles'], in-stock: 23",
+      "timestamp": "2025-09-27T18:17:38.394553",
       "response_data": null
     },
     {
       "test": "Tier Filter - ZA",
       "success": true,
       "details": "Retrieved 5 za tier products",
-      "timestamp": "2025-09-27T18:16:44.585352",
+      "timestamp": "2025-09-27T18:17:40.649739",
       "response_data": null
     },
     {
       "test": "Tier Filter - DEPS",
       "success": true,
       "details": "Retrieved 10 deps tier products",
-      "timestamp": "2025-09-27T18:16:44.603133",
+      "timestamp": "2025-09-27T18:17:42.145334",
       "response_data": null
     },
     {
       "test": "Tier Filter - LOWS",
       "success": true,
       "details": "Retrieved 11 lows tier products",
-      "timestamp": "2025-09-27T18:16:44.620206",
+      "timestamp": "2025-09-27T18:17:42.170064",
       "response_data": null
     },
     {
       "test": "Category Filter - flower",
       "success": true,
       "details": "Retrieved 22 flower products",
-      "timestamp": "2025-09-27T18:16:44.635574",
+      "timestamp": "2025-09-27T18:17:42.187761",
       "response_data": null
     },
     {
       "test": "Category Filter - edibles",
       "success": true,
       "details": "Retrieved 2 edibles products",
-      "timestamp": "2025-09-27T18:16:44.693730",
+      "timestamp": "2025-09-27T18:17:42.207479",
       "response_data": null
     },
     {
       "test": "Category Filter - vapes",
       "success": true,
       "details": "Retrieved 2 vapes products",
-      "timestamp": "2025-09-27T18:16:44.752151",
+      "timestamp": "2025-09-27T18:17:42.648407",
       "response_data": null
     },
     {
       "test": "In-Stock Filter",
       "success": true,
       "details": "Retrieved 23 in-stock products",
-      "timestamp": "2025-09-27T18:16:44.769592",
+      "timestamp": "2025-09-27T18:17:44.060585",
       "response_data": null
     },
     {
       "test": "Brand Search - Paletas",
       "success": true,
       "details": "Found 1 Paletas products",
-      "timestamp": "2025-09-27T18:16:44.828198",
+      "timestamp": "2025-09-27T18:17:44.123617",
       "response_data": null
     },
     {
       "test": "Brand Search - Wyld",
       "success": true,
       "details": "Found 1 Wyld products",
-      "timestamp": "2025-09-27T18:16:44.843313",
+      "timestamp": "2025-09-27T18:17:44.141594",
       "response_data": null
     },
     {
       "test": "Brand Search - Fryd",
       "success": true,
       "details": "Found 1 Fryd products",
-      "timestamp": "2025-09-27T18:16:44.899999",
+      "timestamp": "2025-09-27T18:17:44.198224",
       "response_data": null
     },
     {
       "test": "Brand Search - Smoakies",
       "success": true,
       "details": "Found 1 Smoakies products",
-      "timestamp": "2025-09-27T18:16:44.958706",
+      "timestamp": "2025-09-27T18:17:48.044444",
       "response_data": null
     },
     {
       "test": "Brand Search - Blendz",
       "success": true,
       "details": "Found 1 Blendz products",
-      "timestamp": "2025-09-27T18:16:45.014218",
+      "timestamp": "2025-09-27T18:17:49.262204",
       "response_data": null
     },
     {
       "test": "Get Wictionary Terms",
-      "success": false,
-      "details": "Failed to retrieve wictionary terms: {'detail': 'Not authenticated'}",
-      "timestamp": "2025-09-27T18:16:45.071254",
-      "response_data": {
-        "detail": "Not authenticated"
-      }
+      "success": true,
+      "details": "Retrieved 25 wictionary terms",
+      "timestamp": "2025-09-27T18:17:49.271423",
+      "response_data": null
+    },
+    {
+      "test": "Cannabis Terms Present",
+      "success": true,
+      "details": "Found 6 expected cannabis terms: ['za', 'deps', 'lows', 'sesher', 'mids', 'terps']",
+      "timestamp": "2025-09-27T18:17:49.271448",
+      "response_data": null
+    },
+    {
+      "test": "Wictionary Category - slang",
+      "success": true,
+      "details": "Retrieved 10 slang terms",
+      "timestamp": "2025-09-27T18:17:49.285606",
+      "response_data": null
+    },
+    {
+      "test": "Wictionary Category - science",
+      "success": true,
+      "details": "Retrieved 5 science terms",
+      "timestamp": "2025-09-27T18:17:49.294581",
+      "response_data": null
+    },
+    {
+      "test": "Wictionary Category - culture",
+      "success": true,
+      "details": "Retrieved 10 culture terms",
+      "timestamp": "2025-09-27T18:17:49.303972",
+      "response_data": null
+    },
+    {
+      "test": "Wictionary Search - za",
+      "success": true,
+      "details": "Search for 'za' returned 2 results",
+      "timestamp": "2025-09-27T18:17:49.352419",
+      "response_data": null
+    },
+    {
+      "test": "Wictionary Search - cannabis",
+      "success": true,
+      "details": "Search for 'cannabis' returned 24 results",
+      "timestamp": "2025-09-27T18:17:49.368341",
+      "response_data": null
+    },
+    {
+      "test": "Wictionary Search - strain",
+      "success": true,
+      "details": "Search for 'strain' returned 10 results",
+      "timestamp": "2025-09-27T18:17:49.376449",
+      "response_data": null
+    },
+    {
+      "test": "Wictionary Stats",
+      "success": true,
+      "details": "Stats: 25 total terms, categories: ['science', 'culture', 'slang']",
+      "timestamp": "2025-09-27T18:17:49.427421",
+      "response_data": null
     },
     {
       "test": "Tier Distribution",
       "success": true,
       "details": "Found tiers: ['za', 'deps', 'lows'], counts: {'lows': 11, 'deps': 10, 'za': 5}",
-      "timestamp": "2025-09-27T18:16:45.080893",
+      "timestamp": "2025-09-27T18:17:49.437794",
       "response_data": null
     },
     {
       "test": "Category Distribution",
       "success": true,
       "details": "Found categories: ['flower', 'edibles', 'vapes'], counts: {'flower': 22, 'edibles': 2, 'vapes': 2}",
-      "timestamp": "2025-09-27T18:16:45.080914",
+      "timestamp": "2025-09-27T18:17:49.437826",
       "response_data": null
     },
     {
       "test": "Branded Products",
       "success": true,
       "details": "Found brands: ['Paletas', 'Wyld', 'Fryd', 'Smoakies', 'Blendz'], counts: {'Smoakland Budget': 10, 'Smoakland Standard': 5, 'Smoakland Premium': 4, 'Wyld': 1, 'Local': 2, 'Fryd': 1, 'Paletas': 1, 'Blendz': 1, 'Smoakies': 1}",
-      "timestamp": "2025-09-27T18:16:45.080922",
+      "timestamp": "2025-09-27T18:17:49.437835",
       "response_data": null
     },
     {
       "test": "Inventory Volume",
       "success": true,
       "details": "Total products in database: 26",
-      "timestamp": "2025-09-27T18:16:45.080927",
+      "timestamp": "2025-09-27T18:17:49.437839",
       "response_data": null
     },
     {
       "test": "Get All Members",
       "success": true,
       "details": "Retrieved 2 members",
-      "timestamp": "2025-09-27T18:16:45.131746",
+      "timestamp": "2025-09-27T18:17:50.662891",
       "response_data": null
     },
     {
       "test": "Member Search",
       "success": true,
       "details": "Search returned 2 results",
-      "timestamp": "2025-09-27T18:16:45.142245",
+      "timestamp": "2025-09-27T18:17:51.360084",
       "response_data": null
     },
     {
       "test": "Member Status Filter",
       "success": true,
       "details": "Status filter returned 0 results",
-      "timestamp": "2025-09-27T18:16:45.190618",
+      "timestamp": "2025-09-27T18:17:51.369131",
       "response_data": null
     },
     {
       "test": "Get Member Transactions",
       "success": true,
       "details": "Retrieved 3 transactions for user 68d8117b3006a7533f3acc46",
-      "timestamp": "2025-09-27T18:16:45.207084",
+      "timestamp": "2025-09-27T18:17:52.957350",
       "response_data": null
     },
     {
       "test": "Pickup Code Lookup",
       "success": true,
       "details": "Correctly returned 404 for non-existent payment code 123456",
-      "timestamp": "2025-09-27T18:16:45.255528",
+      "timestamp": "2025-09-27T18:17:53.344505",
       "response_data": null
     },
     {
       "test": "Pickup Processing",
       "success": true,
       "details": "Correctly returned 404 for non-existent payment code in processing",
-      "timestamp": "2025-09-27T18:16:45.304451",
+      "timestamp": "2025-09-27T18:17:53.353926",
       "response_data": null
     },
     {
       "test": "Get Inventory",
       "success": true,
       "details": "Retrieved 26 products from inventory",
-      "timestamp": "2025-09-27T18:16:45.313342",
+      "timestamp": "2025-09-27T18:17:53.363622",
       "response_data": null
     },
     {
       "test": "Inventory Category Filter",
       "success": true,
       "details": "Category filter returned 10 products",
-      "timestamp": "2025-09-27T18:16:45.321671",
+      "timestamp": "2025-09-27T18:17:53.373246",
       "response_data": null
     },
     {
       "test": "Inventory Search",
       "success": true,
       "details": "Search returned 0 products",
-      "timestamp": "2025-09-27T18:16:45.370478",
+      "timestamp": "2025-09-27T18:17:53.381154",
       "response_data": null
     },
     {
       "test": "Add Product",
       "success": true,
-      "details": "Successfully created product with ID 68d82a0d1b4545e6489a928e",
-      "timestamp": "2025-09-27T18:16:45.424778",
+      "details": "Successfully created product with ID 68d82a511b4545e6489a928f",
+      "timestamp": "2025-09-27T18:17:53.393205",
       "response_data": null
     },
     {
       "test": "Update Product",
       "success": true,
-      "details": "Successfully updated product 68d82a0d1b4545e6489a928e",
-      "timestamp": "2025-09-27T18:16:45.434460",
+      "details": "Successfully updated product 68d82a511b4545e6489a928f",
+      "timestamp": "2025-09-27T18:17:53.442474",
       "response_data": null
     },
     {
       "test": "Delete Product",
       "success": true,
-      "details": "Successfully deleted product 68d82a0d1b4545e6489a928e",
-      "timestamp": "2025-09-27T18:16:45.483396",
+      "details": "Successfully deleted product 68d82a511b4545e6489a928f",
+      "timestamp": "2025-09-27T18:17:53.452043",
       "response_data": null
     },
     {
       "test": "Dashboard Stats",
       "success": true,
       "details": "Retrieved complete dashboard stats: 4 sections",
-      "timestamp": "2025-09-27T18:16:45.495264",
+      "timestamp": "2025-09-27T18:17:53.502511",
       "response_data": null
     },
     {
       "test": "Payment Code Format",
       "success": true,
       "details": "Found valid 6-digit payment code: 584219",
-      "timestamp": "2025-09-27T18:16:45.553046",
+      "timestamp": "2025-09-27T18:17:53.522459",
       "response_data": null
     },
     {
       "test": "Payment Code Format",
       "success": true,
       "details": "Found valid 6-digit payment code: 275799",
-      "timestamp": "2025-09-27T18:16:45.561154",
+      "timestamp": "2025-09-27T18:17:53.530931",
       "response_data": null
     },
     {
       "test": "Transaction System Overview",
       "success": true,
       "details": "Found 5 total transactions across 2 members",
-      "timestamp": "2025-09-27T18:16:45.561171",
+      "timestamp": "2025-09-27T18:17:53.530952",
       "response_data": null
     },
     {
       "test": "Database Collections Access",
       "success": true,
       "details": "Successfully accessed 4 collections: users, products, transactions, admins",
-      "timestamp": "2025-09-27T18:16:45.727503",
+      "timestamp": "2025-09-27T18:17:54.571270",
       "response_data": null
     }
   ],
-  "timestamp": "2025-09-27T18:16:45.727688"
+  "timestamp": "2025-09-27T18:17:54.571449"
 }
