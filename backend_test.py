@@ -1248,8 +1248,14 @@ class AdminSystemTester:
                 )
         
         # Test 10: Authentication required for rating creation
+        test_rating_data = {
+            "product_id": test_product_id,
+            "rating": 3,
+            "review": "Test unauthenticated rating"
+        }
+        
         success, response, status = await self.make_request(
-            "POST", "/ratings/", rating_data
+            "POST", "/ratings/", test_rating_data
         )
         
         self.log_test(
@@ -1259,7 +1265,7 @@ class AdminSystemTester:
         )
         
         # Test 11: Delete rating (only own ratings)
-        if created_rating_id:
+        if test_user_token and created_rating_id:
             success, delete_response, status = await self.make_request(
                 "DELETE", f"/ratings/{created_rating_id}", headers=user_headers
             )
@@ -1290,7 +1296,12 @@ class AdminSystemTester:
                     f"Failed to delete own rating: {delete_response}",
                     delete_response
                 )
-        
+        else:
+            self.log_test(
+                "Delete Own Rating", 
+                False, 
+                "Skipped - no authenticated user or rating available"
+            )
         # Test 12: Product rating integration (verify product stats update)
         success, updated_product, status = await self.make_request(
             "GET", f"/products?limit=100"
