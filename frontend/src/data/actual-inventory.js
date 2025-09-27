@@ -1532,7 +1532,7 @@ export const inStockProducts = [
     originalPrice: 30,
     weight: '4 pieces',
     tier: 'za',
-    image: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=400&h=400&fit=crop',
+    image: 'https://customer-assets.emergentagent.com/job_statusx-cannabis/artifacts/h9im3t90_abundance%20suppository.jpg',
     description: 'Abundance wellness suppositories',
     thc: '25mg per piece',
     vendor: 'Wellness',
