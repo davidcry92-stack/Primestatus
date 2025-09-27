@@ -1088,7 +1088,7 @@ export const inStockProducts = [
     originalPrice: 5,
     weight: '1 gummy',
     tier: 'lows',
-    image: 'https://images.unsplash.com/photo-1499195333224-3ce974eecb47?w=400&h=400&fit=crop',
+    image: 'https://images.unsplash.com/photo-1616536814456-48c76bff4da9?w=400&h=400&fit=crop',
     description: 'Refreshing watermelon hybrid gummy - perfect micro-dose',
     thc: '10mg hybrid',
     vendor: 'Sway',
