@@ -144,6 +144,10 @@ async def register(
     user_response_data["requires_medical"] = requires_medical
     user_response_data["age_verified"] = age
     
+    # Ensure member_since is present (use created_at if member_since is missing)
+    if "member_since" not in user_response_data:
+        user_response_data["member_since"] = user_response_data.get("created_at", datetime.utcnow())
+    
     # Create access token (limited access until verified)
     access_token = create_access_token(
         data={"sub": email},
