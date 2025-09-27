@@ -4,7 +4,7 @@ from datetime import datetime
 from models.user import UserResponse
 from models.transaction import TransactionResponse, AdminTransactionUpdate
 from models.product import Product, ProductCreate, ProductUpdate, ProductResponse
-from routes.admin_auth import verify_admin_token, get_admin_data
+from .admin_auth import verify_admin_token, get_admin_data
 from utils.database import users_collection, transactions_collection, products_collection, convert_object_id
 from utils.file_upload import get_file_url
 from bson import ObjectId
