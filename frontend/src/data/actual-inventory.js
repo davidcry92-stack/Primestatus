@@ -1139,7 +1139,7 @@ export const inStockProducts = [
     originalPrice: 8,
     weight: '1 pack',
     tier: 'lows',
-    image: 'https://images.unsplash.com/photo-1519087318609-bfb5c04c27f5?w=400&h=400&fit=crop',
+    image: 'https://customer-assets.emergentagent.com/job_statusx-cannabis/artifacts/npxmrs47_el%20sol%20gummies.webp',
     description: 'Budget-friendly 100mg gummy pack - great value',
     thc: '100mg total',
     vendor: 'El Sol',
