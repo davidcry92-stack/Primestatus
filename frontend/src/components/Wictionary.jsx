@@ -19,8 +19,11 @@ const Wictionary = ({ user = null }) => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [showUpgrade, setShowUpgrade] = useState(false);
 
-  // TEMPORARY: Grant access for demonstration
-  const hasAccess = true; // user?.membershipTier === 'premium' || user?.membership_tier === 'premium';
+  // Check if user has premium access or is admin
+  const hasAccess = user?.membershipTier === 'premium' || 
+                   user?.membership_tier === 'premium' || 
+                   user?.role === 'super_admin' ||
+                   user?.email === 'admin@statusxsmoakland.com';
 
   const categories = ['all', 'slang', 'science', 'culture', 'legal'];
 
