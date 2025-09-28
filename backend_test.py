@@ -2182,27 +2182,55 @@ class AuthenticationTester:
         
         return passed_tests, failed_tests, self.test_results
 
+    async def run_authentication_tests(self):
+        """Run focused authentication tests as requested in the review."""
+        print("🎯 STARTING AUTHENTICATION TESTING FOR STATUSXSMOAKLAND")
+        print("=" * 60)
+        
+        # Test 1: Database connection
+        if not await self.test_database_connection():
+            print("❌ Database connection failed - stopping tests")
+            return False
+        
+        # Test 2: Admin authentication
+        admin_success = await self.test_admin_authentication()
+        
+        # Test 3: Premium user authentication
+        user_token = await self.test_premium_user_authentication()
+        
+        # Test 4: Database users verification
+        await self.test_database_users_exist()
+        
+        # Test 5: Password field fix verification
+        await self.test_password_field_fix()
+        
+        # Test 6: JWT token functionality
+        await self.test_jwt_token_functionality()
+        
+        # Summary
+        print("\n" + "=" * 60)
+        print("🎯 AUTHENTICATION TEST SUMMARY")
+        print("=" * 60)
+        
+        passed_tests = [r for r in self.test_results if r["success"]]
+        failed_tests = [r for r in self.test_results if not r["success"]]
+        
+        print(f"✅ PASSED: {len(passed_tests)}")
+        print(f"❌ FAILED: {len(failed_tests)}")
+        print(f"📊 SUCCESS RATE: {len(passed_tests)}/{len(self.test_results)} ({len(passed_tests)/len(self.test_results)*100:.1f}%)")
+        
+        if failed_tests:
+            print("\n❌ FAILED TESTS:")
+            for test in failed_tests:
+                print(f"   - {test['test']}: {test['details']}")
+        
+        return len(failed_tests) == 0
+
 async def main():
-    """Main test runner."""
-    async with AdminSystemTester() as tester:
-        passed, failed, results = await tester.run_all_tests()
-        
-        # Save detailed results
-        with open("/app/admin_test_results.json", "w") as f:
-            json.dump({
-                "summary": {
-                    "total": len(results),
-                    "passed": passed,
-                    "failed": failed,
-                    "success_rate": f"{(passed/(passed+failed)*100):.1f}%" if (passed+failed) > 0 else "0%"
-                },
-                "results": results,
-                "timestamp": datetime.now().isoformat()
-            }, f, indent=2)
-        
-        print(f"\n📄 Detailed results saved to: /app/admin_test_results.json")
-        
-        return failed == 0
+    """Main test runner focused on authentication issues."""
+    async with AuthenticationTester() as tester:
+        success = await tester.run_authentication_tests()
+        return success
 
 if __name__ == "__main__":
     success = asyncio.run(main())
