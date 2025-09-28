@@ -222,7 +222,6 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/admin/*" element={<AdminApp />} />
           <Route path="/" element={
             <ScreenshotProtection>
               {getAppContent()}
