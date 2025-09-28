@@ -84,7 +84,7 @@ export const inStockProducts = [
     weight: '3.5g',
     tier: 'lows',
     type: 'Indica',
-    image: 'https://images.unsplash.com/photo-1600753231295-90b5d5b87a5a?w=400&h=400&fit=crop',
+    image: 'https://images.unsplash.com/photo-1589141986943-5578615fdef2?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHw0fHxjYW5uYWJpcyUyMGJ1ZHN8ZW58MHx8fHwxNzU5MDE5NDA2fDA&ixlib=rb-4.1.0&q=85',
     description: 'Dark berry indica with relaxing properties',
     thc: '15-19%',
     vendor: 'Smoakland Budget',
