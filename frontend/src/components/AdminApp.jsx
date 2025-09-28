@@ -59,24 +59,48 @@ const AdminApp = () => {
   };
 
   if (!adminUser) {
-    // Show admin login but with bypass option
+    // Super Admin Access Options
     return (
       <div className="min-h-screen bg-black">
         <div className="flex items-center justify-center min-h-screen">
-          <div className="bg-gray-900 p-8 rounded-lg border border-red-600 max-w-md w-full">
-            <h2 className="text-2xl font-bold text-white mb-6 text-center">Admin Access</h2>
-            <p className="text-gray-300 mb-6 text-center">
-              DEMO MODE: Click below to access the admin panel
-            </p>
+          <div className="bg-gray-900 p-8 rounded-lg border border-red-600 max-w-lg w-full">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-red-500 mb-2">StatusXSmoakland</h2>
+              <h3 className="text-xl font-semibold text-white mb-4">Master Admin Access</h3>
+              <p className="text-gray-300">
+                Full application demonstration access
+              </p>
+            </div>
+            
+            {/* Super Admin Full Access Button */}
             <button
-              onClick={() => setAdminUser(demoAdmin)}
-              className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg transition-colors"
+              onClick={() => {
+                setAdminUser({...demoAdmin, role: "super_admin", fullAccess: true});
+                localStorage.setItem('super_admin_bypass', 'true');
+                localStorage.setItem('admin_token', 'super_admin_demo_token');
+                // Force reload to bypass all security screens
+                window.location.href = '/';
+              }}
+              className="w-full bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 text-white font-bold py-4 px-6 rounded-lg transition-all transform hover:scale-105 mb-4"
             >
-              Access Admin Panel (Demo)
+              🔓 SUPER ADMIN - FULL APP ACCESS
             </button>
-            <div className="mt-4 pt-4 border-t border-gray-700">
-              <p className="text-gray-400 text-sm text-center">
-                Or use: admin@smoakland.com / admin123
+            
+            <div className="text-center text-sm text-green-400 mb-4">
+              ✅ Bypasses ALL verification screens<br/>
+              ✅ Access to Admin Dashboard + Premium Features<br/>
+              ✅ Complete app demonstration mode
+            </div>
+            
+            <div className="border-t border-gray-700 pt-4 mt-4">
+              <button
+                onClick={() => setAdminUser(demoAdmin)}
+                className="w-full bg-gray-700 hover:bg-gray-600 text-white font-bold py-3 px-4 rounded-lg transition-colors mb-2"
+              >
+                Admin Panel Only
+              </button>
+              <p className="text-gray-400 text-xs text-center">
+                Standard admin access (requires normal app verification)
               </p>
             </div>
           </div>
