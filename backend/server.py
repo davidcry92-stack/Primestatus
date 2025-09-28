@@ -41,6 +41,7 @@ api_router.include_router(cart.router)
 api_router.include_router(admin.router)
 api_router.include_router(admin_auth.router)
 api_router.include_router(ratings.router)
+api_router.include_router(payments.router)
 
 # Include the main router in the app
 app.include_router(api_router)
