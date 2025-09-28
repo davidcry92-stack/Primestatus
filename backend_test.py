@@ -1661,23 +1661,61 @@ class AdminSystemTester:
                     f"User {email} does not exist or cannot authenticate: {response}"
                 )
         
-        # Test 2: If users don't exist, we need to trigger seeding
+        # Test 2: If users don't exist, trigger seeding via endpoint
         missing_users = [email for email, exists in existing_users.items() if not exists]
         
         if missing_users:
             self.log_test(
                 "Demo Users Seeding Required",
-                False,
-                f"Missing demo users: {missing_users}. Database seeding needed."
+                True,
+                f"Missing demo users: {missing_users}. Attempting database seeding..."
             )
             
-            # Since there's no direct seeding endpoint, we'll try to trigger it by calling the database manager
-            # This would normally be done by restarting the backend service to trigger the startup event
-            self.log_test(
-                "Database Seeding Trigger",
-                False,
-                "No direct seeding endpoint available. Backend service restart required to trigger automatic seeding."
-            )
+            # Call the seeding endpoint
+            success, seed_response, status = await self.make_request("POST", "/admin/seed-database")
+            
+            if success:
+                self.log_test(
+                    "Database Seeding Trigger",
+                    True,
+                    f"Database seeding successful: {seed_response.get('message', 'Unknown')}. " +
+                    f"Admin users: {seed_response.get('admin_users_created', 0)}, " +
+                    f"Demo users: {seed_response.get('demo_users_created', 0)}"
+                )
+                
+                # Re-test authentication after seeding
+                print("\n--- RE-TESTING AUTHENTICATION AFTER SEEDING ---")
+                for email in demo_emails:
+                    login_data = {
+                        "email": email,
+                        "password": self._get_demo_password(email)
+                    }
+                    
+                    if email == "admin@statusxsmoakland.com":
+                        success, response, status = await self.make_request("POST", "/admin-auth/login", login_data)
+                    else:
+                        success, response, status = await self.make_request("POST", "/auth/login", login_data)
+                    
+                    existing_users[email] = success
+                    
+                    if success:
+                        self.log_test(
+                            f"Post-Seeding Auth - {email}",
+                            True,
+                            f"User {email} now exists and can authenticate after seeding"
+                        )
+                    else:
+                        self.log_test(
+                            f"Post-Seeding Auth - {email}",
+                            False,
+                            f"User {email} still cannot authenticate after seeding: {response}"
+                        )
+            else:
+                self.log_test(
+                    "Database Seeding Trigger",
+                    False,
+                    f"Database seeding failed: {seed_response}"
+                )
         else:
             self.log_test(
                 "All Demo Users Present",
