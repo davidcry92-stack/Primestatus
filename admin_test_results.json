@@ -1,97 +1,97 @@
 {
   "summary": {
     "total": 12,
-    "passed": 0,
-    "failed": 12,
-    "success_rate": "0.0%"
+    "passed": 1,
+    "failed": 11,
+    "success_rate": "8.3%"
   },
   "results": [
     {
       "test": "Demo User Missing - admin@statusxsmoakland.com",
       "success": false,
       "details": "User admin@statusxsmoakland.com does not exist or cannot authenticate: {'detail': 'Invalid email or password'}",
-      "timestamp": "2025-09-28T16:49:24.290327",
+      "timestamp": "2025-09-28T16:50:46.400055",
       "response_data": null
     },
     {
       "test": "Demo User Missing - premium@demo.com",
       "success": false,
       "details": "User premium@demo.com does not exist or cannot authenticate: {'detail': 'Invalid email or password'}",
-      "timestamp": "2025-09-28T16:49:24.302751",
+      "timestamp": "2025-09-28T16:50:46.411621",
       "response_data": null
     },
     {
       "test": "Demo User Missing - basic@demo.com",
       "success": false,
       "details": "User basic@demo.com does not exist or cannot authenticate: {'detail': 'Invalid email or password'}",
-      "timestamp": "2025-09-28T16:49:24.320330",
+      "timestamp": "2025-09-28T16:50:46.421388",
       "response_data": null
     },
     {
       "test": "Demo User Missing - unverified@demo.com",
       "success": false,
       "details": "User unverified@demo.com does not exist or cannot authenticate: {'detail': 'Invalid email or password'}",
-      "timestamp": "2025-09-28T16:49:24.368893",
+      "timestamp": "2025-09-28T16:50:46.469452",
       "response_data": null
     },
     {
       "test": "Demo Users Seeding Required",
-      "success": false,
-      "details": "Missing demo users: ['admin@statusxsmoakland.com', 'premium@demo.com', 'basic@demo.com', 'unverified@demo.com']. Database seeding needed.",
-      "timestamp": "2025-09-28T16:49:24.368921",
+      "success": true,
+      "details": "Missing demo users: ['admin@statusxsmoakland.com', 'premium@demo.com', 'basic@demo.com', 'unverified@demo.com']. Attempting database seeding...",
+      "timestamp": "2025-09-28T16:50:46.469477",
       "response_data": null
     },
     {
       "test": "Database Seeding Trigger",
       "success": false,
-      "details": "No direct seeding endpoint available. Backend service restart required to trigger automatic seeding.",
-      "timestamp": "2025-09-28T16:49:24.368927",
+      "details": "Database seeding failed: {'detail': \"Database seeding failed: name 'admins_collection' is not defined\"}",
+      "timestamp": "2025-09-28T16:50:46.475758",
       "response_data": null
     },
     {
       "test": "Authentication Test - admin@statusxsmoakland.com",
       "success": false,
       "details": "Authentication failed for admin@statusxsmoakland.com: {'detail': 'Invalid email or password'}",
-      "timestamp": "2025-09-28T16:49:24.381383",
+      "timestamp": "2025-09-28T16:50:46.486634",
       "response_data": null
     },
     {
       "test": "Authentication Test - premium@demo.com",
       "success": false,
       "details": "Authentication failed for premium@demo.com: {'detail': 'Invalid email or password'}",
-      "timestamp": "2025-09-28T16:49:24.392060",
+      "timestamp": "2025-09-28T16:50:46.493485",
       "response_data": null
     },
     {
       "test": "Authentication Test - basic@demo.com",
       "success": false,
       "details": "Authentication failed for basic@demo.com: {'detail': 'Invalid email or password'}",
-      "timestamp": "2025-09-28T16:49:24.439940",
+      "timestamp": "2025-09-28T16:50:46.541263",
       "response_data": null
     },
     {
       "test": "Authentication Test - unverified@demo.com",
       "success": false,
       "details": "Authentication failed for unverified@demo.com: {'detail': 'Invalid email or password'}",
-      "timestamp": "2025-09-28T16:49:24.447610",
+      "timestamp": "2025-09-28T16:50:46.548620",
       "response_data": null
     },
     {
       "test": "\ud83c\udfaf DEMO USER SEEDING VERIFICATION SUMMARY",
       "success": false,
       "details": "Successfully authenticated 0/4 demo users. \u274c Some demo users missing or not working.",
-      "timestamp": "2025-09-28T16:49:24.447631",
+      "timestamp": "2025-09-28T16:50:46.548638",
       "response_data": null
     },
     {
       "test": "Admin Login",
       "success": false,
       "details": "Login failed with status 401: {'detail': 'Invalid email or password'}",
-      "timestamp": "2025-09-28T16:49:24.510592",
+      "timestamp": "2025-09-28T16:50:46.555564",
       "response_data": {
         "detail": "Invalid email or password"
       }
     }
   ],
-  "timestamp": "2025-09-28T16:49:24.510834"
+  "timestamp": "2025-09-28T16:50:46.555784"
 }
