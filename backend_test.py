@@ -1643,7 +1643,7 @@ class AdminSystemTester:
             await self.test_dashboard_stats()
             
             # Test other systems
-            await self.test_wictionary_system()
+            await self.test_wictionary_comprehensive_strain_definitions()
             await self.test_member_management()
             await self.test_member_transactions()
             await self.test_pickup_verification()
