@@ -714,12 +714,20 @@ async def seed_database():
         demo_admin = await admins_collection.find_one({"email": "admin@statusxsmoakland.com"})
         demo_user = await users_collection.find_one({"email": "premium@demo.com"})
         
+        # Always update admin password to ensure it works
+        if demo_admin:
+            from utils.auth import get_password_hash
+            await admins_collection.update_one(
+                {"email": "admin@statusxsmoakland.com"},
+                {"$set": {"password_hash": get_password_hash("Admin123!")}}
+            )
+        
         if demo_admin and demo_user:
             return {
-                "message": "Demo users already exist",
+                "message": "Demo users exist, admin password updated",
                 "admin_users_existing": admin_count,
                 "demo_users_existing": user_count,
-                "action": "no_seeding_needed"
+                "action": "admin_password_updated"
             }
         
         # Force seed admin user (remove existing check)
