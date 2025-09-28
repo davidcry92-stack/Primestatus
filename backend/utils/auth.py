@@ -16,14 +16,14 @@ security = HTTPBearer()
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """Verify a password against its hash."""
     # Simple SHA-256 based verification for MVP
-    salt = "statusxsmoakland_salt_2024"
+    salt = os.environ.get('PASSWORD_SALT', 'statusxsmoakland_salt_2024')
     hashed_input = hashlib.sha256((plain_password + salt).encode()).hexdigest()
     return hashed_input == hashed_password
 
 def get_password_hash(password: str) -> str:
     """Hash a password."""
     # Simple SHA-256 based hashing for MVP
-    salt = "statusxsmoakland_salt_2024"
+    salt = os.environ.get('PASSWORD_SALT', 'statusxsmoakland_salt_2024')
     return hashlib.sha256((password + salt).encode()).hexdigest()
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
