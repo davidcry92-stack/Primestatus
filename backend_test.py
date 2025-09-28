@@ -11,14 +11,16 @@ import os
 from datetime import datetime
 from typing import Dict, Any, Optional
 
-# Configuration - Using localhost since we're testing internally
-BACKEND_URL = "http://localhost:8001/api"
+# Configuration - Using production URL from frontend/.env
+BACKEND_URL = "https://686e1e87-3b6f-4bd3-8921-2bd02b7696b4.preview.emergentagent.com/api"
 
-# Test credentials from review request
+# Test credentials from review request - EXACT credentials that are failing
 ADMIN_EMAIL = "admin@statusxsmoakland.com"
 ADMIN_PASSWORD = "Admin123!"
 PREMIUM_USER_EMAIL = "premium@demo.com"
 PREMIUM_USER_PASSWORD = "Premium123!"
+BASIC_USER_EMAIL = "basic@demo.com"
+BASIC_USER_PASSWORD = "Basic123!"
 
 class AuthenticationTester:
     def __init__(self):
