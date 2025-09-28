@@ -44,8 +44,8 @@ const LoginOnlyApp = () => {
     );
   }
 
-  // If user is authenticated but not verified, show verification pending screen
-  if (isAuthenticated && user && !user.is_verified) {
+  // STRICT VERIFICATION REQUIRED - NO CONTENT FOR UNVERIFIED USERS
+  if (isAuthenticated && user && (!user.is_verified || user.verification_status !== 'approved')) {
     return <VerificationPending user={user} />;
   }
 
