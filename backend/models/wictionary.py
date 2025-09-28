@@ -7,7 +7,7 @@ from .common import PyObjectId
 class WictionaryBase(BaseModel):
     term: str = Field(..., min_length=1, max_length=100)
     definition: str = Field(..., min_length=1, max_length=1000)
-    category: str = Field(..., pattern="^(slang|science|culture|strain)$")
+    category: str = Field(..., pattern="^(slang|science|culture|legal|strain)$")
     etymology: Optional[str] = None
     examples: list[str] = []
     related_terms: list[str] = []
@@ -26,7 +26,7 @@ class WictionaryUpdate(BaseModel):
 class WictionarySuggest(BaseModel):
     term: str = Field(..., min_length=1, max_length=100)
     definition: str = Field(..., min_length=1, max_length=1000)
-    category: str = Field(..., pattern="^(slang|science|culture|strain)$")
+    category: str = Field(..., pattern="^(slang|science|culture|legal|strain)$")
     etymology: Optional[str] = None
     suggested_by: Optional[str] = None
 
