@@ -257,4 +257,109 @@ const DashboardOverview = ({ stats, loading }) => {
 // Placeholder component for ID verification
 const IDVerification = () => <div>ID Verification - Coming Soon</div>;
 
+const MemberExperiencePreview = ({ adminUser }) => {
+  const [previewMode, setPreviewMode] = useState('premium');
+  
+  const memberModes = [
+    { id: 'premium', label: 'Premium Member', tier: 'premium', color: 'gold' },
+    { id: 'basic', label: 'Basic Member', tier: 'basic', color: 'blue' },
+    { id: 'unverified', label: 'Unverified User', tier: 'basic', verified: false, color: 'gray' }
+  ];
+
+  const getMockUser = (mode) => {
+    const base = {
+      username: `Demo${mode.label.replace(' ', '')}`,
+      membership_tier: mode.tier,
+      membershipTier: mode.tier,
+      is_verified: mode.verified !== false,
+      role: 'member'
+    };
+    return base;
+  };
+
+  return (
+    <div>
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold mb-4">Member Experience Preview</h2>
+        <div className="p-4 bg-purple-900/30 border border-purple-600 rounded-lg mb-6">
+          <h3 className="text-purple-400 font-semibold mb-2">🎭 Admin Demo Mode</h3>
+          <p className="text-purple-300 text-sm mb-4">
+            Experience StatusXSmoakland exactly as different member types would see it. 
+            Switch between membership tiers to see feature access differences.
+          </p>
+          
+          <div className="flex space-x-3">
+            {memberModes.map((mode) => (
+              <button
+                key={mode.id}
+                onClick={() => setPreviewMode(mode.id)}
+                className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                  previewMode === mode.id
+                    ? `bg-${mode.color}-600 text-white` 
+                    : `bg-gray-700 text-gray-300 hover:bg-gray-600`
+                }`}
+              >
+                {mode.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="space-y-8">
+        {/* Product Selection as Member */}
+        <div className="bg-gray-900 p-6 rounded-lg">
+          <h3 className="text-lg font-semibold mb-4 flex items-center">
+            🌿 Product Selection 
+            <span className={`ml-2 px-2 py-1 rounded text-xs ${
+              previewMode === 'premium' ? 'bg-yellow-600 text-yellow-100' :
+              previewMode === 'basic' ? 'bg-blue-600 text-blue-100' :
+              'bg-gray-600 text-gray-100'
+            }`}>
+              {memberModes.find(m => m.id === previewMode)?.label}
+            </span>
+          </h3>
+          <ProductSelection user={getMockUser(memberModes.find(m => m.id === previewMode))} />
+        </div>
+
+        {/* Daily Deals */}
+        <div className="bg-gray-900 p-6 rounded-lg">
+          <h3 className="text-lg font-semibold mb-4">🔥 Daily Deals</h3>
+          <DailyDeals user={getMockUser(memberModes.find(m => m.id === previewMode))} />
+        </div>
+
+        {/* Wictionary Access */}
+        {previewMode === 'premium' ? (
+          <div className="bg-gray-900 p-6 rounded-lg">
+            <h3 className="text-lg font-semibold mb-4 flex items-center">
+              📖 Wictionary 
+              <span className="ml-2 px-2 py-1 bg-green-600 text-green-100 rounded text-xs">
+                PREMIUM ACCESS
+              </span>
+            </h3>
+            <Wictionary user={getMockUser(memberModes.find(m => m.id === previewMode))} />
+          </div>
+        ) : (
+          <div className="bg-gray-900 p-6 rounded-lg border-2 border-yellow-600">
+            <h3 className="text-lg font-semibold mb-4 flex items-center">
+              📖 Wictionary 
+              <span className="ml-2 px-2 py-1 bg-red-600 text-red-100 rounded text-xs">
+                PREMIUM REQUIRED
+              </span>
+            </h3>
+            <div className="text-center py-12 text-gray-400">
+              <div className="text-6xl mb-4">🔒</div>
+              <p className="text-xl mb-2">Premium Feature</p>
+              <p>Upgrade to Premium to access the comprehensive Wictionary</p>
+              <button className="mt-4 bg-yellow-600 hover:bg-yellow-700 text-black font-bold py-2 px-6 rounded-lg">
+                Upgrade to Premium
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 export default AdminDashboard;
