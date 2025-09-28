@@ -483,6 +483,11 @@ class DatabaseManager:
         from utils.auth import get_password_hash
         from datetime import datetime
         
+        # Check if admin already exists
+        existing_admin = await admins_collection.find_one({"email": "admin@statusxsmoakland.com"})
+        if existing_admin:
+            return
+        
         admin_user = {
             "username": "admin",
             "email": "admin@statusxsmoakland.com",
@@ -495,6 +500,103 @@ class DatabaseManager:
         }
         
         await admins_collection.insert_one(admin_user)
+
+    @staticmethod
+    async def seed_demo_users():
+        """Seed demo users for testing and demonstration."""
+        from utils.auth import get_password_hash
+        from datetime import datetime
+        import uuid
+        
+        # Check if demo users already exist
+        existing_user = await users_collection.find_one({"email": "premium@demo.com"})
+        if existing_user:
+            return
+        
+        demo_users = [
+            {
+                "id": str(uuid.uuid4()),
+                "username": "premium_demo",
+                "email": "premium@demo.com",
+                "password_hash": get_password_hash("Premium123!"),
+                "full_name": "Premium Demo User",
+                "phone_number": "+1234567890",
+                "membership_tier": "premium",
+                "membershipTier": "premium",  # For compatibility
+                "is_verified": True,
+                "is_active": True,
+                "verification_status": "approved",
+                "id_verification": {
+                    "status": "verified",
+                    "verified_at": datetime.utcnow(),
+                    "document_type": "drivers_license"
+                },
+                "address": {
+                    "street": "123 Demo Street",
+                    "city": "New York",
+                    "state": "NY",
+                    "zip_code": "10001"
+                },
+                "points": 1500,
+                "created_at": datetime.utcnow(),
+                "updated_at": datetime.utcnow()
+            },
+            {
+                "id": str(uuid.uuid4()),
+                "username": "basic_demo",
+                "email": "basic@demo.com",
+                "password_hash": get_password_hash("Basic123!"),
+                "full_name": "Basic Demo User",
+                "phone_number": "+1234567891",
+                "membership_tier": "basic",
+                "membershipTier": "basic",  # For compatibility
+                "is_verified": True,
+                "is_active": True,
+                "verification_status": "approved",
+                "id_verification": {
+                    "status": "verified",
+                    "verified_at": datetime.utcnow(),
+                    "document_type": "state_id"
+                },
+                "address": {
+                    "street": "456 Demo Avenue",
+                    "city": "Brooklyn",
+                    "state": "NY", 
+                    "zip_code": "11201"
+                },
+                "points": 250,
+                "created_at": datetime.utcnow(),
+                "updated_at": datetime.utcnow()
+            },
+            {
+                "id": str(uuid.uuid4()),
+                "username": "unverified_demo",
+                "email": "unverified@demo.com",
+                "password_hash": get_password_hash("Unverified123!"),
+                "full_name": "Unverified Demo User",
+                "phone_number": "+1234567892",
+                "membership_tier": "basic",
+                "membershipTier": "basic",
+                "is_verified": False,
+                "is_active": True,
+                "verification_status": "pending",
+                "id_verification": {
+                    "status": "pending",
+                    "submitted_at": datetime.utcnow()
+                },
+                "address": {
+                    "street": "789 Demo Boulevard",
+                    "city": "Queens",
+                    "state": "NY",
+                    "zip_code": "11101"
+                },
+                "points": 0,
+                "created_at": datetime.utcnow(),
+                "updated_at": datetime.utcnow()
+            }
+        ]
+        
+        await users_collection.insert_many(demo_users)
 
 def convert_object_id(data):
     """Convert ObjectId to string in MongoDB documents."""
