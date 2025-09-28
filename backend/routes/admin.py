@@ -710,9 +710,13 @@ async def seed_database():
         admin_count = await admins_collection.count_documents({})
         user_count = await users_collection.count_documents({})
         
-        if admin_count > 0 and user_count > 0:
+        # Check specifically for demo users
+        demo_admin = await admins_collection.find_one({"email": "admin@statusxsmoakland.com"})
+        demo_user = await users_collection.find_one({"email": "premium@demo.com"})
+        
+        if demo_admin and demo_user:
             return {
-                "message": "Database already seeded",
+                "message": "Demo users already exist",
                 "admin_users_existing": admin_count,
                 "demo_users_existing": user_count,
                 "action": "no_seeding_needed"
