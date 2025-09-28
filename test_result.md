@@ -374,12 +374,8 @@ metadata:
   run_ui: true
 
 test_plan:
-  current_focus:
-    - "Wictionary System"
-    - "Wictionary Frontend Display"
-  stuck_tasks:
-    - "Wictionary System"
-    - "Wictionary Frontend Display"
+  current_focus: []
+  stuck_tasks: []
   test_all: false
   test_priority: "high_first"
 
