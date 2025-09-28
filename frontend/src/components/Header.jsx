@@ -104,6 +104,20 @@ const Header = ({ user, cartItems = [], onAuthClick }) => {
                 )}
               </Button>
 
+              {/* Admin Dashboard Button */}
+              {user && user.email === 'admin@statusxsmoakland.com' && (
+                <Button
+                  onClick={() => {
+                    // Set admin token and redirect to admin dashboard
+                    localStorage.setItem('admin_token', 'demo_admin_token');
+                    window.open('/admin', '_blank');
+                  }}
+                  className="bg-red-600 hover:bg-red-700 text-white font-bold px-3 py-2 text-sm"
+                >
+                  🛡️ Admin Dashboard
+                </Button>
+              )}
+
               {/* User Profile */}
               {user && (
                 <div className="flex items-center space-x-2">
@@ -114,7 +128,7 @@ const Header = ({ user, cartItems = [], onAuthClick }) => {
                         <Crown className="h-3 w-3 text-yellow-400" />
                       )}
                       <p className="text-xs text-gray-400 capitalize">
-                        {user.membershipTier} Member
+                        {user.membershipTier || user.role} {user.role === 'super_admin' ? 'Admin' : 'Member'}
                       </p>
                     </div>
                   </div>
