@@ -70,7 +70,70 @@ const LoginOnlyApp = () => {
         </div>
         
         {showAuthModal && (
-          <AuthModal onClose={handleCloseAuth} />
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
+            <div className="bg-gray-900 border border-red-600 rounded-lg p-8 max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold text-white">Login to StatusXSmoakland</h2>
+                <button
+                  onClick={handleCloseAuth}
+                  className="text-gray-400 hover:text-white text-2xl"
+                >
+                  ×
+                </button>
+              </div>
+              
+              <form onSubmit={async (e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                const email = formData.get('email');
+                const password = formData.get('password');
+                
+                try {
+                  await login({ email, password });
+                  handleCloseAuth();
+                } catch (error) {
+                  alert('Login failed: ' + (error.message || 'Please check your credentials'));
+                }
+              }} className="space-y-4">
+                
+                <div>
+                  <label className="block text-white mb-2">Email:</label>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Enter your email"
+                    className="w-full px-4 py-2 bg-black border border-gray-600 rounded text-white focus:border-green-400 focus:outline-none"
+                    required
+                  />
+                </div>
+                
+                <div>
+                  <label className="block text-white mb-2">Password:</label>
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="Enter your password"
+                    className="w-full px-4 py-2 bg-black border border-gray-600 rounded text-white focus:border-green-400 focus:outline-none"
+                    required
+                  />
+                </div>
+                
+                <button
+                  type="submit"
+                  className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
+                >
+                  Sign In
+                </button>
+                
+                <div className="text-center space-y-2 pt-4 border-t border-gray-700">
+                  <p className="text-gray-400 text-sm">Demo Credentials:</p>
+                  <p className="text-green-400 text-xs">Admin: admin@statusxsmoakland.com / Admin123!</p>
+                  <p className="text-yellow-400 text-xs">Premium: premium@demo.com / Premium123!</p>
+                  <p className="text-blue-400 text-xs">Basic: basic@demo.com / Basic123!</p>
+                </div>
+              </form>
+            </div>
+          </div>
         )}
       </div>
     );
