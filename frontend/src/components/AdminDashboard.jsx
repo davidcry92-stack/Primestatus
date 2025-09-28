@@ -117,6 +117,45 @@ const AdminDashboard = ({ adminUser, onLogout }) => {
           {activeTab === 'verification' && (
             <IDVerification />
           )}
+          {activeTab === 'wictionary' && (
+            <div className="bg-gray-900 p-6 rounded-lg">
+              <div className="mb-4 p-4 bg-green-900/30 border border-green-600 rounded-lg">
+                <h3 className="text-green-400 font-semibold mb-2">🔓 Admin View: Premium Wictionary Access</h3>
+                <p className="text-green-300 text-sm">
+                  Viewing Wictionary as a premium member would see it. This includes all {' '}
+                  193+ comprehensive strain definitions with THC content, effects, and medical information.
+                </p>
+              </div>
+              <Wictionary user={{
+                username: "AdminDemo",
+                membership_tier: "premium",
+                membershipTier: "premium",
+                is_verified: true,
+                role: "admin"
+              }} />
+            </div>
+          )}
+          {activeTab === 'member-preview' && (
+            <MemberExperiencePreview adminUser={adminUser} />
+          )}
+          {activeTab === 'product-catalog' && (
+            <div className="bg-gray-900 p-6 rounded-lg">
+              <div className="mb-4 p-4 bg-blue-900/30 border border-blue-600 rounded-lg">
+                <h3 className="text-blue-400 font-semibold mb-2">🔓 Admin View: Complete Product Catalog</h3>
+                <p className="text-blue-300 text-sm">
+                  Full product catalog view with all cannabis bud images, pricing tiers (Za/Deps/Lows), 
+                  and member-exclusive content.
+                </p>
+              </div>
+              <ProductSelection user={{
+                username: "AdminDemo",
+                membership_tier: "premium", 
+                membershipTier: "premium",
+                is_verified: true,
+                role: "admin"
+              }} />
+            </div>
+          )}
         </div>
       </div>
     </div>
