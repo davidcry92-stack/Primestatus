@@ -10,6 +10,11 @@ const ReEntryCodeScreen = ({ onVerified, userEmail }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
+  // Check if this is actually a fresh session (app was closed)
+  const wasFreshSession = React.useMemo(() => {
+    return !sessionStorage.getItem('app_session_active');
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -35,6 +40,9 @@ const ReEntryCodeScreen = ({ onVerified, userEmail }) => {
       // Mock successful verification after 1 second
       setTimeout(() => {
         if (reEntryCode === '1234' || reEntryCode === '0000') { // Demo codes
+          // Mark session as active
+          sessionStorage.setItem('app_session_active', 'true');
+          sessionStorage.setItem('reentry_verified', 'true');
           onVerified();
         } else {
           setError('Invalid verification code. Please try again.');
