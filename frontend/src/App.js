@@ -166,29 +166,22 @@ function App() {
   const [isReEntryCodeVerified, setIsReEntryCodeVerified] = useState(false);
   const [isSuperAdminMode, setIsSuperAdminMode] = useState(false);
 
-  // Check for super admin mode on load
+  // Check for super admin mode on load (but don't auto-bypass)
   useEffect(() => {
     const adminToken = localStorage.getItem('admin_token');
     const superAdminBypass = localStorage.getItem('super_admin_bypass');
     
+    // Only set super admin mode if explicitly enabled, but still require verification
     if (adminToken || superAdminBypass === 'true') {
       setIsSuperAdminMode(true);
-      setIsLawEnforcementVerified(true);
-      setIsReEntryCodeVerified(true);
+      // Still require verification steps for security
     }
 
-    // Only require re-entry verification if the app was completely closed
-    // Check if this is a fresh session (no verification states stored)
-    const wasAppClosed = !sessionStorage.getItem('app_session_active');
-    
-    if (wasAppClosed) {
-      sessionStorage.setItem('app_session_active', 'true');
-      // Keep current verification requirements for fresh sessions
-    } else {
-      // App was just navigating, bypass re-entry requirements
-      setIsLawEnforcementVerified(true);
-      setIsReEntryCodeVerified(true);
-    }
+    // Always require fresh verification - no session bypasses
+    // Clear any existing session states to force re-verification
+    sessionStorage.removeItem('app_session_active');
+    sessionStorage.removeItem('law_enforcement_verified');
+    sessionStorage.removeItem('reentry_verified');
   }, []);
 
   const handleLawEnforcementVerification = () => {
