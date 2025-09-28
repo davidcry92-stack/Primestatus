@@ -197,6 +197,54 @@ class AuthenticationTester:
         
         return None
 
+    async def test_basic_user_authentication(self):
+        """Test basic user authentication with the specific credentials."""
+        print("\n=== TESTING BASIC USER AUTHENTICATION ===")
+        
+        # Test basic user login
+        login_data = {
+            "email": BASIC_USER_EMAIL,
+            "password": BASIC_USER_PASSWORD
+        }
+        
+        success, response, status = await self.make_request("POST", "/auth/login", login_data)
+        
+        if success and "access_token" in response:
+            user_info = response.get("user", {})
+            self.log_test(
+                "Basic User Login", 
+                True, 
+                f"Successfully logged in as {user_info.get('email', 'unknown')} with tier {user_info.get('membership_tier', 'unknown')}"
+            )
+            
+            # Test token validation by getting profile
+            headers = {"Authorization": f"Bearer {response['access_token']}"}
+            success, profile_response, status = await self.make_request("GET", "/auth/profile", headers=headers)
+            
+            if success:
+                self.log_test(
+                    "Basic User Token Validation", 
+                    True, 
+                    f"Token valid, profile retrieved for {profile_response.get('email', 'unknown')}"
+                )
+                return response['access_token']
+            else:
+                self.log_test(
+                    "Basic User Token Validation", 
+                    False, 
+                    f"Token validation failed: {profile_response}",
+                    profile_response
+                )
+        else:
+            self.log_test(
+                "Basic User Login", 
+                False, 
+                f"Login failed with status {status}: {response}",
+                response
+            )
+        
+        return None
+
     async def test_database_users_exist(self):
         """Test that users exist in the correct database with proper password fields."""
         print("\n=== TESTING DATABASE USERS VERIFICATION ===")
