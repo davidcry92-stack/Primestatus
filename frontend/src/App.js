@@ -27,6 +27,7 @@ const LoginOnlyApp = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
 
   const handleAuthClick = () => {
+    console.log('Auth button clicked!'); // Debug log
     setShowAuthModal(true);
   };
 
