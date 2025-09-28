@@ -174,7 +174,7 @@ async def login(user_credentials: UserLogin):
         )
     
     # Verify password
-    if not verify_password(user_credentials.password, user["password"]):
+    if not verify_password(user_credentials.password, user.get("password_hash") or user.get("password")):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid email or password"
