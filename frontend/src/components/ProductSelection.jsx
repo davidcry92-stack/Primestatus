@@ -4,6 +4,19 @@ import ProductGrid from './ProductGrid';
 const ProductSelection = ({ onCategorySelect, user }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
 
+  // Block access for unverified users
+  if (!user?.is_verified || user?.verification_status !== 'approved') {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-center text-white">
+          <div className="text-6xl mb-4">🔒</div>
+          <h2 className="text-2xl font-bold mb-4">Verification Required</h2>
+          <p className="text-gray-400">You must be verified to access products.</p>
+        </div>
+      </div>
+    );
+  }
+
   const handleCategoryClick = (category, tier = null) => {
     console.log('Category clicked:', category, 'Tier:', tier);
     setSelectedCategory({ category, tier });
