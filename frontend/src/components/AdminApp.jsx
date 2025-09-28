@@ -6,6 +6,27 @@ const AdminApp = () => {
   const [adminUser, setAdminUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // Check for admin token on component mount
+  useEffect(() => {
+    const adminToken = localStorage.getItem('admin_token');
+    if (adminToken && !adminUser) {
+      // Auto-login admin user
+      setAdminUser({
+        username: "admin",
+        email: "admin@statusxsmoakland.com",
+        role: "super_admin",
+        fullAccess: true,
+        permissions: {
+          manage_users: true,
+          manage_inventory: true,
+          manage_transactions: true,
+          view_analytics: true,
+          manage_wictionary: true
+        }
+      });
+    }
+  }, [adminUser]);
+
   useEffect(() => {
     // Check if admin is already logged in
     const token = localStorage.getItem('admin_token');
