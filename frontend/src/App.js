@@ -25,15 +25,7 @@ const MainApp = () => {
   const { user, isAuthenticated } = useAuth();
   const [cartItems, setCartItems] = useState([]);
   const [showAuthModal, setShowAuthModal] = useState(false);
-  const [isSuperAdmin, setIsSuperAdmin] = useState(false);
-
-  // Check for super admin bypass
-  useEffect(() => {
-    const superAdminBypass = localStorage.getItem('super_admin_bypass');
-    if (superAdminBypass === 'true') {
-      setIsSuperAdmin(true);
-    }
-  }, []);
+  // Removed super admin bypass functionality
 
   const handleAuthClick = () => {
     setShowAuthModal(true);
