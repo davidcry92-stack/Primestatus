@@ -10,7 +10,7 @@ import json
 from datetime import datetime
 
 # Configuration - Using production URL from frontend/.env
-BACKEND_URL = "https://686e1e87-3b6f-4bd3-8921-2bd02b7696b4.preview.emergentagent.com/api"
+BACKEND_URL = "https://686e1e87-3b6f-4bd3-8921-2bd02b7696b4.preview.emergentagent.com"
 
 # Test credentials from review request
 ADMIN_EMAIL = "admin@statusxsmoakland.com"
