@@ -45,12 +45,29 @@ api_router.include_router(ratings.router)
 # Include the main router in the app
 app.include_router(api_router)
 
-# CORS middleware
+# CORS middleware - Production ready configuration
+cors_origins = os.environ.get('CORS_ORIGINS', '*').split(',')
+if cors_origins == ['*']:
+    # Allow common development and production origins
+    cors_origins = [
+        "*",  # Keep wildcard for flexibility but add specific origins
+        "http://localhost:3000",  # Local development
+        "https://localhost:3000",  # Local development HTTPS
+    ]
+    # Add Emergent production domain pattern if available
+    app_domain = os.environ.get('APP_DOMAIN')
+    if app_domain:
+        cors_origins.extend([
+            f"https://{app_domain}",
+            f"https://{app_domain}.emergent.host",
+            f"https://{app_domain}.preview.emergentagent.com"
+        ])
+
 app.add_middleware(
     CORSMiddleware,
     allow_credentials=True,
-    allow_origins=["*"],  # In production, specify exact origins
-    allow_methods=["*"],
+    allow_origins=cors_origins,
+    allow_methods=["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allow_headers=["*"],
 )
 
