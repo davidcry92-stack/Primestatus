@@ -139,15 +139,6 @@ function App() {
   };
 
   const getAppContent = () => {
-    // Super admin bypass - skip all verification
-    if (isSuperAdminMode) {
-      return (
-        <AuthProvider>
-          <MainApp />
-        </AuthProvider>
-      );
-    }
-
     if (!isLawEnforcementVerified) {
       return <LawEnforcementScreen onVerified={handleLawEnforcementVerification} />;
     }
@@ -156,9 +147,10 @@ function App() {
       return <ReEntryCodeScreen onVerified={handleReEntryCodeVerification} userEmail="demo@example.com" />;
     }
     
+    // After verification, show login-only access
     return (
       <AuthProvider>
-        <MainApp />
+        <LoginOnlyApp />
       </AuthProvider>
     );
   };
