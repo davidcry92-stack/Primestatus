@@ -311,10 +311,11 @@ class AuthenticationTester:
         """Test that the password field reference fix is working."""
         print("\n=== TESTING PASSWORD FIELD FIX ===")
         
-        # Test with both admin and user login to verify password field handling
+        # Test with admin and both user types to verify password field handling
         test_cases = [
             ("Admin", ADMIN_EMAIL, ADMIN_PASSWORD, "/admin-auth/login"),
-            ("Premium User", PREMIUM_USER_EMAIL, PREMIUM_USER_PASSWORD, "/auth/login")
+            ("Premium User", PREMIUM_USER_EMAIL, PREMIUM_USER_PASSWORD, "/auth/login"),
+            ("Basic User", BASIC_USER_EMAIL, BASIC_USER_PASSWORD, "/auth/login")
         ]
         
         for user_type, email, password, endpoint in test_cases:
