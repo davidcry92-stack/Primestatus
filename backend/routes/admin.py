@@ -722,12 +722,50 @@ async def seed_database():
                 {"$set": {"password_hash": get_password_hash("Admin123!")}}
             )
         
+        # Always ensure admin user is in users collection for regular login
+        admin_in_users = await users_collection.find_one({"email": "admin@statusxsmoakland.com"})
+        if not admin_in_users:
+            from utils.auth import get_password_hash
+            from datetime import datetime
+            import uuid
+            
+            admin_user_data = {
+                "id": str(uuid.uuid4()),
+                "username": "admin",
+                "email": "admin@statusxsmoakland.com",
+                "password": get_password_hash("Admin123!"),
+                "re_entry_code_hash": get_password_hash("1234"),
+                "full_name": "System Administrator",
+                "date_of_birth": "1980-01-01",
+                "membership_tier": "premium",  # Give admin premium access
+                "is_law_enforcement": False,
+                "parent_email": None,
+                "preferences": {"categories": [], "vendors": [], "price_range": [0, 500]},
+                "wictionary_access": True,
+                "order_history": [],
+                "is_verified": True,
+                "id_verification": {
+                    "id_front_url": None,
+                    "id_back_url": None,
+                    "medical_document_url": None,
+                    "verification_status": "approved",
+                    "verified_at": datetime.utcnow(),
+                    "rejected_reason": None,
+                    "age_verified": 45,
+                    "requires_medical": False
+                },
+                "created_at": datetime.utcnow(),
+                "updated_at": datetime.utcnow()
+            }
+            
+            await users_collection.insert_one(admin_user_data)
+        
         if demo_admin and demo_user:
             return {
-                "message": "Demo users exist, admin password updated",
+                "message": "Demo users exist, admin password updated, admin added to users collection",
                 "admin_users_existing": admin_count,
                 "demo_users_existing": user_count,
-                "action": "admin_password_updated"
+                "action": "admin_password_updated_and_user_added"
             }
         
         # Force seed admin user (remove existing check)
