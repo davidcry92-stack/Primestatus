@@ -12,7 +12,7 @@ export const inStockProducts = [
     weight: '3.5g',
     tier: 'lows',
     type: 'Hybrid Sativa Dominant',
-    image: 'https://images.unsplash.com/photo-1609443934742-3e2383f9423f?w=400&h=400&fit=crop',
+    image: 'https://images.unsplash.com/photo-1629406979664-d930f76dc124?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwxfHxjYW5uYWJpcyUyMGJ1ZHN8ZW58MHx8fHwxNzU5MDE5NDA2fDA&ixlib=rb-4.1.0&q=85',
     description: 'NYC classic sativa-dominant hybrid with skunky aroma',
     thc: '16-20%',
     vendor: 'Smoakland Budget',
