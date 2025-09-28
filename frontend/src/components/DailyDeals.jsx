@@ -15,6 +15,17 @@ import { mockProducts, mockDailyDeals } from '../data/actual-inventory';
 const DailyDeals = ({ user }) => {
   const [timeLeft, setTimeLeft] = useState({});
 
+  // Block access for unverified users
+  if (!user?.is_verified || user?.verification_status !== 'approved') {
+    return (
+      <div className="py-20 bg-black text-center">
+        <div className="text-6xl mb-4">🔒</div>
+        <h2 className="text-2xl font-bold text-white mb-4">Verification Required</h2>
+        <p className="text-gray-400">You must be verified to view daily deals.</p>
+      </div>
+    );
+  }
+
   // Calculate time remaining for deals
   useEffect(() => {
     const timer = setInterval(() => {
