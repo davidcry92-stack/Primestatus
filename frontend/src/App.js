@@ -43,55 +43,7 @@ const MainApp = () => {
     setShowAuthModal(false);
   };
 
-  // Super admin bypass - skip verification
-  if (isSuperAdmin) {
-    const superAdminUser = {
-      username: "SuperAdmin",
-      email: "admin@statusxsmoakland.com",
-      membership_tier: "premium",
-      membershipTier: "premium",
-      is_verified: true,
-      role: "super_admin",
-      fullAccess: true
-    };
-
-    return (
-      <div className="min-h-screen bg-black">
-        {/* Super Admin Header */}
-        <div className="bg-gradient-to-r from-red-900 to-red-700 p-2 text-center">
-          <span className="text-white font-bold">🔓 SUPER ADMIN MODE - Full App Access</span>
-          <button 
-            onClick={() => {
-              localStorage.removeItem('super_admin_bypass');
-              localStorage.removeItem('admin_token');
-              window.location.href = '/admin';
-            }}
-            className="ml-4 bg-white text-red-700 px-3 py-1 rounded text-sm font-medium hover:bg-gray-100"
-          >
-            Exit Super Admin
-          </button>
-        </div>
-        
-        <Header 
-          user={superAdminUser} 
-          cartItems={cartItems} 
-          onAuthClick={handleAuthClick}
-        />
-        <main>
-          <HeroSection onAuthClick={handleAuthClick} />
-          <ProductSelection user={superAdminUser} />
-          <DailyDeals user={superAdminUser} />
-          <Wictionary user={superAdminUser} />
-        </main>
-        <Footer />
-        <Toaster />
-        
-        {showAuthModal && (
-          <AuthModal onClose={handleCloseAuth} />
-        )}
-      </div>
-    );
-  }
+  // No more super admin bypass - all users must go through verification
 
   // If user is authenticated but not verified, show verification pending screen
   if (isAuthenticated && user && !user.is_verified) {
