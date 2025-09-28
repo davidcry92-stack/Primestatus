@@ -699,3 +699,32 @@ async def get_recent_reviews(product_id, limit=5):
         })
     
     return recent_reviews
+
+@router.post("/seed-database")
+async def seed_database(admin_email: str = Depends(verify_admin_token)):
+    """Manually trigger database seeding for demo users and admin."""
+    try:
+        from utils.database import DatabaseManager
+        
+        # Force seed admin user
+        await DatabaseManager.seed_admin()
+        
+        # Force seed demo users
+        await DatabaseManager.seed_demo_users()
+        
+        # Check results
+        admin_count = await admins_collection.count_documents({})
+        user_count = await users_collection.count_documents({})
+        
+        return {
+            "message": "Database seeding completed successfully",
+            "admin_users_created": admin_count,
+            "demo_users_created": user_count,
+            "seeded_by": admin_email
+        }
+        
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Database seeding failed: {str(e)}"
+        )
