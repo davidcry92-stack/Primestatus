@@ -39,7 +39,7 @@ const ReEntryCodeScreen = ({ onVerified, userEmail }) => {
       
       // Mock successful verification after 1 second
       setTimeout(() => {
-        if (reEntryCode === '1234' || reEntryCode === '0000') { // Demo codes
+        if (reEntryCode === '1234') { // Required re-entry code
           // Mark session as active
           sessionStorage.setItem('app_session_active', 'true');
           sessionStorage.setItem('reentry_verified', 'true');
