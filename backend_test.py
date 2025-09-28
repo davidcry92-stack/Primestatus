@@ -2246,15 +2246,18 @@ class AuthenticationTester:
         admin_success = await self.test_admin_authentication()
         
         # Test 3: Premium user authentication
-        user_token = await self.test_premium_user_authentication()
+        premium_token = await self.test_premium_user_authentication()
         
-        # Test 4: Database users verification
+        # Test 4: Basic user authentication
+        basic_token = await self.test_basic_user_authentication()
+        
+        # Test 5: Database users verification
         await self.test_database_users_exist()
         
-        # Test 5: Password field fix verification
+        # Test 6: Password field fix verification
         await self.test_password_field_fix()
         
-        # Test 6: JWT token functionality
+        # Test 7: JWT token functionality
         await self.test_jwt_token_functionality()
         
         # Summary
