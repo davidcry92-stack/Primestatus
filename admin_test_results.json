@@ -1,146 +1,809 @@
 {
   "summary": {
-    "total": 19,
-    "passed": 11,
-    "failed": 8,
-    "success_rate": "57.9%"
+    "total": 114,
+    "passed": 98,
+    "failed": 16,
+    "success_rate": "86.0%"
   },
   "results": [
     {
-      "test": "Demo User Missing - admin@statusxsmoakland.com",
-      "success": false,
-      "details": "User admin@statusxsmoakland.com does not exist or cannot authenticate: {'detail': 'Invalid email or password'}",
-      "timestamp": "2025-09-28T16:51:14.594475",
-      "response_data": null
-    },
-    {
-      "test": "Demo User Missing - premium@demo.com",
-      "success": false,
-      "details": "User premium@demo.com does not exist or cannot authenticate: {'detail': 'Invalid email or password'}",
-      "timestamp": "2025-09-28T16:51:14.604690",
-      "response_data": null
-    },
-    {
-      "test": "Demo User Missing - basic@demo.com",
-      "success": false,
-      "details": "User basic@demo.com does not exist or cannot authenticate: {'detail': 'Invalid email or password'}",
-      "timestamp": "2025-09-28T16:51:14.618328",
-      "response_data": null
-    },
-    {
-      "test": "Demo User Missing - unverified@demo.com",
-      "success": false,
-      "details": "User unverified@demo.com does not exist or cannot authenticate: {'detail': 'Invalid email or password'}",
-      "timestamp": "2025-09-28T16:51:14.627660",
-      "response_data": null
-    },
-    {
-      "test": "Demo Users Seeding Required",
+      "test": "Demo User Exists - admin@statusxsmoakland.com",
       "success": true,
-      "details": "Missing demo users: ['admin@statusxsmoakland.com', 'premium@demo.com', 'basic@demo.com', 'unverified@demo.com']. Attempting database seeding...",
-      "timestamp": "2025-09-28T16:51:14.627681",
+      "details": "User admin@statusxsmoakland.com already exists and can authenticate",
+      "timestamp": "2025-09-28T16:52:21.538258",
       "response_data": null
     },
     {
-      "test": "Database Seeding Trigger",
+      "test": "Demo User Exists - premium@demo.com",
       "success": true,
-      "details": "Database seeding successful: Database seeding completed successfully. Admin users: 1, Demo users: 10",
-      "timestamp": "2025-09-28T16:51:14.682334",
+      "details": "User premium@demo.com already exists and can authenticate",
+      "timestamp": "2025-09-28T16:52:21.551260",
       "response_data": null
     },
     {
-      "test": "Post-Seeding Auth - admin@statusxsmoakland.com",
-      "success": false,
-      "details": "User admin@statusxsmoakland.com still cannot authenticate after seeding: {'detail': 'Invalid email or password'}",
-      "timestamp": "2025-09-28T16:51:14.689527",
-      "response_data": null
-    },
-    {
-      "test": "Post-Seeding Auth - premium@demo.com",
+      "test": "Demo User Exists - basic@demo.com",
       "success": true,
-      "details": "User premium@demo.com now exists and can authenticate after seeding",
-      "timestamp": "2025-09-28T16:51:14.775989",
+      "details": "User basic@demo.com already exists and can authenticate",
+      "timestamp": "2025-09-28T16:52:21.600566",
       "response_data": null
     },
     {
-      "test": "Post-Seeding Auth - basic@demo.com",
+      "test": "Demo User Exists - unverified@demo.com",
       "success": true,
-      "details": "User basic@demo.com now exists and can authenticate after seeding",
-      "timestamp": "2025-09-28T16:51:14.783882",
+      "details": "User unverified@demo.com already exists and can authenticate",
+      "timestamp": "2025-09-28T16:52:21.616266",
       "response_data": null
     },
     {
-      "test": "Post-Seeding Auth - unverified@demo.com",
+      "test": "All Demo Users Present",
       "success": true,
-      "details": "User unverified@demo.com now exists and can authenticate after seeding",
-      "timestamp": "2025-09-28T16:51:14.831229",
+      "details": "All required demo users exist in the database",
+      "timestamp": "2025-09-28T16:52:21.616287",
       "response_data": null
     },
     {
       "test": "Authentication Test - admin@statusxsmoakland.com",
-      "success": false,
-      "details": "Authentication failed for admin@statusxsmoakland.com: {'detail': 'Invalid email or password'}",
-      "timestamp": "2025-09-28T16:51:14.840936",
+      "success": true,
+      "details": "Successfully authenticated admin@statusxsmoakland.com with JWT token. Role: super_admin",
+      "timestamp": "2025-09-28T16:52:21.666146",
+      "response_data": null
+    },
+    {
+      "test": "JWT Token Validation - admin@statusxsmoakland.com",
+      "success": true,
+      "details": "JWT token is valid and profile retrieved successfully",
+      "timestamp": "2025-09-28T16:52:21.682423",
       "response_data": null
     },
     {
       "test": "Authentication Test - premium@demo.com",
       "success": true,
       "details": "Successfully authenticated premium@demo.com with JWT token. Role: premium",
-      "timestamp": "2025-09-28T16:51:14.889297",
+      "timestamp": "2025-09-28T16:52:23.705105",
       "response_data": null
     },
     {
       "test": "JWT Token Validation - premium@demo.com",
       "success": true,
       "details": "JWT token is valid and profile retrieved successfully",
-      "timestamp": "2025-09-28T16:51:14.905965",
+      "timestamp": "2025-09-28T16:52:23.715839",
       "response_data": null
     },
     {
       "test": "Authentication Test - basic@demo.com",
       "success": true,
       "details": "Successfully authenticated basic@demo.com with JWT token. Role: basic",
-      "timestamp": "2025-09-28T16:51:14.954640",
+      "timestamp": "2025-09-28T16:52:23.766861",
       "response_data": null
     },
     {
       "test": "JWT Token Validation - basic@demo.com",
       "success": true,
       "details": "JWT token is valid and profile retrieved successfully",
-      "timestamp": "2025-09-28T16:51:14.964049",
+      "timestamp": "2025-09-28T16:52:25.564841",
       "response_data": null
     },
     {
       "test": "Authentication Test - unverified@demo.com",
       "success": true,
       "details": "Successfully authenticated unverified@demo.com with JWT token. Role: basic",
-      "timestamp": "2025-09-28T16:51:15.011758",
+      "timestamp": "2025-09-28T16:52:25.575504",
       "response_data": null
     },
     {
       "test": "JWT Token Validation - unverified@demo.com",
       "success": true,
       "details": "JWT token is valid and profile retrieved successfully",
-      "timestamp": "2025-09-28T16:51:15.060827",
+      "timestamp": "2025-09-28T16:52:25.586013",
       "response_data": null
     },
     {
       "test": "\ud83c\udfaf DEMO USER SEEDING VERIFICATION SUMMARY",
-      "success": false,
-      "details": "Successfully authenticated 3/4 demo users. \u274c Some demo users missing or not working.",
-      "timestamp": "2025-09-28T16:51:15.060855",
+      "success": true,
+      "details": "Successfully authenticated 4/4 demo users. \u2705 All demo users ready for production use!",
+      "timestamp": "2025-09-28T16:52:25.586032",
       "response_data": null
     },
     {
       "test": "Admin Login",
+      "success": true,
+      "details": "Successfully logged in as admin@statusxsmoakland.com with role super_admin",
+      "timestamp": "2025-09-28T16:52:25.595608",
+      "response_data": null
+    },
+    {
+      "test": "Admin Token Validation",
+      "success": true,
+      "details": "Token valid, profile retrieved for admin@statusxsmoakland.com",
+      "timestamp": "2025-09-28T16:52:25.605186",
+      "response_data": null
+    },
+    {
+      "test": "Get All Products",
+      "success": true,
+      "details": "Retrieved 100 total products from API",
+      "timestamp": "2025-09-28T16:52:26.805653",
+      "response_data": null
+    },
+    {
+      "test": "LOWS Tier Total Count",
+      "success": true,
+      "details": "Expected ~54, got 54 (20 in-stock, 34 out-of-stock)",
+      "timestamp": "2025-09-28T16:52:26.805708",
+      "response_data": null
+    },
+    {
+      "test": "LOWS Tier Out-of-Stock Count",
+      "success": true,
+      "details": "Expected ~34 out-of-stock, got 34",
+      "timestamp": "2025-09-28T16:52:26.805714",
+      "response_data": null
+    },
+    {
+      "test": "DEPS Tier Total Count",
       "success": false,
-      "details": "Login failed with status 401: {'detail': 'Invalid email or password'}",
-      "timestamp": "2025-09-28T16:51:15.068183",
-      "response_data": {
-        "detail": "Invalid email or password"
-      }
+      "details": "Expected ~87, got 37 (32 in-stock, 5 out-of-stock)",
+      "timestamp": "2025-09-28T16:52:26.805718",
+      "response_data": null
+    },
+    {
+      "test": "DEPS Tier Out-of-Stock Count",
+      "success": false,
+      "details": "Expected ~60 out-of-stock, got 5",
+      "timestamp": "2025-09-28T16:52:26.805722",
+      "response_data": null
+    },
+    {
+      "test": "ZA Tier Total Count",
+      "success": true,
+      "details": "Expected ~8, got 9 (5 in-stock, 4 out-of-stock)",
+      "timestamp": "2025-09-28T16:52:26.805726",
+      "response_data": null
+    },
+    {
+      "test": "ZA Tier Out-of-Stock Count",
+      "success": true,
+      "details": "Expected ~4 out-of-stock, got 4",
+      "timestamp": "2025-09-28T16:52:26.805730",
+      "response_data": null
+    },
+    {
+      "test": "Total Inventory Volume",
+      "success": false,
+      "details": "Expected 149+ total products, got 100",
+      "timestamp": "2025-09-28T16:52:26.805733",
+      "response_data": null
+    },
+    {
+      "test": "Tier Filter - ZA",
+      "success": true,
+      "details": "Retrieved 9 za tier products (filter working correctly)",
+      "timestamp": "2025-09-28T16:52:26.827447",
+      "response_data": null
+    },
+    {
+      "test": "ZA Tier In-Stock Filter",
+      "success": true,
+      "details": "Retrieved 5 in-stock za products",
+      "timestamp": "2025-09-28T16:52:26.845835",
+      "response_data": null
+    },
+    {
+      "test": "ZA Tier Out-of-Stock Filter",
+      "success": true,
+      "details": "Retrieved 4 out-of-stock za products",
+      "timestamp": "2025-09-28T16:52:26.865648",
+      "response_data": null
+    },
+    {
+      "test": "Tier Filter - DEPS",
+      "success": true,
+      "details": "Retrieved 38 deps tier products (filter working correctly)",
+      "timestamp": "2025-09-28T16:52:28.909622",
+      "response_data": null
+    },
+    {
+      "test": "DEPS Tier In-Stock Filter",
+      "success": true,
+      "details": "Retrieved 33 in-stock deps products",
+      "timestamp": "2025-09-28T16:52:28.930082",
+      "response_data": null
+    },
+    {
+      "test": "DEPS Tier Out-of-Stock Filter",
+      "success": true,
+      "details": "Retrieved 5 out-of-stock deps products",
+      "timestamp": "2025-09-28T16:52:29.714209",
+      "response_data": null
+    },
+    {
+      "test": "Tier Filter - LOWS",
+      "success": true,
+      "details": "Retrieved 54 lows tier products (filter working correctly)",
+      "timestamp": "2025-09-28T16:52:31.410992",
+      "response_data": null
+    },
+    {
+      "test": "LOWS Tier In-Stock Filter",
+      "success": true,
+      "details": "Retrieved 20 in-stock lows products",
+      "timestamp": "2025-09-28T16:52:31.429594",
+      "response_data": null
+    },
+    {
+      "test": "LOWS Tier Out-of-Stock Filter",
+      "success": true,
+      "details": "Retrieved 34 out-of-stock lows products",
+      "timestamp": "2025-09-28T16:52:33.128202",
+      "response_data": null
+    },
+    {
+      "test": "Category Filter - flower",
+      "success": true,
+      "details": "Retrieved 95 flower products",
+      "timestamp": "2025-09-28T16:52:33.151613",
+      "response_data": null
+    },
+    {
+      "test": "Category Filter - edibles",
+      "success": true,
+      "details": "Retrieved 2 edibles products",
+      "timestamp": "2025-09-28T16:52:33.211337",
+      "response_data": null
+    },
+    {
+      "test": "Category Filter - vapes",
+      "success": true,
+      "details": "Retrieved 2 vapes products",
+      "timestamp": "2025-09-28T16:52:36.408279",
+      "response_data": null
+    },
+    {
+      "test": "Category Filter - pre-rolls",
+      "success": true,
+      "details": "Retrieved 2 pre-rolls products",
+      "timestamp": "2025-09-28T16:52:36.467615",
+      "response_data": null
+    },
+    {
+      "test": "Category Filter - concentrates",
+      "success": true,
+      "details": "Retrieved 0 concentrates products",
+      "timestamp": "2025-09-28T16:52:36.484603",
+      "response_data": null
+    },
+    {
+      "test": "Category Filter - suppositories",
+      "success": true,
+      "details": "Retrieved 0 suppositories products",
+      "timestamp": "2025-09-28T16:52:36.503685",
+      "response_data": null
+    },
+    {
+      "test": "Stock Status Filtering",
+      "success": false,
+      "details": "In-stock: 58, Out-of-stock: 43, Total: 101 (should equal 100)",
+      "timestamp": "2025-09-28T16:52:39.413607",
+      "response_data": null
+    },
+    {
+      "test": "Product Data Structure",
+      "success": true,
+      "details": "Sample product has all required fields",
+      "timestamp": "2025-09-28T16:52:39.413634",
+      "response_data": null
+    },
+    {
+      "test": "Brand Search - Paletas",
+      "success": true,
+      "details": "Found 1 Paletas products",
+      "timestamp": "2025-09-28T16:52:39.433173",
+      "response_data": null
+    },
+    {
+      "test": "Brand Search - Wyld",
+      "success": true,
+      "details": "Found 1 Wyld products",
+      "timestamp": "2025-09-28T16:52:39.493213",
+      "response_data": null
+    },
+    {
+      "test": "Brand Search - Fryd",
+      "success": true,
+      "details": "Found 1 Fryd products",
+      "timestamp": "2025-09-28T16:52:40.587188",
+      "response_data": null
+    },
+    {
+      "test": "Brand Search - Smoakies",
+      "success": true,
+      "details": "Found 1 Smoakies products",
+      "timestamp": "2025-09-28T16:52:40.644904",
+      "response_data": null
+    },
+    {
+      "test": "Brand Search - Blendz",
+      "success": true,
+      "details": "Found 1 Blendz products",
+      "timestamp": "2025-09-28T16:52:40.663853",
+      "response_data": null
+    },
+    {
+      "test": "Specific Out-of-Stock Products - Deps",
+      "success": true,
+      "details": "Found 3 specific deps out-of-stock products",
+      "timestamp": "2025-09-28T16:52:40.663900",
+      "response_data": null
+    },
+    {
+      "test": "Specific Out-of-Stock Products - Za",
+      "success": true,
+      "details": "Found 2 specific za out-of-stock products",
+      "timestamp": "2025-09-28T16:52:40.663907",
+      "response_data": null
+    },
+    {
+      "test": "Tier Distribution",
+      "success": false,
+      "details": "Found tiers: ['lows'], counts: {'lows': 50}",
+      "timestamp": "2025-09-28T16:52:40.674125",
+      "response_data": null
+    },
+    {
+      "test": "Category Distribution",
+      "success": false,
+      "details": "Found categories: ['flower'], counts: {'flower': 50}",
+      "timestamp": "2025-09-28T16:52:40.674142",
+      "response_data": null
+    },
+    {
+      "test": "Branded Products",
+      "success": false,
+      "details": "Found brands: [], counts: {'Smoakland Budget': 50}",
+      "timestamp": "2025-09-28T16:52:40.674148",
+      "response_data": null
+    },
+    {
+      "test": "Inventory Volume",
+      "success": true,
+      "details": "Total products in database: 50",
+      "timestamp": "2025-09-28T16:52:40.674154",
+      "response_data": null
+    },
+    {
+      "test": "Get All Products",
+      "success": true,
+      "details": "Retrieved 100 products from API",
+      "timestamp": "2025-09-28T16:52:42.304533",
+      "response_data": null
+    },
+    {
+      "test": "Product Data Structure",
+      "success": true,
+      "details": "Found tiers: ['lows', 'za', 'deps'], categories: ['flower', 'pre-rolls', 'vapes', 'edibles'], in-stock: 57",
+      "timestamp": "2025-09-28T16:52:42.304584",
+      "response_data": null
+    },
+    {
+      "test": "Tier Filter - ZA",
+      "success": true,
+      "details": "Retrieved 9 za tier products",
+      "timestamp": "2025-09-28T16:52:42.322193",
+      "response_data": null
+    },
+    {
+      "test": "Tier Filter - DEPS",
+      "success": true,
+      "details": "Retrieved 38 deps tier products",
+      "timestamp": "2025-09-28T16:52:42.341202",
+      "response_data": null
+    },
+    {
+      "test": "Tier Filter - LOWS",
+      "success": true,
+      "details": "Retrieved 54 lows tier products",
+      "timestamp": "2025-09-28T16:52:42.710827",
+      "response_data": null
+    },
+    {
+      "test": "Category Filter - flower",
+      "success": true,
+      "details": "Retrieved 95 flower products",
+      "timestamp": "2025-09-28T16:52:42.730380",
+      "response_data": null
+    },
+    {
+      "test": "Category Filter - edibles",
+      "success": true,
+      "details": "Retrieved 2 edibles products",
+      "timestamp": "2025-09-28T16:52:43.604741",
+      "response_data": null
+    },
+    {
+      "test": "Category Filter - vapes",
+      "success": true,
+      "details": "Retrieved 2 vapes products",
+      "timestamp": "2025-09-28T16:52:44.203298",
+      "response_data": null
+    },
+    {
+      "test": "In-Stock Filter",
+      "success": true,
+      "details": "Retrieved 58 in-stock products",
+      "timestamp": "2025-09-28T16:52:44.221469",
+      "response_data": null
+    },
+    {
+      "test": "Brand Search - Paletas",
+      "success": true,
+      "details": "Found 1 Paletas products",
+      "timestamp": "2025-09-28T16:52:44.280892",
+      "response_data": null
+    },
+    {
+      "test": "Brand Search - Wyld",
+      "success": true,
+      "details": "Found 1 Wyld products",
+      "timestamp": "2025-09-28T16:52:44.299600",
+      "response_data": null
+    },
+    {
+      "test": "Brand Search - Fryd",
+      "success": true,
+      "details": "Found 1 Fryd products",
+      "timestamp": "2025-09-28T16:52:44.317318",
+      "response_data": null
+    },
+    {
+      "test": "Brand Search - Smoakies",
+      "success": true,
+      "details": "Found 1 Smoakies products",
+      "timestamp": "2025-09-28T16:52:45.206329",
+      "response_data": null
+    },
+    {
+      "test": "Brand Search - Blendz",
+      "success": true,
+      "details": "Found 1 Blendz products",
+      "timestamp": "2025-09-28T16:52:45.225849",
+      "response_data": null
+    },
+    {
+      "test": "Get Inventory",
+      "success": true,
+      "details": "Retrieved 50 products from inventory",
+      "timestamp": "2025-09-28T16:52:45.236653",
+      "response_data": null
+    },
+    {
+      "test": "Inventory Category Filter",
+      "success": true,
+      "details": "Category filter returned 10 products",
+      "timestamp": "2025-09-28T16:52:45.247933",
+      "response_data": null
+    },
+    {
+      "test": "Inventory Search",
+      "success": true,
+      "details": "Search returned 2 products",
+      "timestamp": "2025-09-28T16:52:45.264452",
+      "response_data": null
+    },
+    {
+      "test": "Add Product",
+      "success": true,
+      "details": "Successfully created product with ID 68d967ddc584f1b04add714e",
+      "timestamp": "2025-09-28T16:52:45.405925",
+      "response_data": null
+    },
+    {
+      "test": "Update Product",
+      "success": true,
+      "details": "Successfully updated product 68d967ddc584f1b04add714e",
+      "timestamp": "2025-09-28T16:52:45.416672",
+      "response_data": null
+    },
+    {
+      "test": "Delete Product",
+      "success": true,
+      "details": "Successfully deleted product 68d967ddc584f1b04add714e",
+      "timestamp": "2025-09-28T16:52:45.467065",
+      "response_data": null
+    },
+    {
+      "test": "Dashboard Stats",
+      "success": true,
+      "details": "Retrieved complete dashboard stats: 5 sections",
+      "timestamp": "2025-09-28T16:52:45.761357",
+      "response_data": null
+    },
+    {
+      "test": "Wictionary Total Terms Count",
+      "success": true,
+      "details": "Retrieved 50 terms (expected 40+). \u2705 PASS",
+      "timestamp": "2025-09-28T16:52:46.562529",
+      "response_data": null
+    },
+    {
+      "test": "Specific Strain Search - Lemon Cherry Gelato",
+      "success": true,
+      "details": "Search for 'Lemon Cherry Gelato' returned 1 results. Found strain \u2705",
+      "timestamp": "2025-09-28T16:52:46.571405",
+      "response_data": null
+    },
+    {
+      "test": "Specific Strain Search - Granddaddy Purple",
+      "success": true,
+      "details": "Search for 'Granddaddy Purple' returned 1 results. Found strain \u2705",
+      "timestamp": "2025-09-28T16:52:46.579919",
+      "response_data": null
+    },
+    {
+      "test": "Specific Strain Search - Northern Lights",
+      "success": true,
+      "details": "Search for 'Northern Lights' returned 1 results. Found strain \u2705",
+      "timestamp": "2025-09-28T16:52:46.629220",
+      "response_data": null
+    },
+    {
+      "test": "Specific Strain Search - Gary Payton",
+      "success": true,
+      "details": "Search for 'Gary Payton' returned 1 results. Found strain \u2705",
+      "timestamp": "2025-09-28T16:52:46.638953",
+      "response_data": null
+    },
+    {
+      "test": "Comprehensive Strain Data Quality",
+      "success": true,
+      "details": "Found 26 strains with comprehensive data (THC, effects, taste, ailments). Expected 20+",
+      "timestamp": "2025-09-28T16:52:46.639073",
+      "response_data": null
+    },
+    {
+      "test": "Sample Strain Data Verification",
+      "success": true,
+      "details": "Sample strain 'Blue Cookies': Hybrid (75% Indica / 25% Sativa) - THC: 20-26%. Effects: Relaxed, happy, sedated. Taste: Sweet, vani...",
+      "timestamp": "2025-09-28T16:52:46.639081",
+      "response_data": null
+    },
+    {
+      "test": "Category Filter - culture (Za strains)",
+      "success": true,
+      "details": "Retrieved 9 Za strains",
+      "timestamp": "2025-09-28T16:52:46.651020",
+      "response_data": null
+    },
+    {
+      "test": "Category Filter - science (Deps strains)",
+      "success": true,
+      "details": "Retrieved 20 Deps strains",
+      "timestamp": "2025-09-28T16:52:46.660817",
+      "response_data": null
+    },
+    {
+      "test": "Category Filter - legal (Lows strains)",
+      "success": true,
+      "details": "Retrieved 20 Lows strains",
+      "timestamp": "2025-09-28T16:52:46.669708",
+      "response_data": null
+    },
+    {
+      "test": "Category Filter - slang (tier definitions)",
+      "success": true,
+      "details": "Retrieved 5 tier definitions",
+      "timestamp": "2025-09-28T16:52:46.680068",
+      "response_data": null
+    },
+    {
+      "test": "Wictionary Stats Categories",
+      "success": true,
+      "details": "Found categories: ['slang', 'culture', 'legal', 'science'] with counts: {'slang': 5, 'culture': 9, 'legal': 20, 'science': 20}",
+      "timestamp": "2025-09-28T16:52:46.729953",
+      "response_data": null
+    },
+    {
+      "test": "Total Strain Terms Count",
+      "success": true,
+      "details": "Total strain definitions across all categories: 54 (expected 40+)",
+      "timestamp": "2025-09-28T16:52:46.729987",
+      "response_data": null
+    },
+    {
+      "test": "Expected Strain Integration Verification",
+      "success": true,
+      "details": "Found 12/12 expected strains: ['Gary Payton', 'Lemon Cherry Gelato', 'Purple Runtz', 'Playmaker', 'Granddaddy Purple', 'Girl Scout Cookies', 'Gelato 41', 'OG Kush', 'Northern Lights', 'Bubba Kush', 'Green Crack', 'Blue Haze']",
+      "timestamp": "2025-09-28T16:52:46.730054",
+      "response_data": null
+    },
+    {
+      "test": "Database Seeding Verification",
+      "success": true,
+      "details": "Found 2 basic terms and 26 comprehensive strains. Database properly seeded with comprehensive catalog.",
+      "timestamp": "2025-09-28T16:52:46.730071",
+      "response_data": null
+    },
+    {
+      "test": "\ud83c\udfaf COMPREHENSIVE STRAIN SEEDING ASSESSMENT",
+      "success": true,
+      "details": "\u2705 SUCCESS: Comprehensive strain definitions successfully seeded with detailed THC, effects, taste, and medical information",
+      "timestamp": "2025-09-28T16:52:46.730078",
+      "response_data": null
+    },
+    {
+      "test": "Get All Members",
+      "success": true,
+      "details": "Retrieved 10 members",
+      "timestamp": "2025-09-28T16:52:47.761233",
+      "response_data": null
+    },
+    {
+      "test": "Member Search",
+      "success": true,
+      "details": "Search returned 5 results",
+      "timestamp": "2025-09-28T16:52:47.774838",
+      "response_data": null
+    },
+    {
+      "test": "Member Status Filter",
+      "success": true,
+      "details": "Status filter returned 6 results",
+      "timestamp": "2025-09-28T16:52:47.787307",
+      "response_data": null
+    },
+    {
+      "test": "Get Member Transactions",
+      "success": true,
+      "details": "Retrieved 3 transactions for user 68d8117b3006a7533f3acc46",
+      "timestamp": "2025-09-28T16:52:47.808512",
+      "response_data": null
+    },
+    {
+      "test": "Pickup Code Lookup",
+      "success": true,
+      "details": "Correctly returned 404 for non-existent payment code 123456",
+      "timestamp": "2025-09-28T16:52:47.819939",
+      "response_data": null
+    },
+    {
+      "test": "Pickup Processing",
+      "success": true,
+      "details": "Correctly returned 404 for non-existent payment code in processing",
+      "timestamp": "2025-09-28T16:52:47.829140",
+      "response_data": null
+    },
+    {
+      "test": "Payment Code Format",
+      "success": true,
+      "details": "Found valid 6-digit payment code: 584219",
+      "timestamp": "2025-09-28T16:52:49.011424",
+      "response_data": null
+    },
+    {
+      "test": "Payment Code Format",
+      "success": true,
+      "details": "Found valid 6-digit payment code: 275799",
+      "timestamp": "2025-09-28T16:52:49.021549",
+      "response_data": null
+    },
+    {
+      "test": "Transaction System Overview",
+      "success": true,
+      "details": "Found 5 total transactions across 5 members",
+      "timestamp": "2025-09-28T16:52:49.562529",
+      "response_data": null
+    },
+    {
+      "test": "Database Collections Access",
+      "success": true,
+      "details": "Successfully accessed 4 collections: users, products, transactions, admins",
+      "timestamp": "2025-09-28T16:52:50.021739",
+      "response_data": null
+    },
+    {
+      "test": "Test User Authentication",
+      "success": false,
+      "details": "Could not authenticate any existing user for rating tests. Will test admin endpoints only.",
+      "timestamp": "2025-09-28T16:52:50.890123",
+      "response_data": null
+    },
+    {
+      "test": "Get Test Product",
+      "success": true,
+      "details": "Using product 'New York Skunk' (ID: 68d860d7f944b079af006e56) for rating tests",
+      "timestamp": "2025-09-28T16:52:50.949402",
+      "response_data": null
+    },
+    {
+      "test": "Create Rating",
+      "success": false,
+      "details": "Skipped - no authenticated user available",
+      "timestamp": "2025-09-28T16:52:50.949428",
+      "response_data": null
+    },
+    {
+      "test": "Invalid Rating Validation",
+      "success": false,
+      "details": "Skipped - no authenticated user available",
+      "timestamp": "2025-09-28T16:52:50.949434",
+      "response_data": null
+    },
+    {
+      "test": "Field Length Validation",
+      "success": false,
+      "details": "Skipped - no authenticated user available",
+      "timestamp": "2025-09-28T16:52:50.949438",
+      "response_data": null
+    },
+    {
+      "test": "Update Existing Rating",
+      "success": false,
+      "details": "Skipped - no authenticated user or rating available",
+      "timestamp": "2025-09-28T16:52:50.949441",
+      "response_data": null
+    },
+    {
+      "test": "Get Product Ratings",
+      "success": true,
+      "details": "Retrieved 0 ratings for product",
+      "timestamp": "2025-09-28T16:52:51.965398",
+      "response_data": null
+    },
+    {
+      "test": "Verify Rating in Product List",
+      "success": false,
+      "details": "Our rating not found in product ratings list",
+      "timestamp": "2025-09-28T16:52:51.965426",
+      "response_data": null
+    },
+    {
+      "test": "Get User's Own Ratings",
+      "success": false,
+      "details": "Skipped - no authenticated user available",
+      "timestamp": "2025-09-28T16:52:51.965432",
+      "response_data": null
+    },
+    {
+      "test": "Admin Rating Statistics",
+      "success": true,
+      "details": "Retrieved rating statistics for 50 products",
+      "timestamp": "2025-09-28T16:52:52.020820",
+      "response_data": null
+    },
+    {
+      "test": "Product Rating Statistics Detail",
+      "success": true,
+      "details": "Product has 0 ratings, avg 0.0, distribution: {'1': 0, '2': 0, '3': 0, '4': 0, '5': 0}",
+      "timestamp": "2025-09-28T16:52:52.020857",
+      "response_data": null
+    },
+    {
+      "test": "Admin User Rating History",
+      "success": true,
+      "details": "Retrieved rating history for 0 users",
+      "timestamp": "2025-09-28T16:52:52.032999",
+      "response_data": null
+    },
+    {
+      "test": "Authentication Required for Rating",
+      "success": false,
+      "details": "Correctly rejected unauthenticated rating creation",
+      "timestamp": "2025-09-28T16:52:52.081537",
+      "response_data": null
+    },
+    {
+      "test": "Delete Own Rating",
+      "success": false,
+      "details": "Skipped - no authenticated user or rating available",
+      "timestamp": "2025-09-28T16:52:52.081561",
+      "response_data": null
+    },
+    {
+      "test": "Product Rating Integration",
+      "success": true,
+      "details": "Product now shows rating: 4.2, reviews: 145",
+      "timestamp": "2025-09-28T16:52:52.101279",
+      "response_data": null
     }
   ],
-  "timestamp": "2025-09-28T16:51:15.068387"
+  "timestamp": "2025-09-28T16:52:52.101525"
 }
