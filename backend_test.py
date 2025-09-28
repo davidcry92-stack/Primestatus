@@ -74,8 +74,32 @@ class AuthenticationTester:
         except Exception as e:
             return False, {"error": str(e)}, 0
     
+    async def test_database_connection(self):
+        """Test if the database is using the correct database name."""
+        print("\n=== TESTING DATABASE CONNECTION ===")
+        
+        # Test health endpoint first
+        success, response, status = await self.make_request("GET", "/health")
+        
+        if success:
+            self.log_test(
+                "API Health Check", 
+                True, 
+                f"API is healthy: {response.get('message', 'Unknown')}"
+            )
+        else:
+            self.log_test(
+                "API Health Check", 
+                False, 
+                f"API health check failed: {response}",
+                response
+            )
+            return False
+        
+        return True
+
     async def test_admin_authentication(self):
-        """Test admin authentication system."""
+        """Test admin authentication with the specific credentials."""
         print("\n=== TESTING ADMIN AUTHENTICATION ===")
         
         # Test admin login
@@ -122,6 +146,224 @@ class AuthenticationTester:
             return False
         
         return True
+
+    async def test_premium_user_authentication(self):
+        """Test premium user authentication with the specific credentials."""
+        print("\n=== TESTING PREMIUM USER AUTHENTICATION ===")
+        
+        # Test premium user login
+        login_data = {
+            "email": PREMIUM_USER_EMAIL,
+            "password": PREMIUM_USER_PASSWORD
+        }
+        
+        success, response, status = await self.make_request("POST", "/auth/login", login_data)
+        
+        if success and "access_token" in response:
+            user_info = response.get("user", {})
+            self.log_test(
+                "Premium User Login", 
+                True, 
+                f"Successfully logged in as {user_info.get('email', 'unknown')} with tier {user_info.get('membership_tier', 'unknown')}"
+            )
+            
+            # Test token validation by getting profile
+            headers = {"Authorization": f"Bearer {response['access_token']}"}
+            success, profile_response, status = await self.make_request("GET", "/auth/profile", headers=headers)
+            
+            if success:
+                self.log_test(
+                    "Premium User Token Validation", 
+                    True, 
+                    f"Token valid, profile retrieved for {profile_response.get('email', 'unknown')}"
+                )
+                return response['access_token']
+            else:
+                self.log_test(
+                    "Premium User Token Validation", 
+                    False, 
+                    f"Token validation failed: {profile_response}",
+                    profile_response
+                )
+        else:
+            self.log_test(
+                "Premium User Login", 
+                False, 
+                f"Login failed with status {status}: {response}",
+                response
+            )
+        
+        return None
+
+    async def test_database_users_exist(self):
+        """Test that users exist in the correct database with proper password fields."""
+        print("\n=== TESTING DATABASE USERS VERIFICATION ===")
+        
+        if not self.admin_token:
+            self.log_test("Database Users Check", False, "No admin token available")
+            return False
+        
+        headers = {"Authorization": f"Bearer {self.admin_token}"}
+        
+        # Check if admin user exists
+        success, admin_profile, status = await self.make_request("GET", "/admin-auth/profile", headers=headers)
+        
+        if success:
+            self.log_test(
+                "Admin User Exists", 
+                True, 
+                f"Admin user found: {admin_profile.get('email')} with role {admin_profile.get('role')}"
+            )
+        else:
+            self.log_test(
+                "Admin User Exists", 
+                False, 
+                f"Admin user not found: {admin_profile}",
+                admin_profile
+            )
+        
+        # Check if premium user exists by trying to get members list
+        success, members_response, status = await self.make_request("GET", "/admin/members", headers=headers)
+        
+        if success and isinstance(members_response, list):
+            premium_user_found = False
+            for member in members_response:
+                if member.get("email") == PREMIUM_USER_EMAIL:
+                    premium_user_found = True
+                    self.log_test(
+                        "Premium User Exists", 
+                        True, 
+                        f"Premium user found: {member.get('email')} with tier {member.get('membership_tier')}"
+                    )
+                    break
+            
+            if not premium_user_found:
+                self.log_test(
+                    "Premium User Exists", 
+                    False, 
+                    f"Premium user {PREMIUM_USER_EMAIL} not found in members list"
+                )
+            
+            self.log_test(
+                "Database Users Count", 
+                True, 
+                f"Found {len(members_response)} total users in database"
+            )
+        else:
+            self.log_test(
+                "Database Users Check", 
+                False, 
+                f"Failed to retrieve members: {members_response}",
+                members_response
+            )
+
+    async def test_password_field_fix(self):
+        """Test that the password field reference fix is working."""
+        print("\n=== TESTING PASSWORD FIELD FIX ===")
+        
+        # Test with both admin and user login to verify password field handling
+        test_cases = [
+            ("Admin", ADMIN_EMAIL, ADMIN_PASSWORD, "/admin-auth/login"),
+            ("Premium User", PREMIUM_USER_EMAIL, PREMIUM_USER_PASSWORD, "/auth/login")
+        ]
+        
+        for user_type, email, password, endpoint in test_cases:
+            login_data = {
+                "email": email,
+                "password": password
+            }
+            
+            success, response, status = await self.make_request("POST", endpoint, login_data)
+            
+            if success and "access_token" in response:
+                self.log_test(
+                    f"Password Field Fix - {user_type}", 
+                    True, 
+                    f"{user_type} login successful - password field handling working"
+                )
+            else:
+                self.log_test(
+                    f"Password Field Fix - {user_type}", 
+                    False, 
+                    f"{user_type} login failed - password field issue: {response}",
+                    response
+                )
+
+    async def test_jwt_token_functionality(self):
+        """Test JWT token generation and validation."""
+        print("\n=== TESTING JWT TOKEN FUNCTIONALITY ===")
+        
+        # Test admin JWT
+        admin_login_data = {
+            "email": ADMIN_EMAIL,
+            "password": ADMIN_PASSWORD
+        }
+        
+        success, admin_response, status = await self.make_request("POST", "/admin-auth/login", admin_login_data)
+        
+        if success and "access_token" in admin_response:
+            admin_token = admin_response["access_token"]
+            
+            # Verify token structure (JWT should have 3 parts separated by dots)
+            token_parts = admin_token.split('.')
+            self.log_test(
+                "JWT Token Structure - Admin", 
+                len(token_parts) == 3, 
+                f"Admin JWT token has {len(token_parts)} parts (expected 3)"
+            )
+            
+            # Test token usage
+            headers = {"Authorization": f"Bearer {admin_token}"}
+            success, profile_response, status = await self.make_request("GET", "/admin-auth/profile", headers=headers)
+            
+            self.log_test(
+                "JWT Token Usage - Admin", 
+                success, 
+                f"Admin token works for protected endpoints" if success else f"Admin token failed: {profile_response}"
+            )
+        else:
+            self.log_test(
+                "JWT Token Generation - Admin", 
+                False, 
+                f"Admin JWT token not generated: {admin_response}",
+                admin_response
+            )
+        
+        # Test user JWT
+        user_login_data = {
+            "email": PREMIUM_USER_EMAIL,
+            "password": PREMIUM_USER_PASSWORD
+        }
+        
+        success, user_response, status = await self.make_request("POST", "/auth/login", user_login_data)
+        
+        if success and "access_token" in user_response:
+            user_token = user_response["access_token"]
+            
+            # Verify token structure
+            token_parts = user_token.split('.')
+            self.log_test(
+                "JWT Token Structure - User", 
+                len(token_parts) == 3, 
+                f"User JWT token has {len(token_parts)} parts (expected 3)"
+            )
+            
+            # Test token usage
+            headers = {"Authorization": f"Bearer {user_token}"}
+            success, profile_response, status = await self.make_request("GET", "/auth/profile", headers=headers)
+            
+            self.log_test(
+                "JWT Token Usage - User", 
+                success, 
+                f"User token works for protected endpoints" if success else f"User token failed: {profile_response}"
+            )
+        else:
+            self.log_test(
+                "JWT Token Generation - User", 
+                False, 
+                f"User JWT token not generated: {user_response}",
+                user_response
+            )
     
     async def test_member_management(self):
         """Test member management endpoints."""
