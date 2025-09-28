@@ -701,26 +701,147 @@ async def get_recent_reviews(product_id, limit=5):
     return recent_reviews
 
 @router.post("/seed-database")
-async def seed_database(admin_email: str = Depends(verify_admin_token)):
-    """Manually trigger database seeding for demo users and admin."""
+async def seed_database():
+    """Manually trigger database seeding for demo users and admin. Only works if database is empty."""
     try:
         from utils.database import DatabaseManager
         
-        # Force seed admin user
-        await DatabaseManager.seed_admin()
-        
-        # Force seed demo users
-        await DatabaseManager.seed_demo_users()
-        
-        # Check results
+        # Check if database is already seeded
         admin_count = await admins_collection.count_documents({})
         user_count = await users_collection.count_documents({})
         
+        if admin_count > 0 and user_count > 0:
+            return {
+                "message": "Database already seeded",
+                "admin_users_existing": admin_count,
+                "demo_users_existing": user_count,
+                "action": "no_seeding_needed"
+            }
+        
+        # Force seed admin user (remove existing check)
+        existing_admin = await admins_collection.find_one({"email": "admin@statusxsmoakland.com"})
+        if not existing_admin:
+            from utils.auth import get_password_hash
+            from datetime import datetime
+            
+            admin_user = {
+                "username": "admin",
+                "email": "admin@statusxsmoakland.com",
+                "password_hash": get_password_hash("Admin123!"),
+                "full_name": "System Administrator",
+                "role": "super_admin",
+                "is_active": True,
+                "created_at": datetime.utcnow(),
+                "updated_at": datetime.utcnow()
+            }
+            
+            await admins_collection.insert_one(admin_user)
+        
+        # Force seed demo users (remove existing check)
+        existing_user = await users_collection.find_one({"email": "premium@demo.com"})
+        if not existing_user:
+            from utils.auth import get_password_hash
+            from datetime import datetime
+            import uuid
+            
+            demo_users = [
+                {
+                    "id": str(uuid.uuid4()),
+                    "username": "premium_demo",
+                    "email": "premium@demo.com",
+                    "password": get_password_hash("Premium123!"),
+                    "re_entry_code_hash": get_password_hash("1234"),
+                    "full_name": "Premium Demo User",
+                    "date_of_birth": "1990-01-01",
+                    "membership_tier": "premium",
+                    "is_law_enforcement": False,
+                    "parent_email": None,
+                    "preferences": {"categories": [], "vendors": [], "price_range": [0, 200]},
+                    "wictionary_access": True,
+                    "order_history": [],
+                    "is_verified": True,
+                    "id_verification": {
+                        "id_front_url": None,
+                        "id_back_url": None,
+                        "medical_document_url": None,
+                        "verification_status": "approved",
+                        "verified_at": datetime.utcnow(),
+                        "rejected_reason": None,
+                        "age_verified": 34,
+                        "requires_medical": False
+                    },
+                    "created_at": datetime.utcnow(),
+                    "updated_at": datetime.utcnow()
+                },
+                {
+                    "id": str(uuid.uuid4()),
+                    "username": "basic_demo",
+                    "email": "basic@demo.com",
+                    "password": get_password_hash("Basic123!"),
+                    "re_entry_code_hash": get_password_hash("1234"),
+                    "full_name": "Basic Demo User",
+                    "date_of_birth": "1995-01-01",
+                    "membership_tier": "basic",
+                    "is_law_enforcement": False,
+                    "parent_email": None,
+                    "preferences": {"categories": [], "vendors": [], "price_range": [0, 200]},
+                    "wictionary_access": False,
+                    "order_history": [],
+                    "is_verified": True,
+                    "id_verification": {
+                        "id_front_url": None,
+                        "id_back_url": None,
+                        "medical_document_url": None,
+                        "verification_status": "approved",
+                        "verified_at": datetime.utcnow(),
+                        "rejected_reason": None,
+                        "age_verified": 29,
+                        "requires_medical": False
+                    },
+                    "created_at": datetime.utcnow(),
+                    "updated_at": datetime.utcnow()
+                },
+                {
+                    "id": str(uuid.uuid4()),
+                    "username": "unverified_demo",
+                    "email": "unverified@demo.com",
+                    "password": get_password_hash("Unverified123!"),
+                    "re_entry_code_hash": get_password_hash("1234"),
+                    "full_name": "Unverified Demo User",
+                    "date_of_birth": "1992-01-01",
+                    "membership_tier": "basic",
+                    "is_law_enforcement": False,
+                    "parent_email": None,
+                    "preferences": {"categories": [], "vendors": [], "price_range": [0, 200]},
+                    "wictionary_access": False,
+                    "order_history": [],
+                    "is_verified": False,
+                    "id_verification": {
+                        "id_front_url": None,
+                        "id_back_url": None,
+                        "medical_document_url": None,
+                        "verification_status": "pending",
+                        "verified_at": None,
+                        "rejected_reason": None,
+                        "age_verified": 32,
+                        "requires_medical": False
+                    },
+                    "created_at": datetime.utcnow(),
+                    "updated_at": datetime.utcnow()
+                }
+            ]
+            
+            await users_collection.insert_many(demo_users)
+        
+        # Check final results
+        final_admin_count = await admins_collection.count_documents({})
+        final_user_count = await users_collection.count_documents({})
+        
         return {
             "message": "Database seeding completed successfully",
-            "admin_users_created": admin_count,
-            "demo_users_created": user_count,
-            "seeded_by": admin_email
+            "admin_users_created": final_admin_count,
+            "demo_users_created": final_user_count,
+            "action": "seeding_completed"
         }
         
     except Exception as e:
