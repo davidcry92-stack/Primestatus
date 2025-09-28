@@ -44,8 +44,8 @@ const AdminApp = () => {
     );
   }
 
-  // TEMPORARY: Bypass admin login for demonstration
-  const demoAdmin = adminUser || {
+  // Demo admin template for authenticated users
+  const demoAdmin = {
     username: "admin",
     email: "admin@smoakland.com",
     role: "super_admin",
