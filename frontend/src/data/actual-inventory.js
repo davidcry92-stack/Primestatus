@@ -1569,7 +1569,7 @@ export const inStockProducts = [
     weight: '3.5g',
     tier: 'lows',
     type: 'Sativa Dominant Hybrid',
-    image: 'https://images.unsplash.com/photo-1571842602263-2ef7e6eeba9b?w=400&h=400&fit=crop',
+    image: 'https://images.unsplash.com/photo-1629406979664-d930f76dc124?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzR8MHwxfHNlYXJjaHwxfHxjYW5uYWJpcyUyMGJ1ZHN8ZW58MHx8fHwxNzU5MDE5NDA2fDA&ixlib=rb-4.1.0&q=85',
     description: 'Special deal - actually Raspberry Pie renamed',
     thc: '16-20%',
     vendor: 'Smoakland Budget',
