@@ -88,11 +88,16 @@ const LoginOnlyApp = () => {
                 const email = formData.get('email');
                 const password = formData.get('password');
                 
+                console.log('Attempting login with:', email); // Debug log
+                
                 try {
-                  await login({ email, password });
+                  const result = await login({ email, password });
+                  console.log('Login successful:', result);
                   handleCloseAuth();
                 } catch (error) {
-                  alert('Login failed: ' + (error.message || 'Please check your credentials'));
+                  console.error('Login error:', error);
+                  const errorMessage = error?.response?.data?.detail || error?.message || 'Network error - please check connection';
+                  alert('Login failed: ' + errorMessage);
                 }
               }} className="space-y-4">
                 
