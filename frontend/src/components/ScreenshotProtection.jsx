@@ -32,16 +32,25 @@ const ScreenshotProtection = ({ children }) => {
         }
       };
 
-      // Detect developer tools
+      // Detect developer tools (less aggressive for preview sharing)
       const detectDevTools = () => {
-        const threshold = 160;
-        if (
-          window.outerHeight - window.innerHeight > threshold ||
-          window.outerWidth - window.innerWidth > threshold
-        ) {
-          // Dev tools detected - could redirect or show warning
+        const threshold = 200; // Increased threshold to be less sensitive
+        const widthDiff = window.outerWidth - window.innerWidth;
+        const heightDiff = window.outerHeight - window.innerHeight;
+        
+        // Only trigger if both dimensions exceed threshold (more strict detection)
+        if (heightDiff > threshold && widthDiff > threshold) {
+          // Dev tools detected - show warning but don't completely block
           console.clear();
-          document.body.innerHTML = '<div style="display:flex;justify-content:center;align-items:center;height:100vh;font-size:24px;color:red;">Unauthorized access detected. Session terminated.</div>';
+          console.warn('Developer tools detected - StatusXSmoakland security monitoring active');
+          
+          // Only block in production, allow in preview mode
+          const isPreviewMode = window.location.hostname.includes('preview.emergentagent.com') || 
+                               window.location.hostname.includes('localhost');
+          
+          if (!isPreviewMode) {
+            document.body.innerHTML = '<div style="display:flex;justify-content:center;align-items:center;height:100vh;font-size:24px;color:red;">Unauthorized access detected. Session terminated.</div>';
+          }
         }
       };
 
