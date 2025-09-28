@@ -22,7 +22,7 @@ import AuthModal from "./components/AuthModal";
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 
 const LoginOnlyApp = () => {
-  const { user, isAuthenticated, loading } = useAuth();
+  const { user, isAuthenticated, loading, login } = useAuth();
   const [cartItems, setCartItems] = useState([]);
   const [showAuthModal, setShowAuthModal] = useState(false);
 
