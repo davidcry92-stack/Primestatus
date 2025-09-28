@@ -131,7 +131,11 @@ class DatabaseManager:
                 "term": "Za",
                 "definition": "Premium, top-shelf cannabis with exceptional quality, potency, and flavor profile",
                 "category": "slang",
-                "etymology": "NYC street term for the highest grade cannabis"
+                "etymology": "NYC street term for the highest grade cannabis",
+                "examples": ["That Za is fire!", "Only smoking Za tonight"],
+                "related_terms": ["Fire", "Loud", "Premium"],
+                "created_at": datetime.utcnow(),
+                "updated_at": datetime.utcnow()
             },
             {
                 "term": "Deps", 
