@@ -66,7 +66,7 @@ export const inStockProducts = [
     weight: '3.5g',
     tier: 'lows',
     type: 'Indica',
-    image: 'https://images.unsplash.com/photo-1616690002554-b53821496f45?w=400&h=400&fit=crop',
+    image: 'https://images.unsplash.com/photo-1616690002554-b53821496f45?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2MzR8MHwxfHNlYXJjaHwyfHxjYW5uYWJpcyUyMGZsb3dlcnxlbnwwfHx8fDE3NTkwMTk0MTd8MA&ixlib=rb-4.1.0&q=85',
     description: 'Sweet indica with creamy vanilla notes',
     thc: '17-21%',
     vendor: 'Smoakland Budget',
