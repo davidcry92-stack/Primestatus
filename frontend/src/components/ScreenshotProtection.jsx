@@ -68,8 +68,8 @@ const ScreenshotProtection = ({ children }) => {
       document.addEventListener('keydown', disableKeyboardShortcuts);
       document.addEventListener('visibilitychange', handleVisibilityChange);
       
-      // Periodic dev tools detection
-      const devToolsInterval = setInterval(detectDevTools, 1000);
+      // Periodic dev tools detection (less frequent for better performance)
+      const devToolsInterval = setInterval(detectDevTools, 3000);
 
       // Disable text selection
       document.body.style.userSelect = 'none';
