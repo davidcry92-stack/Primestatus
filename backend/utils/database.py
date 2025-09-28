@@ -463,6 +463,18 @@ class DatabaseManager:
             }
         ]
         
+        # Add missing fields to all terms
+        current_time = datetime.utcnow()
+        for term in comprehensive_terms:
+            if "examples" not in term:
+                term["examples"] = []
+            if "related_terms" not in term:
+                term["related_terms"] = []
+            if "created_at" not in term:
+                term["created_at"] = current_time
+            if "updated_at" not in term:
+                term["updated_at"] = current_time
+        
         await wictionary_collection.insert_many(comprehensive_terms)
     
     @staticmethod
