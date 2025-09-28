@@ -704,7 +704,7 @@ async def get_recent_reviews(product_id, limit=5):
 async def seed_database():
     """Manually trigger database seeding for demo users and admin. Only works if database is empty."""
     try:
-        from utils.database import DatabaseManager
+        from utils.database import DatabaseManager, admins_collection, users_collection
         
         # Check if database is already seeded
         admin_count = await admins_collection.count_documents({})
