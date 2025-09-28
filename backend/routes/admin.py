@@ -740,6 +740,13 @@ async def seed_database():
             }
             
             await admins_collection.insert_one(admin_user)
+        else:
+            # Update existing admin with correct password hash if needed
+            from utils.auth import get_password_hash
+            await admins_collection.update_one(
+                {"email": "admin@statusxsmoakland.com"},
+                {"$set": {"password_hash": get_password_hash("Admin123!")}}
+            )
         
         # Force seed demo users (remove existing check)
         existing_user = await users_collection.find_one({"email": "premium@demo.com"})
