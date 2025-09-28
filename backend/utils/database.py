@@ -115,6 +115,8 @@ class DatabaseManager:
     @staticmethod
     async def seed_wictionary():
         """Seed comprehensive wictionary terms including all strain definitions."""
+        from datetime import datetime
+        
         # Check if already seeded to prevent duplicates
         existing_count = await wictionary_collection.count_documents({})
         if existing_count > 10:  # If more than 10 terms exist, assume already seeded
