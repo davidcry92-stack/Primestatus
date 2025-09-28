@@ -21,11 +21,10 @@ import AuthModal from "./components/AuthModal";
 // Auth Context
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 
-const MainApp = () => {
-  const { user, isAuthenticated } = useAuth();
+const LoginOnlyApp = () => {
+  const { user, isAuthenticated, loading } = useAuth();
   const [cartItems, setCartItems] = useState([]);
   const [showAuthModal, setShowAuthModal] = useState(false);
-  // Removed super admin bypass functionality
 
   const handleAuthClick = () => {
     setShowAuthModal(true);
@@ -35,45 +34,39 @@ const MainApp = () => {
     setShowAuthModal(false);
   };
 
-  // No more super admin bypass - all users must go through verification
+  // Show loading while checking auth
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-white text-xl">Loading...</div>
+      </div>
+    );
+  }
 
   // If user is authenticated but not verified, show verification pending screen
   if (isAuthenticated && user && !user.is_verified) {
     return <VerificationPending user={user} />;
   }
 
-  // Require authentication for all content
+  // STRICT AUTHENTICATION REQUIRED - NO CONTENT WITHOUT LOGIN
   if (!isAuthenticated || !user) {
     return (
-      <div className="min-h-screen bg-black">
-        <Header 
-          user={null} 
-          cartItems={cartItems} 
-          onAuthClick={handleAuthClick}
-        />
-        <main>
-          <HeroSection onAuthClick={handleAuthClick} />
-          
-          {/* Login Required Message */}
-          <div className="max-w-4xl mx-auto px-4 py-16 text-center">
-            <div className="bg-gray-900 border border-red-600 rounded-lg p-8">
-              <div className="text-6xl mb-4">🔒</div>
-              <h2 className="text-3xl font-bold text-white mb-4">Authentication Required</h2>
-              <p className="text-gray-300 mb-6">
-                You must be logged in to access StatusXSmoakland features including product catalog, 
-                daily deals, and premium Wictionary content.
-              </p>
-              <button
-                onClick={handleAuthClick}
-                className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg transition-colors"
-              >
-                Login to Continue
-              </button>
-            </div>
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="max-w-md w-full mx-4">
+          <div className="bg-gray-900 border border-red-600 rounded-lg p-8 text-center">
+            <div className="text-6xl mb-4">🔒</div>
+            <h2 className="text-2xl font-bold text-white mb-4">Login Required</h2>
+            <p className="text-gray-300 mb-6">
+              You must log in to access StatusXSmoakland content.
+            </p>
+            <button
+              onClick={handleAuthClick}
+              className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
+            >
+              Login to Continue
+            </button>
           </div>
-        </main>
-        <Footer />
-        <Toaster />
+        </div>
         
         {showAuthModal && (
           <AuthModal onClose={handleCloseAuth} />
@@ -82,6 +75,7 @@ const MainApp = () => {
     );
   }
 
+  // ONLY AUTHENTICATED USERS SEE THIS CONTENT
   return (
     <div className="min-h-screen bg-black">
       <Header 
