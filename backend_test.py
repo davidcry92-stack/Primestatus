@@ -1621,17 +1621,240 @@ class AdminSystemTester:
         
         return True
 
+    async def test_database_seeding_and_demo_users(self):
+        """Test database seeding and verify demo users are created as requested."""
+        print("\n=== TESTING DATABASE SEEDING AND DEMO USER CREATION ===")
+        
+        # Test 1: Check if demo users already exist
+        demo_emails = [
+            "admin@statusxsmoakland.com",
+            "premium@demo.com", 
+            "basic@demo.com",
+            "unverified@demo.com"
+        ]
+        
+        existing_users = {}
+        for email in demo_emails:
+            # Try to login to check if user exists
+            login_data = {
+                "email": email,
+                "password": self._get_demo_password(email)
+            }
+            
+            if email == "admin@statusxsmoakland.com":
+                success, response, status = await self.make_request("POST", "/admin-auth/login", login_data)
+            else:
+                success, response, status = await self.make_request("POST", "/auth/login", login_data)
+            
+            existing_users[email] = success
+            
+            if success:
+                self.log_test(
+                    f"Demo User Exists - {email}",
+                    True,
+                    f"User {email} already exists and can authenticate"
+                )
+            else:
+                self.log_test(
+                    f"Demo User Missing - {email}",
+                    False,
+                    f"User {email} does not exist or cannot authenticate: {response}"
+                )
+        
+        # Test 2: If users don't exist, we need to trigger seeding
+        missing_users = [email for email, exists in existing_users.items() if not exists]
+        
+        if missing_users:
+            self.log_test(
+                "Demo Users Seeding Required",
+                False,
+                f"Missing demo users: {missing_users}. Database seeding needed."
+            )
+            
+            # Since there's no direct seeding endpoint, we'll try to trigger it by calling the database manager
+            # This would normally be done by restarting the backend service to trigger the startup event
+            self.log_test(
+                "Database Seeding Trigger",
+                False,
+                "No direct seeding endpoint available. Backend service restart required to trigger automatic seeding."
+            )
+        else:
+            self.log_test(
+                "All Demo Users Present",
+                True,
+                "All required demo users exist in the database"
+            )
+        
+        # Test 3: Verify authentication with demo credentials
+        demo_credentials = {
+            "admin@statusxsmoakland.com": "Admin123!",
+            "premium@demo.com": "Premium123!",
+            "basic@demo.com": "Basic123!",
+            "unverified@demo.com": "Unverified123!"  # This might fail if user is unverified
+        }
+        
+        authenticated_users = {}
+        for email, password in demo_credentials.items():
+            login_data = {"email": email, "password": password}
+            
+            if email == "admin@statusxsmoakland.com":
+                success, response, status = await self.make_request("POST", "/admin-auth/login", login_data)
+                endpoint_type = "admin"
+            else:
+                success, response, status = await self.make_request("POST", "/auth/login", login_data)
+                endpoint_type = "user"
+            
+            if success and "access_token" in response:
+                token = response["access_token"]
+                user_data = response.get("admin" if endpoint_type == "admin" else "user", {})
+                
+                authenticated_users[email] = {
+                    "token": token,
+                    "user_data": user_data,
+                    "endpoint_type": endpoint_type
+                }
+                
+                self.log_test(
+                    f"Authentication Test - {email}",
+                    True,
+                    f"Successfully authenticated {email} with JWT token. Role: {user_data.get('role' if endpoint_type == 'admin' else 'membership_tier', 'unknown')}"
+                )
+                
+                # Test 4: Verify JWT token is valid by making an authenticated request
+                headers = {"Authorization": f"Bearer {token}"}
+                if endpoint_type == "admin":
+                    profile_success, profile_response, profile_status = await self.make_request(
+                        "GET", "/admin-auth/profile", headers=headers
+                    )
+                else:
+                    profile_success, profile_response, profile_status = await self.make_request(
+                        "GET", "/auth/profile", headers=headers
+                    )
+                
+                if profile_success:
+                    self.log_test(
+                        f"JWT Token Validation - {email}",
+                        True,
+                        f"JWT token is valid and profile retrieved successfully"
+                    )
+                else:
+                    self.log_test(
+                        f"JWT Token Validation - {email}",
+                        False,
+                        f"JWT token validation failed: {profile_response}"
+                    )
+                    
+            else:
+                self.log_test(
+                    f"Authentication Test - {email}",
+                    False,
+                    f"Authentication failed for {email}: {response}"
+                )
+        
+        # Test 5: Verify users are in database with proper membership tiers (admin check)
+        if self.admin_token:
+            headers = {"Authorization": f"Bearer {self.admin_token}"}
+            success, members_response, status = await self.make_request("GET", "/admin/members", headers=headers)
+            
+            if success and isinstance(members_response, list):
+                demo_users_in_db = {}
+                for member in members_response:
+                    email = member.get("email")
+                    if email in demo_emails[1:]:  # Exclude admin email as it's not in users collection
+                        demo_users_in_db[email] = {
+                            "membership_tier": member.get("membership_tier"),
+                            "verification_status": member.get("verification_status"),
+                            "is_verified": member.get("is_verified")
+                        }
+                
+                # Verify expected membership tiers
+                expected_tiers = {
+                    "premium@demo.com": "premium",
+                    "basic@demo.com": "basic",
+                    "unverified@demo.com": "basic"
+                }
+                
+                for email, expected_tier in expected_tiers.items():
+                    if email in demo_users_in_db:
+                        actual_tier = demo_users_in_db[email]["membership_tier"]
+                        verification_status = demo_users_in_db[email]["verification_status"]
+                        
+                        self.log_test(
+                            f"Database Verification - {email}",
+                            actual_tier == expected_tier,
+                            f"User in database with tier: {actual_tier} (expected: {expected_tier}), verification: {verification_status}"
+                        )
+                    else:
+                        self.log_test(
+                            f"Database Verification - {email}",
+                            False,
+                            f"User not found in database members list"
+                        )
+                        
+                # Test 6: Verify admin user exists in admin collection
+                admin_success, admin_profile, admin_status = await self.make_request(
+                    "GET", "/admin-auth/profile", headers={"Authorization": f"Bearer {self.admin_token}"}
+                )
+                
+                if admin_success:
+                    admin_email = admin_profile.get("email")
+                    admin_role = admin_profile.get("role")
+                    
+                    self.log_test(
+                        "Admin User Database Verification",
+                        admin_email == "admin@statusxsmoakland.com" and admin_role == "super_admin",
+                        f"Admin user verified in database: {admin_email} with role: {admin_role}"
+                    )
+                else:
+                    self.log_test(
+                        "Admin User Database Verification",
+                        False,
+                        f"Failed to verify admin user in database: {admin_profile}"
+                    )
+            else:
+                self.log_test(
+                    "Database Members Verification",
+                    False,
+                    f"Failed to retrieve members from database: {members_response}"
+                )
+        
+        # Summary of seeding verification
+        total_expected_users = len(demo_emails)
+        authenticated_count = len(authenticated_users)
+        
+        self.log_test(
+            "🎯 DEMO USER SEEDING VERIFICATION SUMMARY",
+            authenticated_count == total_expected_users,
+            f"Successfully authenticated {authenticated_count}/{total_expected_users} demo users. " +
+            f"{'✅ All demo users ready for production use!' if authenticated_count == total_expected_users else '❌ Some demo users missing or not working.'}"
+        )
+        
+        return authenticated_count == total_expected_users
+    
+    def _get_demo_password(self, email):
+        """Get the expected password for demo users."""
+        password_map = {
+            "admin@statusxsmoakland.com": "Admin123!",
+            "premium@demo.com": "Premium123!",
+            "basic@demo.com": "Basic123!",
+            "unverified@demo.com": "Unverified123!"
+        }
+        return password_map.get(email, "Unknown123!")
+
     async def run_all_tests(self):
         """Run all comprehensive system tests."""
-        print("🚀 Starting StatusXSmoakland Updated Inventory System Backend Tests")
+        print("🚀 Starting StatusXSmoakland Database Seeding and Authentication Tests")
         print(f"Testing against: {BACKEND_URL}")
         print("=" * 70)
         
-        # Test authentication first
+        # Test database seeding and demo users FIRST (as per review request)
+        await self.test_database_seeding_and_demo_users()
+        
+        # Test authentication
         auth_success = await self.test_admin_authentication()
         
         if auth_success:
-            # Test UPDATED INVENTORY SYSTEM FIRST (as per review request)
+            # Test UPDATED INVENTORY SYSTEM
             await self.test_updated_inventory_system()
             
             # Test database seeding verification
