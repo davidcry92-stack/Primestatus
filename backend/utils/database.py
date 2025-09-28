@@ -50,9 +50,13 @@ class DatabaseManager:
         if await wictionary_collection.count_documents({}) == 0:
             await DatabaseManager.seed_wictionary()
         
-        # Temporarily disabled admin seeding
-        # if await admins_collection.count_documents({}) == 0:
-        #     await DatabaseManager.seed_admin()
+        # Enable admin seeding
+        if await admins_collection.count_documents({}) == 0:
+            await DatabaseManager.seed_admin()
+        
+        # Seed demo users
+        if await users_collection.count_documents({}) == 0:
+            await DatabaseManager.seed_demo_users()
     
     @staticmethod
     async def seed_products():
