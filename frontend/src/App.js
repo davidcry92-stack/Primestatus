@@ -184,14 +184,13 @@ function App() {
       // Still require verification steps for security
     }
 
-    // Always require fresh verification - no session bypasses
-    // Clear security bypass tokens but preserve legitimate user authentication
-    sessionStorage.removeItem('app_session_active');
-    sessionStorage.removeItem('law_enforcement_verified');
-    sessionStorage.removeItem('reentry_verified');
-    localStorage.removeItem('admin_token');
-    localStorage.removeItem('super_admin_bypass');
-    // DO NOT clear user_data or access_token - these are needed for legitimate login
+    // Only clear bypass tokens on first load, preserve user sessions
+    const hasUserSession = localStorage.getItem('access_token') && localStorage.getItem('user_data');
+    if (!hasUserSession) {
+      // Only clear these if user isn't already logged in
+      localStorage.removeItem('admin_token');
+      localStorage.removeItem('super_admin_bypass');
+    }
   }, []);
 
   const handleLawEnforcementVerification = () => {
