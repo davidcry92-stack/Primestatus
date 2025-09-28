@@ -98,34 +98,58 @@ const MainApp = () => {
     return <VerificationPending user={user} />;
   }
 
+  // Require authentication for all content
+  if (!isAuthenticated || !user) {
+    return (
+      <div className="min-h-screen bg-black">
+        <Header 
+          user={null} 
+          cartItems={cartItems} 
+          onAuthClick={handleAuthClick}
+        />
+        <main>
+          <HeroSection onAuthClick={handleAuthClick} />
+          
+          {/* Login Required Message */}
+          <div className="max-w-4xl mx-auto px-4 py-16 text-center">
+            <div className="bg-gray-900 border border-red-600 rounded-lg p-8">
+              <div className="text-6xl mb-4">🔒</div>
+              <h2 className="text-3xl font-bold text-white mb-4">Authentication Required</h2>
+              <p className="text-gray-300 mb-6">
+                You must be logged in to access StatusXSmoakland features including product catalog, 
+                daily deals, and premium Wictionary content.
+              </p>
+              <button
+                onClick={handleAuthClick}
+                className="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg transition-colors"
+              >
+                Login to Continue
+              </button>
+            </div>
+          </div>
+        </main>
+        <Footer />
+        <Toaster />
+        
+        {showAuthModal && (
+          <AuthModal onClose={handleCloseAuth} />
+        )}
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-black">
       <Header 
-        user={isAuthenticated ? user : null} 
+        user={user} 
         cartItems={cartItems} 
         onAuthClick={handleAuthClick}
       />
       <main>
         <HeroSection onAuthClick={handleAuthClick} />
-        {/* TEMPORARY: Show all features for demonstration */}
-        <ProductSelection user={isAuthenticated ? user : {
-          username: "DemoUser",
-          membership_tier: "premium",
-          membershipTier: "premium",
-          is_verified: true
-        }} />
-        <DailyDeals user={isAuthenticated ? user : {
-          username: "DemoUser",
-          membership_tier: "premium",
-          membershipTier: "premium",
-          is_verified: true
-        }} />
-        <Wictionary user={isAuthenticated ? user : {
-          username: "DemoUser",
-          membership_tier: "premium",
-          membershipTier: "premium",
-          is_verified: true
-        }} />
+        <ProductSelection user={user} />
+        <DailyDeals user={user} />
+        <Wictionary user={user} />
       </main>
       <Footer />
       <Toaster />
