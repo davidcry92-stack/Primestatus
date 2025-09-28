@@ -1,125 +1,146 @@
 {
   "summary": {
-    "total": 16,
-    "passed": 2,
-    "failed": 14,
-    "success_rate": "12.5%"
+    "total": 19,
+    "passed": 11,
+    "failed": 8,
+    "success_rate": "57.9%"
   },
   "results": [
     {
       "test": "Demo User Missing - admin@statusxsmoakland.com",
       "success": false,
       "details": "User admin@statusxsmoakland.com does not exist or cannot authenticate: {'detail': 'Invalid email or password'}",
-      "timestamp": "2025-09-28T16:50:59.867179",
+      "timestamp": "2025-09-28T16:51:14.594475",
       "response_data": null
     },
     {
       "test": "Demo User Missing - premium@demo.com",
       "success": false,
       "details": "User premium@demo.com does not exist or cannot authenticate: {'detail': 'Invalid email or password'}",
-      "timestamp": "2025-09-28T16:50:59.879648",
+      "timestamp": "2025-09-28T16:51:14.604690",
       "response_data": null
     },
     {
       "test": "Demo User Missing - basic@demo.com",
       "success": false,
       "details": "User basic@demo.com does not exist or cannot authenticate: {'detail': 'Invalid email or password'}",
-      "timestamp": "2025-09-28T16:50:59.930603",
+      "timestamp": "2025-09-28T16:51:14.618328",
       "response_data": null
     },
     {
       "test": "Demo User Missing - unverified@demo.com",
       "success": false,
       "details": "User unverified@demo.com does not exist or cannot authenticate: {'detail': 'Invalid email or password'}",
-      "timestamp": "2025-09-28T16:50:59.944168",
+      "timestamp": "2025-09-28T16:51:14.627660",
       "response_data": null
     },
     {
       "test": "Demo Users Seeding Required",
       "success": true,
       "details": "Missing demo users: ['admin@statusxsmoakland.com', 'premium@demo.com', 'basic@demo.com', 'unverified@demo.com']. Attempting database seeding...",
-      "timestamp": "2025-09-28T16:50:59.944195",
+      "timestamp": "2025-09-28T16:51:14.627681",
       "response_data": null
     },
     {
       "test": "Database Seeding Trigger",
       "success": true,
-      "details": "Database seeding successful: Database already seeded. Admin users: 0, Demo users: 0",
-      "timestamp": "2025-09-28T16:50:59.954827",
+      "details": "Database seeding successful: Database seeding completed successfully. Admin users: 1, Demo users: 10",
+      "timestamp": "2025-09-28T16:51:14.682334",
       "response_data": null
     },
     {
       "test": "Post-Seeding Auth - admin@statusxsmoakland.com",
       "success": false,
       "details": "User admin@statusxsmoakland.com still cannot authenticate after seeding: {'detail': 'Invalid email or password'}",
-      "timestamp": "2025-09-28T16:51:00.006557",
+      "timestamp": "2025-09-28T16:51:14.689527",
       "response_data": null
     },
     {
       "test": "Post-Seeding Auth - premium@demo.com",
-      "success": false,
-      "details": "User premium@demo.com still cannot authenticate after seeding: {'detail': 'Invalid email or password'}",
-      "timestamp": "2025-09-28T16:51:00.022122",
+      "success": true,
+      "details": "User premium@demo.com now exists and can authenticate after seeding",
+      "timestamp": "2025-09-28T16:51:14.775989",
       "response_data": null
     },
     {
       "test": "Post-Seeding Auth - basic@demo.com",
-      "success": false,
-      "details": "User basic@demo.com still cannot authenticate after seeding: {'detail': 'Invalid email or password'}",
-      "timestamp": "2025-09-28T16:51:00.076594",
+      "success": true,
+      "details": "User basic@demo.com now exists and can authenticate after seeding",
+      "timestamp": "2025-09-28T16:51:14.783882",
       "response_data": null
     },
     {
       "test": "Post-Seeding Auth - unverified@demo.com",
-      "success": false,
-      "details": "User unverified@demo.com still cannot authenticate after seeding: {'detail': 'Invalid email or password'}",
-      "timestamp": "2025-09-28T16:51:00.086419",
+      "success": true,
+      "details": "User unverified@demo.com now exists and can authenticate after seeding",
+      "timestamp": "2025-09-28T16:51:14.831229",
       "response_data": null
     },
     {
       "test": "Authentication Test - admin@statusxsmoakland.com",
       "success": false,
       "details": "Authentication failed for admin@statusxsmoakland.com: {'detail': 'Invalid email or password'}",
-      "timestamp": "2025-09-28T16:51:00.137892",
+      "timestamp": "2025-09-28T16:51:14.840936",
       "response_data": null
     },
     {
       "test": "Authentication Test - premium@demo.com",
-      "success": false,
-      "details": "Authentication failed for premium@demo.com: {'detail': 'Invalid email or password'}",
-      "timestamp": "2025-09-28T16:51:00.151035",
+      "success": true,
+      "details": "Successfully authenticated premium@demo.com with JWT token. Role: premium",
+      "timestamp": "2025-09-28T16:51:14.889297",
+      "response_data": null
+    },
+    {
+      "test": "JWT Token Validation - premium@demo.com",
+      "success": true,
+      "details": "JWT token is valid and profile retrieved successfully",
+      "timestamp": "2025-09-28T16:51:14.905965",
       "response_data": null
     },
     {
       "test": "Authentication Test - basic@demo.com",
-      "success": false,
-      "details": "Authentication failed for basic@demo.com: {'detail': 'Invalid email or password'}",
-      "timestamp": "2025-09-28T16:51:00.205261",
+      "success": true,
+      "details": "Successfully authenticated basic@demo.com with JWT token. Role: basic",
+      "timestamp": "2025-09-28T16:51:14.954640",
+      "response_data": null
+    },
+    {
+      "test": "JWT Token Validation - basic@demo.com",
+      "success": true,
+      "details": "JWT token is valid and profile retrieved successfully",
+      "timestamp": "2025-09-28T16:51:14.964049",
       "response_data": null
     },
     {
       "test": "Authentication Test - unverified@demo.com",
-      "success": false,
-      "details": "Authentication failed for unverified@demo.com: {'detail': 'Invalid email or password'}",
-      "timestamp": "2025-09-28T16:51:00.225832",
+      "success": true,
+      "details": "Successfully authenticated unverified@demo.com with JWT token. Role: basic",
+      "timestamp": "2025-09-28T16:51:15.011758",
+      "response_data": null
+    },
+    {
+      "test": "JWT Token Validation - unverified@demo.com",
+      "success": true,
+      "details": "JWT token is valid and profile retrieved successfully",
+      "timestamp": "2025-09-28T16:51:15.060827",
       "response_data": null
     },
     {
       "test": "\ud83c\udfaf DEMO USER SEEDING VERIFICATION SUMMARY",
       "success": false,
-      "details": "Successfully authenticated 0/4 demo users. \u274c Some demo users missing or not working.",
-      "timestamp": "2025-09-28T16:51:00.225852",
+      "details": "Successfully authenticated 3/4 demo users. \u274c Some demo users missing or not working.",
+      "timestamp": "2025-09-28T16:51:15.060855",
       "response_data": null
     },
     {
       "test": "Admin Login",
       "success": false,
       "details": "Login failed with status 401: {'detail': 'Invalid email or password'}",
-      "timestamp": "2025-09-28T16:51:00.278650",
+      "timestamp": "2025-09-28T16:51:15.068183",
       "response_data": {
         "detail": "Invalid email or password"
       }
     }
   ],
-  "timestamp": "2025-09-28T16:51:00.278873"
+  "timestamp": "2025-09-28T16:51:15.068387"
 }
