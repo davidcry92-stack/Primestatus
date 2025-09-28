@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Comprehensive Backend Testing for StatusXSmoakland Complete System
-Tests actual inventory integration, product APIs, Wictionary system, and admin functionality.
+Authentication Testing for StatusXSmoakland - Focus on Login Issues
+Tests the specific authentication fixes mentioned in the review request.
 """
 
 import asyncio
@@ -11,14 +11,14 @@ import os
 from datetime import datetime
 from typing import Dict, Any, Optional
 
-# Configuration
-BACKEND_URL = "https://product-showcase-109.preview.emergentagent.com/api"
+# Configuration - Using localhost since we're testing internally
+BACKEND_URL = "http://localhost:8001/api"
+
+# Test credentials from review request
 ADMIN_EMAIL = "admin@statusxsmoakland.com"
 ADMIN_PASSWORD = "Admin123!"
-
-# Test user for Wictionary (premium member)
-TEST_USER_EMAIL = "testuser@example.com"
-TEST_USER_PASSWORD = "TestPass123!"
+PREMIUM_USER_EMAIL = "premium@demo.com"
+PREMIUM_USER_PASSWORD = "Premium123!"
 
 class AdminSystemTester:
     def __init__(self):
