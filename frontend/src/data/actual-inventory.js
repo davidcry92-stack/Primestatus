@@ -410,7 +410,7 @@ export const inStockProducts = [
     weight: '3.5g',
     tier: 'deps',
     type: 'Sativa 100%',
-    image: 'https://images.unsplash.com/photo-1598973728789-755b8338900f?w=400&h=400&fit=crop',
+    image: 'https://images.unsplash.com/photo-1590682751946-a65099676151?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2Nzh8MHwxfHNlYXJjaHw0fHxtYXJpanVhbmF8ZW58MHx8fHwxNzU5MDE5NDEyfDA&ixlib=rb-4.1.0&q=85',
     description: 'Pure Hawaiian sativa with tropical vibes',
     thc: '20-25%',
     vendor: 'Smoakland Standard',
