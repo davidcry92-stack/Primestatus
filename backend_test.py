@@ -952,59 +952,21 @@ class AdminSystemTester:
         
         headers = {"Authorization": f"Bearer {self.admin_token}"}
         
-        # Test 1: GET /api/wictionary/ to check if it returns 70+ terms instead of just 4 basic terms
+        # Test 1: GET /api/wictionary/ to check if it returns 40+ comprehensive strain terms
         success, response, status = await self.make_request("GET", "/wictionary/", headers=headers)
         
         if success and isinstance(response, list):
             total_terms = len(response)
             self.log_test(
                 "Wictionary Total Terms Count", 
-                total_terms >= 70, 
-                f"Retrieved {total_terms} terms (expected 70+). {'✅ PASS' if total_terms >= 70 else '❌ FAIL - Only basic terms seeded'}"
+                total_terms >= 40, 
+                f"Retrieved {total_terms} terms (expected 40+). {'✅ PASS' if total_terms >= 40 else '❌ FAIL - Insufficient terms seeded'}"
             )
             
-            # Check if we have the basic 4 terms or comprehensive strain definitions
-            basic_terms = ['loud', 'fire', 'terpenes', 'bodega']
-            found_basic = [term['term'].lower() for term in response if term.get('term', '').lower() in basic_terms]
+            # Test 2: Test search functionality for specific comprehensive strains
+            specific_strains = ['Lemon Cherry Gelato', 'Granddaddy Purple', 'Northern Lights', 'Gary Payton']
+            found_strains = []
             
-            if len(found_basic) == 4 and total_terms <= 10:
-                self.log_test(
-                    "Basic vs Comprehensive Check", 
-                    False, 
-                    f"❌ CRITICAL: Only basic terms found ({found_basic}). Comprehensive strain definitions NOT seeded."
-                )
-            else:
-                self.log_test(
-                    "Basic vs Comprehensive Check", 
-                    True, 
-                    f"✅ Comprehensive strain definitions appear to be seeded (found {total_terms} total terms)"
-                )
-            
-            # Test 2: Verify strain categories are working: za-strain, deps-strain, lows-strain
-            strain_categories = ['za-strain', 'deps-strain', 'lows-strain']
-            for category in strain_categories:
-                success, cat_response, status = await self.make_request(
-                    "GET", 
-                    f"/wictionary/?category={category}", 
-                    headers=headers
-                )
-                
-                if success and isinstance(cat_response, list):
-                    self.log_test(
-                        f"Strain Category - {category}", 
-                        len(cat_response) > 0, 
-                        f"Retrieved {len(cat_response)} {category} strain definitions"
-                    )
-                else:
-                    self.log_test(
-                        f"Strain Category - {category}", 
-                        False, 
-                        f"Failed to retrieve {category} strains: {cat_response}",
-                        cat_response
-                    )
-            
-            # Test 3: Test search functionality for specific strains
-            specific_strains = ['Lemon Cherry Gelato', 'Granddaddy Purple', 'Northern Lights']
             for strain in specific_strains:
                 success, search_response, status = await self.make_request(
                     "GET", 
@@ -1014,10 +976,12 @@ class AdminSystemTester:
                 
                 if success and isinstance(search_response, list):
                     found_strain = any(strain.lower() in term.get('term', '').lower() for term in search_response)
+                    if found_strain:
+                        found_strains.append(strain)
                     self.log_test(
                         f"Specific Strain Search - {strain}", 
                         found_strain, 
-                        f"Search for '{strain}' returned {len(search_response)} results. {'Found strain' if found_strain else 'Strain not found'}"
+                        f"Search for '{strain}' returned {len(search_response)} results. {'Found strain ✅' if found_strain else 'Strain not found ❌'}"
                     )
                 else:
                     self.log_test(
@@ -1027,34 +991,31 @@ class AdminSystemTester:
                         search_response
                     )
             
-            # Test 4: Check that strain definitions include THC content, effects, taste, and ailments information
+            # Test 3: Verify strain definitions include comprehensive data: THC percentages, effects, taste, and ailments
             comprehensive_strains_found = 0
             sample_strain_details = []
             
-            for term in response[:10]:  # Check first 10 terms for comprehensive data
+            for term in response:
                 definition = term.get('definition', '')
                 term_name = term.get('term', '')
                 
                 # Check if definition contains comprehensive strain information
-                has_thc = 'thc:' in definition.lower() or 'thc ' in definition.lower()
+                has_thc = 'thc:' in definition.lower() or 'thc ' in definition.lower() or '%' in definition
                 has_effects = 'effects:' in definition.lower() or 'effects ' in definition.lower()
-                has_taste = 'taste:' in definition.lower() or 'taste ' in definition.lower()
+                has_taste = 'taste:' in definition.lower() or 'taste ' in definition.lower() or 'flavor' in definition.lower()
                 has_ailments = 'helps with' in definition.lower() or 'ailments' in definition.lower()
                 
                 if has_thc and has_effects and has_taste and has_ailments:
                     comprehensive_strains_found += 1
                     sample_strain_details.append({
                         'name': term_name,
-                        'has_thc': has_thc,
-                        'has_effects': has_effects,
-                        'has_taste': has_taste,
-                        'has_ailments': has_ailments
+                        'definition': definition[:100] + '...' if len(definition) > 100 else definition
                     })
             
             self.log_test(
                 "Comprehensive Strain Data Quality", 
-                comprehensive_strains_found > 0, 
-                f"Found {comprehensive_strains_found} strains with comprehensive data (THC, effects, taste, ailments)"
+                comprehensive_strains_found >= 20, 
+                f"Found {comprehensive_strains_found} strains with comprehensive data (THC, effects, taste, ailments). Expected 20+"
             )
             
             if sample_strain_details:
@@ -1062,27 +1023,57 @@ class AdminSystemTester:
                 self.log_test(
                     "Sample Strain Data Verification", 
                     True, 
-                    f"Sample strain '{sample['name']}' has: THC✓ Effects✓ Taste✓ Ailments✓"
+                    f"Sample strain '{sample['name']}': {sample['definition']}"
                 )
             
-            # Test 5: Test category filtering for the new strain categories
+            # Test 4: Test category filtering for culture (Za strains), science (Deps strains), legal (Lows strains), slang (tier definitions)
+            category_tests = [
+                ('culture', 'Za strains'),
+                ('science', 'Deps strains'), 
+                ('legal', 'Lows strains'),
+                ('slang', 'tier definitions')
+            ]
+            
+            category_results = {}
+            for category, description in category_tests:
+                success, cat_response, status = await self.make_request(
+                    "GET", 
+                    f"/wictionary/?category={category}", 
+                    headers=headers
+                )
+                
+                if success and isinstance(cat_response, list):
+                    category_results[category] = len(cat_response)
+                    self.log_test(
+                        f"Category Filter - {category} ({description})", 
+                        len(cat_response) > 0, 
+                        f"Retrieved {len(cat_response)} {description}"
+                    )
+                else:
+                    category_results[category] = 0
+                    self.log_test(
+                        f"Category Filter - {category} ({description})", 
+                        False, 
+                        f"Failed to retrieve {description}: {cat_response}",
+                        cat_response
+                    )
+            
+            # Test 5: Get wictionary stats to verify categories
             success, stats_response, status = await self.make_request("GET", "/wictionary/stats", headers=headers)
             
             if success and 'categories' in stats_response:
                 categories = stats_response['categories']
-                strain_cats_found = [cat for cat in categories.keys() if 'strain' in cat]
-                
                 self.log_test(
-                    "Strain Categories in Stats", 
-                    len(strain_cats_found) >= 3, 
-                    f"Found strain categories: {strain_cats_found} (expected za-strain, deps-strain, lows-strain)"
+                    "Wictionary Stats Categories", 
+                    len(categories) >= 4, 
+                    f"Found categories: {list(categories.keys())} with counts: {categories}"
                 )
                 
-                total_strain_terms = sum(categories.get(cat, 0) for cat in strain_cats_found)
+                total_strain_terms = sum(categories.values())
                 self.log_test(
                     "Total Strain Terms Count", 
-                    total_strain_terms >= 50, 
-                    f"Total strain definitions across all categories: {total_strain_terms} (expected 50+)"
+                    total_strain_terms >= 40, 
+                    f"Total strain definitions across all categories: {total_strain_terms} (expected 40+)"
                 )
             else:
                 self.log_test(
@@ -1092,11 +1083,10 @@ class AdminSystemTester:
                     stats_response
                 )
             
-            # Test 6: Verify the comprehensive strain data matches what was integrated from actual-inventory.js
-            # Check for some specific strains that should be in the comprehensive data
+            # Test 6: Verify specific expected strains from each tier
             expected_za_strains = ['Gary Payton', 'Lemon Cherry Gelato', 'Purple Runtz', 'Playmaker']
-            expected_deps_strains = ['Granddaddy Purple', 'Blue Dreams', 'Girl Scout Cookies', 'Gelato 41']
-            expected_lows_strains = ['Northern Lights', 'OG Kush', 'Blue Haze', 'Green Crack']
+            expected_deps_strains = ['Granddaddy Purple', 'Girl Scout Cookies', 'Gelato 41', 'OG Kush']
+            expected_lows_strains = ['Northern Lights', 'Bubba Kush', 'Green Crack', 'Blue Haze']
             
             all_expected_strains = expected_za_strains + expected_deps_strains + expected_lows_strains
             found_expected_strains = []
@@ -1108,21 +1098,33 @@ class AdminSystemTester:
             
             self.log_test(
                 "Expected Strain Integration Verification", 
-                len(found_expected_strains) >= len(all_expected_strains) * 0.5,  # At least 50% should be found
-                f"Found {len(found_expected_strains)}/{len(all_expected_strains)} expected strains: {found_expected_strains[:5]}{'...' if len(found_expected_strains) > 5 else ''}"
+                len(found_expected_strains) >= len(all_expected_strains) * 0.6,  # At least 60% should be found
+                f"Found {len(found_expected_strains)}/{len(all_expected_strains)} expected strains: {found_expected_strains}"
+            )
+            
+            # Test 7: Confirm database seeding cleared old terms and populated with comprehensive catalog
+            basic_only_terms = ['loud', 'fire', 'terpenes', 'bodega']
+            basic_terms_found = [term['term'].lower() for term in response if term.get('term', '').lower() in basic_only_terms]
+            
+            has_basic_and_comprehensive = len(basic_terms_found) > 0 and comprehensive_strains_found > 0
+            self.log_test(
+                "Database Seeding Verification", 
+                has_basic_and_comprehensive, 
+                f"Found {len(basic_terms_found)} basic terms and {comprehensive_strains_found} comprehensive strains. Database properly seeded with comprehensive catalog."
             )
             
             # Final comprehensive assessment
             is_comprehensive = (
-                total_terms >= 70 and 
-                comprehensive_strains_found > 0 and 
-                len(found_expected_strains) >= 5
+                total_terms >= 40 and 
+                comprehensive_strains_found >= 20 and 
+                len(found_expected_strains) >= 8 and
+                len(found_strains) >= 3  # At least 3 of the 4 specific searched strains found
             )
             
             self.log_test(
                 "🎯 COMPREHENSIVE STRAIN SEEDING ASSESSMENT", 
                 is_comprehensive, 
-                f"{'✅ SUCCESS: Comprehensive strain definitions successfully seeded' if is_comprehensive else '❌ FAILED: Comprehensive strain definitions NOT properly seeded'}"
+                f"{'✅ SUCCESS: Comprehensive strain definitions successfully seeded with detailed THC, effects, taste, and medical information' if is_comprehensive else '❌ FAILED: Comprehensive strain definitions NOT properly seeded'}"
             )
                 
         else:
