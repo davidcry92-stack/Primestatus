@@ -20,7 +20,7 @@ ADMIN_PASSWORD = "Admin123!"
 PREMIUM_USER_EMAIL = "premium@demo.com"
 PREMIUM_USER_PASSWORD = "Premium123!"
 
-class AdminSystemTester:
+class AuthenticationTester:
     def __init__(self):
         self.session = None
         self.admin_token = None
