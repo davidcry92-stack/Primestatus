@@ -11,6 +11,7 @@ import {
   Music 
 } from 'lucide-react';
 import { mockUserProfile } from '../data/actual-inventory';
+import ShoppingCartComponent from './ShoppingCart';
 
 const Header = ({ user, cartItems = [], onAuthClick }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
