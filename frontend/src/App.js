@@ -250,9 +250,13 @@ function App() {
               {getAppContent()}
             </ScreenshotProtection>
           } />
-          <Route path="/admin" element={<AdminApp />} />
           <Route path="/checkout/success" element={<CheckoutSuccess />} />
           <Route path="/checkout/cancel" element={<CheckoutCancel />} />
+          <Route path="/admin" element={
+            <ScreenshotProtection>
+              {getAppContent()}
+            </ScreenshotProtection>
+          } />
         </Routes>
       </BrowserRouter>
     </div>
