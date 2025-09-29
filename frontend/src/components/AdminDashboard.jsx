@@ -366,7 +366,9 @@ const MemberExperiencePreview = ({ adminUser }) => {
         {/* Daily Deals */}
         <div className="bg-gray-900 p-6 rounded-lg">
           <h3 className="text-lg font-semibold mb-4">🔥 Daily Deals</h3>
-          <DailyDeals user={getMockUser(memberModes.find(m => m.id === previewMode))} />
+          <ErrorBoundary>
+            <DailyDeals user={getMockUser(memberModes.find(m => m.id === previewMode))} />
+          </ErrorBoundary>
         </div>
 
         {/* Wictionary Access */}
