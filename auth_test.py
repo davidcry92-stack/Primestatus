@@ -14,7 +14,7 @@ from typing import Dict, Any, Optional
 from io import BytesIO
 
 # Configuration
-BACKEND_URL = "https://product-showcase-109.preview.emergentagent.com/api"
+BACKEND_URL = "https://cannabis-member.preview.emergentagent.com/api"
 
 class AuthenticationTester:
     def __init__(self):
