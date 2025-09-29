@@ -78,7 +78,7 @@ const WellnessCenter = ({ user = null }) => {
   }
 
   return (
-    <section className="py-20 bg-gradient-to-b from-black to-purple-900" id="wictionary">
+    <section className="py-20 bg-gradient-to-b from-black to-purple-900" id="wellness-center">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16">
