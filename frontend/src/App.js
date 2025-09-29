@@ -291,11 +291,7 @@ function App() {
     }
     
     // After verification, show login-only access
-    return (
-      <AuthProvider>
-        <LoginOnlyApp />
-      </AuthProvider>
-    );
+    return <LoginOnlyApp />;
   };
 
   return (
