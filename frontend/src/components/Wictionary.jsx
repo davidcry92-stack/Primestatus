@@ -211,7 +211,7 @@ const WellnessCenter = ({ user = null }) => {
               Know a term we’re missing?
             </h3>
             <p className="text-gray-300 mb-6">
-              Help expand our Wictionary by suggesting new cannabis terms and definitions
+              Help expand our Wellness Center by suggesting new cannabis terms and definitions
             </p>
             <Button className="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-full font-bold">
               Suggest a Term
