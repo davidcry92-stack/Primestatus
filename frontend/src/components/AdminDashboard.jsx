@@ -184,14 +184,16 @@ const AdminDashboard = ({ adminUser, onLogout }) => {
                   and member-exclusive content.
                 </p>
               </div>
-              <ProductSelection user={{
-                username: "AdminDemo",
-                membership_tier: "premium", 
-                membershipTier: "premium",
-                is_verified: true,
-                verification_status: "approved",
-                role: "admin"
-              }} />
+              <ErrorBoundary>
+                <ProductSelection user={{
+                  username: "AdminDemo",
+                  membership_tier: "premium", 
+                  membershipTier: "premium",
+                  is_verified: true,
+                  verification_status: "approved",
+                  role: "admin"
+                }} />
+              </ErrorBoundary>
             </div>
           )}
         </div>
