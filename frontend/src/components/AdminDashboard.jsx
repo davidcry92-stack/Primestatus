@@ -89,7 +89,7 @@ const AdminDashboard = ({ adminUser, onLogout }) => {
     { id: 'inventory', label: 'Inventory', icon: '📦' },
     { id: 'ratings', label: 'Rating Stats', icon: '⭐' },
     { id: 'verification', label: 'ID Verification', icon: '🆔' },
-    { id: 'wictionary', label: 'Wictionary (Premium)', icon: '📖' },
+    { id: 'wellness-center', label: 'Wellness Center (Premium)', icon: '📖' },
     { id: 'member-preview', label: 'Member Experience', icon: '👁️' },
     { id: 'product-catalog', label: 'Full Catalog View', icon: '🌿' }
   ];
