@@ -486,6 +486,7 @@ class DatabaseManager:
         """Seed initial admin user."""
         from utils.auth import get_password_hash
         from datetime import datetime
+        import uuid
         
         # Check if admin already exists
         existing_admin = await admins_collection.find_one({"email": "admin@statusxsmoakland.com"})
@@ -503,7 +504,38 @@ class DatabaseManager:
             "updated_at": datetime.utcnow()
         }
         
+        # Also add admin to users collection for regular authentication
+        admin_as_user = {
+            "id": str(uuid.uuid4()),
+            "username": "admin",
+            "email": "admin@statusxsmoakland.com",
+            "password_hash": get_password_hash("Admin123!"),
+            "full_name": "System Administrator",
+            "phone_number": "+1234567890",
+            "membership_tier": "premium",  # Admin gets premium access
+            "membershipTier": "premium",   # For compatibility
+            "role": "super_admin",         # Admin role
+            "is_verified": True,
+            "is_active": True,
+            "verification_status": "approved",
+            "id_verification": {
+                "status": "verified",
+                "verified_at": datetime.utcnow(),
+                "document_type": "admin_access"
+            },
+            "address": {
+                "street": "123 Admin Street",
+                "city": "New York",
+                "state": "NY",
+                "zip_code": "10001"
+            },
+            "points": 99999,
+            "created_at": datetime.utcnow(),
+            "updated_at": datetime.utcnow()
+        }
+        
         await admins_collection.insert_one(admin_user)
+        await users_collection.insert_one(admin_as_user)
 
     @staticmethod
     async def seed_demo_users():
