@@ -178,11 +178,20 @@ function App() {
 
   // Check verification states on load - STRICT SECURITY MODE
   useEffect(() => {
-    // SECURITY FIX: Always start fresh - clear any bypass mechanisms
-    localStorage.removeItem('admin_token');
-    localStorage.removeItem('super_admin_bypass');
+    // SECURITY FIX: Always start fresh - clear ALL bypass mechanisms
+    const bypassKeys = [
+      'admin_token', 
+      'super_admin_bypass', 
+      'super_admin_demo_token',
+      'demo_admin_token'
+    ];
     
-    // Only allow verification states to persist if user is actually logged in
+    bypassKeys.forEach(key => {
+      localStorage.removeItem(key);
+      sessionStorage.removeItem(key);
+    });
+    
+    // Only allow verification states to persist if user has valid authenticated session
     const hasValidUserSession = localStorage.getItem('access_token') && localStorage.getItem('user_data');
     
     if (hasValidUserSession) {
