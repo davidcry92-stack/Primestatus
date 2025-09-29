@@ -80,16 +80,16 @@ const ProductSelection = ({ onCategorySelect, user }) => {
             Za (Premium)
           </button>
           <button 
+            onClick={() => handleCategoryClick('flower', 'lows')}
+            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full transition-colors"
+          >
+            Lows (Affordable)
+          </button>
+          <button 
             onClick={() => handleCategoryClick('flower', 'deps')}
             className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-6 rounded-full transition-colors"
           >
             Deps (Regular)
-          </button>
-          <button 
-            onClick={() => handleCategoryClick('flower', 'lows')}
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full transition-colors"
-          >
-            Lows (Budget)
           </button>
           <button 
             onClick={() => handleCategoryClick('pre-rolls')}
