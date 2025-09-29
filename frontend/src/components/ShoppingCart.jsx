@@ -98,7 +98,8 @@ const ShoppingCart = ({ cartItems, setCartItems, user }) => {
           }
         };
 
-        const response = await fetch('/api/payments/checkout/session', {
+        const backendUrl = process.env.REACT_APP_BACKEND_URL || '';
+        const response = await fetch(`${backendUrl}/api/payments/checkout/session`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
