@@ -13,7 +13,8 @@ const ShoppingCart = ({ cartItems, setCartItems, user }) => {
 
   const fetchPackages = async () => {
     try {
-      const response = await fetch('/api/payments/packages');
+      const backendUrl = process.env.REACT_APP_BACKEND_URL || '';
+      const response = await fetch(`${backendUrl}/api/payments/packages`);
       const data = await response.json();
       setPackages(data.packages || []);
     } catch (error) {
