@@ -240,7 +240,7 @@ const AuthModal = ({ onClose }) => {
                           <div className="flex items-center space-x-2">
                             <div>
                               <div className="flex items-center space-x-2">
-                                <h4 className="text-white font-semibold">Premium + Wictionary</h4>
+                                <h4 className="text-white font-semibold">Premium + Wellness Center</h4>
                                 <Crown className="h-4 w-4 text-yellow-400" />
                               </div>
                               <p className="text-yellow-400 font-bold">$7.99/month</p>
