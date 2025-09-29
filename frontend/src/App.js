@@ -176,8 +176,15 @@ function App() {
   const [isReEntryCodeVerified, setIsReEntryCodeVerified] = useState(false);
   const [isSuperAdminMode, setIsSuperAdminMode] = useState(false);
 
-  // Check for super admin mode on load (but don't auto-bypass)
+  // Check verification states on load
   useEffect(() => {
+    // Check if verification steps are already completed
+    const lawEnforcementVerified = sessionStorage.getItem('law_enforcement_verified') === 'true';
+    const reEntryVerified = sessionStorage.getItem('reentry_verified') === 'true';
+    
+    setIsLawEnforcementVerified(lawEnforcementVerified);
+    setIsReEntryCodeVerified(reEntryVerified);
+    
     const adminToken = localStorage.getItem('admin_token');
     const superAdminBypass = localStorage.getItem('super_admin_bypass');
     
