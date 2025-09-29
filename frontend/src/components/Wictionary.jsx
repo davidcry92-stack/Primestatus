@@ -223,4 +223,4 @@ const WellnessCenter = ({ user = null }) => {
   );
 };
 
-export default Wictionary;
+export default WellnessCenter;
