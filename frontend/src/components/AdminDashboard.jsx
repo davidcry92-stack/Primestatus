@@ -9,6 +9,43 @@ import ProductGrid from './ProductGrid';
 import ProductSelection from './ProductSelection';
 import DailyDeals from './DailyDeals';
 
+// Error Boundary Component
+class ErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false, error: null };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.error('Admin Dashboard Error:', error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <div className="bg-red-900/20 border border-red-600 rounded-lg p-4">
+          <h3 className="text-red-400 font-semibold mb-2">⚠️ Component Error</h3>
+          <p className="text-red-300 text-sm">
+            This component encountered an error. Please refresh the page or contact support.
+          </p>
+          <button 
+            onClick={() => this.setState({ hasError: false, error: null })}
+            className="mt-2 bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
+          >
+            Try Again
+          </button>
+        </div>
+      );
+    }
+
+    return this.props.children;
+  }
+}
+
 const AdminDashboard = ({ adminUser, onLogout }) => {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [stats, setStats] = useState(null);
