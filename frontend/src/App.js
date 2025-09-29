@@ -301,22 +301,22 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Routes>
-          <Route path="/" element={
-            <ScreenshotProtection>
-              {getAppContent()}
-            </ScreenshotProtection>
-          } />
-          <Route path="/checkout/success" element={<CheckoutSuccess />} />
-          <Route path="/checkout/cancel" element={<CheckoutCancel />} />
-          <Route path="/admin" element={
-            <ScreenshotProtection>
-              <AuthProvider>
+        <AuthProvider>
+          <Routes>
+            <Route path="/" element={
+              <ScreenshotProtection>
+                {getAppContent()}
+              </ScreenshotProtection>
+            } />
+            <Route path="/checkout/success" element={<CheckoutSuccess />} />
+            <Route path="/checkout/cancel" element={<CheckoutCancel />} />
+            <Route path="/admin" element={
+              <ScreenshotProtection>
                 <AdminOnlyApp />
-              </AuthProvider>
-            </ScreenshotProtection>
-          } />
-        </Routes>
+              </ScreenshotProtection>
+            } />
+          </Routes>
+        </AuthProvider>
       </BrowserRouter>
     </div>
   );
