@@ -321,7 +321,9 @@ const MemberExperiencePreview = ({ adminUser }) => {
               {memberModes.find(m => m.id === previewMode)?.label}
             </span>
           </h3>
-          <ProductSelection user={getMockUser(memberModes.find(m => m.id === previewMode))} />
+          <ErrorBoundary>
+            <ProductSelection user={getMockUser(memberModes.find(m => m.id === previewMode))} />
+          </ErrorBoundary>
         </div>
 
         {/* Daily Deals */}
