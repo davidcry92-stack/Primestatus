@@ -176,31 +176,33 @@ function App() {
   const [isReEntryCodeVerified, setIsReEntryCodeVerified] = useState(false);
   const [isSuperAdminMode, setIsSuperAdminMode] = useState(false);
 
-  // Check verification states on load
+  // Check verification states on load - STRICT SECURITY MODE
   useEffect(() => {
-    // Check if verification steps are already completed
-    const lawEnforcementVerified = sessionStorage.getItem('law_enforcement_verified') === 'true';
-    const reEntryVerified = sessionStorage.getItem('reentry_verified') === 'true';
+    // SECURITY FIX: Always start fresh - clear any bypass mechanisms
+    localStorage.removeItem('admin_token');
+    localStorage.removeItem('super_admin_bypass');
     
-    setIsLawEnforcementVerified(lawEnforcementVerified);
-    setIsReEntryCodeVerified(reEntryVerified);
+    // Only allow verification states to persist if user is actually logged in
+    const hasValidUserSession = localStorage.getItem('access_token') && localStorage.getItem('user_data');
     
-    const adminToken = localStorage.getItem('admin_token');
-    const superAdminBypass = localStorage.getItem('super_admin_bypass');
-    
-    // Only set super admin mode if explicitly enabled, but still require verification
-    if (adminToken || superAdminBypass === 'true') {
-      setIsSuperAdminMode(true);
-      // Still require verification steps for security
+    if (hasValidUserSession) {
+      // If user is logged in, allow verification state persistence
+      const lawEnforcementVerified = sessionStorage.getItem('law_enforcement_verified') === 'true';
+      const reEntryVerified = sessionStorage.getItem('reentry_verified') === 'true';
+      
+      setIsLawEnforcementVerified(lawEnforcementVerified);
+      setIsReEntryCodeVerified(reEntryVerified);
+    } else {
+      // If no valid session, clear all verification states and start fresh
+      sessionStorage.removeItem('law_enforcement_verified');
+      sessionStorage.removeItem('reentry_verified');
+      sessionStorage.removeItem('app_session_active');
+      
+      setIsLawEnforcementVerified(false);
+      setIsReEntryCodeVerified(false);
     }
-
-    // Only clear bypass tokens on first load, preserve user sessions
-    const hasUserSession = localStorage.getItem('access_token') && localStorage.getItem('user_data');
-    if (!hasUserSession) {
-      // Only clear these if user isn't already logged in
-      localStorage.removeItem('admin_token');
-      localStorage.removeItem('super_admin_bypass');
-    }
+    
+    setIsSuperAdminMode(false); // No super admin bypasses allowed
   }, []);
 
   const handleLawEnforcementVerification = () => {
