@@ -23,6 +23,74 @@ import AuthModal from "./components/AuthModal";
 // Auth Context
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 
+const AdminRouteWrapper = () => {
+  const { user, isAuthenticated, loading } = useAuth();
+  
+  // Show loading while checking auth
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="text-white text-xl">Loading...</div>
+      </div>
+    );
+  }
+  
+  // Check if user is authenticated and is admin
+  const isAdmin = isAuthenticated && user && (
+    user.email === 'admin@statusxsmoakland.com' || 
+    user.role === 'super_admin'
+  );
+  
+  if (!isAuthenticated || !user) {
+    // Not authenticated - redirect to main app for login
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="max-w-md w-full mx-4">
+          <div className="bg-gray-900 border border-red-600 rounded-lg p-8 text-center">
+            <div className="text-6xl mb-4">🛡️</div>
+            <h2 className="text-2xl font-bold text-white mb-4">Admin Login Required</h2>
+            <p className="text-gray-300 mb-6">
+              You must be logged in as an administrator to access this area.
+            </p>
+            <button
+              onClick={() => window.location.href = '/'}
+              className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
+            >
+              Go to Main App
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  
+  if (!isAdmin) {
+    // Authenticated but not admin
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="max-w-md w-full mx-4">
+          <div className="bg-gray-900 border border-orange-600 rounded-lg p-8 text-center">
+            <div className="text-6xl mb-4">⚠️</div>
+            <h2 className="text-2xl font-bold text-white mb-4">Access Denied</h2>
+            <p className="text-gray-300 mb-6">
+              You don't have administrator privileges to access this area.
+            </p>
+            <button
+              onClick={() => window.location.href = '/'}
+              className="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
+            >
+              Return to Main App
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  
+  // User is authenticated admin - show admin dashboard
+  return <AdminApp />;
+};
+
 const LoginOnlyApp = () => {
   const { user, isAuthenticated, loading, login } = useAuth();
   const [cartItems, setCartItems] = useState([]);
