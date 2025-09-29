@@ -15,6 +15,8 @@ import ProductSelection from "./components/ProductSelection";
 import DailyDeals from "./components/DailyDeals";
 import Wictionary from "./components/Wictionary";
 import Footer from "./components/Footer";
+import CheckoutSuccess from "./components/CheckoutSuccess";
+import CheckoutCancel from "./components/CheckoutCancel";
 // import AdminApp from "./components/AdminApp"; // Removed - admin access through main app only
 import AuthModal from "./components/AuthModal";
 
