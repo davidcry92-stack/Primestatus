@@ -166,7 +166,6 @@ async def handle_stripe_webhook(request: Request, stripe_signature: str = Header
         
         # Update database based on webhook event
         if webhook_response.session_id:
-            db = await get_database()
             await db.payment_transactions.update_one(
                 {"session_id": webhook_response.session_id},
                 {
