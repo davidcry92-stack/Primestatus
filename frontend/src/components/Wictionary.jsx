@@ -42,7 +42,7 @@ const WellnessCenter = ({ user = null }) => {
             <Lock className="h-16 w-16 text-purple-400 mx-auto mb-6" />
             <h2 className="text-4xl font-black text-white mb-4">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
-                Wictionary
+                Wellness Center
               </span>
               {' '}Access
             </h2>
