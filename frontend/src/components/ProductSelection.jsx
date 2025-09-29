@@ -137,7 +137,7 @@ const ProductSelection = ({ onCategorySelect, user }) => {
                 <div className="text-5xl font-black text-black mb-2" style={{
                   textShadow: '2px 2px 0px #fff'
                 }}>
-                  #LOWS
+                  LOWS
                 </div>
                 <div className="text-2xl font-bold text-pink-600 mb-4">
                   AFFORDABLE BUD
