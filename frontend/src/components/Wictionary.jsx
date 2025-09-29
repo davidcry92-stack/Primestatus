@@ -60,7 +60,7 @@ const WellnessCenter = ({ user = null }) => {
                 <Crown className="h-6 w-6 text-yellow-400 absolute top-4 right-4" />
                 <h3 className="text-white font-bold text-lg mb-2">Premium + Wellness Center</h3>
                 <p className="text-purple-400 text-2xl font-black mb-4">$7.99/month</p>
-                <p className="text-gray-300 text-sm">Everything + exclusive Wictionary access</p>
+                <p className="text-gray-300 text-sm">Everything + exclusive Wellness Center access</p>
               </div>
             </div>
             
