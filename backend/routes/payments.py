@@ -112,7 +112,6 @@ async def get_checkout_status(session_id: str):
         checkout_status = await stripe_checkout.get_checkout_status(session_id)
         
         # Update database record
-        db = await get_database()
         transaction = await db.payment_transactions.find_one({"session_id": session_id})
         
         if transaction:
