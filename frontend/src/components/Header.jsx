@@ -106,8 +106,7 @@ const Header = ({ user, cartItems = [], setCartItems, onAuthClick }) => {
               {user && user.email === 'admin@statusxsmoakland.com' && (
                 <Button
                   onClick={() => {
-                    // Set admin token and redirect to admin dashboard
-                    localStorage.setItem('admin_token', 'demo_admin_token');
+                    // Open admin dashboard in new tab - no token manipulation
                     window.open('/admin', '_blank');
                   }}
                   className="bg-red-600 hover:bg-red-700 text-white font-bold px-3 py-2 text-sm"
