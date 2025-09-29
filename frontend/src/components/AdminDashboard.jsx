@@ -154,22 +154,23 @@ const AdminDashboard = ({ adminUser, onLogout }) => {
           {activeTab === 'verification' && (
             <IDVerification />
           )}
-          {activeTab === 'wictionary' && (
+          {activeTab === 'wellness-center' && (
             <div className="bg-gray-900 p-6 rounded-lg">
-              <div className="mb-4 p-4 bg-green-900/30 border border-green-600 rounded-lg">
-                <h3 className="text-green-400 font-semibold mb-2">🔓 Admin View: Premium Wictionary Access</h3>
-                <p className="text-green-300 text-sm">
-                  Viewing Wictionary as a premium member would see it. This includes all {' '}
-                  193+ comprehensive strain definitions with THC content, effects, and medical information.
+                <h3 className="text-green-400 font-semibold mb-2">🔓 Admin View: Premium Wellness Center Access</h3>
+                <p className="text-gray-400 text-sm mb-4">
+                  Viewing Wellness Center as a premium member would see it. This includes all {' '}
+                  wellness and cannabis education content.
                 </p>
-              </div>
-              <Wictionary user={{
-                username: "AdminDemo",
-                membership_tier: "premium",
-                membershipTier: "premium",
-                is_verified: true,
-                role: "admin"
-              }} />
+              <ErrorBoundary>
+                <WellnessCenter user={{
+                  username: "AdminPreview",
+                  membership_tier: "premium", 
+                  membershipTier: "premium",
+                  is_verified: true,
+                  verification_status: "approved",
+                  role: "member"
+                }} />
+              </ErrorBoundary>
             </div>
           )}
           {activeTab === 'member-preview' && (
