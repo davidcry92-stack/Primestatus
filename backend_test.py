@@ -2578,6 +2578,11 @@ class AuthenticationTester:
             
             # Test rating system
             await self.test_rating_system_comprehensive()
+            
+            # Test Stripe payment integration
+            await self.test_stripe_payment_integration()
+            await self.test_stripe_api_key_configuration()
+            await self.test_payment_security_and_validation()
         else:
             print("❌ Authentication failed - skipping other tests")
         
