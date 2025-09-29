@@ -106,8 +106,8 @@ const Header = ({ user, cartItems = [], setCartItems, onAuthClick }) => {
               {user && user.email === 'admin@statusxsmoakland.com' && (
                 <Button
                   onClick={() => {
-                    // Admin functionality should be accessed through authenticated app flow only
-                    alert('Admin functionality is integrated within the main app. No separate dashboard needed.');
+                    // Navigate to admin dashboard - authenticated users only can reach this
+                    window.location.href = '/admin';
                   }}
                   className="bg-red-600 hover:bg-red-700 text-white font-bold px-3 py-2 text-sm"
                 >
