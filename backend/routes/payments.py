@@ -73,7 +73,6 @@ async def create_checkout_session(
         session = await stripe_checkout.create_checkout_session(checkout_request)
         
         # Store transaction in database
-        db = await get_database()
         transaction = PaymentTransaction(
             session_id=session.session_id,
             user_email=user_email,
