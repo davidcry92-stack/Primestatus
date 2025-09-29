@@ -27,7 +27,7 @@ const Wictionary = ({ user = null }) => {
 
   const categories = ['all', 'slang', 'science', 'culture', 'legal'];
 
-  const filteredTerms = mockWictionary.filter(term => {
+  const filteredTerms = (mockWictionary || []).filter(term => {
     const matchesSearch = term.term.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          term.definition.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'all' || term.category === selectedCategory;
