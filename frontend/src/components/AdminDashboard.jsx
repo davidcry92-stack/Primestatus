@@ -272,6 +272,7 @@ const MemberExperiencePreview = ({ adminUser }) => {
       membership_tier: mode.tier,
       membershipTier: mode.tier,
       is_verified: mode.verified !== false,
+      verification_status: mode.verified !== false ? 'approved' : 'pending', // Add verification status
       role: 'member'
     };
     return base;
