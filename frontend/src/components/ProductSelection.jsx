@@ -126,42 +126,46 @@ const ProductSelection = ({ onCategorySelect, user }) => {
         {/* Visual Category Grid - Keep the beautiful cards for visual appeal */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
           
-          {/* Za (Premium) Category */}
+          {/* Lows (Affordable) Category - FIRST */}
           <div 
-            onClick={() => handleCategoryClick('flower', 'za')}
+            onClick={() => handleCategoryClick('flower', 'lows')}
             className="relative group cursor-pointer transform hover:scale-105 transition-all duration-300"
           >
-            <div className="bg-gradient-to-br from-teal-600 to-purple-700 rounded-2xl p-6 h-80 flex flex-col justify-center items-center overflow-hidden relative">
-              <div className="absolute inset-0 bg-black bg-opacity-30"></div>
+            <div className="bg-gradient-to-br from-yellow-300 to-pink-400 rounded-2xl p-6 h-80 flex flex-col justify-center items-center overflow-hidden relative">
+              <div className="absolute inset-0 bg-black bg-opacity-10"></div>
               <div className="relative z-10 text-center">
-                <div className="text-6xl font-black text-white mb-4" style={{
-                  textShadow: '3px 3px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000'
+                <div className="text-5xl font-black text-black mb-2" style={{
+                  textShadow: '2px 2px 0px #fff'
                 }}>
-                  Za.
+                  #LOWS
                 </div>
-                <div className="text-2xl font-bold text-pink-300 mb-2">
-                  The Loudest
+                <div className="text-2xl font-bold text-pink-600 mb-4">
+                  AFFORDABLE BUD
                 </div>
-                <div className="text-lg text-white mb-4">
-                  in the Room
+                <div className="text-sm text-black font-bold mb-2">
+                  "SMOOTH INTRODUCTION FOR BEGINNERS"
                 </div>
-                <div className="flex justify-center space-x-4 text-yellow-300 text-sm">
-                  <span>👃 AROMA</span>
-                  <span>👅 FLAVOR</span>
-                  <span>😌 EFFECTS</span>
+                <div className="text-sm text-black font-bold mb-2">
+                  "BASIC BUD, BUT STILL GETS THE JOB DONE"
                 </div>
-                <div className="text-yellow-300 text-sm mt-2">
-                  SMALL BATCH
+                {/* Character face with sunglasses */}
+                <div className="flex justify-center mt-4">
+                  <div className="w-16 h-12 bg-black rounded-lg flex items-center justify-center relative">
+                    <div className="w-12 h-8 bg-gradient-to-r from-red-500 via-yellow-500 via-green-500 via-blue-500 to-purple-500 rounded opacity-80"></div>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-white text-xs">😎</span>
+                    </div>
+                  </div>
                 </div>
               </div>
-              {/* Cannabis buds decoration */}
-              <div className="absolute top-4 left-4 w-8 h-8 bg-green-500 rounded-full opacity-70"></div>
-              <div className="absolute bottom-4 right-4 w-6 h-6 bg-green-400 rounded-full opacity-50"></div>
-              <div className="absolute top-1/2 right-6 w-4 h-4 bg-green-600 rounded-full opacity-60"></div>
+              {/* Stars decoration */}
+              <div className="absolute top-4 left-4 text-yellow-400">⭐</div>
+              <div className="absolute top-8 right-8 text-pink-400">⭐</div>
+              <div className="absolute bottom-6 left-8 text-yellow-300">⭐</div>
             </div>
           </div>
 
-          {/* Deps (Mid-tier) Category */}
+          {/* Deps (Mid-tier) Category - SECOND */}
           <div 
             onClick={() => handleCategoryClick('flower', 'deps')}
             className="relative group cursor-pointer transform hover:scale-105 transition-all duration-300"
@@ -193,42 +197,38 @@ const ProductSelection = ({ onCategorySelect, user }) => {
             </div>
           </div>
 
-          {/* Lows (Budget) Category */}
+          {/* Za (Premium) Category - THIRD */}
           <div 
-            onClick={() => handleCategoryClick('flower', 'lows')}
+            onClick={() => handleCategoryClick('flower', 'za')}
             className="relative group cursor-pointer transform hover:scale-105 transition-all duration-300"
           >
-            <div className="bg-gradient-to-br from-yellow-300 to-pink-400 rounded-2xl p-6 h-80 flex flex-col justify-center items-center overflow-hidden relative">
-              <div className="absolute inset-0 bg-black bg-opacity-10"></div>
+            <div className="bg-gradient-to-br from-teal-600 to-purple-700 rounded-2xl p-6 h-80 flex flex-col justify-center items-center overflow-hidden relative">
+              <div className="absolute inset-0 bg-black bg-opacity-30"></div>
               <div className="relative z-10 text-center">
-                <div className="text-5xl font-black text-black mb-2" style={{
-                  textShadow: '2px 2px 0px #fff'
+                <div className="text-6xl font-black text-white mb-4" style={{
+                  textShadow: '3px 3px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000'
                 }}>
-                  #LOWS
+                  Za.
                 </div>
-                <div className="text-2xl font-bold text-pink-600 mb-4">
-                  BUDGET BUD
+                <div className="text-2xl font-bold text-pink-300 mb-2">
+                  The Loudest
                 </div>
-                <div className="text-sm text-black font-bold mb-2">
-                  "SMOOTH INTRODUCTION FOR BEGINNERS"
+                <div className="text-lg text-white mb-4">
+                  in the Room
                 </div>
-                <div className="text-sm text-black font-bold mb-2">
-                  "BASIC BUD, BUT STILL GETS THE JOB DONE"
+                <div className="flex justify-center space-x-4 text-yellow-300 text-sm">
+                  <span>👃 AROMA</span>
+                  <span>👅 FLAVOR</span>
+                  <span>😌 EFFECTS</span>
                 </div>
-                {/* Character face with sunglasses */}
-                <div className="flex justify-center mt-4">
-                  <div className="w-16 h-12 bg-black rounded-lg flex items-center justify-center relative">
-                    <div className="w-12 h-8 bg-gradient-to-r from-red-500 via-yellow-500 via-green-500 via-blue-500 to-purple-500 rounded opacity-80"></div>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-white text-xs">😎</span>
-                    </div>
-                  </div>
+                <div className="text-yellow-300 text-sm mt-2">
+                  SMALL BATCH
                 </div>
               </div>
-              {/* Stars decoration */}
-              <div className="absolute top-4 left-4 text-yellow-400">⭐</div>
-              <div className="absolute top-8 right-8 text-pink-400">⭐</div>
-              <div className="absolute bottom-6 left-8 text-yellow-300">⭐</div>
+              {/* Cannabis buds decoration */}
+              <div className="absolute top-4 left-4 w-8 h-8 bg-green-500 rounded-full opacity-70"></div>
+              <div className="absolute bottom-4 right-4 w-6 h-6 bg-green-400 rounded-full opacity-50"></div>
+              <div className="absolute top-1/2 right-6 w-4 h-4 bg-green-600 rounded-full opacity-60"></div>
             </div>
           </div>
         </div>
