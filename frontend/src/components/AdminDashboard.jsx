@@ -384,7 +384,7 @@ const MemberExperiencePreview = ({ adminUser }) => {
               </span>
             </h3>
             <ErrorBoundary>
-              <Wictionary user={getMockUser(memberModes.find(m => m.id === previewMode))} />
+              <WellnessCenter user={getMockUser(memberModes.find(m => m.id === previewMode))} />
             </ErrorBoundary>
           </div>
         ) : (
