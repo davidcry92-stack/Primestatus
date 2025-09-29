@@ -152,6 +152,7 @@ const LoginOnlyApp = () => {
       <Header 
         user={user} 
         cartItems={cartItems} 
+        setCartItems={setCartItems}
         onAuthClick={handleAuthClick}
       />
       <main>
