@@ -23,7 +23,7 @@ import AuthModal from "./components/AuthModal";
 // Auth Context
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 
-const AdminRouteWrapper = () => {
+const AdminOnlyApp = () => {
   const { user, isAuthenticated, loading } = useAuth();
   
   // Show loading while checking auth
