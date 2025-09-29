@@ -96,14 +96,11 @@ const Header = ({ user, cartItems = [], setCartItems, onAuthClick }) => {
               </div>
 
               {/* Cart */}
-              <Button variant="ghost" className="relative text-white hover:text-green-400">
-                <ShoppingCart className="h-5 w-5" />
-                {cartItemCount > 0 && (
-                  <Badge className="absolute -top-2 -right-2 bg-red-500 text-white text-xs min-w-[20px] h-5">
-                    {cartItemCount}
-                  </Badge>
-                )}
-              </Button>
+              <ShoppingCartComponent 
+                cartItems={cartItems} 
+                setCartItems={setCartItems} 
+                user={user} 
+              />
 
               {/* Admin Dashboard Button */}
               {user && user.email === 'admin@statusxsmoakland.com' && (
