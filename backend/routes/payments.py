@@ -12,7 +12,7 @@ from typing import Optional
 # Load environment variables
 load_dotenv()
 
-router = APIRouter(prefix="/api/payments", tags=["payments"])
+router = APIRouter(prefix="/payments", tags=["payments"])
 logger = logging.getLogger(__name__)
 
 # Cannabis-friendly payment packages (fixed amounts to prevent manipulation)
