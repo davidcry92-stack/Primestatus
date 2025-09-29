@@ -152,6 +152,7 @@ const AdminDashboard = ({ adminUser, onLogout }) => {
                 membership_tier: "premium", 
                 membershipTier: "premium",
                 is_verified: true,
+                verification_status: "approved",
                 role: "admin"
               }} />
             </div>
