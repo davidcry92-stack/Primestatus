@@ -156,7 +156,7 @@ const ShoppingCart = ({ cartItems, setCartItems, user }) => {
               {/* Header */}
               <div className="flex items-center justify-between p-4 border-b border-gray-700">
                 <h2 className="text-xl font-bold text-white flex items-center">
-                  <ShoppingCart className="h-5 w-5 mr-2" />
+                  <ShoppingCartIcon className="h-5 w-5 mr-2" />
                   Cart ({getTotalItems()})
                 </h2>
                 <button
