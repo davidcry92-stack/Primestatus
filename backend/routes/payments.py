@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, Request, Header
 from fastapi.responses import JSONResponse
 from models.payment import CheckoutRequest, CheckoutResponse, PaymentStatusResponse, PaymentTransaction
-from utils.database import get_database
+from utils.database import db
 from emergentintegrations.payments.stripe.checkout import StripeCheckout, CheckoutSessionRequest
 import os
 from dotenv import load_dotenv
