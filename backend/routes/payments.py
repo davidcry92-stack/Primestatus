@@ -30,10 +30,11 @@ async def create_checkout_session(
     user_email: Optional[str] = Header(None, alias="X-User-Email")
 ):
     """Create a Stripe checkout session for cannabis products."""
+    # Validate package ID
+    if request.package_id not in CANNABIS_PACKAGES:
+        raise HTTPException(status_code=400, detail="Invalid package ID")
+    
     try:
-        # Validate package ID
-        if request.package_id not in CANNABIS_PACKAGES:
-            raise HTTPException(status_code=400, detail="Invalid package ID")
         
         package = CANNABIS_PACKAGES[request.package_id]
         amount = package["amount"]
