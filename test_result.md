@@ -397,6 +397,30 @@ test_plan:
           agent: "testing"
           comment: "✅ COMPREHENSIVE RATING SYSTEM TESTING COMPLETE: All rating endpoints functional and properly secured. Successfully tested: 1) Rating API endpoints structure (POST /api/ratings/, GET /api/ratings/product/{id}, GET /api/ratings/user/my-ratings, DELETE /api/ratings/{id}) - all correctly require authentication (403), 2) Admin rating statistics (GET /api/admin/ratings/stats, GET /api/admin/ratings/users) working perfectly with 26 products, 3) Rating data validation structure confirmed (1-5 star validation, 500 char limits for experience/review fields), 4) Product rating integration verified - all products have rating and reviews fields with proper data types, 5) Authentication and authorization working correctly - all user endpoints properly secured. Rating system ready for production use. SUCCESS RATE: 20/20 tests passed (100%)."
 
+  - task: "Stripe Payment Integration"
+    implemented: true
+    working: false
+    file: "/app/backend/routes/payments.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "main"
+          comment: "Backend Stripe integration complete with payment models, routes, and webhook handling. Frontend ShoppingCart component created. Missing: checkout success/cancel pages and proper integration with Header component."
+
+  - task: "Shopping Cart Integration"  
+    implemented: false
+    working: false
+    file: "/app/frontend/src/components/ShoppingCart.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: false
+          agent: "main"
+          comment: "ShoppingCart component exists but not integrated into Header. Need to connect cart functionality and add routing for checkout success/cancel pages."
+
 agent_communication:
     - agent: "main"
       message: "MAJOR UPDATE COMPLETE: Integrated actual inventory (120+ products), created beautiful visual product selection interface matching user graphics, added comprehensive Wictionary with 25+ strain definitions, and updated entire frontend to use real product data. Admin system previously tested and working. Need comprehensive testing of new inventory system and visual interface integration."
@@ -406,6 +430,8 @@ agent_communication:
       message: "INVENTORY TASK COMPLETION: ✅ Successfully completed the primary pending task of adding remaining out-of-stock products. Frontend inventory file actual-inventory.js now contains comprehensive product lists: Lows (54 total), Deps (87 total), Za (8 total) = 149+ products total. Database seeding shows 101 products currently loaded. Frontend properly displays '90 products available' for Deps tier and full category navigation works. Visual interface confirmed working with proper product cards, tier badges, and filtering. Core inventory expansion objective achieved - application now has complete comprehensive product catalog as requested."
     - agent: "main"
       message: "RETAIL INVENTORY ENHANCEMENT COMPLETE: ✅ Successfully updated all product categories with comprehensive retail-specific inventory as requested: Vapes (4 products: Smoakland Vape 1g $25, Twist Battery $25, Fryd Carts $30), Pre-rolls (9 products: Smoakland Pre-rolls $7 each/2 for $10, Super J $5, Paletas premium blunts $25-35, Kief 1g $25, Smoakies 4-pack $20), Blendz (3 flavors with 'Blendz $30' prefix: Sativa/Hybrid/Indica), Concentrates (4 products: Shatter 1g $25, Sauce $25, Luv Drops $30, Balance Oil Capsules $30), Suppositories (1 product: Abundance Suppositories $30). All products display with proper retail images, accurate pricing, tier badges, and category navigation. Frontend confirmed working with '4 products available' showing in Vapes section with visual product cards displaying correctly."
+    - agent: "main"
+      message: "STRIPE PAYMENT INTEGRATION STARTED: Beginning implementation of checkout success/cancel pages and shopping cart integration. Backend payment system already implemented with Stripe checkout, webhook handling, and payment packages. Need to create frontend checkout flow and integrate ShoppingCart component with Header."
     - agent: "testing"
       message: "✅ BACKEND TESTING COMPLETE: Comprehensive testing of actual inventory integration and new systems completed successfully. CRITICAL FIXES IMPLEMENTED: 1) Fixed product API category pattern to include 'vapes', 2) Implemented tier filtering (za/deps/lows), 3) Seeded database with 26 actual products across all tiers and categories, 4) Fixed Wictionary authentication for admin access, 5) Seeded 25 cannabis terms and strain definitions. ALL BACKEND SYSTEMS WORKING: Product API (100% functional with tier/category/brand filtering), Wictionary system (25 terms accessible), Admin system (re-verified with new data), Database properly seeded with actual inventory. SUCCESS RATE: 46/46 tests passed (100%). Ready for frontend integration testing."
     - agent: "testing"
