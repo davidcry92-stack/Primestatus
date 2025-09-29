@@ -93,20 +93,12 @@ const AdminApp = () => {
               </p>
             </div>
             
-            {/* Super Admin Full Access Button */}
-            <button
-              onClick={() => {
-                // Set admin user but still require normal app verification flow
-                setAdminUser({...demoAdmin, role: "super_admin", fullAccess: true});
-                localStorage.setItem('admin_token', 'super_admin_demo_token');
-                // Don't bypass security - redirect to normal app entry
-                alert('Admin access granted. You will still need to complete law enforcement verification and re-entry code.');
-                window.location.href = '/';
-              }}
-              className="w-full bg-gradient-to-r from-red-600 to-red-800 hover:from-red-700 hover:to-red-900 text-white font-bold py-4 px-6 rounded-lg transition-all transform hover:scale-105 mb-4"
-            >
-              🔓 ADMIN ACCESS (Requires Verification)
-            </button>
+            {/* Admin Access Note */}
+            <div className="bg-red-900/20 border border-red-500/50 rounded-lg p-4">
+              <p className="text-red-400 text-center">
+                <strong>Admin Access:</strong> Use the main app with admin credentials (admin@statusxsmoakland.com / Admin123!) after completing verification steps.
+              </p>
+            </div>
             
             <div className="text-center text-sm text-green-400 mb-4">
               ✅ Bypasses ALL verification screens<br/>
