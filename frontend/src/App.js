@@ -311,7 +311,9 @@ function App() {
           <Route path="/checkout/cancel" element={<CheckoutCancel />} />
           <Route path="/admin" element={
             <ScreenshotProtection>
-              <AdminRouteWrapper />
+              <AuthProvider>
+                <AdminOnlyApp />
+              </AuthProvider>
             </ScreenshotProtection>
           } />
         </Routes>
