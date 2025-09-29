@@ -232,6 +232,8 @@ function App() {
               {getAppContent()}
             </ScreenshotProtection>
           } />
+          <Route path="/checkout/success" element={<CheckoutSuccess />} />
+          <Route path="/checkout/cancel" element={<CheckoutCancel />} />
         </Routes>
       </BrowserRouter>
     </div>
