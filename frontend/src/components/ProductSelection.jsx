@@ -208,7 +208,7 @@ const ProductSelection = ({ onCategorySelect, user }) => {
                 <div className="text-6xl font-black text-white mb-4" style={{
                   textShadow: '3px 3px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000'
                 }}>
-                  Za.
+                  Za
                 </div>
                 <div className="text-2xl font-bold text-pink-300 mb-2">
                   The Loudest
