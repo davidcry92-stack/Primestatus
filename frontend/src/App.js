@@ -178,12 +178,14 @@ function App() {
 
   // Check verification states on load - STRICT SECURITY MODE
   useEffect(() => {
-    // SECURITY FIX: Always start fresh - clear ALL bypass mechanisms
+    // SECURITY FIX: Always start fresh - clear ALL bypass mechanisms and old tokens
     const bypassKeys = [
       'admin_token', 
       'super_admin_bypass', 
       'super_admin_demo_token',
-      'demo_admin_token'
+      'demo_admin_token',
+      'access_token',  // Clear old tokens that bypass authentication
+      'user_data'      // Clear old user data that bypasses authentication
     ];
     
     bypassKeys.forEach(key => {
@@ -191,26 +193,13 @@ function App() {
       sessionStorage.removeItem(key);
     });
     
-    // Only allow verification states to persist if user has valid authenticated session
-    const hasValidUserSession = localStorage.getItem('access_token') && localStorage.getItem('user_data');
+    // Always clear verification states - require fresh verification every time
+    sessionStorage.removeItem('law_enforcement_verified');
+    sessionStorage.removeItem('reentry_verified');
+    sessionStorage.removeItem('app_session_active');
     
-    if (hasValidUserSession) {
-      // If user is logged in, allow verification state persistence
-      const lawEnforcementVerified = sessionStorage.getItem('law_enforcement_verified') === 'true';
-      const reEntryVerified = sessionStorage.getItem('reentry_verified') === 'true';
-      
-      setIsLawEnforcementVerified(lawEnforcementVerified);
-      setIsReEntryCodeVerified(reEntryVerified);
-    } else {
-      // If no valid session, clear all verification states and start fresh
-      sessionStorage.removeItem('law_enforcement_verified');
-      sessionStorage.removeItem('reentry_verified');
-      sessionStorage.removeItem('app_session_active');
-      
-      setIsLawEnforcementVerified(false);
-      setIsReEntryCodeVerified(false);
-    }
-    
+    setIsLawEnforcementVerified(false);
+    setIsReEntryCodeVerified(false);
     setIsSuperAdminMode(false); // No super admin bypasses allowed
   }, []);
 
