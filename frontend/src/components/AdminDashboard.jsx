@@ -380,7 +380,9 @@ const MemberExperiencePreview = ({ adminUser }) => {
                 PREMIUM ACCESS
               </span>
             </h3>
-            <Wictionary user={getMockUser(memberModes.find(m => m.id === previewMode))} />
+            <ErrorBoundary>
+              <Wictionary user={getMockUser(memberModes.find(m => m.id === previewMode))} />
+            </ErrorBoundary>
           </div>
         ) : (
           <div className="bg-gray-900 p-6 rounded-lg border-2 border-yellow-600">
