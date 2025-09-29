@@ -253,9 +253,23 @@ function App() {
           <Route path="/checkout/success" element={<CheckoutSuccess />} />
           <Route path="/checkout/cancel" element={<CheckoutCancel />} />
           <Route path="/admin" element={
-            <ScreenshotProtection>
-              {getAppContent()}
-            </ScreenshotProtection>
+            <div className="min-h-screen bg-black flex items-center justify-center">
+              <div className="max-w-md w-full mx-4">
+                <div className="bg-gray-900 border border-red-600 rounded-lg p-8 text-center">
+                  <div className="text-6xl mb-4">🛡️</div>
+                  <h2 className="text-2xl font-bold text-white mb-4">Admin Access</h2>
+                  <p className="text-gray-300 mb-6">
+                    Admin access requires completing verification steps and logging in with admin credentials.
+                  </p>
+                  <button
+                    onClick={() => window.location.href = '/'}
+                    className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
+                  >
+                    Go to Main App
+                  </button>
+                </div>
+              </div>
+            </div>
           } />
         </Routes>
       </BrowserRouter>
