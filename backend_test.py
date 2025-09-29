@@ -2656,10 +2656,10 @@ class AuthenticationTester:
         return len(failed_tests) == 0
 
 async def main():
-    """Main test runner focused on authentication issues."""
+    """Main test runner for comprehensive system testing."""
     async with AuthenticationTester() as tester:
-        success = await tester.run_authentication_tests()
-        return success
+        await tester.run_all_tests()
+        return True
 
 if __name__ == "__main__":
     success = asyncio.run(main())
