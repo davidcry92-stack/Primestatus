@@ -171,7 +171,7 @@ const ShoppingCart = ({ cartItems, setCartItems, user }) => {
               <div className="flex-1 overflow-y-auto p-4">
                 {cartItems.length === 0 ? (
                   <div className="text-center text-gray-400 py-8">
-                    <ShoppingCart className="h-12 w-12 mx-auto mb-4 opacity-50" />
+                    <ShoppingCartIcon className="h-12 w-12 mx-auto mb-4 opacity-50" />
                     <p>Your cart is empty</p>
                     <p className="text-sm">Select a package below to get started</p>
                   </div>
