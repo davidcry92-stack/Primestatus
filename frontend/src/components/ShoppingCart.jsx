@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingCart, Plus, Minus, X, CreditCard, Package } from 'lucide-react';
+import { ShoppingCart as ShoppingCartIcon, Plus, Minus, X, CreditCard, Package } from 'lucide-react';
 
 const ShoppingCart = ({ cartItems, setCartItems, user }) => {
   const [isOpen, setIsOpen] = useState(false);
