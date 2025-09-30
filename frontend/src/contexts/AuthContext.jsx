@@ -35,17 +35,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
     try {
-      const response = await apiCall('/api/auth/login', {
-        method: 'POST',
-        body: JSON.stringify(credentials),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.detail || 'Login failed');
-      }
-
-      const data = await response.json();
+      const data = await authAPI.login(credentials);
       const { access_token, user: userData } = data;
       
       localStorage.setItem('access_token', access_token);
@@ -54,7 +44,7 @@ export const AuthProvider = ({ children }) => {
       
       return { success: true };
     } catch (error) {
-      return { success: false, error: error.message };
+      return { success: false, error: error.message || 'Login failed' };
     }
   };
 
