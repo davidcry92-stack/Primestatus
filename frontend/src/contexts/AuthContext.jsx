@@ -131,8 +131,17 @@ export const AuthProvider = ({ children }) => {
 
   const updateProfile = async (updates) => {
     try {
-      const response = await authAPI.updateProfile(updates);
-      const updatedUser = response.data;
+      const response = await apiCall('/api/auth/profile', {
+        method: 'PUT',
+        body: JSON.stringify(updates),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Profile update failed');
+      }
+
+      const updatedUser = await response.json();
       
       localStorage.setItem('user_data', JSON.stringify(updatedUser));
       setUser(updatedUser);
