@@ -52,12 +52,7 @@ export const AuthProvider = ({ children }) => {
     try {
       const response = await authAPI.register(userData);
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.detail || 'Registration failed');
-      }
-
-      const data = await response.json();
+      const data = response.data;
       const { access_token, user: newUser } = data;
       
       localStorage.setItem('access_token', access_token);
