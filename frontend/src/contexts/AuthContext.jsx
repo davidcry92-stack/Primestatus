@@ -58,8 +58,18 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
     try {
-      const response = await authAPI.login(credentials);
-      const { access_token, user: userData } = response.data;
+      const response = await apiCall('/api/auth/login', {
+        method: 'POST',
+        body: JSON.stringify(credentials),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Login failed');
+      }
+
+      const data = await response.json();
+      const { access_token, user: userData } = data;
       
       localStorage.setItem('access_token', access_token);
       localStorage.setItem('user_data', JSON.stringify(userData));
@@ -67,7 +77,7 @@ export const AuthProvider = ({ children }) => {
       
       return { success: true };
     } catch (error) {
-      return { success: false, error: error.message || 'Login failed' };
+      return { success: false, error: error.message };
     }
   };
 
