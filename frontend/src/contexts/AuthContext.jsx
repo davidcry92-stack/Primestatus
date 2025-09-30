@@ -118,7 +118,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await authAPI.logout();
+      await apiCall('/api/auth/logout', { method: 'POST' });
     } catch (error) {
       // Continue with logout even if API call fails
       console.error('Logout API error:', error);
