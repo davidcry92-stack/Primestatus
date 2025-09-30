@@ -160,6 +160,7 @@ export const AuthProvider = ({ children }) => {
     logout,
     updateProfile,
     isAuthenticated: !!user,
+    apiCall, // Expose apiCall for other components
   };
 
   return (
