@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { authAPI } from '../services/api';
 
 const AuthContext = createContext();
 
@@ -8,30 +9,6 @@ export const useAuth = () => {
     throw new Error('useAuth must be used within an AuthProvider');
   }
   return context;
-};
-
-// Simple API call helper
-const apiCall = async (url, options = {}) => {
-  const backendUrl = process.env.REACT_APP_BACKEND_URL || '';
-  
-  const defaultHeaders = {
-    'Content-Type': 'application/json',
-  };
-
-  const token = localStorage.getItem('access_token');
-  if (token) {
-    defaultHeaders.Authorization = `Bearer ${token}`;
-  }
-
-  const response = await fetch(`${backendUrl}${url}`, {
-    ...options,
-    headers: {
-      ...defaultHeaders,
-      ...options.headers,
-    },
-  });
-
-  return response;
 };
 
 export const AuthProvider = ({ children }) => {
