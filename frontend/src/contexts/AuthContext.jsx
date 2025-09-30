@@ -50,20 +50,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (userData) => {
     try {
-      const formData = new FormData();
-      
-      // Add all form fields
-      Object.keys(userData).forEach(key => {
-        if (userData[key] !== null && userData[key] !== undefined) {
-          formData.append(key, userData[key]);
-        }
-      });
-
-      const response = await apiCall('/api/auth/register', {
-        method: 'POST',
-        body: formData,
-        headers: {}, // Let browser set Content-Type for FormData
-      });
+      const response = await authAPI.register(userData);
 
       if (!response.ok) {
         const errorData = await response.json();
