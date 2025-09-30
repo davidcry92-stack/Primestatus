@@ -131,7 +131,7 @@ export const AuthProvider = ({ children }) => {
 
   const updateProfile = async (updates) => {
     try {
-      const response = await apiCall('/api/auth/profile', {
+      const response = await apiCall('/api/admin-auth/profile', {
         method: 'PUT',
         body: JSON.stringify(updates),
       });
