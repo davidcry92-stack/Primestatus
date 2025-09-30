@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
     try {
-      const response = await apiCall('/api/admin-auth/login', {
+      const response = await apiCall('/api/auth/login', {
         method: 'POST',
         body: JSON.stringify(credentials),
       });
