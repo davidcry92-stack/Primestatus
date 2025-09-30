@@ -11,8 +11,8 @@ import os
 from datetime import datetime
 from typing import Dict, Any, Optional
 
-# Configuration - Using localhost since backend runs internally on port 8001
-BACKEND_URL = "http://localhost:8001/api"
+# Configuration - Using deployed backend URL from frontend .env
+BACKEND_URL = "https://cannabis-member.preview.emergentagent.com/api"
 
 # Test credentials from review request - EXACT credentials that are failing
 ADMIN_EMAIL = "admin@statusxsmoakland.com"
