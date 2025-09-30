@@ -92,7 +92,7 @@ export const AuthProvider = ({ children }) => {
         }
       });
 
-      const response = await apiCall('/api/auth/register', {
+      const response = await apiCall('/api/admin-auth/register', {
         method: 'POST',
         body: formData,
         headers: {}, // Let browser set Content-Type for FormData
