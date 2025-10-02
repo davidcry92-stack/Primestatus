@@ -154,7 +154,7 @@ const AdminDashboard = ({ adminUser, onLogout }) => {
           {activeTab === 'verification' && (
             <IDVerification />
           )}
-          {activeTab === 'wellness-center' && (
+          {activeTab === 'health-aid' && (
             <div className="bg-gray-900 p-6 rounded-lg">
                 <h3 className="text-green-400 font-semibold mb-2">🔓 Admin View: Premium Wellness Center Access</h3>
                 <p className="text-gray-400 text-sm mb-4">
