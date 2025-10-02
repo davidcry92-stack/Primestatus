@@ -13,7 +13,7 @@ import HeroSection from "./components/HeroSection";
 import ProductGrid from "./components/ProductGrid";
 import ProductSelection from "./components/ProductSelection";
 import DailyDeals from "./components/DailyDeals";
-import WellnessCenter from "./components/Wictionary";
+import HealthAid from "./components/Wictionary";
 import Footer from "./components/Footer";
 import CheckoutSuccess from "./components/CheckoutSuccess";
 import CheckoutCancel from "./components/CheckoutCancel";
