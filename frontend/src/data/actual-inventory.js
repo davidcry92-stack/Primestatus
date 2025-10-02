@@ -1470,7 +1470,7 @@ export const inStockProducts = [
   {
     id: 'balance-oil-capsules',
     name: 'Balance Oil Capsules',
-    category: 'concentrates',
+    category: 'suppositories',
     price: 30,
     originalPrice: 30,
     weight: 'bottle',
