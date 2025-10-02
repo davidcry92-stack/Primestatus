@@ -64,14 +64,16 @@ const Header = ({ user, cartItems = [], setCartItems, onAuthClick }) => {
               </a>
               {/* Daily Deals removed per admin request */}
               {user?.membershipTier === 'premium' && (
-                <a href="#wellness-center" className="text-purple-400 hover:text-purple-300 transition-colors flex items-center space-x-1">
-                  <span>📖</span>
-                  <span>Wellness Center</span>
-                </a>
-                <a href="#health-aid" className="text-emerald-400 hover:text-emerald-300 transition-colors flex items-center space-x-1">
-                  <span>💊</span>
-                  <span>Health-Aid</span>
-                </a>
+                <>
+                  <a href="#wellness-center" className="text-purple-400 hover:text-purple-300 transition-colors flex items-center space-x-1">
+                    <span>📖</span>
+                    <span>Wellness Center</span>
+                  </a>
+                  <a href="#health-aid" className="text-emerald-400 hover:text-emerald-300 transition-colors flex items-center space-x-1">
+                    <span>💊</span>
+                    <span>Health-Aid</span>
+                  </a>
+                </>
               )}
             </nav>
 
