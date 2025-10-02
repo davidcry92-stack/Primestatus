@@ -69,7 +69,7 @@ const HeroSection = ({ onAuthClick }) => {
               <p className="text-green-400 text-3xl font-black mb-2">$4.99<span className="text-sm text-gray-400">/month</span></p>
               <ul className="text-gray-300 text-sm space-y-1">
                 <li>• Premium product access</li>
-                <li>• Daily deals</li>
+                {/* Daily deals removed */}
                 <li>• Member pricing</li>
               </ul>
             </div>
