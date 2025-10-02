@@ -23,7 +23,7 @@ const Header = ({ user, cartItems = [], setCartItems, onAuthClick }) => {
       {/* Top banner */}
       <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-black text-center py-2 px-4">
         <p className="text-sm font-bold">
-          🔥 NYC EXCLUSIVE - Daily Deals Up To 50% Off - Members Only 🔥
+          🔥 NYC EXCLUSIVE - StatusXSmoakland - Members Only 🔥
         </p>
       </div>
 
