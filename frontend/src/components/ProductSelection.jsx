@@ -497,13 +497,13 @@ const ProductSelection = ({ onCategorySelect, user }) => {
                   Cannabis education & definitions
                 </div>
                 <div className="text-xs text-gray-400 mb-4">
-                  Luv drops, balance capsules & more
+                  Comprehensive cannabis dictionary
                 </div>
                 <div className="grid grid-cols-2 gap-2 mt-4">
-                  <div className="bg-emerald-500 text-white text-xs px-2 py-1 rounded font-bold">LUV DROPS</div>
-                  <div className="bg-teal-500 text-white text-xs px-2 py-1 rounded font-bold">BALANCE</div>
                   <div className="bg-green-500 text-white text-xs px-2 py-1 rounded font-bold">EDUCATION</div>
                   <div className="bg-blue-500 text-white text-xs px-2 py-1 rounded font-bold">HEALTH-AID</div>
+                  <div className="bg-purple-500 text-white text-xs px-2 py-1 rounded font-bold">DICTIONARY</div>
+                  <div className="bg-emerald-500 text-white text-xs px-2 py-1 rounded font-bold">RESOURCES</div>
                 </div>
               </div>
               {/* Wellness decoration */}
