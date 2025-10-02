@@ -57,7 +57,7 @@ const Footer = () => {
               </li>
               <li>
                 <a href="#deals" className="text-gray-400 hover:text-white transition-colors">
-                  Daily Deals
+                  Products
                 </a>
               </li>
               <li>
