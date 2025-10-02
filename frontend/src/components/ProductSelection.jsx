@@ -113,12 +113,9 @@ const ProductSelection = ({ onCategorySelect, user }) => {
           </button>
           <button 
             onClick={() => {
-              console.log('Health-Aid BUTTON clicked!', user);
               if (user?.membership_tier === 'premium' || user?.role === 'super_admin' || user?.role === 'admin') {
-                console.log('User has premium access, calling handleCategoryClick');
                 handleCategoryClick('health-aid');
               } else {
-                console.log('User lacks premium access');
                 alert('Health-Aid access requires Premium membership. Upgrade to unlock wellness resources!');
               }
             }}
