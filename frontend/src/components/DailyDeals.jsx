@@ -231,11 +231,6 @@ const DailyDeals = ({ user }) => {
             <h3 className="text-2xl font-bold text-white">24hrs</h3>
             <p className="text-gray-400">Deal Duration</p>
           </div>
-          <div className="text-center bg-gradient-to-br from-red-900/30 to-black/30 border border-red-400/30 rounded-xl p-6">
-            <Flame className="h-8 w-8 text-red-400 mx-auto mb-2" />
-            <h3 className="text-2xl font-bold text-white">Auto</h3>
-            <p className="text-gray-400">Generated Daily</p>
-          </div>
         </div>
 
         {/* Newsletter Signup */}
