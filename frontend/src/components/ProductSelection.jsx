@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ProductGrid from './ProductGrid';
+import WellnessCenter from './Wictionary';
 
 const ProductSelection = ({ onCategorySelect, user }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
