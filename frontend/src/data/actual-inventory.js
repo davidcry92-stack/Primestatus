@@ -1453,7 +1453,7 @@ export const inStockProducts = [
   {
     id: 'luv-drops',
     name: 'Luv Drops',
-    category: 'health-aid',
+    category: 'concentrates',
     price: 30,
     originalPrice: 30,
     weight: 'bottle',
@@ -1470,7 +1470,7 @@ export const inStockProducts = [
   {
     id: 'balance-oil-capsules',
     name: 'Balance Oil Capsules',
-    category: 'health-aid',
+    category: 'concentrates',
     price: 30,
     originalPrice: 30,
     weight: 'bottle',
