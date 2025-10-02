@@ -378,7 +378,7 @@ const MemberExperiencePreview = ({ adminUser }) => {
         {previewMode === 'premium' ? (
           <div className="bg-gray-900 p-6 rounded-lg">
             <h3 className="text-lg font-semibold mb-4 flex items-center">
-              📖 Wellness Center 
+              📖 Health-Aid 
               <span className="ml-2 px-2 py-1 bg-green-600 text-green-100 rounded text-xs">
                 PREMIUM ACCESS
               </span>
@@ -390,7 +390,7 @@ const MemberExperiencePreview = ({ adminUser }) => {
         ) : (
           <div className="bg-gray-900 p-6 rounded-lg border-2 border-yellow-600">
             <h3 className="text-lg font-semibold mb-4 flex items-center">
-              📖 Wellness Center 
+              📖 Health-Aid 
               <span className="ml-2 px-2 py-1 bg-red-600 text-red-100 rounded text-xs">
                 PREMIUM REQUIRED
               </span>
