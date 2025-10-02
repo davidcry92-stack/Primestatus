@@ -31,6 +31,24 @@ const ProductSelection = ({ onCategorySelect, user }) => {
   };
 
   if (selectedCategory) {
+    // Handle Health-Aid category specially
+    if (selectedCategory.category === 'health-aid') {
+      return (
+        <div className="min-h-screen bg-black text-white">
+          <div className="container mx-auto px-4 py-8">
+            <button
+              onClick={handleBackToSelection}
+              className="mb-6 bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-md transition-colors"
+            >
+              ← Back to Categories
+            </button>
+            <WellnessCenter user={user} />
+          </div>
+        </div>
+      );
+    }
+
+    // Handle all other categories with ProductGrid
     return (
       <div className="min-h-screen bg-black text-white">
         <div className="container mx-auto px-4 py-8">
