@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 import { mockWictionary, mockUserProfile } from '../data/actual-inventory';
 
-const HealthAid = ({ user = null }) => {
+const WellnessCenter = ({ user = null }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [showUpgrade, setShowUpgrade] = useState(false);
