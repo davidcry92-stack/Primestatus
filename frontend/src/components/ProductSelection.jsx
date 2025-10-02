@@ -125,7 +125,7 @@ const ProductSelection = ({ onCategorySelect, user }) => {
               }
             }}
             className={`font-bold py-3 px-6 rounded-full transition-colors ${
-              user?.membershipTier === 'premium' || user?.role === 'super_admin' || user?.role === 'admin'
+              user?.membership_tier === 'premium' || user?.role === 'super_admin' || user?.role === 'admin'
                 ? 'bg-emerald-600 hover:bg-emerald-700 text-white'
                 : 'bg-gray-600 hover:bg-gray-700 text-gray-300'
             }`}
