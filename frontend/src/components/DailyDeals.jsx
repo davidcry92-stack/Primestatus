@@ -77,7 +77,7 @@ const DailyDeals = ({ user }) => {
             {' '}Deals
           </h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Automated deals based on bulk inventory • Save up to 50% • NYC Members Only
+            Premium selections based on bulk inventory • Save up to 50% • NYC Members Only
           </p>
         </div>
 
