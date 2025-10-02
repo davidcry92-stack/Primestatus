@@ -480,7 +480,7 @@ const ProductSelection = ({ onCategorySelect, user }) => {
               }
             }}
             className={`relative group cursor-pointer transform hover:scale-105 transition-all duration-300 ${
-              user?.membershipTier !== 'premium' && user?.role !== 'super_admin' && user?.role !== 'admin' 
+              user?.membership_tier !== 'premium' && user?.role !== 'super_admin' && user?.role !== 'admin' 
                 ? 'opacity-75' : ''
             }`}
           >
