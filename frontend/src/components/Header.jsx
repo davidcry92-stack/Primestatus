@@ -62,9 +62,7 @@ const Header = ({ user, cartItems = [], setCartItems, onAuthClick }) => {
               <a href="#products" className="text-gray-300 hover:text-white transition-colors">
                 Products
               </a>
-              <a href="#deals" className="text-gray-300 hover:text-white transition-colors">
-                Daily Deals
-              </a>
+              {/* Daily Deals removed per admin request */}
               {user?.membershipTier === 'premium' && (
                 <a href="#wellness-center" className="text-purple-400 hover:text-purple-300 transition-colors flex items-center space-x-1">
                   <Crown className="h-4 w-4" />
