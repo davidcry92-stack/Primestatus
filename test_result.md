@@ -102,7 +102,7 @@
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
 
-user_problem_statement: Complete StatusXSmoakland cannabis marketplace with admin system, visual product selection, actual inventory integration, and comprehensive Wictionary.
+user_problem_statement: Complete StatusXSmoakland cannabis marketplace with admin system, visual product selection, actual inventory integration, and comprehensive Health-Aid (formerly Wictionary). CURRENT TASK: Health-Aid visual card and bubble button placement within ProductSelection.jsx grid - should appear after Wellness/Suppositories card and display Health-Aid dictionary interface when selected.
 
 backend:
   - task: "User Authentication System"
