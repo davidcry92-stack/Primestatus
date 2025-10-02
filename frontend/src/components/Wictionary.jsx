@@ -90,7 +90,7 @@ const WellnessCenter = ({ user = null }) => {
           </div>
           <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
-              Wellness Center
+              Health-Aid
             </span>
           </h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
