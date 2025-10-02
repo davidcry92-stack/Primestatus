@@ -374,7 +374,7 @@ const MemberExperiencePreview = ({ adminUser }) => {
           </ErrorBoundary>
         </div>
 
-        {/* Wellness Center Access */}
+        {/* Health-Aid Access */}
         {previewMode === 'premium' ? (
           <div className="bg-gray-900 p-6 rounded-lg">
             <h3 className="text-lg font-semibold mb-4 flex items-center">
