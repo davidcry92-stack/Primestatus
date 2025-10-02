@@ -74,12 +74,6 @@ const ProductSelection = ({ onCategorySelect, user }) => {
             All Products
           </button>
           <button 
-            onClick={() => handleCategoryClick('flower', 'za')}
-            className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-full transition-colors"
-          >
-            Za (Premium)
-          </button>
-          <button 
             onClick={() => handleCategoryClick('flower', 'lows')}
             className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-full transition-colors"
           >
@@ -90,6 +84,18 @@ const ProductSelection = ({ onCategorySelect, user }) => {
             className="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 px-6 rounded-full transition-colors"
           >
             Deps (Regular)
+          </button>
+          <button 
+            onClick={() => handleCategoryClick('flower', 'za')}
+            className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-full transition-colors"
+          >
+            Za (Premium)
+          </button>
+          <button 
+            onClick={() => handleCategoryClick('health-aid')}
+            className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-6 rounded-full transition-colors"
+          >
+            Health-Aid
           </button>
           <button 
             onClick={() => handleCategoryClick('pre-rolls')}
