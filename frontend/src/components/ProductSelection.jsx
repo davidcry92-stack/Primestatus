@@ -238,57 +238,7 @@ const ProductSelection = ({ onCategorySelect, user }) => {
             </div>
           </div>
 
-          {/* Health-Aid Category - FOURTH (Premium/Admin Only) */}
-          <div 
-            onClick={() => {
-              if (user?.membershipTier === 'premium' || user?.role === 'super_admin' || user?.role === 'admin') {
-                handleCategoryClick('wellness-center');
-              } else {
-                alert('Health-Aid access requires Premium membership. Upgrade to unlock wellness resources!');
-              }
-            }}
-            className={`relative group cursor-pointer transform hover:scale-105 transition-all duration-300 ${
-              user?.membershipTier !== 'premium' && user?.role !== 'super_admin' && user?.role !== 'admin' 
-                ? 'opacity-75' : ''
-            }`}
-          >
-            <div className="bg-gradient-to-br from-emerald-600 to-teal-800 rounded-2xl p-6 h-80 flex flex-col justify-center items-center overflow-hidden relative">
-              <div className="absolute inset-0 bg-black bg-opacity-30"></div>
-              {user?.membershipTier !== 'premium' && user?.role !== 'super_admin' && user?.role !== 'admin' && (
-                <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="text-4xl mb-2">🔒</div>
-                    <div className="text-white font-bold text-sm">PREMIUM REQUIRED</div>
-                  </div>
-                </div>
-              )}
-              <div className="relative z-10 text-center">
-                <div className="text-5xl font-black text-white mb-4" style={{
-                  textShadow: '3px 3px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000'
-                }}>
-                  Health-Aid
-                </div>
-                <div className="text-xl font-bold text-emerald-300 mb-2">
-                  Wellness Resources
-                </div>
-                <div className="text-sm text-white mb-4">
-                  Cannabis education & definitions
-                </div>
-                <div className="flex justify-center space-x-2 text-emerald-300 text-sm">
-                  <span>📚 LEARN</span>
-                  <span>🌿 GROW</span>
-                  <span>💡 DISCOVER</span>
-                </div>
-                <div className="text-emerald-300 text-xs mt-2">
-                  PREMIUM EXCLUSIVE
-                </div>
-              </div>
-              {/* Wellness decoration */}
-              <div className="absolute top-4 left-4 w-6 h-6 text-emerald-400">🌿</div>
-              <div className="absolute bottom-4 right-4 w-4 h-4 text-emerald-300">📖</div>
-              <div className="absolute top-1/2 left-6 w-3 h-3 text-emerald-500">💊</div>
-            </div>
-          </div>
+          {/* Health-Aid panel removed - moved to separate section after Wellness Center */}
         </div>
 
         {/* Additional Categories Row */}
