@@ -1453,7 +1453,7 @@ export const inStockProducts = [
   {
     id: 'luv-drops',
     name: 'Luv Drops',
-    category: 'concentrates',
+    category: 'suppositories',
     price: 30,
     originalPrice: 30,
     weight: 'bottle',
