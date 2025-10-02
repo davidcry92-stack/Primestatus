@@ -113,9 +113,12 @@ const ProductSelection = ({ onCategorySelect, user }) => {
           </button>
           <button 
             onClick={() => {
+              console.log('Health-Aid card clicked!', user);
               if (user?.membershipTier === 'premium' || user?.role === 'super_admin' || user?.role === 'admin') {
+                console.log('User has premium access, calling handleCategoryClick');
                 handleCategoryClick('health-aid');
               } else {
+                console.log('User lacks premium access');
                 alert('Health-Aid access requires Premium membership. Upgrade to unlock wellness resources!');
               }
             }}
@@ -465,9 +468,12 @@ const ProductSelection = ({ onCategorySelect, user }) => {
           {/* Health-Aid Category - After Wellness */}
           <div 
             onClick={() => {
+              console.log('Health-Aid card clicked!', user);
               if (user?.membershipTier === 'premium' || user?.role === 'super_admin' || user?.role === 'admin') {
+                console.log('User has premium access, calling handleCategoryClick');
                 handleCategoryClick('health-aid');
               } else {
+                console.log('User lacks premium access');
                 alert('Health-Aid access requires Premium membership. Upgrade to unlock wellness resources!');
               }
             }}
