@@ -162,6 +162,8 @@ const Header = ({ user, cartItems = [], setCartItems, onAuthClick }) => {
                   <span>📖</span>
                   <span>Wellness Center</span>
                 </a>
+              )}
+              {user?.membershipTier === 'premium' && (
                 <a href="#health-aid" className="block text-emerald-400 hover:text-emerald-300 transition-colors flex items-center space-x-1">
                   <span>💊</span>
                   <span>Health-Aid</span>
