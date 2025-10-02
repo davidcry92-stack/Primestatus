@@ -55,7 +55,7 @@ const CheckoutCancel = () => {
             </h3>
             <div className="space-y-2 text-gray-300">
               <p>✓ Browse our premium cannabis products</p>
-              <p>✓ Check out today's daily deals</p>
+              <p>✓ Browse our premium cannabis products</p>
               <p>✓ Explore our comprehensive Health-Aid</p>
               <p>✓ Try the payment process again when ready</p>
             </div>
