@@ -395,7 +395,8 @@ metadata:
   run_ui: true
 
 test_plan:
-  current_focus: []
+  current_focus: 
+    - "Health-Aid Integration in Product Grid"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
