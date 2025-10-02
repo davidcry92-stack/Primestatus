@@ -92,10 +92,10 @@ const ProductSelection = ({ onCategorySelect, user }) => {
             Za (Premium)
           </button>
           <button 
-            onClick={() => handleCategoryClick('health-aid')}
+            onClick={() => handleCategoryClick('wellness-center')}
             className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-6 rounded-full transition-colors"
           >
-            Health-Aid
+            Wellness Center
           </button>
           <button 
             onClick={() => handleCategoryClick('pre-rolls')}
