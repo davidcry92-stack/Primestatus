@@ -162,7 +162,7 @@ const AdminDashboard = ({ adminUser, onLogout }) => {
                   wellness and cannabis education content.
                 </p>
               <ErrorBoundary>
-                <WellnessCenter user={{
+                <HealthAid user={{
                   username: "AdminPreview",
                   membership_tier: "premium", 
                   membershipTier: "premium",
