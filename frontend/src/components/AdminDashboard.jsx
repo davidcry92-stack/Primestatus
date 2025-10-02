@@ -366,13 +366,7 @@ const MemberExperiencePreview = ({ adminUser }) => {
           </ErrorBoundary>
         </div>
 
-        {/* Daily Deals */}
-        <div className="bg-gray-900 p-6 rounded-lg">
-          <h3 className="text-lg font-semibold mb-4">🔥 Daily Deals</h3>
-          <ErrorBoundary>
-            <DailyDeals user={getMockUser(memberModes.find(m => m.id === previewMode))} />
-          </ErrorBoundary>
-        </div>
+        {/* Daily Deals removed per admin request */}
 
         {/* Health-Aid Access */}
         {previewMode === 'premium' ? (
