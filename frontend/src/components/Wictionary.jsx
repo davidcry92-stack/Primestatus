@@ -223,4 +223,4 @@ const HealthAid = ({ user = null }) => {
   );
 };
 
-export default WellnessCenter;
+export default HealthAid;
