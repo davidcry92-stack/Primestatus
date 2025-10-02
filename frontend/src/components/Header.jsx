@@ -68,7 +68,7 @@ const Header = ({ user, cartItems = [], setCartItems, onAuthClick }) => {
               {user?.membershipTier === 'premium' && (
                 <a href="#wellness-center" className="text-purple-400 hover:text-purple-300 transition-colors flex items-center space-x-1">
                   <Crown className="h-4 w-4" />
-                  <span>Wellness Center</span>
+                  <span>Health-Aid</span>
                 </a>
               )}
             </nav>
@@ -160,7 +160,7 @@ const Header = ({ user, cartItems = [], setCartItems, onAuthClick }) => {
               {user?.membershipTier === 'premium' && (
                 <a href="#wellness-center" className="block text-purple-400 hover:text-purple-300 transition-colors flex items-center space-x-1">
                   <Crown className="h-4 w-4" />
-                  <span>Wellness Center</span>
+                  <span>Health-Aid</span>
                 </a>
               )}
               
