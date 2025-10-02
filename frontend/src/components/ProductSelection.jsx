@@ -486,7 +486,7 @@ const ProductSelection = ({ onCategorySelect, user }) => {
           >
             <div className="bg-gradient-to-br from-emerald-600 to-teal-800 rounded-2xl p-6 h-80 flex flex-col justify-center items-center overflow-hidden relative">
               <div className="absolute inset-0 bg-black bg-opacity-30"></div>
-              {user?.membershipTier !== 'premium' && user?.role !== 'super_admin' && user?.role !== 'admin' && (
+              {user?.membership_tier !== 'premium' && user?.role !== 'super_admin' && user?.role !== 'admin' && (
                 <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
                   <div className="text-center">
                     <div className="text-4xl mb-2">🔒</div>
