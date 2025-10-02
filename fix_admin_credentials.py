@@ -62,7 +62,7 @@ async def fix_admin_credentials():
         
         async with aiohttp.ClientSession() as session:
             login_data = {"email": admin_email, "password": admin_password}
-            backend_url = "https://cannabis-member.preview.emergentagent.com/api"
+            backend_url = "https://smoakland-auth.preview.emergentagent.com/api"
             
             try:
                 async with session.post(f"{backend_url}/admin-auth/login", json=login_data) as response:
@@ -77,7 +77,7 @@ async def fix_admin_credentials():
                         print("="*60)
                         print(f"Email: {admin_email}")
                         print(f"Password: {admin_password}")
-                        print("URL: https://cannabis-member.preview.emergentagent.com/admin")
+                        print("URL: https://smoakland-auth.preview.emergentagent.com/admin")
                         print("Role: Super Admin")
                         print("="*60)
                         print("\nADMIN PANEL FEATURES:")

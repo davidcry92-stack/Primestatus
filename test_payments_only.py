@@ -127,7 +127,7 @@ class PaymentTester:
         test_package_id = "medium"  # $50 package
         checkout_data = {
             "package_id": test_package_id,
-            "origin_url": "https://cannabis-member.preview.emergentagent.com",
+            "origin_url": "https://smoakland-auth.preview.emergentagent.com",
             "metadata": {
                 "test_transaction": "true",
                 "user_type": "premium"
@@ -230,7 +230,7 @@ class PaymentTester:
         # Test 5: Error Handling - Invalid Package ID
         invalid_checkout_data = {
             "package_id": "invalid_package",
-            "origin_url": "https://cannabis-member.preview.emergentagent.com"
+            "origin_url": "https://smoakland-auth.preview.emergentagent.com"
         }
         
         success, error_response, status_code = await self.make_request(
