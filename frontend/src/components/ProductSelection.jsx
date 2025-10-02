@@ -30,10 +30,8 @@ const ProductSelection = ({ onCategorySelect, user }) => {
   };
 
   if (selectedCategory) {
-    console.log('Rendering selectedCategory:', selectedCategory);
     // Handle Health-Aid category specially
     if (selectedCategory.category === 'health-aid') {
-      console.log('Rendering Health-Aid WellnessCenter component');
       return (
         <div className="min-h-screen bg-black text-white">
           <div className="container mx-auto px-4 py-8">
