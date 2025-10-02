@@ -226,7 +226,6 @@ const LoginOnlyApp = () => {
         <HeroSection onAuthClick={handleAuthClick} />
         <ProductSelection user={user} />
         <WellnessCenter user={user} />
-        <HealthAidPanel user={user} />
       </main>
       <Footer />
       <Toaster />
