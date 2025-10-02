@@ -95,7 +95,7 @@ const ProductSelection = ({ onCategorySelect, user }) => {
             onClick={() => handleCategoryClick('wellness-center')}
             className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-6 rounded-full transition-colors"
           >
-            Wellness Center
+            Health-Aid
           </button>
           <button 
             onClick={() => handleCategoryClick('pre-rolls')}
