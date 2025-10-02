@@ -398,7 +398,7 @@ const MemberExperiencePreview = ({ adminUser }) => {
             <div className="text-center py-12 text-gray-400">
               <div className="text-6xl mb-4">🔒</div>
               <p className="text-xl mb-2">Premium Feature</p>
-              <p>Upgrade to Premium to access the comprehensive Wellness Center</p>
+              <p>Upgrade to Premium to access the comprehensive Health-Aid</p>
               <button className="mt-4 bg-yellow-600 hover:bg-yellow-700 text-black font-bold py-2 px-6 rounded-lg">
                 Upgrade to Premium
               </button>
