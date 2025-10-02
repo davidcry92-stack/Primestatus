@@ -95,7 +95,7 @@ const ProductSelection = ({ onCategorySelect, user }) => {
           <button 
             onClick={() => {
               if (user?.membershipTier === 'premium' || user?.role === 'super_admin' || user?.role === 'admin') {
-                window.location.href = '#wellness-center';
+                handleCategoryClick('health-aid');
               } else {
                 alert('Health-Aid access requires Premium membership. Upgrade to unlock wellness resources!');
               }
