@@ -7,7 +7,7 @@ import AdminRatingStats from './AdminRatingStats';
 import HealthAid from './Wictionary';
 import ProductGrid from './ProductGrid';
 import ProductSelection from './ProductSelection';
-import DailyDeals from './DailyDeals';
+{/* DailyDeals import removed */}
 
 // Error Boundary Component
 class ErrorBoundary extends React.Component {
