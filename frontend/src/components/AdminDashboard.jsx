@@ -4,7 +4,7 @@ import MembersManagement from './MembersManagement';
 import PickupVerification from './PickupVerification';
 import InventoryManagement from './InventoryManagement';
 import AdminRatingStats from './AdminRatingStats';
-import WellnessCenter from './Wictionary';
+import HealthAid from './Wictionary';
 import ProductGrid from './ProductGrid';
 import ProductSelection from './ProductSelection';
 import DailyDeals from './DailyDeals';
