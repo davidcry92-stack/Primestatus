@@ -19,8 +19,6 @@ const ProductSelection = ({ onCategorySelect, user }) => {
   }
 
   const handleCategoryClick = (category, tier = null) => {
-    console.log('Category clicked:', category, 'Tier:', tier);
-    console.log('Setting selectedCategory to:', { category, tier });
     setSelectedCategory({ category, tier });
     if (onCategorySelect) {
       onCategorySelect({ category, tier });
