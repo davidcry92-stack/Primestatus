@@ -12,7 +12,6 @@ import Header from "./components/Header";
 import HeroSection from "./components/HeroSection";
 import ProductGrid from "./components/ProductGrid";
 import ProductSelection from "./components/ProductSelection";
-import DailyDeals from "./components/DailyDeals";
 import HealthAid from "./components/Wictionary";
 import Footer from "./components/Footer";
 import CheckoutSuccess from "./components/CheckoutSuccess";
