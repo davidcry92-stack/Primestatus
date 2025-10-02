@@ -36,7 +36,7 @@ const WellnessCenter = ({ user = null }) => {
 
   if (!hasAccess) {
     return (
-      <section className="py-20 bg-gradient-to-b from-black to-purple-900" id="health-aid">
+      <section className="py-20 bg-gradient-to-b from-black to-purple-900" id="wellness-center">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="bg-gradient-to-br from-purple-900/50 to-black/50 border border-purple-500/50 rounded-2xl p-12 backdrop-blur-sm">
             <Lock className="h-16 w-16 text-purple-400 mx-auto mb-6" />
@@ -78,7 +78,7 @@ const WellnessCenter = ({ user = null }) => {
   }
 
   return (
-    <section className="py-20 bg-gradient-to-b from-black to-purple-900" id="health-aid">
+    <section className="py-20 bg-gradient-to-b from-black to-purple-900" id="wellness-center">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16">
