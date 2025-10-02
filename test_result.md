@@ -298,7 +298,7 @@ frontend:
     file: "/app/frontend/src/components/ProductSelection.jsx"
     stuck_count: 1
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
         - working: "unknown"
           agent: "main"
@@ -306,6 +306,9 @@ frontend:
         - working: false
           agent: "testing"
           comment: "❌ CRITICAL HEALTH-AID NAVIGATION ISSUE IDENTIFIED: Comprehensive testing revealed Health-Aid integration is partially working but has critical navigation failure. SUCCESSFUL COMPONENTS: ✅ Verification flow (law enforcement + re-entry code 1234) working perfectly ✅ Premium user login (premium@demo.com / Premium123!) successful ✅ Health-Aid visual card correctly positioned after Wellness/Suppositories card in product grid ✅ Health-Aid bubble button found in quick access buttons ✅ Tier-based access control working - Basic users see 'PREMIUM REQUIRED' indicator ✅ Premium exclusive badge and styling correctly applied. CRITICAL FAILURE: ❌ Health-Aid visual card click does NOT navigate to dictionary interface - clicking the card does not trigger handleCategoryClick('health-aid') properly, stays on main product grid instead of displaying WellnessCenter/Wictionary component. The Health-Aid card is visually present and clickable but the onClick handler is not functioning correctly. REQUIRES FIX: Health-Aid card click handler in ProductSelection.jsx needs debugging - the handleCategoryClick('health-aid') function is not being triggered when the Health-Aid visual card is clicked."
+        - working: false
+          agent: "testing"
+          comment: "🎯 ROOT CAUSE IDENTIFIED - PREMIUM ACCESS CHECK BUG: Comprehensive debug testing revealed the exact issue with Health-Aid click handler. TESTING RESULTS: ✅ Verification flow (law enforcement + re-entry code 1234) working perfectly ✅ Premium user login (premium@demo.com / Premium123!) successful ✅ Health-Aid click handlers ARE being triggered - console shows 'Health-Aid card clicked!' and 'Health-Aid BUTTON clicked!' messages ✅ User object contains correct premium data: {membership_tier: premium, username: premium_demo, email: premium@demo.com} ❌ CRITICAL BUG FOUND: Premium access check is FAILING despite user being premium! Console shows 'User lacks premium access' immediately after showing premium user data. ROOT CAUSE: Lines 118-125 and 474-475 in ProductSelection.jsx check user?.membershipTier (camelCase) but user object has membership_tier (underscore). The condition user?.membershipTier === 'premium' is false because the actual field is user?.membership_tier === 'premium'. SIMPLE FIX REQUIRED: Change all instances of user?.membershipTier to user?.membership_tier in ProductSelection.jsx premium access checks (lines 119, 128, 474, 483, 489). This will fix both the Health-Aid button and visual card click handlers."
 
   - task: "Visual Product Selection Interface"
     implemented: true
