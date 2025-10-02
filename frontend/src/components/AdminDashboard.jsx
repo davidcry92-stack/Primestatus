@@ -156,9 +156,9 @@ const AdminDashboard = ({ adminUser, onLogout }) => {
           )}
           {activeTab === 'health-aid' && (
             <div className="bg-gray-900 p-6 rounded-lg">
-                <h3 className="text-green-400 font-semibold mb-2">🔓 Admin View: Premium Wellness Center Access</h3>
+                <h3 className="text-green-400 font-semibold mb-2">🔓 Admin View: Premium Health-Aid Access</h3>
                 <p className="text-gray-400 text-sm mb-4">
-                  Viewing Wellness Center as a premium member would see it. This includes all {' '}
+                  Viewing Health-Aid as a premium member would see it. This includes all {' '}
                   wellness and cannabis education content.
                 </p>
               <ErrorBoundary>
