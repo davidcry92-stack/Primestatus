@@ -384,7 +384,7 @@ const MemberExperiencePreview = ({ adminUser }) => {
               </span>
             </h3>
             <ErrorBoundary>
-              <WellnessCenter user={getMockUser(memberModes.find(m => m.id === previewMode))} />
+              <HealthAid user={getMockUser(memberModes.find(m => m.id === previewMode))} />
             </ErrorBoundary>
           </div>
         ) : (
