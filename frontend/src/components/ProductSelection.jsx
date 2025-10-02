@@ -92,8 +92,18 @@ const ProductSelection = ({ onCategorySelect, user }) => {
             Za (Premium)
           </button>
           <button 
-            onClick={() => handleCategoryClick('wellness-center')}
-            className="bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 px-6 rounded-full transition-colors"
+            onClick={() => {
+              if (user?.membershipTier === 'premium' || user?.role === 'super_admin' || user?.role === 'admin') {
+                window.location.href = '#wellness-center';
+              } else {
+                alert('Health-Aid access requires Premium membership. Upgrade to unlock wellness resources!');
+              }
+            }}
+            className={`font-bold py-3 px-6 rounded-full transition-colors ${
+              user?.membershipTier === 'premium' || user?.role === 'super_admin' || user?.role === 'admin'
+                ? 'bg-emerald-600 hover:bg-emerald-700 text-white'
+                : 'bg-gray-600 hover:bg-gray-700 text-gray-300'
+            }`}
           >
             Health-Aid
           </button>
