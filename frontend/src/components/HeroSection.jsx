@@ -77,7 +77,7 @@ const HeroSection = ({ onAuthClick }) => {
               <div className="absolute -top-2 -right-2">
                 <Crown className="h-6 w-6 text-yellow-400" />
               </div>
-              <h3 className="text-white font-bold text-xl mb-2">Premium + Wellness Center</h3>
+              <h3 className="text-white font-bold text-xl mb-2">Premium + Health-Aid</h3>
               <p className="text-yellow-400 text-3xl font-black mb-2">$7.99<span className="text-sm text-gray-400">/month</span></p>
               <ul className="text-gray-300 text-sm space-y-1">
                 <li>• Everything in Basic</li>
