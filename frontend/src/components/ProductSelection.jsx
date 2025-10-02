@@ -441,6 +441,58 @@ const ProductSelection = ({ onCategorySelect, user }) => {
               <div className="absolute bottom-4 left-4 w-8 h-8 text-green-500">🍃</div>
             </div>
           </div>
+
+          {/* Health-Aid Category - After Wellness */}
+          <div 
+            onClick={() => {
+              if (user?.membershipTier === 'premium' || user?.role === 'super_admin' || user?.role === 'admin') {
+                window.location.href = '#wellness-center';
+              } else {
+                alert('Health-Aid access requires Premium membership. Upgrade to unlock wellness resources!');
+              }
+            }}
+            className={`relative group cursor-pointer transform hover:scale-105 transition-all duration-300 ${
+              user?.membershipTier !== 'premium' && user?.role !== 'super_admin' && user?.role !== 'admin' 
+                ? 'opacity-75' : ''
+            }`}
+          >
+            <div className="bg-gradient-to-br from-emerald-600 to-teal-800 rounded-2xl p-6 h-80 flex flex-col justify-center items-center overflow-hidden relative">
+              <div className="absolute inset-0 bg-black bg-opacity-30"></div>
+              {user?.membershipTier !== 'premium' && user?.role !== 'super_admin' && user?.role !== 'admin' && (
+                <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center">
+                  <div className="text-center">
+                    <div className="text-4xl mb-2">🔒</div>
+                    <div className="text-white font-bold text-sm">PREMIUM REQUIRED</div>
+                  </div>
+                </div>
+              )}
+              <div className="relative z-10 text-center">
+                <div className="text-3xl font-black text-white mb-4" style={{
+                  textShadow: '3px 3px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000'
+                }}>
+                  Health-Aid
+                </div>
+                <div className="text-sm font-bold text-emerald-300 mb-2">
+                  Wellness Resources
+                </div>
+                <div className="text-xs text-white mb-2">
+                  Cannabis education & definitions
+                </div>
+                <div className="text-xs text-gray-400 mb-4">
+                  Luv drops, balance capsules & more
+                </div>
+                <div className="grid grid-cols-2 gap-2 mt-4">
+                  <div className="bg-emerald-500 text-white text-xs px-2 py-1 rounded font-bold">LUV DROPS</div>
+                  <div className="bg-teal-500 text-white text-xs px-2 py-1 rounded font-bold">BALANCE</div>
+                  <div className="bg-green-500 text-white text-xs px-2 py-1 rounded font-bold">EDUCATION</div>
+                  <div className="bg-blue-500 text-white text-xs px-2 py-1 rounded font-bold">HEALTH-AID</div>
+                </div>
+              </div>
+              {/* Wellness decoration */}
+              <div className="absolute top-4 left-4 w-6 h-6 text-emerald-400">🌿</div>
+              <div className="absolute bottom-4 right-4 w-4 h-4 text-emerald-300">📖</div>
+            </div>
+          </div>
         </div>
 
         {/* Footer Note */}
