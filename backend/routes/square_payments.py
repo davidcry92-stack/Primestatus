@@ -6,7 +6,7 @@ import uuid
 from datetime import datetime
 from typing import List
 
-import square
+from square.client import Client
 
 from models.square_payment import (
     SquarePaymentRequest, 
@@ -27,25 +27,10 @@ def get_square_client():
     access_token = os.environ.get('SQUARE_ACCESS_TOKEN')
     environment = os.environ.get('SQUARE_ENVIRONMENT', 'production')
     
-    try:
-        # Try new SDK format first
-        from square.client import Client
-        client = Client(
-            bearer_auth_credentials=access_token,
-            environment=environment
-        )
-    except ImportError:
-        # Fallback to older SDK format
-        if environment == 'sandbox':
-            client = square.Client(
-                access_token=access_token,
-                environment='sandbox'
-            )
-        else:
-            client = square.Client(
-                access_token=access_token,
-                environment='production'
-            )
+    client = Client(
+        access_token=access_token,
+        environment=environment
+    )
     
     return client
 
