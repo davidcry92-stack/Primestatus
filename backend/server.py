@@ -47,6 +47,12 @@ api_router.include_router(payments.router)
 # Include the main router in the app
 app.include_router(api_router)
 
+# Mount static files for video uploads
+uploads_dir = "/app/uploads"
+os.makedirs(uploads_dir, exist_ok=True)
+os.makedirs(f"{uploads_dir}/videos", exist_ok=True)
+app.mount("/api/uploads", StaticFiles(directory=uploads_dir), name="uploads")
+
 # CORS middleware - Production ready configuration
 cors_origins = os.environ.get('CORS_ORIGINS', '*').split(',')
 if cors_origins == ['*']:
