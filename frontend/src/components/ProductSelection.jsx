@@ -229,7 +229,7 @@ const ProductSelection = ({ onCategorySelect, user }) => {
                   "Smooth smoke and quality"
                 </div>
                 <div className="text-black text-xs mt-2 font-bold">
-                  Everyday elevation for the seasoned sesher
+                  Everyday elevation for the seasoned smoker
                 </div>
               </div>
               {/* Greenhouse/plant decoration */}
