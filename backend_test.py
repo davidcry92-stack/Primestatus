@@ -3798,12 +3798,12 @@ class AuthenticationTester:
         return passed_tests, failed_tests, daily_deals_tests
 
 async def main():
-    """Main test runner for StatusXSmoakland admin management panels testing."""
-    print("🚀 STARTING STATUSXSMOAKLAND ADMIN MANAGEMENT PANELS TESTING")
+    """Main test runner for StatusXSmoakland shopping cart backend systems testing."""
+    print("🛒 STARTING STATUSXSMOAKLAND SHOPPING CART BACKEND SYSTEMS TESTING")
     print("=" * 80)
     print(f"Backend URL: {BACKEND_URL}")
-    print(f"Testing Admin: {ADMIN_EMAIL}")
-    print("FOCUS: Health-Aid and Strains Management Panels")
+    print(f"Testing Premium User: {PREMIUM_USER_EMAIL}")
+    print("FOCUS: Authentication, Payment Integration, Product APIs, Cart Support")
     print("=" * 80)
     
     async with AuthenticationTester() as tester:
@@ -3816,33 +3816,51 @@ async def main():
             print("\n❌ CRITICAL: Database connection failed. Stopping tests.")
             return
         
-        # 2. Admin authentication (REQUIRED for admin management panels)
+        # 2. AUTHENTICATION TESTING (Required for cart access)
+        print("\n🔐 TESTING AUTHENTICATION SYSTEMS FOR CART")
+        print("-" * 50)
+        
+        # Test premium user authentication (main cart user)
+        premium_auth_success = await tester.test_premium_user_authentication()
+        if not premium_auth_success:
+            print("\n❌ CRITICAL: Premium user authentication failed. Cart access compromised.")
+        
+        # Test basic user authentication (for tier verification)
+        await tester.test_basic_user_authentication()
+        
+        # Test admin authentication (for admin functions)
         admin_auth_success = await tester.test_admin_authentication()
-        if not admin_auth_success:
-            print("\n❌ CRITICAL: Admin authentication failed. Cannot test admin management panels.")
-            return
         
-        # 3. NEW ADMIN MANAGEMENT PANELS TESTING
-        print("\n🎯 TESTING NEW ADMIN MANAGEMENT PANELS")
+        # 3. SHOPPING CART BACKEND SYSTEMS TESTING
+        print("\n🛒 TESTING SHOPPING CART BACKEND SYSTEMS")
         print("-" * 50)
         
-        # Test Health-Aid Management Panel
-        await tester.test_admin_health_aid_management()
+        # Main shopping cart backend testing
+        await tester.test_shopping_cart_backend_systems()
         
-        # Test Strains Management Panel  
-        await tester.test_admin_strains_management()
-        
-        # 4. Verify existing admin functionality still works
-        print("\n🔍 VERIFYING EXISTING ADMIN FUNCTIONALITY")
+        # 4. PAYMENT INTEGRATION TESTING
+        print("\n💳 TESTING PAYMENT INTEGRATION FOR CART")
         print("-" * 50)
         
-        await tester.test_member_management()
-        await tester.test_inventory_management()
-        await tester.test_dashboard_stats()
+        # Test Square payment integration (current system)
+        await tester.test_square_payment_integration()
+        
+        # Test payment security and validation
+        await tester.test_payment_security_and_validation()
+        
+        # 5. SUPPORTING SYSTEMS VERIFICATION
+        print("\n🔧 VERIFYING SUPPORTING SYSTEMS")
+        print("-" * 50)
+        
+        # Test user verification and membership tiers
+        await tester.test_database_users_exist()
+        
+        # Test JWT token functionality
+        await tester.test_jwt_token_functionality()
         
         # Print summary
         print("\n" + "=" * 80)
-        print("🎯 ADMIN MANAGEMENT PANELS TESTING SUMMARY")
+        print("🛒 SHOPPING CART BACKEND SYSTEMS TESTING SUMMARY")
         print("=" * 80)
         
         passed_tests = [test for test in tester.test_results if test["success"]]
@@ -3852,14 +3870,16 @@ async def main():
         print(f"❌ FAILED: {len(failed_tests)} tests")
         print(f"📊 SUCCESS RATE: {len(passed_tests)}/{len(tester.test_results)} ({len(passed_tests)/len(tester.test_results)*100:.1f}%)")
         
-        # Categorize results by management panel
-        health_aid_tests = [test for test in tester.test_results if 'health-aid' in test['test'].lower()]
-        strains_tests = [test for test in tester.test_results if 'strain' in test['test'].lower()]
-        admin_tests = [test for test in tester.test_results if 'admin' in test['test'].lower() and 'health-aid' not in test['test'].lower() and 'strain' not in test['test'].lower()]
+        # Categorize results by system
+        auth_tests = [test for test in tester.test_results if 'auth' in test['test'].lower() or 'login' in test['test'].lower()]
+        product_tests = [test for test in tester.test_results if 'product' in test['test'].lower()]
+        payment_tests = [test for test in tester.test_results if 'payment' in test['test'].lower() or 'square' in test['test'].lower() or 'checkout' in test['test'].lower()]
+        cart_tests = [test for test in tester.test_results if 'cart' in test['test'].lower() or 'shopping' in test['test'].lower()]
         
-        print(f"\n📋 HEALTH-AID MANAGEMENT: {len([t for t in health_aid_tests if t['success']])}/{len(health_aid_tests)} passed")
-        print(f"🌿 STRAINS MANAGEMENT: {len([t for t in strains_tests if t['success']])}/{len(strains_tests)} passed")
-        print(f"⚙️  GENERAL ADMIN: {len([t for t in admin_tests if t['success']])}/{len(admin_tests)} passed")
+        print(f"\n🔐 AUTHENTICATION SYSTEMS: {len([t for t in auth_tests if t['success']])}/{len(auth_tests)} passed")
+        print(f"📦 PRODUCT API SYSTEMS: {len([t for t in product_tests if t['success']])}/{len(product_tests)} passed")
+        print(f"💳 PAYMENT INTEGRATION: {len([t for t in payment_tests if t['success']])}/{len(payment_tests)} passed")
+        print(f"🛒 CART SUPPORT SYSTEMS: {len([t for t in cart_tests if t['success']])}/{len(cart_tests)} passed")
         
         if failed_tests:
             print("\n🔍 FAILED TESTS:")
@@ -3868,30 +3888,49 @@ async def main():
         
         print("\n" + "=" * 80)
         
-        # Determine overall result for admin management panels
-        health_aid_failures = [test for test in failed_tests if 'health-aid' in test['test'].lower()]
-        strains_failures = [test for test in failed_tests if 'strain' in test['test'].lower()]
+        # Determine overall result for shopping cart backend
+        auth_failures = [test for test in failed_tests if 'auth' in test['test'].lower() or 'login' in test['test'].lower()]
+        product_failures = [test for test in failed_tests if 'product' in test['test'].lower()]
+        payment_failures = [test for test in failed_tests if 'payment' in test['test'].lower() or 'square' in test['test'].lower()]
+        cart_failures = [test for test in failed_tests if 'cart' in test['test'].lower()]
         
-        if health_aid_failures or strains_failures:
-            print("🚨 ADMIN MANAGEMENT PANEL ISSUES FOUND")
-            if health_aid_failures:
-                print("   🔥 Health-Aid Management Panel Issues:")
-                for failure in health_aid_failures:
-                    print(f"      - {failure['test']}: {failure['details']}")
-            if strains_failures:
-                print("   🔥 Strains Management Panel Issues:")
-                for failure in strains_failures:
-                    print(f"      - {failure['test']}: {failure['details']}")
-        elif len(failed_tests) == 0:
-            print("🎉 ALL ADMIN MANAGEMENT PANELS FULLY FUNCTIONAL")
-            print("✅ Health-Aid Management: Complete CRUD operations working")
-            print("✅ Strains Management: Complete CRUD operations working")
-            print("✅ Admin Authentication: Working correctly")
-        else:
-            print("⚠️  ADMIN MANAGEMENT PANELS MOSTLY FUNCTIONAL")
+        if auth_failures:
+            print("🚨 CRITICAL: AUTHENTICATION SYSTEM ISSUES FOUND")
+            for failure in auth_failures:
+                print(f"   🔥 {failure['test']}: {failure['details']}")
+        
+        if product_failures:
+            print("🚨 PRODUCT API ISSUES FOUND")
+            for failure in product_failures:
+                print(f"   📦 {failure['test']}: {failure['details']}")
+        
+        if payment_failures:
+            print("🚨 PAYMENT INTEGRATION ISSUES FOUND")
+            for failure in payment_failures:
+                print(f"   💳 {failure['test']}: {failure['details']}")
+        
+        if cart_failures:
+            print("🚨 CART SUPPORT SYSTEM ISSUES FOUND")
+            for failure in cart_failures:
+                print(f"   🛒 {failure['test']}: {failure['details']}")
+        
+        if len(failed_tests) == 0:
+            print("🎉 ALL SHOPPING CART BACKEND SYSTEMS FULLY FUNCTIONAL")
+            print("✅ Authentication: Premium user login working")
+            print("✅ Product APIs: Tier-based filtering and cart data structure complete")
+            print("✅ Payment Integration: Square checkout and packages working")
+            print("✅ Cart Support: All backend systems supporting cart functionality")
+        elif len(auth_failures) == 0 and len(payment_failures) == 0:
+            print("✅ SHOPPING CART BACKEND SYSTEMS MOSTLY FUNCTIONAL")
+            print("   Core authentication and payment systems working")
             print("   Minor issues found in supporting systems")
+        else:
+            print("⚠️  SHOPPING CART BACKEND SYSTEMS HAVE CRITICAL ISSUES")
+            print("   Authentication or payment integration problems detected")
         
         print("=" * 80)
+        
+        return len(failed_tests) == 0
 
 if __name__ == "__main__":
     success = asyncio.run(main())
