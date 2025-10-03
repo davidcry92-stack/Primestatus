@@ -86,7 +86,6 @@ async def create_daily_deal(
         )
         
         # Save to database
-        db = await get_database()
         await db.daily_deals.insert_one(daily_deal.dict())
         
         return {
