@@ -192,85 +192,98 @@ async def get_active_daily_deals():
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to fetch daily deals: {str(e)}")
 
-@router.post("/admin/generate", response_model=List[DailyDealResponse])
-async def generate_daily_deals(current_user_email: str = Depends(verify_token)):
-    """Generate daily deals based on inventory levels (admin only)."""
-    # TODO: Add admin role check
+@router.post("/delivery-signup", response_model=DeliverySignupResponse)
+async def delivery_signup(signup_data: DeliverySignup):
+    """Sign up for delivery launch notifications."""
     
-    # Deactivate old deals
-    await daily_deals_collection.update_many(
-        {"is_active": True},
-        {"$set": {"is_active": False}}
-    )
-    
-    # Get products with high inventory or specific criteria
-    products = await products_collection.find({
-        "in_stock": True
-    }).to_list(length=None)
-    
-    if not products:
-        return []
-    
-    # Simple logic: randomly select 2-3 products for deals
-    selected_products = random.sample(products, min(3, len(products)))
-    
-    new_deals = []
-    for product in selected_products:
-        # Random discount between 15-50%
-        discount = random.randint(15, 50)
+    try:
+        db = await get_database()
         
-        # Deal valid for 24 hours
-        valid_until = datetime.utcnow() + timedelta(hours=24)
+        # Check if email already exists
+        existing_signup = await db.delivery_signups.find_one({"email": signup_data.email})
+        if existing_signup:
+            return DeliverySignupResponse(
+                message="You're already signed up for delivery notifications!",
+                email=signup_data.email
+            )
         
-        # Determine reason based on inventory or random
-        reasons = [
-            "High inventory clearance",
-            "Limited time offer",
-            "Bulk stock sale",
-            "Weekend special",
-            "NYC exclusive deal"
-        ]
-        reason = random.choice(reasons)
+        # Add new signup
+        await db.delivery_signups.insert_one(signup_data.dict())
         
-        deal_data = {
-            "product_id": product["_id"],
-            "discount": discount,
-            "valid_until": valid_until,
-            "reason": reason,
-            "is_active": True
+        return DeliverySignupResponse(
+            message="Successfully signed up for delivery notifications!",
+            email=signup_data.email
+        )
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to sign up for delivery notifications: {str(e)}")
+
+@router.get("/admin/delivery-signups")
+async def get_delivery_signups(
+    credentials: HTTPAuthorizationCredentials = Depends(security)
+):
+    """Get all delivery signups for admin."""
+    
+    # Verify admin token
+    admin_user = await verify_admin_token(credentials.credentials)
+    if not admin_user:
+        raise HTTPException(status_code=401, detail="Invalid admin token")
+    
+    try:
+        db = await get_database()
+        
+        signups_cursor = db.delivery_signups.find({"is_active": True}).sort("subscribed_at", -1)
+        signups = await signups_cursor.to_list(length=None)
+        
+        return {
+            "signups": signups,
+            "count": len(signups)
         }
         
-        result = await daily_deals_collection.insert_one(deal_data)
-        
-        # Get created deal
-        created_deal = await daily_deals_collection.find_one({"_id": result.inserted_id})
-        deal_response_data = convert_object_id(created_deal)
-        new_deals.append(DailyDealResponse(**deal_response_data))
-    
-    return new_deals
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to fetch delivery signups: {str(e)}")
 
-@router.get("/stats")
-async def get_deal_stats():
-    """Get statistics about daily deals."""
-    # Count active deals
-    active_deals = await daily_deals_collection.count_documents({
-        "valid_until": {"$gt": datetime.utcnow()},
-        "is_active": True
-    })
+# Cleanup expired deals (background task)
+@router.post("/admin/cleanup-expired-deals")
+async def cleanup_expired_deals(
+    credentials: HTTPAuthorizationCredentials = Depends(security)
+):
+    """Cleanup expired daily deals (admin only)."""
     
-    # Get max discount
-    max_discount_deal = await daily_deals_collection.find_one(
-        {
-            "valid_until": {"$gt": datetime.utcnow()},
-            "is_active": True
-        },
-        sort=[("discount", -1)]
-    )
+    # Verify admin token
+    admin_user = await verify_admin_token(credentials.credentials)
+    if not admin_user:
+        raise HTTPException(status_code=401, detail="Invalid admin token")
     
-    max_discount = max_discount_deal["discount"] if max_discount_deal else 0
-    
-    return {
-        "active_deals_count": active_deals,
-        "max_discount": max_discount,
-        "deal_duration_hours": 24
-    }
+    try:
+        db = await get_database()
+        current_time = datetime.utcnow()
+        
+        # Find expired deals with videos
+        expired_deals_cursor = db.daily_deals.find({
+            "expires_at": {"$lt": current_time}
+        })
+        expired_deals = await expired_deals_cursor.to_list(length=None)
+        
+        # Delete video files
+        deleted_videos = 0
+        for deal in expired_deals:
+            if deal.get('video_filename'):
+                video_path = os.path.join(UPLOAD_DIR, deal['video_filename'])
+                if os.path.exists(video_path):
+                    os.remove(video_path)
+                    deleted_videos += 1
+        
+        # Delete expired deals from database
+        result = await db.daily_deals.delete_many({
+            "expires_at": {"$lt": current_time}
+        })
+        
+        return {
+            "success": True,
+            "deleted_deals": result.deleted_count,
+            "deleted_videos": deleted_videos
+        }
+        
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to cleanup expired deals: {str(e)}")
