@@ -47,9 +47,16 @@ async def get_all_strains(admin_email: str = Depends(verify_admin_token)):
         strains_cursor = db.strains.find({}).sort("name", 1)
         strains_data = await strains_cursor.to_list(length=None)
         
+        # Clean up ObjectId fields
+        strains = []
+        for strain_data in strains_data:
+            if '_id' in strain_data:
+                del strain_data['_id']
+            strains.append(strain_data)
+        
         return {
-            "strains": strains_data,
-            "count": len(strains_data)
+            "strains": strains,
+            "count": len(strains)
         }
         
     except Exception as e:
