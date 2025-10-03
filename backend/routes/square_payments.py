@@ -114,7 +114,42 @@ async def create_square_order(
         payment_status = payment.status
         receipt_url = payment.receipt_url
         
-        # Save order to database
+        # Generate unique pickup code
+        payment_code = generate_payment_code()
+        while await db.transactions.find_one({"payment_code": payment_code}):
+            payment_code = generate_payment_code()
+        
+        # Create transaction items
+        transaction_items = []
+        for item in order_request.items:
+            transaction_item = TransactionItem(
+                product_id=item.product_id,
+                product_name=item.product_name,
+                quantity=item.quantity,
+                price=item.unit_price / 100,  # Convert from cents to dollars
+                tier="premium"  # Default tier - you may want to get this from product data
+            )
+            transaction_items.append(transaction_item)
+        
+        # Create Transaction record with pickup code
+        transaction_data = {
+            "user_id": user["id"],
+            "items": [item.dict() for item in transaction_items],
+            "total": total_amount / 100,  # Convert from cents to dollars
+            "payment_method": PaymentMethod.SQUARE,
+            "payment_code": payment_code,
+            "status": TransactionStatus.PAID if payment_status == "COMPLETED" else TransactionStatus.PENDING,
+            "notes": order_request.pickup_notes,
+            "created_at": datetime.utcnow(),
+            "updated_at": datetime.utcnow(),
+            "square_payment_id": payment_id,
+            "square_order_id": square_order_id
+        }
+        
+        # Save transaction to database
+        await db.transactions.insert_one(transaction_data)
+        
+        # Save Square order to database (for Square-specific tracking)
         db_order = SquareOrder(
             square_order_id=square_order_id,
             square_payment_id=payment_id,
@@ -134,7 +169,8 @@ async def create_square_order(
             order_id=square_order_id,
             receipt_url=receipt_url,
             amount_money=total_amount,
-            status=payment_status
+            status=payment_status,
+            pickup_code=payment_code  # Return the pickup code
         )
         
     except HTTPException:
