@@ -1565,6 +1565,206 @@ class AuthenticationTester:
             f"Metadata properly processed: {status_code}"
         )
     
+    async def test_square_payment_integration(self):
+        """Test Square payment integration backend endpoints."""
+        print("\n=== TESTING SQUARE PAYMENT INTEGRATION ===")
+        
+        # Test 1: Square Connection Test
+        success, response, status = await self.make_request("GET", "/square/test-connection")
+        
+        if success and response.get("success"):
+            locations = response.get("locations", [])
+            self.log_test(
+                "Square API Connection",
+                True,
+                f"Successfully connected to Square API. Found {len(locations)} locations"
+            )
+            
+            # Check if our location ID is in the response
+            location_id = os.environ.get('SQUARE_LOCATION_ID', 'L9JFNQSBZAW4Y')
+            location_found = any(loc.get('id') == location_id for loc in locations)
+            
+            self.log_test(
+                "Square Location Verification",
+                location_found,
+                f"Location ID {location_id} {'found' if location_found else 'not found'} in Square account"
+            )
+        else:
+            self.log_test(
+                "Square API Connection",
+                False,
+                f"Failed to connect to Square API: {response}",
+                response
+            )
+            return False
+        
+        # Test 2: Premium User Authentication for Order Creation
+        premium_token = await self.test_premium_user_authentication()
+        if not premium_token:
+            self.log_test("Square Order Creation", False, "No premium user token available")
+            return False
+        
+        # Test 3: Create Square Order
+        headers = {"Authorization": f"Bearer {premium_token}"}
+        
+        # Sample order data
+        order_data = {
+            "items": [
+                {
+                    "product_id": "test-product-1",
+                    "product_name": "Lemon Cherry Gelato 3.5g",
+                    "quantity": 1,
+                    "unit_price": 3500,  # $35.00 in cents
+                    "total_price": 3500
+                },
+                {
+                    "product_id": "test-product-2", 
+                    "product_name": "Wyld Gummies 10mg",
+                    "quantity": 2,
+                    "unit_price": 2500,  # $25.00 in cents
+                    "total_price": 5000   # $50.00 total
+                }
+            ],
+            "user_email": PREMIUM_USER_EMAIL,
+            "user_name": "Premium Demo User",
+            "pickup_notes": "Test order for Square integration",
+            "payment_source_id": "cnon:card-nonce-ok"  # Square test nonce
+        }
+        
+        success, create_response, status = await self.make_request(
+            "POST", 
+            "/square/create-order", 
+            order_data, 
+            headers=headers
+        )
+        
+        order_id = None
+        payment_id = None
+        
+        if success and create_response.get("success"):
+            order_id = create_response.get("order_id")
+            payment_id = create_response.get("payment_id")
+            receipt_url = create_response.get("receipt_url")
+            amount = create_response.get("amount_money")
+            payment_status = create_response.get("status")
+            
+            self.log_test(
+                "Square Order Creation",
+                True,
+                f"Successfully created order {order_id} with payment {payment_id}, amount: ${amount/100:.2f}, status: {payment_status}"
+            )
+            
+            # Verify receipt URL is provided
+            self.log_test(
+                "Square Receipt URL",
+                receipt_url is not None,
+                f"Receipt URL provided: {'Yes' if receipt_url else 'No'}"
+            )
+        else:
+            self.log_test(
+                "Square Order Creation",
+                False,
+                f"Failed to create Square order: {create_response}",
+                create_response
+            )
+        
+        # Test 4: Get User Orders
+        success, orders_response, status = await self.make_request(
+            "GET", 
+            "/square/orders", 
+            headers=headers
+        )
+        
+        if success and isinstance(orders_response, list):
+            user_orders = orders_response
+            order_found = any(order.get("square_order_id") == order_id for order in user_orders) if order_id else False
+            
+            self.log_test(
+                "Get User Square Orders",
+                len(user_orders) > 0,
+                f"Retrieved {len(user_orders)} orders for user, test order found: {order_found}"
+            )
+        else:
+            self.log_test(
+                "Get User Square Orders",
+                False,
+                f"Failed to retrieve user orders: {orders_response}",
+                orders_response
+            )
+        
+        # Test 5: Payment Details Lookup (if payment was created)
+        if payment_id:
+            success, payment_response, status = await self.make_request(
+                "GET", 
+                f"/square/payment/{payment_id}"
+            )
+            
+            if success:
+                payment_details = payment_response
+                required_fields = ["payment_id", "status", "amount_money"]
+                missing_fields = [field for field in required_fields if field not in payment_details]
+                
+                self.log_test(
+                    "Square Payment Details",
+                    len(missing_fields) == 0,
+                    f"Payment details retrieved with all required fields: {not missing_fields}"
+                )
+            else:
+                self.log_test(
+                    "Square Payment Details",
+                    False,
+                    f"Failed to retrieve payment details: {payment_response}",
+                    payment_response
+                )
+        
+        # Test 6: Error Handling - Invalid Payment Source
+        invalid_order_data = {
+            "items": [
+                {
+                    "product_id": "test-product-1",
+                    "product_name": "Test Product",
+                    "quantity": 1,
+                    "unit_price": 1000,
+                    "total_price": 1000
+                }
+            ],
+            "user_email": PREMIUM_USER_EMAIL,
+            "user_name": "Premium Demo User",
+            "payment_source_id": "invalid-payment-source"
+        }
+        
+        success, error_response, status = await self.make_request(
+            "POST", 
+            "/square/create-order", 
+            invalid_order_data, 
+            headers=headers
+        )
+        
+        # Should fail with invalid payment source
+        expected_error = not success and status >= 400
+        self.log_test(
+            "Square Error Handling - Invalid Payment Source",
+            expected_error,
+            f"Correctly handled invalid payment source: {status}"
+        )
+        
+        # Test 7: Authentication Required Test
+        success, auth_response, status = await self.make_request(
+            "POST", 
+            "/square/create-order", 
+            order_data
+        )
+        
+        # Should fail without authentication
+        auth_required = not success and status == 401
+        self.log_test(
+            "Square Authentication Required",
+            auth_required,
+            f"Correctly requires authentication: {status}"
+        )
+        
+        return True
+
     async def test_updated_inventory_system(self):
         """Test the updated inventory system with newly added out-of-stock products."""
         print("\n=== TESTING UPDATED INVENTORY SYSTEM WITH OUT-OF-STOCK PRODUCTS ===")
