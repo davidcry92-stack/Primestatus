@@ -268,15 +268,27 @@ function App() {
       sessionStorage.removeItem(key);
     });
     
-    // Check if user already completed verification in this session
-    const lawEnforcementVerified = sessionStorage.getItem('law_enforcement_verified');
-    const reentryVerified = sessionStorage.getItem('reentry_verified');
+    // Only restore verification states if user has valid authentication tokens
+    const hasValidToken = localStorage.getItem('access_token');
+    const hasValidUserData = localStorage.getItem('user_data');
     
-    if (lawEnforcementVerified === 'true') {
-      setIsLawEnforcementVerified(true);
-    }
-    if (reentryVerified === 'true') {
-      setIsReEntryCodeVerified(true);
+    if (hasValidToken && hasValidUserData) {
+      // User has valid session - restore verification states
+      const lawEnforcementVerified = sessionStorage.getItem('law_enforcement_verified');
+      const reentryVerified = sessionStorage.getItem('reentry_verified');
+      
+      if (lawEnforcementVerified === 'true') {
+        setIsLawEnforcementVerified(true);
+      }
+      if (reentryVerified === 'true') {
+        setIsReEntryCodeVerified(true);
+      }
+    } else {
+      // No valid session - clear any existing verification states
+      sessionStorage.removeItem('law_enforcement_verified');
+      sessionStorage.removeItem('reentry_verified');
+      setIsLawEnforcementVerified(false);
+      setIsReEntryCodeVerified(false);
     }
     
     console.log('App useEffect - Verification states:', { 
