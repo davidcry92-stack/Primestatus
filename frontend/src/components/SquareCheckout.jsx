@@ -121,6 +121,7 @@ const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
             paymentId: paymentResult.payment_id,
             orderId: paymentResult.order_id,
             receiptUrl: paymentResult.receipt_url,
+            pickupCode: paymentResult.pickup_code,
             amount: calculateTotal()
           });
         } else {
