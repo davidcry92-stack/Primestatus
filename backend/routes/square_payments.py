@@ -96,7 +96,7 @@ async def create_square_order(
                 'currency': 'USD'
             },
             location_id=location_id,
-            reference_id=f"StatusX-{uuid.uuid4()}",
+            reference_id=f"StatusX-{str(uuid.uuid4())[:8]}",
             note=f"StatusXSmoakland Order - {order_request.user_name}",
             order_id=square_order_id
         )
