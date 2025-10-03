@@ -5,6 +5,9 @@ import DailyUpdates from './DailyUpdates';
 
 const ProductSelection = ({ user, cartItems, setCartItems, onCategorySelect }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
+  
+  // Debug: Check if cart props are received
+  console.log('ProductSelection props:', { cartItems: !!cartItems, setCartItems: !!setCartItems, user: !!user });
 
   // Block access for unverified users
   if (!user?.is_verified || user?.verification_status !== 'approved') {
