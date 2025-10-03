@@ -17,7 +17,7 @@ import ProductRating from './ProductRating';
 
 const ProductGrid = ({ category = 'all', tier = null, user, cartItems, setCartItems, showTitle = false }) => {
   const [selectedCategory, setSelectedCategory] = useState(category);
-  const [cart, setCart] = useState([]);
+  // Use cart props from parent instead of local state
   const [showOutOfStock, setShowOutOfStock] = useState(false);
   const [displayLimit, setDisplayLimit] = useState(12);
   const [showQuantityModal, setShowQuantityModal] = useState(false);
