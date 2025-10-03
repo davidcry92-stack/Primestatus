@@ -32,6 +32,7 @@ class SquarePaymentResponse(BaseModel):
     receipt_url: Optional[str] = None
     amount_money: Optional[int] = None
     status: Optional[str] = None
+    pickup_code: Optional[str] = None  # 6-digit pickup code
     error_message: Optional[str] = None
 
 class SquareOrder(BaseModel):
