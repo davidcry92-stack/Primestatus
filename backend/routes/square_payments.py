@@ -78,7 +78,7 @@ async def create_square_order(
         }
         
         orders_api = client.orders
-        order_result = orders_api.create_order(body=body)
+        order_result = orders_api.create(body=body)
         
         if order_result.is_error():
             error_message = str(order_result.errors)
