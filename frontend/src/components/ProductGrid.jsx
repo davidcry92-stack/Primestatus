@@ -130,8 +130,12 @@ const ProductGrid = ({ category = 'all', tier = null, user, cartItems, setCartIt
   };
 
   const handleAddToCartClick = (product) => {
+    console.log('handleAddToCartClick called:', product.name);
+    console.log('User verification status:', user?.is_verified);
+    console.log('Product in stock:', product.inStock);
     setSelectedProduct(product);
     setShowQuantityModal(true);
+    console.log('Set showQuantityModal to true');
   };
 
   const addToCart = (product, quantity) => {
