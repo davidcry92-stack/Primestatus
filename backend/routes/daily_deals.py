@@ -26,14 +26,9 @@ async def create_daily_deal(
     expires_at: str = Form(...),
     deals: str = Form(default="[]"),
     video: Optional[UploadFile] = File(None),
-    credentials: HTTPAuthorizationCredentials = Depends(security)
+    admin_email: str = Depends(verify_admin_token)
 ):
     """Create a new daily deal with optional video upload."""
-    
-    # Verify admin token
-    admin_user = await verify_admin_token(credentials.credentials)
-    if not admin_user:
-        raise HTTPException(status_code=401, detail="Invalid admin token")
     
     try:
         # Parse structured deals
