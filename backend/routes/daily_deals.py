@@ -111,8 +111,6 @@ async def get_admin_daily_deals(
         raise HTTPException(status_code=401, detail="Invalid admin token")
     
     try:
-        db = await get_database()
-        
         # Get all deals sorted by creation date
         deals_cursor = db.daily_deals.find({}).sort("created_at", -1)
         deals_data = await deals_cursor.to_list(length=None)
