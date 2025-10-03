@@ -159,7 +159,7 @@ async def search_health_aid_terms(
             "$or": [
                 {"term": {"$regex": query, "$options": "i"}},
                 {"definition": {"$regex": query, "$options": "i"}},
-                {"related_terms": {"$in": [{"$regex": query, "$options": "i"}]}}
+                {"related_terms": {"$elemMatch": {"$regex": query, "$options": "i"}}}
             ]
         }
         
