@@ -14,7 +14,7 @@ from typing import Dict, Any, Optional
 from io import BytesIO
 
 # Configuration
-BACKEND_URL = "https://smoakland-auth.preview.emergentagent.com/api"
+BACKEND_URL = "https://statusapp-fix.preview.emergentagent.com/api"
 
 class AuthenticationTester:
     def __init__(self):

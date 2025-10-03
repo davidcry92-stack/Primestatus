@@ -68,7 +68,7 @@ async def final_user_setup():
         
         curl_command = [
             'curl', '-X', 'POST',
-            'https://smoakland-auth.preview.emergentagent.com/api/auth/login',
+            'https://statusapp-fix.preview.emergentagent.com/api/auth/login',
             '-H', 'Content-Type: application/json',
             '-d', f'{{"email": "{email}", "password": "{password}"}}',
             '-s'  # Silent mode

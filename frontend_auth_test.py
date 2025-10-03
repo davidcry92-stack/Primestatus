@@ -8,7 +8,7 @@ import asyncio
 import aiohttp
 import json
 
-BACKEND_URL = "https://smoakland-auth.preview.emergentagent.com/api"
+BACKEND_URL = "https://statusapp-fix.preview.emergentagent.com/api"
 
 async def test_frontend_auth_flow():
     """Test the authentication flow exactly as the frontend would do it."""
@@ -27,8 +27,8 @@ async def test_frontend_auth_flow():
         # Step 1: Login request (exactly as frontend would send)
         login_headers = {
             "Content-Type": "application/json",
-            "Origin": "https://smoakland-auth.preview.emergentagent.com",
-            "Referer": "https://smoakland-auth.preview.emergentagent.com/"
+            "Origin": "https://statusapp-fix.preview.emergentagent.com",
+            "Referer": "https://statusapp-fix.preview.emergentagent.com/"
         }
         
         try:
@@ -59,7 +59,7 @@ async def test_frontend_auth_flow():
                         auth_headers = {
                             "Authorization": f"Bearer {token}",
                             "Content-Type": "application/json",
-                            "Origin": "https://smoakland-auth.preview.emergentagent.com"
+                            "Origin": "https://statusapp-fix.preview.emergentagent.com"
                         }
                         
                         # Test profile endpoint
@@ -119,7 +119,7 @@ async def test_admin_auth_flow():
     async with aiohttp.ClientSession() as session:
         login_headers = {
             "Content-Type": "application/json",
-            "Origin": "https://smoakland-auth.preview.emergentagent.com"
+            "Origin": "https://statusapp-fix.preview.emergentagent.com"
         }
         
         try:

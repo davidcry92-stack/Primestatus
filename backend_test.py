@@ -12,7 +12,7 @@ from datetime import datetime
 from typing import Dict, Any, Optional
 
 # Configuration - Using deployed backend URL from frontend .env
-BACKEND_URL = "https://smoakland-auth.preview.emergentagent.com/api"
+BACKEND_URL = "https://statusapp-fix.preview.emergentagent.com/api"
 
 # Test credentials from review request - EXACT credentials that are failing
 ADMIN_EMAIL = "admin@statusxsmoakland.com"
@@ -974,7 +974,7 @@ class AuthenticationTester:
         test_package_id = "medium"  # $50 package
         checkout_data = {
             "package_id": test_package_id,
-            "origin_url": "https://smoakland-auth.preview.emergentagent.com",
+            "origin_url": "https://statusapp-fix.preview.emergentagent.com",
             "metadata": {
                 "test_transaction": "true",
                 "user_type": "premium"
@@ -1083,7 +1083,7 @@ class AuthenticationTester:
         # Test 5: Error Handling - Invalid Package ID
         invalid_checkout_data = {
             "package_id": "invalid_package",
-            "origin_url": "https://smoakland-auth.preview.emergentagent.com"
+            "origin_url": "https://statusapp-fix.preview.emergentagent.com"
         }
         
         success, error_response, status_code = await self.make_request(
@@ -1175,7 +1175,7 @@ class AuthenticationTester:
         # Test checkout session creation to verify Stripe API key works
         test_checkout_data = {
             "package_id": "small",
-            "origin_url": "https://smoakland-auth.preview.emergentagent.com"
+            "origin_url": "https://statusapp-fix.preview.emergentagent.com"
         }
         
         success, checkout_response, status_code = await self.make_request(
@@ -1499,7 +1499,7 @@ class AuthenticationTester:
                 
             test_data = {
                 "package_id": invalid_package,
-                "origin_url": "https://smoakland-auth.preview.emergentagent.com"
+                "origin_url": "https://statusapp-fix.preview.emergentagent.com"
             }
             
             success, response, status_code = await self.make_request(
@@ -1519,7 +1519,7 @@ class AuthenticationTester:
         # Test 2: Origin URL validation
         test_data = {
             "package_id": "small",
-            "origin_url": "https://smoakland-auth.preview.emergentagent.com"
+            "origin_url": "https://statusapp-fix.preview.emergentagent.com"
         }
         
         success, response, status_code = await self.make_request(
@@ -1546,7 +1546,7 @@ class AuthenticationTester:
         # Test 4: Metadata sanitization
         test_data_with_metadata = {
             "package_id": "medium",
-            "origin_url": "https://smoakland-auth.preview.emergentagent.com",
+            "origin_url": "https://statusapp-fix.preview.emergentagent.com",
             "metadata": {
                 "user_note": "Test purchase",
                 "special_request": "Express delivery"
