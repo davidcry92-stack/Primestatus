@@ -96,14 +96,9 @@ async def create_daily_deal(
 
 @router.get("/admin/daily-deals", response_model=DailyDealResponse)
 async def get_admin_daily_deals(
-    credentials: HTTPAuthorizationCredentials = Depends(security)
+    admin_email: str = Depends(verify_admin_token)
 ):
     """Get all daily deals for admin management."""
-    
-    # Verify admin token
-    admin_user = await verify_admin_token(credentials.credentials)
-    if not admin_user:
-        raise HTTPException(status_code=401, detail="Invalid admin token")
     
     try:
         # Get all deals sorted by creation date
