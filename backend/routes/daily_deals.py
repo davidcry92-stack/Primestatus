@@ -139,8 +139,6 @@ async def delete_daily_deal(
         raise HTTPException(status_code=401, detail="Invalid admin token")
     
     try:
-        db = await get_database()
-        
         # Get deal to check for video file
         deal = await db.daily_deals.find_one({"id": deal_id})
         if not deal:
