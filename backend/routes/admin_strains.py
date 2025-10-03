@@ -40,7 +40,7 @@ class StrainCreate:
         self.availability = availability
 
 @router.get("/strains", response_model=dict)
-async def get_all_strains(admin_user: dict = Depends(verify_admin_token)):
+async def get_all_strains(admin_email: str = Depends(verify_admin_token)):
     """Get all strains for admin management."""
     
     try:
