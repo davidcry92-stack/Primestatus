@@ -152,6 +152,16 @@ const AdminDashboard = ({ adminUser, onLogout }) => {
               <DailyDealsManagement />
             </ErrorBoundary>
           )}
+          {activeTab === 'health-aid-mgmt' && (
+            <ErrorBoundary>
+              <HealthAidManagement />
+            </ErrorBoundary>
+          )}
+          {activeTab === 'strains-mgmt' && (
+            <ErrorBoundary>
+              <StrainsManagement />
+            </ErrorBoundary>
+          )}
           {activeTab === 'pickup' && (
             <PickupVerification />
           )}
