@@ -62,10 +62,13 @@ const DeliveryComingSoon = () => {
             🚴‍♂️
           </div>
           <div>
-            <h2 className="text-xl lg:text-2xl font-bold text-yellow-100">
-              Delivery Service Launching Soon!
+            <h2 className="text-3xl lg:text-4xl font-black text-white tracking-wide">
+              NYC PICK-UP
             </h2>
-            <p className="text-sm lg:text-base text-yellow-200">
+            <h3 className="text-lg lg:text-xl font-bold text-yellow-100 mt-1">
+              Delivery Coming Soon!
+            </h3>
+            <p className="text-sm lg:text-base text-yellow-200 mt-1">
               Currently pickup only at our NYC location
             </p>
           </div>
