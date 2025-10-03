@@ -172,11 +172,12 @@ async def search_health_aid_terms(
         
         terms = []
         for term_data in terms_data:
-            term = HealthAidTerm(**term_data)
-            terms.append(term)
+            if '_id' in term_data:
+                del term_data['_id']
+            terms.append(term_data)
         
         return {
-            "terms": [term.dict() for term in terms],
+            "terms": terms,
             "count": len(terms),
             "query": query
         }
