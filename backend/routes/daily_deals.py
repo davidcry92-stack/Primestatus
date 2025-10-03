@@ -166,8 +166,6 @@ async def get_active_daily_deals():
     """Get active daily deals for members (no authentication required)."""
     
     try:
-        db = await get_database()
-        
         # Get only active deals that haven't expired
         current_time = datetime.utcnow()
         deals_cursor = db.daily_deals.find({
