@@ -371,7 +371,11 @@ const ProductGrid = ({ category = 'all', tier = null, user, cartItems, setCartIt
                     </div>
                     
                     <Button 
-                      onClick={() => handleAddToCartClick(product)}
+                      onClick={() => {
+                        console.log('Button clicked for:', product.name);
+                        console.log('Button disabled?', !product.inStock || !user?.is_verified);
+                        handleAddToCartClick(product);
+                      }}
                       disabled={!product.inStock || !user?.is_verified}
                       className={`flex items-center space-x-2 ${
                         !user?.is_verified 
