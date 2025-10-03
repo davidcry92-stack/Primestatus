@@ -1487,6 +1487,226 @@ class AuthenticationTester:
         except Exception as e:
             return False, {"error": str(e)}, 0
 
+    async def test_shopping_cart_backend_systems(self):
+        """Test all backend systems that support the shopping cart functionality."""
+        print("\n=== TESTING SHOPPING CART BACKEND SYSTEMS ===")
+        
+        # Get user token for authenticated requests
+        premium_token = await self.test_premium_user_authentication()
+        if not premium_token:
+            self.log_test("Shopping Cart Backend Systems", False, "Failed to get premium user token")
+            return False
+        
+        headers_user = {"Authorization": f"Bearer {premium_token}"}
+        
+        # Test 1: Product API for Cart - Get all products
+        success, products_response, status = await self.make_request("GET", "/products")
+        
+        if success and isinstance(products_response, list):
+            products = products_response
+            self.log_test(
+                "Product API - Get All Products",
+                True,
+                f"Retrieved {len(products)} products for cart system"
+            )
+            
+            # Verify product structure includes cart-required fields
+            if products:
+                sample_product = products[0]
+                required_fields = ["id", "name", "price", "image", "tier", "category"]
+                missing_fields = [field for field in required_fields if field not in sample_product]
+                
+                self.log_test(
+                    "Product Data Structure for Cart",
+                    len(missing_fields) == 0,
+                    f"Product structure {'complete' if not missing_fields else f'missing: {missing_fields}'}"
+                )
+        else:
+            self.log_test(
+                "Product API - Get All Products",
+                False,
+                f"Failed to retrieve products: {products_response}",
+                products_response
+            )
+        
+        # Test 2: Tier-based Product Filtering for Cart
+        tiers = ["za", "deps", "lows"]
+        for tier in tiers:
+            success, tier_products, status = await self.make_request("GET", f"/products?tier={tier}")
+            
+            if success and isinstance(tier_products, list):
+                self.log_test(
+                    f"Product API - {tier.upper()} Tier Filter",
+                    True,
+                    f"Retrieved {len(tier_products)} {tier} tier products"
+                )
+            else:
+                self.log_test(
+                    f"Product API - {tier.upper()} Tier Filter",
+                    False,
+                    f"Failed to filter {tier} products: {tier_products}"
+                )
+        
+        # Test 3: Category-based Product Filtering for Cart
+        categories = ["flower", "edibles", "vapes"]
+        for category in categories:
+            success, cat_products, status = await self.make_request("GET", f"/products?category={category}")
+            
+            if success and isinstance(cat_products, list):
+                self.log_test(
+                    f"Product API - {category.title()} Category Filter",
+                    True,
+                    f"Retrieved {len(cat_products)} {category} products"
+                )
+            else:
+                self.log_test(
+                    f"Product API - {category.title()} Category Filter",
+                    False,
+                    f"Failed to filter {category} products: {cat_products}"
+                )
+        
+        # Test 4: In-stock vs Out-of-stock Product Filtering
+        success, in_stock_products, status = await self.make_request("GET", "/products?in_stock=true")
+        
+        if success and isinstance(in_stock_products, list):
+            self.log_test(
+                "Product API - In-Stock Filter",
+                True,
+                f"Retrieved {len(in_stock_products)} in-stock products for cart"
+            )
+        else:
+            self.log_test(
+                "Product API - In-Stock Filter",
+                False,
+                f"Failed to filter in-stock products: {in_stock_products}"
+            )
+        
+        # Test 5: Square Payment Packages for Cart Checkout
+        success, packages_response, status = await self.make_request("GET", "/payments/packages")
+        
+        if success and "packages" in packages_response:
+            packages = packages_response["packages"]
+            expected_amounts = [25.00, 50.00, 100.00, 200.00]
+            
+            package_amounts = [pkg["amount"] for pkg in packages]
+            all_amounts_present = all(amount in package_amounts for amount in expected_amounts)
+            
+            self.log_test(
+                "Square Payment Packages for Cart",
+                all_amounts_present,
+                f"Payment packages available: ${', $'.join(map(str, package_amounts))}"
+            )
+        else:
+            self.log_test(
+                "Square Payment Packages for Cart",
+                False,
+                f"Failed to retrieve payment packages: {packages_response}",
+                packages_response
+            )
+        
+        # Test 6: Square Checkout Session Creation for Cart
+        checkout_data = {
+            "package_id": "medium",
+            "origin_url": "https://statusapp-fix.preview.emergentagent.com",
+            "metadata": {
+                "cart_items": "test_cart_data",
+                "user_tier": "premium"
+            }
+        }
+        
+        success, checkout_response, status = await self.make_request(
+            "POST", 
+            "/square/checkout/session", 
+            checkout_data,
+            headers_user
+        )
+        
+        if success and "session_id" in checkout_response:
+            session_id = checkout_response["session_id"]
+            self.log_test(
+                "Square Checkout Session for Cart",
+                True,
+                f"Successfully created checkout session: {session_id[:20]}..."
+            )
+            
+            # Test 7: Payment Status Check for Cart
+            success, status_response, status_code = await self.make_request(
+                "GET", 
+                f"/square/checkout/status/{session_id}",
+                headers=headers_user
+            )
+            
+            if success:
+                self.log_test(
+                    "Square Payment Status Check",
+                    True,
+                    f"Payment status retrieved: {status_response.get('status', 'unknown')}"
+                )
+            else:
+                self.log_test(
+                    "Square Payment Status Check",
+                    False,
+                    f"Failed to check payment status: {status_response}"
+                )
+        else:
+            self.log_test(
+                "Square Checkout Session for Cart",
+                False,
+                f"Failed to create checkout session: {checkout_response}",
+                checkout_response
+            )
+        
+        # Test 8: Authentication for Cart Access
+        # Test that cart endpoints require proper authentication
+        success, auth_test, status = await self.make_request("GET", "/products")
+        
+        self.log_test(
+            "Cart Authentication - Public Product Access",
+            success,
+            f"Products accessible without auth: {success} (expected for public products)"
+        )
+        
+        # Test protected cart operations require authentication
+        success, protected_test, status = await self.make_request(
+            "POST", 
+            "/square/checkout/session", 
+            {"package_id": "small", "origin_url": "https://test.com"}
+        )
+        
+        # Should fail without authentication
+        auth_required = not success and status in [401, 403]
+        self.log_test(
+            "Cart Authentication - Protected Operations",
+            auth_required,
+            f"Checkout requires authentication: {auth_required} (status: {status})"
+        )
+        
+        # Test 9: User Verification Status for Cart Access
+        success, profile_response, status = await self.make_request(
+            "GET", 
+            "/auth/profile", 
+            headers=headers_user
+        )
+        
+        if success:
+            user_data = profile_response
+            membership_tier = user_data.get("membership_tier", "unknown")
+            verification_status = user_data.get("verification_status", "unknown")
+            
+            self.log_test(
+                "User Verification for Cart Access",
+                True,
+                f"User tier: {membership_tier}, verification: {verification_status}"
+            )
+        else:
+            self.log_test(
+                "User Verification for Cart Access",
+                False,
+                f"Failed to get user profile: {profile_response}"
+            )
+        
+        return True
+
     async def test_payment_security_and_validation(self):
         """Test payment security measures and input validation."""
         print("\n=== TESTING PAYMENT SECURITY AND VALIDATION ===")
