@@ -372,9 +372,16 @@ async def search_strains(
         strains_cursor = db.strains.find(search_filter).sort("name", 1)
         strains_data = await strains_cursor.to_list(length=None)
         
+        # Clean up ObjectId fields
+        strains = []
+        for strain_data in strains_data:
+            if '_id' in strain_data:
+                del strain_data['_id']
+            strains.append(strain_data)
+        
         return {
-            "strains": strains_data,
-            "count": len(strains_data),
+            "strains": strains,
+            "count": len(strains),
             "query": query,
             "filters": {
                 "category": category,
