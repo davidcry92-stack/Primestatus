@@ -67,7 +67,7 @@ export const mockWictionary = [
   {
     id: 'term-deps',
     term: 'Deps',
-    definition: 'Mid-tier cannabis that matters. Noticeably more potent than Lows with smooth smoke and quality terp profiles. Everyday elevation for the seasoned sesher.',
+    definition: 'Mid-tier cannabis that matters. Noticeably more potent than Lows with smooth smoke and quality terp profiles. Everyday elevation for the seasoned smoker.',
     category: 'slang',
     etymology: 'Short for "dependable" or reliable mid-grade cannabis'
   },
