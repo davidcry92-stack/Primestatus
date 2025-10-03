@@ -1205,6 +1205,287 @@ class AuthenticationTester:
                 checkout_response
             )
 
+    async def test_daily_deals_management_system(self):
+        """Test the complete Daily Deals Management system backend endpoints."""
+        print("\n=== TESTING DAILY DEALS MANAGEMENT SYSTEM ===")
+        
+        if not self.admin_token:
+            self.log_test("Daily Deals System", False, "No admin token available")
+            return False
+        
+        headers = {"Authorization": f"Bearer {self.admin_token}"}
+        test_deal_id = None
+        test_email = "test.delivery@statusxsmoakland.com"
+        
+        try:
+            # Test 1: Create Daily Deal
+            from datetime import datetime, timedelta
+            expires_at = (datetime.utcnow() + timedelta(hours=24)).isoformat() + "Z"
+            
+            # Create form data for daily deal
+            deal_data = {
+                "category": "za",
+                "title": "Test Za Deal",
+                "message": "20% off all Za products today!",
+                "expires_at": expires_at,
+                "deals": "[]"  # Empty structured deals for test
+            }
+            
+            # Use multipart form data for this endpoint
+            success, create_response, status = await self.make_request_form(
+                "POST", 
+                "/admin/daily-deals", 
+                deal_data, 
+                headers=headers
+            )
+            
+            if success and create_response.get("success"):
+                test_deal_id = create_response.get("deal_id")
+                self.log_test(
+                    "Create Daily Deal",
+                    True,
+                    f"Successfully created daily deal with ID: {test_deal_id}"
+                )
+            else:
+                self.log_test(
+                    "Create Daily Deal",
+                    False,
+                    f"Failed to create daily deal: {create_response}",
+                    create_response
+                )
+                return False
+            
+            # Test 2: Get Admin Daily Deals
+            success, admin_deals_response, status = await self.make_request(
+                "GET", 
+                "/admin/daily-deals", 
+                headers=headers
+            )
+            
+            if success and "deals" in admin_deals_response:
+                deals = admin_deals_response["deals"]
+                deal_found = any(deal.get("id") == test_deal_id for deal in deals)
+                self.log_test(
+                    "Get Admin Daily Deals",
+                    deal_found,
+                    f"Retrieved {len(deals)} deals, test deal found: {deal_found}"
+                )
+            else:
+                self.log_test(
+                    "Get Admin Daily Deals",
+                    False,
+                    f"Failed to retrieve admin deals: {admin_deals_response}",
+                    admin_deals_response
+                )
+            
+            # Test 3: Get Public Active Daily Deals (no auth required)
+            success, public_deals_response, status = await self.make_request(
+                "GET", 
+                "/daily-deals"
+            )
+            
+            if success and "deals" in public_deals_response:
+                public_deals = public_deals_response["deals"]
+                public_deal_found = any(deal.get("id") == test_deal_id for deal in public_deals)
+                self.log_test(
+                    "Get Public Active Daily Deals",
+                    public_deal_found,
+                    f"Retrieved {len(public_deals)} active deals, test deal found: {public_deal_found}"
+                )
+            else:
+                self.log_test(
+                    "Get Public Active Daily Deals",
+                    False,
+                    f"Failed to retrieve public deals: {public_deals_response}",
+                    public_deals_response
+                )
+            
+            # Test 4: Delivery Signup (no auth required)
+            signup_data = {
+                "email": test_email
+            }
+            
+            success, signup_response, status = await self.make_request(
+                "POST", 
+                "/delivery-signup", 
+                signup_data
+            )
+            
+            if success and "message" in signup_response:
+                self.log_test(
+                    "Delivery Signup",
+                    True,
+                    f"Successfully signed up {test_email}: {signup_response['message']}"
+                )
+            else:
+                self.log_test(
+                    "Delivery Signup",
+                    False,
+                    f"Failed to sign up for delivery: {signup_response}",
+                    signup_response
+                )
+            
+            # Test 5: Test duplicate email prevention
+            success, duplicate_response, status = await self.make_request(
+                "POST", 
+                "/delivery-signup", 
+                signup_data
+            )
+            
+            if success and "already signed up" in duplicate_response.get("message", "").lower():
+                self.log_test(
+                    "Delivery Signup Duplicate Prevention",
+                    True,
+                    f"Correctly prevented duplicate signup: {duplicate_response['message']}"
+                )
+            else:
+                self.log_test(
+                    "Delivery Signup Duplicate Prevention",
+                    False,
+                    f"Failed to prevent duplicate signup: {duplicate_response}",
+                    duplicate_response
+                )
+            
+            # Test 6: Get Admin Delivery Signups
+            success, signups_response, status = await self.make_request(
+                "GET", 
+                "/admin/delivery-signups", 
+                headers=headers
+            )
+            
+            if success and "signups" in signups_response:
+                signups = signups_response["signups"]
+                signup_found = any(signup.get("email") == test_email for signup in signups)
+                self.log_test(
+                    "Get Admin Delivery Signups",
+                    signup_found,
+                    f"Retrieved {len(signups)} signups, test signup found: {signup_found}"
+                )
+            else:
+                self.log_test(
+                    "Get Admin Delivery Signups",
+                    False,
+                    f"Failed to retrieve delivery signups: {signups_response}",
+                    signups_response
+                )
+            
+            # Test 7: Delete Daily Deal (cleanup)
+            if test_deal_id:
+                success, delete_response, status = await self.make_request(
+                    "DELETE", 
+                    f"/admin/daily-deals/{test_deal_id}", 
+                    headers=headers
+                )
+                
+                if success and delete_response.get("success"):
+                    self.log_test(
+                        "Delete Daily Deal",
+                        True,
+                        f"Successfully deleted daily deal: {delete_response['message']}"
+                    )
+                else:
+                    self.log_test(
+                        "Delete Daily Deal",
+                        False,
+                        f"Failed to delete daily deal: {delete_response}",
+                        delete_response
+                    )
+            
+            # Test 8: Verify deal expiration logic
+            # Create a deal that expires in 1 second for testing
+            short_expires_at = (datetime.utcnow() + timedelta(seconds=1)).isoformat() + "Z"
+            short_deal_data = {
+                "category": "deps",
+                "title": "Short Test Deal",
+                "message": "This deal expires quickly",
+                "expires_at": short_expires_at,
+                "deals": "[]"
+            }
+            
+            success, short_create_response, status = await self.make_request_form(
+                "POST", 
+                "/admin/daily-deals", 
+                short_deal_data, 
+                headers=headers
+            )
+            
+            if success:
+                short_deal_id = short_create_response.get("deal_id")
+                
+                # Wait for expiration
+                import asyncio
+                await asyncio.sleep(2)
+                
+                # Check if expired deal appears in public deals
+                success, expired_check_response, status = await self.make_request(
+                    "GET", 
+                    "/daily-deals"
+                )
+                
+                if success:
+                    expired_deals = expired_check_response.get("deals", [])
+                    expired_deal_found = any(deal.get("id") == short_deal_id for deal in expired_deals)
+                    self.log_test(
+                        "Deal Expiration Logic",
+                        not expired_deal_found,
+                        f"Expired deal correctly excluded from public deals: {not expired_deal_found}"
+                    )
+                    
+                    # Cleanup expired deal
+                    if short_deal_id:
+                        await self.make_request(
+                            "DELETE", 
+                            f"/admin/daily-deals/{short_deal_id}", 
+                            headers=headers
+                        )
+                else:
+                    self.log_test(
+                        "Deal Expiration Logic",
+                        False,
+                        "Failed to test deal expiration"
+                    )
+            
+            return True
+            
+        except Exception as e:
+            self.log_test(
+                "Daily Deals System Error",
+                False,
+                f"Unexpected error in daily deals testing: {str(e)}"
+            )
+            return False
+    
+    async def make_request_form(self, method: str, endpoint: str, data: Dict = None, headers: Dict = None) -> tuple:
+        """Make HTTP request with form data and return (success, response_data, status_code)."""
+        url = f"{BACKEND_URL}{endpoint}"
+        request_headers = {}
+        
+        if headers:
+            request_headers.update(headers)
+            
+        try:
+            # Convert data to FormData for multipart requests
+            form_data = aiohttp.FormData()
+            if data:
+                for key, value in data.items():
+                    form_data.add_field(key, str(value))
+            
+            async with self.session.request(
+                method, 
+                url, 
+                data=form_data,
+                headers=request_headers
+            ) as response:
+                try:
+                    response_data = await response.json()
+                except:
+                    response_data = {"error": "Invalid JSON response", "text": await response.text()}
+                
+                return response.status < 400, response_data, response.status
+                
+        except Exception as e:
+            return False, {"error": str(e)}, 0
+
     async def test_payment_security_and_validation(self):
         """Test payment security measures and input validation."""
         print("\n=== TESTING PAYMENT SECURITY AND VALIDATION ===")
