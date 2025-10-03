@@ -17,6 +17,8 @@ import CheckoutSuccess from "./components/CheckoutSuccess";
 import CheckoutCancel from "./components/CheckoutCancel";
 import AdminApp from "./components/AdminApp";
 import AuthModal from "./components/AuthModal";
+import DeliveryComingSoon from "./components/DeliveryComingSoon";
+import DailyUpdates from "./components/DailyUpdates";
 
 // Auth Context
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
