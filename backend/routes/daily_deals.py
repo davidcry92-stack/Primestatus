@@ -196,14 +196,9 @@ async def delivery_signup(signup_data: DeliverySignup):
 
 @router.get("/admin/delivery-signups")
 async def get_delivery_signups(
-    credentials: HTTPAuthorizationCredentials = Depends(security)
+    admin_email: str = Depends(verify_admin_token)
 ):
     """Get all delivery signups for admin."""
-    
-    # Verify admin token
-    admin_user = await verify_admin_token(credentials.credentials)
-    if not admin_user:
-        raise HTTPException(status_code=401, detail="Invalid admin token")
     
     try:
         signups_cursor = db.delivery_signups.find({"is_active": True}).sort("subscribed_at", -1)
