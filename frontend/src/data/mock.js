@@ -74,7 +74,7 @@ export const mockWictionary = [
   {
     id: 'term-lows',
     term: 'Lows',
-    definition: 'Budget-friendly cannabis. Basic bud that still gets the job done. Smooth introduction for beginners with consistent effects.',
+    definition: 'Budget-friendly cannabis that still gets the job done. Smooth introduction for beginners with consistent effects.',
     category: 'slang',
     etymology: 'Reference to lower-priced, entry-level cannabis products'
   },
