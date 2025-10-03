@@ -2939,11 +2939,66 @@ class AuthenticationTester:
         
         return len(failed_tests) == 0
 
+    async def run_daily_deals_tests(self):
+        """Run focused Daily Deals Management system tests as requested in the review."""
+        print("🎯 STARTING DAILY DEALS MANAGEMENT SYSTEM TESTING")
+        print("=" * 60)
+        
+        # Test 1: Database connection
+        if not await self.test_database_connection():
+            print("❌ Database connection failed - stopping tests")
+            return False
+        
+        # Test 2: Admin authentication (required for most endpoints)
+        auth_success = await self.test_admin_authentication()
+        if not auth_success:
+            print("❌ Admin authentication failed - stopping tests")
+            return False
+        
+        # Test 3: Daily Deals Management System
+        await self.test_daily_deals_management_system()
+        
+        # Print focused summary
+        print("\n" + "=" * 60)
+        print("📊 DAILY DEALS TEST SUMMARY")
+        print("=" * 60)
+        
+        # Filter results for daily deals related tests
+        daily_deals_tests = [
+            result for result in self.test_results 
+            if any(keyword in result["test"].lower() for keyword in [
+                "daily deal", "delivery signup", "admin daily", "public active"
+            ])
+        ]
+        
+        total_tests = len(daily_deals_tests)
+        passed_tests = sum(1 for result in daily_deals_tests if result["success"])
+        failed_tests = total_tests - passed_tests
+        
+        print(f"Daily Deals Tests: {total_tests}")
+        print(f"✅ Passed: {passed_tests}")
+        print(f"❌ Failed: {failed_tests}")
+        print(f"Success Rate: {(passed_tests/total_tests*100):.1f}%" if total_tests > 0 else "0%")
+        
+        if failed_tests > 0:
+            print("\n🔍 FAILED DAILY DEALS TESTS:")
+            for result in daily_deals_tests:
+                if not result["success"]:
+                    print(f"  • {result['test']}: {result['details']}")
+        
+        return passed_tests, failed_tests, daily_deals_tests
+
 async def main():
     """Main test runner for comprehensive system testing."""
     async with AuthenticationTester() as tester:
-        await tester.run_all_tests()
-        return True
+        # Check if we should run focused daily deals tests
+        import sys
+        if len(sys.argv) > 1 and sys.argv[1] == "daily-deals":
+            passed, failed, results = await tester.run_daily_deals_tests()
+            return failed == 0
+        else:
+            await tester.run_all_tests()
+            return True
 
 if __name__ == "__main__":
     success = asyncio.run(main())
