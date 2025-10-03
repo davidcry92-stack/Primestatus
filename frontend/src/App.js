@@ -277,6 +277,13 @@ function App() {
       setIsReEntryCodeVerified(true);
     }
     
+    console.log('App useEffect - Verification states:', { 
+      lawEnforcementVerified, 
+      reentryVerified,
+      hasToken: !!localStorage.getItem('access_token'),
+      hasUserData: !!localStorage.getItem('user_data')
+    });
+    
     setIsSuperAdminMode(false); // No super admin bypasses allowed
   }, []);
 
