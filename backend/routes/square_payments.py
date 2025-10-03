@@ -31,8 +31,14 @@ def get_square_client():
     else:
         env = 'production'
     
+    # Convert environment string to Square environment enum
+    if environment == 'sandbox':
+        env = square.environment.SquareEnvironment.SANDBOX
+    else:
+        env = square.environment.SquareEnvironment.PRODUCTION
+    
     client = square.Square(
-        access_token=access_token,
+        token=access_token,
         environment=env
     )
     
