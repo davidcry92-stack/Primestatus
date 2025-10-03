@@ -58,18 +58,18 @@ async def create_health_aid_term(
             raise HTTPException(status_code=400, detail="Term already exists")
         
         # Create new term
-        new_term = HealthAidTerm(
-            id=str(uuid.uuid4()),
-            term=term_data.term,
-            definition=term_data.definition,
-            category=term_data.category,
-            related_terms=term_data.related_terms or [],
-            etymology=term_data.etymology,
-            usage_examples=term_data.usage_examples,
-            created_by=admin_user.get('email', 'admin'),
-            created_at=datetime.utcnow(),
-            updated_at=datetime.utcnow()
-        )
+        new_term_dict = {
+            "id": str(uuid.uuid4()),
+            "term": term_data.term,
+            "definition": term_data.definition,
+            "category": term_data.category,
+            "related_terms": term_data.related_terms or [],
+            "etymology": term_data.etymology or "",
+            "examples": [term_data.usage_examples] if term_data.usage_examples else [],
+            "created_by": admin_user.get('email', 'admin'),
+            "created_at": datetime.utcnow(),
+            "updated_at": datetime.utcnow()
+        }
         
         # Save to database
         await db.wictionary.insert_one(new_term.dict())
