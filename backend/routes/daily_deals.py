@@ -190,8 +190,6 @@ async def delivery_signup(signup_data: DeliverySignup):
     """Sign up for delivery launch notifications."""
     
     try:
-        db = await get_database()
-        
         # Check if email already exists
         existing_signup = await db.delivery_signups.find_one({"email": signup_data.email})
         if existing_signup:
