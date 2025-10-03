@@ -5,7 +5,7 @@ import uuid
 from datetime import datetime
 from typing import List
 
-import square
+from square.client import Client
 
 from models.square_payment import (
     SquarePaymentRequest, 
