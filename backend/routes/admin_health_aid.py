@@ -10,13 +10,15 @@ from routes.admin_auth import verify_admin_token
 
 router = APIRouter()
 
-class HealthAidTermCreate(WictionaryEntryCreate):
+class HealthAidTermCreate(WictionaryCreate):
     """Extended model for admin health-aid term creation"""
-    pass
+    usage_examples: Optional[str] = None
 
-class HealthAidTerm(WictionaryEntry):
+class HealthAidTerm(WictionaryBase):
     """Extended model for health-aid terms with admin fields"""
+    id: str
     created_by: Optional[str] = None
+    created_at: Optional[datetime] = None
     updated_at: Optional[datetime] = None
 
 @router.get("/terms", response_model=dict)
