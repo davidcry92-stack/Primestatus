@@ -69,7 +69,7 @@ async def create_strain(
     price_range: str = Form(None),
     availability: bool = Form(True),
     image: Optional[UploadFile] = File(None),
-    admin_user: dict = Depends(verify_admin_token)
+    admin_email: str = Depends(verify_admin_token)
 ):
     """Create a new strain with optional image upload."""
     
@@ -145,7 +145,7 @@ async def update_strain(
     price_range: str = Form(None),
     availability: bool = Form(True),
     image: Optional[UploadFile] = File(None),
-    admin_user: dict = Depends(verify_admin_token)
+    admin_email: str = Depends(verify_admin_token)
 ):
     """Update an existing strain."""
     
@@ -220,7 +220,7 @@ async def update_strain(
 @router.delete("/strains/{strain_id}")
 async def delete_strain(
     strain_id: str,
-    admin_user: dict = Depends(verify_admin_token)
+    admin_email: str = Depends(verify_admin_token)
 ):
     """Delete a strain."""
     
@@ -253,7 +253,7 @@ async def delete_strain(
 @router.get("/strains/category/{category}")
 async def get_strains_by_category(
     category: str,
-    admin_user: dict = Depends(verify_admin_token)
+    admin_email: str = Depends(verify_admin_token)
 ):
     """Get strains by category (lows, deps, za)."""
     
@@ -332,7 +332,7 @@ async def search_strains(
     query: str,
     category: Optional[str] = None,
     strain_type: Optional[str] = None,
-    admin_user: dict = Depends(verify_admin_token)
+    admin_email: str = Depends(verify_admin_token)
 ):
     """Search strains by name, effects, flavors, etc."""
     
