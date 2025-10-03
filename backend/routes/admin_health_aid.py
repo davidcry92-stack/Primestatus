@@ -32,9 +32,10 @@ async def get_all_health_aid_terms(admin_user: dict = Depends(verify_admin_token
         
         terms = []
         for term_data in terms_data:
-            # Convert to HealthAidTerm model
-            term = HealthAidTerm(**term_data)
-            terms.append(term)
+            # Convert ObjectId to string if needed
+            if '_id' in term_data:
+                del term_data['_id']
+            terms.append(term_data)
         
         return {
             "terms": [term.dict() for term in terms],
