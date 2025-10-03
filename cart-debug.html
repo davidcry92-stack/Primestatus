@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cart Debug Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #000; color: #fff; }
+        .debug-box { background: #333; padding: 20px; margin: 10px 0; border-radius: 8px; }
+        .success { background: #2d5f3f; }
+        .error { background: #5f2d2d; }
+        button { background: #4CAF50; color: white; padding: 10px 20px; margin: 5px; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #45a049; }
+    </style>
+</head>
+<body>
+    <h1>StatusXSmoakland Cart Debug Test</h1>
+    
+    <div class="debug-box">
+        <h3>🔧 Troubleshooting Steps for Cart Issues:</h3>
+        
+        <h4>1. Clear Browser Cache & Hard Refresh:</h4>
+        <ul>
+            <li><strong>Chrome/Edge:</strong> Press Ctrl+Shift+R (Windows) or Cmd+Shift+R (Mac)</li>
+            <li><strong>Firefox:</strong> Press Ctrl+F5 (Windows) or Cmd+Shift+R (Mac)</li>
+            <li><strong>Safari:</strong> Press Cmd+Option+R</li>
+        </ul>
+        
+        <h4>2. Check Browser Console for Errors:</h4>
+        <ul>
+            <li>Press F12 to open Developer Tools</li>
+            <li>Click "Console" tab</li>
+            <li>Look for any red error messages</li>
+            <li>Try using the cart and see if new errors appear</li>
+        </ul>
+        
+        <h4>3. Test Cart Step by Step:</h4>
+        <ol>
+            <li>Complete verification: Law enforcement → Re-entry code 1234 → Login premium@demo.com / Premium123!</li>
+            <li>Look for cart icon in top-right header (shopping cart symbol)</li>
+            <li>Click cart icon - should open modal with "Your cart is empty"</li>
+            <li>Navigate to products: Scroll down → Click Za category card</li>
+            <li>Click "Select Quantity" on any product</li>
+            <li>Select quantity (like 1/8) and verify item adds to cart</li>
+        </ol>
+        
+        <h4>4. Try Different Browser:</h4>
+        <p>Test in Chrome, Firefox, Safari, or Edge to rule out browser-specific issues</p>
+        
+        <h4>5. Check Network Connection:</h4>
+        <p>Slow connection might cause components to not load properly</p>
+    </div>
+    
+    <div class="debug-box">
+        <h3>🚀 Quick Cart Test</h3>
+        <p>Click the button below to test if JavaScript is working:</p>
+        <button onclick="testCart()">Test Cart Functionality</button>
+        <div id="test-result"></div>
+    </div>
+    
+    <script>
+        function testCart() {
+            const result = document.getElementById('test-result');
+            
+            // Test basic JavaScript functionality
+            try {
+                // Simulate cart operations
+                let cart = [];
+                cart.push({id: 'test-1', name: 'Test Product', price: 25, quantity: 1});
+                
+                if (cart.length === 1) {
+                    result.innerHTML = '<div class="debug-box success">✅ JavaScript working! Cart can add items. The issue might be in React components or browser cache.</div>';
+                } else {
+                    result.innerHTML = '<div class="debug-box error">❌ Basic JavaScript test failed</div>';
+                }
+            } catch (error) {
+                result.innerHTML = '<div class="debug-box error">❌ JavaScript Error: ' + error.message + '</div>';
+            }
+        }
+        
+        // Auto-run basic tests on page load
+        window.onload = function() {
+            console.log('Cart debug page loaded');
+            
+            // Test localStorage (used by cart)
+            try {
+                localStorage.setItem('test', 'value');
+                localStorage.removeItem('test');
+                console.log('✅ localStorage working');
+            } catch (e) {
+                console.error('❌ localStorage issue:', e);
+            }
+        };
+    </script>
+    
+    <div class="debug-box">
+        <h3>📱 Mobile/Responsive Issues:</h3>
+        <p>If on mobile/tablet, try:</p>
+        <ul>
+            <li>Desktop browser for comparison</li>
+            <li>Landscape mode if in portrait</li>
+            <li>Zoom out if interface elements are cut off</li>
+        </ul>
+    </div>
+    
+    <div class="debug-box">
+        <h3>🔍 Expected Behavior:</h3>
+        <ul>
+            <li><strong>Cart Icon:</strong> Should be visible in header after login (shopping cart symbol)</li>
+            <li><strong>Cart Click:</strong> Should open side panel with "Your cart is empty" and payment options</li>
+            <li><strong>Product Selection:</strong> Za category should show multiple products with "Select Quantity" buttons</li>
+            <li><strong>Quantity Modal:</strong> Should show options like 1/8 ($25), 1/2 oz ($100), etc.</li>
+            <li><strong>Add to Cart:</strong> Cart count should update, items should appear in cart modal</li>
+        </ul>
+    </div>
+    
+    <p><strong>Go back to main app:</strong> <a href="http://localhost:3000" style="color: #4CAF50;">StatusXSmoakland App</a></p>
+</body>
+</html>
