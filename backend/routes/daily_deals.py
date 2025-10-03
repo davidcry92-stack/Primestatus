@@ -119,14 +119,9 @@ async def get_admin_daily_deals(
 @router.delete("/admin/daily-deals/{deal_id}")
 async def delete_daily_deal(
     deal_id: str,
-    credentials: HTTPAuthorizationCredentials = Depends(security)
+    admin_email: str = Depends(verify_admin_token)
 ):
     """Delete a daily deal."""
-    
-    # Verify admin token
-    admin_user = await verify_admin_token(credentials.credentials)
-    if not admin_user:
-        raise HTTPException(status_code=401, detail="Invalid admin token")
     
     try:
         # Get deal to check for video file
