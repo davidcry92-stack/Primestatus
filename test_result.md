@@ -492,9 +492,9 @@ test_plan:
 
   - task: "Square Payment Integration"
     implemented: true
-    working: true
+    working: false
     file: "/app/backend/routes/square_payments.py"
-    stuck_count: 0
+    stuck_count: 1
     priority: "high"
     needs_retesting: false
     status_history:
@@ -504,6 +504,9 @@ test_plan:
         - working: true
           agent: "testing"
           comment: "🎉 SQUARE PAYMENT INTEGRATION TESTING COMPLETE - FULLY FUNCTIONAL! Comprehensive end-to-end testing of complete Square payment integration successful. TESTING RESULTS: ✅ VERIFICATION FLOW: Law enforcement verification + re-entry code (1234) working perfectly ✅ PREMIUM USER LOGIN: premium@demo.com / Premium123! authentication successful ✅ SHOPPING CART INTEGRATION: Cart functionality working - found shopping cart icon in header, cart modal opens correctly, payment packages ($25, $50, $100, $200) selectable ✅ SQUARE CHECKOUT FLOW: Checkout button triggers Square checkout modal (NOT Stripe) ✅ SQUARE WEB PAYMENTS SDK: Successfully loading from https://web.squarecdn.com/v1/square.js with correct Application ID (sq0idp-A8bi8F9_FRdPQiCQVCa5dg) and Location ID (L9JFNQSBZAW4Y) ✅ PAYMENT FORM TESTING: Square card input form loads correctly with Card number/MM/YY/CVV fields, pickup notes field functional, payment button displays 'Pay $25.00' ✅ INTEGRATION VALIDATION: Square SDK initialization confirmed via console logs showing Square iframe loading (https://web.squarecdn.com/1.78.5/main-iframe.html), Square branding present ('🔒 Secure payment powered by Square'), NO Stripe references found in checkout flow ✅ FORM VALIDATION: Order summary displays cart items correctly, pickup notes field accepts input, payment form user experience smooth. SUCCESS RATE: 100% - Complete Square integration from cart to checkout working perfectly. Stripe to Square replacement fully successful."
+        - working: false
+          agent: "testing"
+          comment: "🛒 SQUARE PAYMENT BACKEND TESTING COMPLETE - CRITICAL CONFIGURATION ISSUES IDENTIFIED! Comprehensive backend testing of Square payment integration for shopping cart functionality revealed significant issues. TESTING RESULTS: ✅ Square API connection working with production credentials ✅ Payment packages API functional ($25, $50, $100, $200) ✅ Authentication systems working (premium user login successful) ✅ Product APIs fully functional for cart data. ❌ CRITICAL ISSUES FOUND: 1) Square Location ID L9JFNQSBZAW4Y not found in Square account - API returns empty locations array, 2) Square order creation failing due to missing required fields in request structure (product_id, product_name, unit_price, total_price, user_email, user_name), 3) Card nonce validation failing with 'Card nonce not found' error from Square API, 4) Some Stripe payment validation endpoints returning 500 errors. BACKEND SUCCESS RATE: 39/46 tests passed (84.8%). CONCLUSION: Core authentication and product APIs fully support cart functionality, but Square payment integration has configuration and data structure issues that prevent complete checkout flow. Frontend cart functionality confirmed working in previous tests, but backend payment processing needs Square account configuration review and API request structure fixes."
 
   - task: "Admin Health-Aid Management Panel"
     implemented: true
