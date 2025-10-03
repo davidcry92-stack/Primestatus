@@ -3,7 +3,7 @@ import ProductGrid from './ProductGrid';
 import WellnessCenter from './Wictionary';
 import DailyUpdates from './DailyUpdates';
 
-const ProductSelection = ({ onCategorySelect, user }) => {
+const ProductSelection = ({ user, cartItems, setCartItems, onCategorySelect }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
 
   // Block access for unverified users
