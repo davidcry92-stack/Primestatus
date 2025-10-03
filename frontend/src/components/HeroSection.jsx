@@ -23,19 +23,22 @@ const HeroSection = ({ onAuthClick }) => {
           </div>
 
           {/* Main Headline */}
-          <h1 className="text-6xl md:text-8xl font-black text-white mb-6 leading-tight">
+          <h1 className="text-5xl md:text-7xl font-black text-white mb-4 leading-tight">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-yellow-400 animate-pulse">
               NYC
             </span>
-            <br />
-            <span className="text-white">
-              PICKUP
-            </span>
-            <br />
+            <span className="text-white"> PICKUP </span>
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">
-              ONLY
+              LOCATION
             </span>
           </h1>
+          
+          {/* Delivery Coming Soon */}
+          <div className="text-3xl md:text-5xl font-extrabold mb-6 transform animate-pulse">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-red-400 to-pink-400 drop-shadow-lg">
+              DELIVERY COMING SOON!
+            </span>
+          </div>
 
           {/* Subheadline */}
           <div className="max-w-3xl mx-auto mb-8">
