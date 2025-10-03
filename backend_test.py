@@ -1673,8 +1673,8 @@ class AuthenticationTester:
         # Test protected cart operations require authentication
         success, protected_test, status = await self.make_request(
             "POST", 
-            "/square/checkout/session", 
-            {"package_id": "small", "origin_url": "https://test.com"}
+            "/square/create-order", 
+            {"items": [{"name": "test", "quantity": 1, "price": 25.00}], "payment_source_id": "test"}
         )
         
         # Should fail without authentication
@@ -1682,7 +1682,7 @@ class AuthenticationTester:
         self.log_test(
             "Cart Authentication - Protected Operations",
             auth_required,
-            f"Checkout requires authentication: {auth_required} (status: {status})"
+            f"Square order creation requires authentication: {auth_required} (status: {status})"
         )
         
         # Test 9: User Verification Status for Cart Access
