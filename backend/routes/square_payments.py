@@ -1,5 +1,4 @@
 from fastapi import APIRouter, HTTPException, Depends, Request
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import os
 import json
 import uuid
