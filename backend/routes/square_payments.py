@@ -63,26 +63,26 @@ async def create_square_order(
         # Create Square order
         order_line_items = []
         for item in order_request.items:
-            line_item = OrderLineItem(
-                name=item.product_name,
-                quantity=str(item.quantity),
-                base_price_money=Money(
-                    amount=item.unit_price,
-                    currency='USD'
-                )
-            )
+            line_item = {
+                'name': item.product_name,
+                'quantity': str(item.quantity),
+                'base_price_money': {
+                    'amount': item.unit_price,
+                    'currency': 'USD'
+                }
+            }
             order_line_items.append(line_item)
         
-        order = Order(
-            location_id=location_id,
-            line_items=order_line_items,
-            reference_id=str(uuid.uuid4())
-        )
+        order_data = {
+            'location_id': location_id,
+            'line_items': order_line_items,
+            'reference_id': str(uuid.uuid4())
+        }
         
-        create_order_request = CreateOrderRequest(order=order)
+        create_order_body = {'order': order_data}
         orders_api = client.orders
         
-        order_result = orders_api.create_order(create_order_request)
+        order_result = orders_api.create_order(body=create_order_body)
         
         if order_result.is_error():
             error_message = str(order_result.errors)
@@ -92,20 +92,20 @@ async def create_square_order(
         square_order_id = square_order.get('id')
         
         # Create payment
-        payment_request = CreatePaymentRequest(
-            source_id=order_request.payment_source_id,
-            amount_money=Money(
-                amount=total_amount,
-                currency='USD'
-            ),
-            location_id=location_id,
-            reference_id=f"StatusX-{uuid.uuid4()}",
-            note=f"StatusXSmoakland Order - {order_request.user_name}",
-            order_id=square_order_id
-        )
+        payment_body = {
+            'source_id': order_request.payment_source_id,
+            'amount_money': {
+                'amount': total_amount,
+                'currency': 'USD'
+            },
+            'location_id': location_id,
+            'reference_id': f"StatusX-{uuid.uuid4()}",
+            'note': f"StatusXSmoakland Order - {order_request.user_name}",
+            'order_id': square_order_id
+        }
         
         payments_api = client.payments
-        payment_result = payments_api.create_payment(payment_request)
+        payment_result = payments_api.create_payment(body=payment_body)
         
         if payment_result.is_error():
             error_message = str(payment_result.errors)
