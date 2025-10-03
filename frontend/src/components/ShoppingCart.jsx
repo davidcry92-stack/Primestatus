@@ -79,58 +79,32 @@ const ShoppingCart = ({ cartItems, setCartItems, user }) => {
   };
 
   const handleCheckout = async () => {
+    if (!user) {
+      alert('Please log in to checkout');
+      return;
+    }
+
     if (cartItems.length === 0) {
       alert('Your cart is empty');
       return;
     }
 
-    setLoading(true);
+    // Show Square checkout form
+    setShowCheckout(true);
+  };
 
-    try {
-      // For package purchases, use the package checkout
-      const packageItem = cartItems.find(item => item.isPackage);
-      
-      if (packageItem) {
-        const checkoutData = {
-          package_id: packageItem.packageId,
-          origin_url: window.location.origin,
-          metadata: {
-            user_email: user?.email || 'guest',
-            source: 'cart_checkout'
-          }
-        };
+  const handlePaymentSuccess = (paymentResult) => {
+    // Clear cart and close modals
+    setCartItems([]);
+    setShowCheckout(false);
+    setIsOpen(false);
+    
+    // Show success message
+    alert(`Payment successful! Order ID: ${paymentResult.orderId}\n\nYour order is ready for pickup at our NYC location. You'll receive a receipt via email.`);
+  };
 
-        const backendUrl = process.env.REACT_APP_BACKEND_URL || '';
-        const response = await fetch(`${backendUrl}/api/payments/checkout/session`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-User-Email': user?.email || 'guest'
-          },
-          body: JSON.stringify(checkoutData)
-        });
-
-        if (!response.ok) {
-          throw new Error('Failed to create checkout session');
-        }
-
-        const data = await response.json();
-        
-        // Store session info for status checking
-        sessionStorage.setItem('checkout_session_id', data.session_id);
-        
-        // Redirect to Stripe checkout
-        window.location.href = data.url;
-      } else {
-        // For individual products, suggest selecting a package
-        alert('Please select a payment package for your purchase');
-      }
-    } catch (error) {
-      console.error('Checkout error:', error);
-      alert('Failed to initiate checkout. Please try again.');
-    } finally {
-      setLoading(false);
-    }
+  const handlePaymentCancel = () => {
+    setShowCheckout(false);
   };
 
   return (
