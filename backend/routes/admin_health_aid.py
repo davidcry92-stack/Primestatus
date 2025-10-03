@@ -149,7 +149,7 @@ async def delete_health_aid_term(
 async def search_health_aid_terms(
     query: str,
     category: Optional[str] = None,
-    admin_user: dict = Depends(verify_admin_token)
+    admin_email: str = Depends(verify_admin_token)
 ):
     """Search Health-Aid dictionary terms."""
     
