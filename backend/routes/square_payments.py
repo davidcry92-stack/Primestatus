@@ -7,7 +7,6 @@ from datetime import datetime
 from typing import List
 
 import square
-from square.models import CreatePaymentRequest, Money, CreateOrderRequest, Order, OrderLineItem
 
 from models.square_payment import (
     SquarePaymentRequest, 
