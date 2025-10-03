@@ -19,7 +19,6 @@ from utils.database import db
 from utils.auth import verify_token
 
 router = APIRouter()
-security = HTTPBearer()
 
 # Initialize Square client
 def get_square_client():
