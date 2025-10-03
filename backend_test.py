@@ -3065,6 +3065,9 @@ class AuthenticationTester:
             await self.test_stripe_api_key_configuration()
             await self.test_payment_security_and_validation()
             
+            # Test Square payment integration
+            await self.test_square_payment_integration()
+            
             # Test Daily Deals Management System
             await self.test_daily_deals_management_system()
         else:
