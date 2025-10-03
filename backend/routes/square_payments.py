@@ -71,7 +71,7 @@ async def create_square_order(
         order_data = {
             'location_id': location_id,
             'line_items': order_line_items,
-            'reference_id': str(uuid.uuid4())
+            'reference_id': f"Order-{str(uuid.uuid4())[:8]}"
         }
         
         orders_api = client.orders
