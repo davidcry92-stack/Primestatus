@@ -70,7 +70,7 @@ if cors_origins == ['*']:
         cors_origins.extend([
             f"https://{app_domain}",
             f"https://{app_domain}.emergent.host",
-            f"https://smoakland-auth.preview.emergentagent.com"
+            "https://smoakland-auth.preview.emergentagent.com"
         ])
 
 app.add_middleware(
