@@ -3192,15 +3192,76 @@ class AuthenticationTester:
         return passed_tests, failed_tests, daily_deals_tests
 
 async def main():
-    """Main test runner for comprehensive system testing."""
+    """Run Square payment integration tests."""
+    print("🎯 SQUARE PAYMENT INTEGRATION TESTING")
+    print("=" * 60)
+    print("Testing Square payment integration with authentication fixes:")
+    print("- Square API connection with confirmed Location ID L9JFNQSBZAW4Y")
+    print("- Premium user authentication for order creation")
+    print("- Square order creation with mock payment source")
+    print("- Order retrieval with proper authentication")
+    print("=" * 60)
+    
     async with AuthenticationTester() as tester:
-        # Check if we should run focused daily deals tests
-        import sys
-        if len(sys.argv) > 1 and sys.argv[1] == "daily-deals":
-            passed, failed, results = await tester.run_daily_deals_tests()
-            return failed == 0
+        # Test database connection first
+        if not await tester.test_database_connection():
+            print("\n❌ CRITICAL: Database connection failed. Stopping tests.")
+            return False
+        
+        # Test admin authentication (needed for some tests)
+        await tester.test_admin_authentication()
+        
+        # Test premium user authentication (needed for Square orders)
+        await tester.test_premium_user_authentication()
+        
+        # Test Square payment integration
+        await tester.test_square_payment_integration()
+        
+        # Print summary
+        print("\n" + "=" * 60)
+        print("🎯 SQUARE PAYMENT INTEGRATION SUMMARY")
+        print("=" * 60)
+        
+        total_tests = len(tester.test_results)
+        passed_tests = sum(1 for result in tester.test_results if result["success"])
+        failed_tests = total_tests - passed_tests
+        
+        print(f"Total Tests: {total_tests}")
+        print(f"✅ Passed: {passed_tests}")
+        print(f"❌ Failed: {failed_tests}")
+        print(f"Success Rate: {(passed_tests/total_tests)*100:.1f}%")
+        
+        if failed_tests > 0:
+            print("\n❌ FAILED TESTS:")
+            for result in tester.test_results:
+                if not result["success"]:
+                    print(f"  - {result['test']}: {result['details']}")
+        
+        print("\n" + "=" * 60)
+        
+        # Determine overall result for Square integration
+        square_tests = [
+            "Square API Connection", "Square Location Verification", 
+            "Square Order Creation", "Get User Square Orders"
+        ]
+        
+        square_failures = [
+            result for result in tester.test_results 
+            if not result["success"] and result["test"] in square_tests
+        ]
+        
+        if square_failures:
+            print("🚨 SQUARE PAYMENT INTEGRATION ISSUES FOUND!")
+            print("The following Square payment components are failing:")
+            for failure in square_failures:
+                print(f"  - {failure['test']}")
+            print("\nThese issues must be resolved for Square payment functionality.")
+            return False
         else:
-            await tester.run_all_tests()
+            print("✅ SQUARE PAYMENT INTEGRATION WORKING!")
+            print("All Square payment components are functional.")
+            if failed_tests > 0:
+                print(f"Note: {failed_tests} non-critical tests failed - see details above.")
             return True
 
 if __name__ == "__main__":
