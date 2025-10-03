@@ -8,6 +8,8 @@ import HealthAid from './Wictionary';
 import ProductGrid from './ProductGrid';
 import ProductSelection from './ProductSelection';
 import DailyDealsManagement from './DailyDealsManagement';
+import HealthAidManagement from './HealthAidManagement';
+import StrainsManagement from './StrainsManagement';
 
 // Error Boundary Component
 class ErrorBoundary extends React.Component {
