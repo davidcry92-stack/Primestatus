@@ -60,7 +60,7 @@ export const mockWictionary = [
   {
     id: 'term-za',
     term: 'Za',
-    definition: 'Premium, top-shelf cannabis. The loudest in the room with exceptional aroma, flavor, and effects. Small batch, high-quality product.',
+    definition: 'Premium, top-shelf cannabis. The highest achievement with exceptional aroma, flavor, and effects. Small batch, high-quality product.',
     category: 'slang',
     etymology: 'Modern slang for "exotic" or premium cannabis'
   },
