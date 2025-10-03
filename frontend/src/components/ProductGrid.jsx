@@ -144,7 +144,8 @@ const ProductGrid = ({ category = 'all', tier = null, user, cartItems, setCartIt
     // Check if cart props are available
     if (!setCartItems) {
       console.error('Cart functionality not available - setCartItems prop missing');
-      alert('Cart functionality is currently unavailable');
+      console.error('Available props:', { cartItems: !!cartItems, setCartItems: !!setCartItems });
+      alert('Cart functionality is currently unavailable. Check console for details.');
       return;
     }
 
