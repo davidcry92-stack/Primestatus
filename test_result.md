@@ -529,6 +529,18 @@ test_plan:
           agent: "testing"
           comment: "🎉 ADMIN STRAINS MANAGEMENT PANEL TESTING COMPLETE - FULLY FUNCTIONAL! Comprehensive testing of all Strains management endpoints completed successfully as requested in review. TESTING RESULTS: ✅ ADMIN AUTHENTICATION: admin@statusxsmoakland.com / Admin123! login successful with proper token generation ✅ GET ALL STRAINS: GET /api/admin/strains successfully retrieved strains from admin endpoint ✅ CREATE STRAIN: POST /api/admin/strains successfully created 'Blue Dream' strain with category 'za', type 'hybrid', THC content '17-24%', effects, flavors, ailments, description, and price range (tested without image upload) ✅ UPDATE STRAIN: PUT /api/admin/strains/{strain_id} successfully updated strain with enhanced THC content (18-25%), additional effects (Focused), flavors (Vanilla), ailments (Anxiety), and updated price range ✅ GET STRAINS STATISTICS: GET /api/admin/strains/stats retrieved statistics showing total strains, available strains, categories, and types ✅ SEARCH STRAINS: GET /api/admin/strains/search/blue returned matching results with proper search functionality ✅ GET STRAINS BY CATEGORY: GET /api/admin/strains/category/za retrieved strains filtered by 'za' category ✅ DELETE STRAIN: DELETE /api/admin/strains/{strain_id} successfully removed test strain with cleanup. TECHNICAL FIXES APPLIED: Fixed admin_user parameter handling to use admin_email string, resolved ObjectId serialization issues by cleaning up _id fields in response data. SUCCESS RATE: 7/7 tests passed (100%). Strains Management Panel ready for production use with complete CRUD operations and file upload support."
 
+  - task: "Add-to-Cart Functionality Fix"
+    implemented: true
+    working: "NA"
+    file: "/app/frontend/src/components/ProductGrid.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "CRITICAL CART FIXES APPLIED: User reported 'In preview once I click on select quantity it goes right back to the strain no check out process'. FIXES IMPLEMENTED: 1) Connected ProductGrid to main shopping cart state (cartItems, setCartItems) - removed local cart state, 2) Fixed addToCart function to use proper cart props instead of local state, 3) Added cart item structure with proper product information (id, name, price, quantity, image, tier, category), 4) Added quantity handling and duplicate item checking - existing items get quantity updated, new items get added, 5) Fixed cart integration with Header component - cart icon shows item count, 6) Verified cart props are passed from App.js -> ProductSelection -> ProductGrid. Cart functionality should now properly add items and maintain state instead of returning to strain view."
+
 agent_communication:
     - agent: "main"
       message: "HEALTH-AID INTEGRATION COMPLETE: Successfully implemented Health-Aid visual card and bubble button placement within ProductSelection.jsx grid. Health-Aid card positioned after Wellness/Suppositories card as requested. Updated click handlers to use handleCategoryClick('health-aid') instead of URL redirects. Modified ProductSelection component to display WellnessCenter/Health-Aid dictionary interface when health-aid category is selected. Removed separate Health-Aid section from App.js - now only accessible through product grid selection. Need comprehensive frontend testing to verify: 1) Health-Aid card appears after Wellness card in grid, 2) Clicking Health-Aid card or button displays dictionary interface within ProductSelection view, 3) Back navigation works correctly, 4) Tier-based access control works (Premium users see full content, Basic users see upgrade prompt)."
