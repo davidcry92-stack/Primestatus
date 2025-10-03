@@ -29,12 +29,12 @@ def get_square_client():
     environment = os.environ.get('SQUARE_ENVIRONMENT', 'production')
     
     if environment == 'sandbox':
-        client = squareup.Client(
+        client = square.Client(
             access_token=access_token,
             environment='sandbox'
         )
     else:
-        client = squareup.Client(
+        client = square.Client(
             access_token=access_token,
             environment='production'
         )
