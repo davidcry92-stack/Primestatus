@@ -19,7 +19,6 @@ import AdminApp from "./components/AdminApp";
 import AuthModal from "./components/AuthModal";
 import DeliveryComingSoon from "./components/DeliveryComingSoon";
 import DailyUpdates from "./components/DailyUpdates";
-import UserDebug from "./components/UserDebug";
 
 // Auth Context
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
