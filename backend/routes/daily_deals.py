@@ -9,7 +9,7 @@ import shutil
 
 from models.daily_deals import DailyDeal, DailyDealCreate, DailyDealResponse, DeliverySignup, DeliverySignupResponse, StructuredDeal
 from utils.database import db
-from utils.auth import verify_admin_token
+from routes.admin_auth import verify_admin_token
 
 router = APIRouter()
 security = HTTPBearer()
