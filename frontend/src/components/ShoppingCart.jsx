@@ -99,8 +99,8 @@ const ShoppingCart = ({ cartItems, setCartItems, user }) => {
     setShowCheckout(false);
     setIsOpen(false);
     
-    // Show success message
-    alert(`Payment successful! Order ID: ${paymentResult.orderId}\n\nYour order is ready for pickup at our NYC location. You'll receive a receipt via email.`);
+    // Show success message with pickup code
+    alert(`🎉 Payment Successful!\n\n📋 Your Pickup Code: ${paymentResult.pickupCode}\n\n📍 Show this code at our NYC pickup location\n💳 Order ID: ${paymentResult.orderId}\n💰 Amount: $${paymentResult.amount.toFixed(2)}\n\n📧 Receipt sent to your email\n\n⏰ Admin will verify this code when you pickup your order.`);
   };
 
   const handlePaymentCancel = () => {
