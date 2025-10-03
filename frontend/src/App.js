@@ -229,7 +229,11 @@ const LoginOnlyApp = () => {
         <div className="container mx-auto px-4 py-8">
           <DailyUpdates />
         </div>
-        <ProductSelection user={user} />
+        <ProductSelection 
+          user={user} 
+          cartItems={cartItems}
+          setCartItems={setCartItems}
+        />
       </main>
       <Footer />
       <Toaster />
