@@ -30,10 +30,15 @@ api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      // Token expired or invalid
+      // Token expired or invalid - clear auth data but don't force page refresh
       localStorage.removeItem('access_token');
       localStorage.removeItem('user_data');
-      window.location.href = '/';
+      
+      // Let React handle the redirect instead of forcing a page refresh
+      console.warn('Authentication expired. Please log in again.');
+      
+      // Optionally dispatch a custom event that React components can listen to
+      window.dispatchEvent(new CustomEvent('auth-expired'));
     }
     return Promise.reject(error);
   }
