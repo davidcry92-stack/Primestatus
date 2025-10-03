@@ -22,7 +22,7 @@ class HealthAidTerm(WictionaryBase):
     updated_at: Optional[datetime] = None
 
 @router.get("/terms", response_model=dict)
-async def get_all_health_aid_terms(admin_user: dict = Depends(verify_admin_token)):
+async def get_all_health_aid_terms(admin_email: str = Depends(verify_admin_token)):
     """Get all Health-Aid dictionary terms for admin management."""
     
     try:
