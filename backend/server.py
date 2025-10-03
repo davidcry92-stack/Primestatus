@@ -51,10 +51,11 @@ api_router.include_router(admin_strains.router, prefix="/admin")
 # Include the main router in the app
 app.include_router(api_router)
 
-# Mount static files for video uploads
+# Mount static files for video and image uploads
 uploads_dir = "/app/uploads"
 os.makedirs(uploads_dir, exist_ok=True)
 os.makedirs(f"{uploads_dir}/videos", exist_ok=True)
+os.makedirs(f"{uploads_dir}/strains", exist_ok=True)
 app.mount("/api/uploads", StaticFiles(directory=uploads_dir), name="uploads")
 
 # CORS middleware - Production ready configuration
