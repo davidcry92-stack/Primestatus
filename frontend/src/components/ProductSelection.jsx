@@ -184,7 +184,7 @@ const ProductSelection = ({ onCategorySelect, user }) => {
                   AFFORDABLE BUD
                 </div>
                 <div className="text-sm text-black font-bold mb-2">
-                  "SMOOTH INTRODUCTION FOR BEGINNERS"
+                  "BUT STILL GETS THE JOB DONE"
                 </div>
                 <div className="text-sm text-black font-bold mb-2">
                   "SMOOTH INTRODUCTION FOR BEGINNERS"
