@@ -15,6 +15,27 @@ from utils.database import admins_collection
 router = APIRouter()
 security = HTTPBearer()
 
+async def verify_admin_token(token: str = Depends(verify_token)):
+    """Verify admin token and return admin email."""
+    # First verify the token format is valid
+    admin_email = token  # verify_token returns the email
+    
+    # Check if this email belongs to an admin
+    admin = await admins_collection.find_one({"email": admin_email})
+    if not admin:
+        raise HTTPException(
+            status_code=403,
+            detail="Admin access required"
+        )
+    
+    if not admin.get("is_active", True):
+        raise HTTPException(
+            status_code=403,
+            detail="Admin account is inactive"
+        )
+    
+    return admin_email
+
 # Upload directory for videos
 UPLOAD_DIR = "/app/uploads/videos"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
