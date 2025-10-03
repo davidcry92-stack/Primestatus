@@ -238,6 +238,7 @@ const LoginOnlyApp = () => {
       </main>
       <Footer />
       <Toaster />
+      <UserDebug user={user} />
       
       {showAuthModal && (
         <AuthModal onClose={handleCloseAuth} />
