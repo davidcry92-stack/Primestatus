@@ -158,7 +158,7 @@ async def get_user_orders(
 
 @router.get("/admin/orders")
 async def get_all_orders(
-    credentials: HTTPAuthorizationCredentials = Depends(security)
+    admin_email: str = Depends(verify_token)
 ):
     """Get all Square orders for admin."""
     
