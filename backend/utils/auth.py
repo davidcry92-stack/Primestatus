@@ -66,3 +66,41 @@ def require_premium_membership(user_data: dict):
             status_code=status.HTTP_403_FORBIDDEN,
             detail="Premium membership required"
         )
+
+async def get_verified_user_data(credentials: HTTPAuthorizationCredentials = Depends(security)):
+    """Verify JWT token and return user data from database."""
+    from utils.database import db
+    
+    token = credentials.credentials
+    
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        email: str = payload.get("sub")
+        if email is None:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid authentication credentials",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+        
+        # Get user data from database
+        user = await db.users.find_one({"email": email})
+        if not user:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="User not found",
+                headers={"WWW-Authenticate": "Bearer"},
+            )
+        
+        # Convert ObjectId to string for JSON serialization
+        user["id"] = str(user["_id"])
+        del user["_id"]
+        
+        return user
+        
+    except JWTError:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid authentication credentials",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
