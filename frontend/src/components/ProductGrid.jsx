@@ -138,15 +138,41 @@ const ProductGrid = ({ category = 'all', tier = null, user, cartItems, setCartIt
       return;
     }
 
+    // Check if cart props are available
+    if (!setCartItems) {
+      console.error('Cart functionality not available - setCartItems prop missing');
+      alert('Cart functionality is currently unavailable');
+      return;
+    }
+
     const cartItem = {
-      ...product,
-      quantity: quantity,
-      totalPrice: (product.price * quantity.multiplier).toFixed(2)
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      quantity: quantity.multiplier || 1,
+      image: product.image,
+      tier: product.tier,
+      category: product.category
     };
-    setCart(prevCart => [...prevCart, cartItem]);
+    
+    setCartItems(prevCart => {
+      // Check if item already exists in cart
+      const existingItemIndex = prevCart.findIndex(item => item.id === product.id);
+      
+      if (existingItemIndex > -1) {
+        // Update quantity if item exists
+        const updatedCart = [...prevCart];
+        updatedCart[existingItemIndex].quantity += quantity.multiplier || 1;
+        return updatedCart;
+      } else {
+        // Add new item to cart
+        return [...prevCart, cartItem];
+      }
+    });
+    
     setShowQuantityModal(false);
     setSelectedProduct(null);
-    // Could integrate with actual cart API here
+    alert(`Added ${product.name} to cart!`);
     console.log('Added to cart:', cartItem);
   };
 
