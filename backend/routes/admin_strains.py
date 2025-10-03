@@ -111,7 +111,7 @@ async def create_strain(
             "availability": availability,
             "image_url": image_url,
             "image_filename": image_filename,
-            "created_by": admin_user.get('email', 'admin'),
+            "created_by": admin_email,
             "created_at": datetime.utcnow(),
             "updated_at": datetime.utcnow()
         }
