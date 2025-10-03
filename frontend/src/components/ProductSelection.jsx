@@ -252,10 +252,10 @@ const ProductSelection = ({ onCategorySelect, user }) => {
                   Za
                 </div>
                 <div className="text-2xl font-bold text-pink-300 mb-2">
-                  The Loudest
+                  The Highest Achievement
                 </div>
                 <div className="text-lg text-white mb-4">
-                  in the Room
+                  Get Your Degree!!!
                 </div>
                 <div className="flex justify-center space-x-4 text-yellow-300 text-sm">
                   <span>👃 AROMA</span>
