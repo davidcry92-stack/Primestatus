@@ -58,6 +58,12 @@ const ProductSelection = ({ onCategorySelect, user }) => {
           >
             ← Back to Categories
           </button>
+          
+          {/* Category-specific Daily Updates */}
+          <div className="mb-8">
+            <DailyUpdates selectedCategory={selectedCategory.category} />
+          </div>
+          
           <ProductGrid 
             category={selectedCategory.category} 
             tier={selectedCategory.tier}
