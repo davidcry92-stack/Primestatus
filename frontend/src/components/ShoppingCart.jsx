@@ -254,6 +254,17 @@ const ShoppingCart = ({ cartItems, setCartItems, user }) => {
           </div>
         </div>
       )}
+
+      {/* Square Checkout Modal */}
+      {showCheckout && (
+        <SquareCheckout
+          cartItems={cartItems}
+          totalAmount={getTotalPrice()}
+          onSuccess={handlePaymentSuccess}
+          onCancel={handlePaymentCancel}
+          user={user}
+        />
+      )}
     </div>
   );
 };
