@@ -331,7 +331,7 @@ const ProductSelection = ({ onCategorySelect, user }) => {
                   EDIBLES
                 </div>
                 <div className="text-lg font-bold text-blue-300 mb-4">
-                  A TASTY ALTERNATIVE FOR NON-SMOKER
+                  A TASTY ALTERNATIVE FOR NON-SMOKERS
                 </div>
                 <div className="text-sm text-gray-200 mb-2">
                   Cannabis-infused delights
