@@ -252,14 +252,13 @@ function App() {
 
   // Check verification states on load - STRICT SECURITY MODE
   useEffect(() => {
-    // SECURITY FIX: Always start fresh - clear ALL bypass mechanisms and old tokens
+    // SECURITY FIX: Clear bypass mechanisms but preserve legitimate auth tokens
     const bypassKeys = [
       'admin_token', 
       'super_admin_bypass', 
       'super_admin_demo_token',
-      'demo_admin_token',
-      'access_token',  // Clear old tokens that bypass authentication
-      'user_data'      // Clear old user data that bypasses authentication
+      'demo_admin_token'
+      // NOTE: Removed access_token and user_data to allow session persistence
     ];
     
     bypassKeys.forEach(key => {
@@ -267,13 +266,17 @@ function App() {
       sessionStorage.removeItem(key);
     });
     
-    // Always clear verification states - require fresh verification every time
-    sessionStorage.removeItem('law_enforcement_verified');
-    sessionStorage.removeItem('reentry_verified');
-    sessionStorage.removeItem('app_session_active');
+    // Check if user already completed verification in this session
+    const lawEnforcementVerified = sessionStorage.getItem('law_enforcement_verified');
+    const reentryVerified = sessionStorage.getItem('reentry_verified');
     
-    setIsLawEnforcementVerified(false);
-    setIsReEntryCodeVerified(false);
+    if (lawEnforcementVerified === 'true') {
+      setIsLawEnforcementVerified(true);
+    }
+    if (reentryVerified === 'true') {
+      setIsReEntryCodeVerified(true);
+    }
+    
     setIsSuperAdminMode(false); // No super admin bypasses allowed
   }, []);
 
