@@ -245,7 +245,6 @@ async def cleanup_expired_deals(
         raise HTTPException(status_code=401, detail="Invalid admin token")
     
     try:
-        db = await get_database()
         current_time = datetime.utcnow()
         
         # Find expired deals with videos
