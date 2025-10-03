@@ -90,7 +90,7 @@ async def create_health_aid_term(
 async def update_health_aid_term(
     term_id: str,
     term_data: HealthAidTermCreate,
-    admin_user: dict = Depends(verify_admin_token)
+    admin_email: str = Depends(verify_admin_token)
 ):
     """Update an existing Health-Aid dictionary term."""
     
