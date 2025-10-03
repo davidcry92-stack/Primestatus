@@ -186,7 +186,7 @@ async def search_health_aid_terms(
         raise HTTPException(status_code=500, detail=f"Search failed: {str(e)}")
 
 @router.get("/stats")
-async def get_health_aid_stats(admin_user: dict = Depends(verify_admin_token)):
+async def get_health_aid_stats(admin_email: str = Depends(verify_admin_token)):
     """Get Health-Aid dictionary statistics."""
     
     try:
