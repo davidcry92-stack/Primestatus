@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 import shutil
 
 from models.daily_deals import DailyDeal, DailyDealCreate, DailyDealResponse, DeliverySignup, DeliverySignupResponse, StructuredDeal
-from utils.database import get_database
+from utils.database import db
 from utils.auth import verify_admin_token
 
 router = APIRouter()
