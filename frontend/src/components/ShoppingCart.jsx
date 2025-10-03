@@ -6,6 +6,7 @@ const ShoppingCart = ({ cartItems, setCartItems, user }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [packages, setPackages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [showCheckout, setShowCheckout] = useState(false);
 
   // Fetch available payment packages
   useEffect(() => {
