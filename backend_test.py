@@ -3577,77 +3577,100 @@ class AuthenticationTester:
         return passed_tests, failed_tests, daily_deals_tests
 
 async def main():
-    """Run Square payment integration tests."""
-    print("🎯 SQUARE PAYMENT INTEGRATION TESTING")
-    print("=" * 60)
-    print("Testing Square payment integration with authentication fixes:")
-    print("- Square API connection with confirmed Location ID L9JFNQSBZAW4Y")
-    print("- Premium user authentication for order creation")
-    print("- Square order creation with mock payment source")
-    print("- Order retrieval with proper authentication")
-    print("=" * 60)
+    """Main test runner for StatusXSmoakland admin management panels testing."""
+    print("🚀 STARTING STATUSXSMOAKLAND ADMIN MANAGEMENT PANELS TESTING")
+    print("=" * 80)
+    print(f"Backend URL: {BACKEND_URL}")
+    print(f"Testing Admin: {ADMIN_EMAIL}")
+    print("FOCUS: Health-Aid and Strains Management Panels")
+    print("=" * 80)
     
     async with AuthenticationTester() as tester:
-        # Test database connection first
-        if not await tester.test_database_connection():
+        # Test sequence based on review request priorities
+        test_results = []
+        
+        # 1. Database connection and health check
+        db_healthy = await tester.test_database_connection()
+        if not db_healthy:
             print("\n❌ CRITICAL: Database connection failed. Stopping tests.")
-            return False
+            return
         
-        # Test admin authentication (needed for some tests)
-        await tester.test_admin_authentication()
+        # 2. Admin authentication (REQUIRED for admin management panels)
+        admin_auth_success = await tester.test_admin_authentication()
+        if not admin_auth_success:
+            print("\n❌ CRITICAL: Admin authentication failed. Cannot test admin management panels.")
+            return
         
-        # Test premium user authentication (needed for Square orders)
-        await tester.test_premium_user_authentication()
+        # 3. NEW ADMIN MANAGEMENT PANELS TESTING
+        print("\n🎯 TESTING NEW ADMIN MANAGEMENT PANELS")
+        print("-" * 50)
         
-        # Test Square payment integration
-        await tester.test_square_payment_integration()
+        # Test Health-Aid Management Panel
+        await tester.test_admin_health_aid_management()
+        
+        # Test Strains Management Panel  
+        await tester.test_admin_strains_management()
+        
+        # 4. Verify existing admin functionality still works
+        print("\n🔍 VERIFYING EXISTING ADMIN FUNCTIONALITY")
+        print("-" * 50)
+        
+        await tester.test_member_management()
+        await tester.test_inventory_management()
+        await tester.test_dashboard_stats()
         
         # Print summary
-        print("\n" + "=" * 60)
-        print("🎯 SQUARE PAYMENT INTEGRATION SUMMARY")
-        print("=" * 60)
+        print("\n" + "=" * 80)
+        print("🎯 ADMIN MANAGEMENT PANELS TESTING SUMMARY")
+        print("=" * 80)
         
-        total_tests = len(tester.test_results)
-        passed_tests = sum(1 for result in tester.test_results if result["success"])
-        failed_tests = total_tests - passed_tests
+        passed_tests = [test for test in tester.test_results if test["success"]]
+        failed_tests = [test for test in tester.test_results if not test["success"]]
         
-        print(f"Total Tests: {total_tests}")
-        print(f"✅ Passed: {passed_tests}")
-        print(f"❌ Failed: {failed_tests}")
-        print(f"Success Rate: {(passed_tests/total_tests)*100:.1f}%")
+        print(f"✅ PASSED: {len(passed_tests)} tests")
+        print(f"❌ FAILED: {len(failed_tests)} tests")
+        print(f"📊 SUCCESS RATE: {len(passed_tests)}/{len(tester.test_results)} ({len(passed_tests)/len(tester.test_results)*100:.1f}%)")
         
-        if failed_tests > 0:
-            print("\n❌ FAILED TESTS:")
-            for result in tester.test_results:
-                if not result["success"]:
-                    print(f"  - {result['test']}: {result['details']}")
+        # Categorize results by management panel
+        health_aid_tests = [test for test in tester.test_results if 'health-aid' in test['test'].lower()]
+        strains_tests = [test for test in tester.test_results if 'strain' in test['test'].lower()]
+        admin_tests = [test for test in tester.test_results if 'admin' in test['test'].lower() and 'health-aid' not in test['test'].lower() and 'strain' not in test['test'].lower()]
         
-        print("\n" + "=" * 60)
+        print(f"\n📋 HEALTH-AID MANAGEMENT: {len([t for t in health_aid_tests if t['success']])}/{len(health_aid_tests)} passed")
+        print(f"🌿 STRAINS MANAGEMENT: {len([t for t in strains_tests if t['success']])}/{len(strains_tests)} passed")
+        print(f"⚙️  GENERAL ADMIN: {len([t for t in admin_tests if t['success']])}/{len(admin_tests)} passed")
         
-        # Determine overall result for Square integration
-        square_tests = [
-            "Square API Connection", "Square Location Verification", 
-            "Square Order Creation", "Get User Square Orders"
-        ]
+        if failed_tests:
+            print("\n🔍 FAILED TESTS:")
+            for test in failed_tests:
+                print(f"   ❌ {test['test']}: {test['details']}")
         
-        square_failures = [
-            result for result in tester.test_results 
-            if not result["success"] and result["test"] in square_tests
-        ]
+        print("\n" + "=" * 80)
         
-        if square_failures:
-            print("🚨 SQUARE PAYMENT INTEGRATION ISSUES FOUND!")
-            print("The following Square payment components are failing:")
-            for failure in square_failures:
-                print(f"  - {failure['test']}")
-            print("\nThese issues must be resolved for Square payment functionality.")
-            return False
+        # Determine overall result for admin management panels
+        health_aid_failures = [test for test in failed_tests if 'health-aid' in test['test'].lower()]
+        strains_failures = [test for test in failed_tests if 'strain' in test['test'].lower()]
+        
+        if health_aid_failures or strains_failures:
+            print("🚨 ADMIN MANAGEMENT PANEL ISSUES FOUND")
+            if health_aid_failures:
+                print("   🔥 Health-Aid Management Panel Issues:")
+                for failure in health_aid_failures:
+                    print(f"      - {failure['test']}: {failure['details']}")
+            if strains_failures:
+                print("   🔥 Strains Management Panel Issues:")
+                for failure in strains_failures:
+                    print(f"      - {failure['test']}: {failure['details']}")
+        elif len(failed_tests) == 0:
+            print("🎉 ALL ADMIN MANAGEMENT PANELS FULLY FUNCTIONAL")
+            print("✅ Health-Aid Management: Complete CRUD operations working")
+            print("✅ Strains Management: Complete CRUD operations working")
+            print("✅ Admin Authentication: Working correctly")
         else:
-            print("✅ SQUARE PAYMENT INTEGRATION WORKING!")
-            print("All Square payment components are functional.")
-            if failed_tests > 0:
-                print(f"Note: {failed_tests} non-critical tests failed - see details above.")
-            return True
+            print("⚠️  ADMIN MANAGEMENT PANELS MOSTLY FUNCTIONAL")
+            print("   Minor issues found in supporting systems")
+        
+        print("=" * 80)
 
 if __name__ == "__main__":
     success = asyncio.run(main())
