@@ -27,12 +27,12 @@ def get_square_client():
     
     # Convert environment string to Square environment enum
     if environment == 'sandbox':
-        env = square.environment.SquareEnvironment.SANDBOX
+        env = 'sandbox'
     else:
-        env = square.environment.SquareEnvironment.PRODUCTION
+        env = 'production'
     
-    client = square.Square(
-        token=access_token,
+    client = square.Client(
+        access_token=access_token,
         environment=env
     )
     
