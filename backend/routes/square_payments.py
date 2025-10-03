@@ -140,14 +140,9 @@ async def create_square_order(
 
 @router.get("/orders", response_model=List[SquareOrder])
 async def get_user_orders(
-    credentials: HTTPAuthorizationCredentials = Depends(security)
+    user_email: str = Depends(verify_token)
 ):
     """Get user's Square orders."""
-    
-    try:
-        user_email = await verify_token(credentials.credentials)
-    except:
-        raise HTTPException(status_code=401, detail="Invalid token")
     
     try:
         orders_cursor = db.square_orders.find({"user_email": user_email}).sort("created_at", -1)
