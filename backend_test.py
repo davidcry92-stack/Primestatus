@@ -1604,56 +1604,60 @@ class AuthenticationTester:
                 packages_response
             )
         
-        # Test 6: Square Checkout Session Creation for Cart
-        checkout_data = {
-            "package_id": "medium",
-            "origin_url": "https://statusapp-fix.preview.emergentagent.com",
-            "metadata": {
-                "cart_items": "test_cart_data",
-                "user_tier": "premium"
-            }
+        # Test 6: Square Order Creation for Cart
+        order_data = {
+            "items": [
+                {
+                    "name": "Test Cart Item",
+                    "quantity": 1,
+                    "price": 25.00,
+                    "category": "za"
+                }
+            ],
+            "payment_source_id": "test_card_nonce_12345",  # Test nonce
+            "pickup_notes": "Test cart checkout"
         }
         
-        success, checkout_response, status = await self.make_request(
+        success, order_response, status = await self.make_request(
             "POST", 
-            "/square/checkout/session", 
-            checkout_data,
+            "/square/create-order", 
+            order_data,
             headers_user
         )
         
-        if success and "session_id" in checkout_response:
-            session_id = checkout_response["session_id"]
+        if success and "order_id" in order_response:
+            order_id = order_response["order_id"]
             self.log_test(
-                "Square Checkout Session for Cart",
+                "Square Order Creation for Cart",
                 True,
-                f"Successfully created checkout session: {session_id[:20]}..."
+                f"Successfully created Square order: {order_id[:20]}..."
             )
-            
-            # Test 7: Payment Status Check for Cart
-            success, status_response, status_code = await self.make_request(
-                "GET", 
-                f"/square/checkout/status/{session_id}",
-                headers=headers_user
-            )
-            
-            if success:
-                self.log_test(
-                    "Square Payment Status Check",
-                    True,
-                    f"Payment status retrieved: {status_response.get('status', 'unknown')}"
-                )
-            else:
-                self.log_test(
-                    "Square Payment Status Check",
-                    False,
-                    f"Failed to check payment status: {status_response}"
-                )
         else:
             self.log_test(
-                "Square Checkout Session for Cart",
+                "Square Order Creation for Cart",
                 False,
-                f"Failed to create checkout session: {checkout_response}",
-                checkout_response
+                f"Failed to create Square order: {order_response}",
+                order_response
+            )
+        
+        # Test 7: Get User Square Orders for Cart
+        success, orders_response, status = await self.make_request(
+            "GET", 
+            "/square/orders",
+            headers=headers_user
+        )
+        
+        if success and isinstance(orders_response, list):
+            self.log_test(
+                "Get User Square Orders",
+                True,
+                f"Retrieved {len(orders_response)} Square orders for user"
+            )
+        else:
+            self.log_test(
+                "Get User Square Orders",
+                False,
+                f"Failed to get user orders: {orders_response}"
             )
         
         # Test 8: Authentication for Cart Access
