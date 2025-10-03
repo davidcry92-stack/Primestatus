@@ -255,13 +255,30 @@ async def test_square_connection():
         
         result = locations_api.list()
         
-        if result.is_error():
+        # Check if response has errors
+        if hasattr(result, 'errors') and result.errors:
             return {
                 "success": False,
                 "error": str(result.errors)
             }
         
-        locations = result.body.get('locations', [])
+        # Check status code
+        if hasattr(result, 'status_code') and result.status_code != 200:
+            error_detail = "Unknown error"
+            if hasattr(result, 'body') and isinstance(result.body, dict):
+                errors = result.body.get('errors', [])
+                if errors:
+                    error_detail = errors[0].get('detail', 'Unknown error')
+            
+            return {
+                "success": False,
+                "error": f"HTTP {result.status_code}: {error_detail}"
+            }
+        
+        # Success case
+        locations = []
+        if hasattr(result, 'body') and isinstance(result.body, dict):
+            locations = result.body.get('locations', [])
         
         return {
             "success": True,
