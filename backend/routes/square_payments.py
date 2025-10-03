@@ -100,7 +100,7 @@ async def create_square_order(
         }
         
         payments_api = client.payments
-        payment_result = payments_api.create_payment(body=payment_body)
+        payment_result = payments_api.create(body=payment_body)
         
         if payment_result.is_error():
             error_message = str(payment_result.errors)
