@@ -1,14 +1,22 @@
-from fastapi import APIRouter, HTTPException, status, Depends
-from typing import List
-from models.daily_deal import DailyDeal, DailyDealCreate, DailyDealResponse
-from models.product import ProductResponse
-from utils.database import daily_deals_collection, products_collection, inventory_collection, convert_object_id
-from utils.auth import verify_token
-from bson import ObjectId
+from fastapi import APIRouter, HTTPException, Depends, File, UploadFile, Form
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from typing import List, Optional
+import json
+import os
+import uuid
 from datetime import datetime, timedelta
-import random
+import shutil
 
-router = APIRouter(prefix="/deals", tags=["daily deals"])
+from models.daily_deals import DailyDeal, DailyDealCreate, DailyDealResponse, DeliverySignup, DeliverySignupResponse, StructuredDeal
+from utils.database import get_database
+from utils.auth import verify_admin_token
+
+router = APIRouter()
+security = HTTPBearer()
+
+# Upload directory for videos
+UPLOAD_DIR = "/app/uploads/videos"
+os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 @router.get("/daily", response_model=List[dict])
 async def get_daily_deals():
