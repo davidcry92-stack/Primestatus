@@ -43,15 +43,9 @@ def get_square_client():
 @router.post("/create-order", response_model=SquarePaymentResponse)
 async def create_square_order(
     order_request: SquareOrderRequest,
-    credentials: HTTPAuthorizationCredentials = Depends(security)
+    user_email: str = Depends(verify_token)
 ):
     """Create a Square order and process payment."""
-    
-    # Verify user token
-    try:
-        user_email = await verify_token(credentials.credentials)
-    except:
-        raise HTTPException(status_code=401, detail="Invalid token")
     
     try:
         client = get_square_client()
