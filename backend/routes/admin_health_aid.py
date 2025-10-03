@@ -38,7 +38,7 @@ async def get_all_health_aid_terms(admin_user: dict = Depends(verify_admin_token
             terms.append(term_data)
         
         return {
-            "terms": [term.dict() for term in terms],
+            "terms": terms,
             "count": len(terms)
         }
         
