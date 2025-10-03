@@ -3,7 +3,7 @@ from typing import List, Optional
 from datetime import datetime
 import uuid
 
-from models.wictionary import WictionaryEntryCreate, WictionaryEntry, WictionaryResponse
+from models.wictionary import WictionaryCreate, WictionaryBase
 from utils.database import db
 from utils.auth import verify_token
 from routes.admin_auth import verify_admin_token
