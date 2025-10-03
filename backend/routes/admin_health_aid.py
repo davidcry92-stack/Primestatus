@@ -126,7 +126,7 @@ async def update_health_aid_term(
 @router.delete("/terms/{term_id}")
 async def delete_health_aid_term(
     term_id: str,
-    admin_user: dict = Depends(verify_admin_token)
+    admin_email: str = Depends(verify_admin_token)
 ):
     """Delete a Health-Aid dictionary term."""
     
