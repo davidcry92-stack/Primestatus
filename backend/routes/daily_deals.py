@@ -224,7 +224,17 @@ async def get_delivery_signups(
     
     try:
         signups_cursor = db.delivery_signups.find({"is_active": True}).sort("subscribed_at", -1)
-        signups = await signups_cursor.to_list(length=None)
+        signups_data = await signups_cursor.to_list(length=None)
+        
+        # Convert ObjectId to string for JSON serialization
+        signups = []
+        for signup in signups_data:
+            signup_dict = {
+                "email": signup.get("email"),
+                "subscribed_at": signup.get("subscribed_at"),
+                "is_active": signup.get("is_active", True)
+            }
+            signups.append(signup_dict)
         
         return {
             "signups": signups,
