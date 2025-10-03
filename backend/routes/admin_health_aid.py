@@ -72,12 +72,12 @@ async def create_health_aid_term(
         }
         
         # Save to database
-        await db.wictionary.insert_one(new_term.dict())
+        await db.wictionary.insert_one(new_term_dict)
         
         return {
             "success": True,
             "message": "Health-Aid term created successfully",
-            "term_id": new_term.id
+            "term_id": new_term_dict["id"]
         }
         
     except HTTPException:
