@@ -221,8 +221,6 @@ async def get_delivery_signups(
         raise HTTPException(status_code=401, detail="Invalid admin token")
     
     try:
-        db = await get_database()
-        
         signups_cursor = db.delivery_signups.find({"is_active": True}).sort("subscribed_at", -1)
         signups = await signups_cursor.to_list(length=None)
         
