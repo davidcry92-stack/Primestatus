@@ -48,7 +48,7 @@ async def get_all_health_aid_terms(admin_user: dict = Depends(verify_admin_token
 @router.post("/terms", response_model=dict)
 async def create_health_aid_term(
     term_data: HealthAidTermCreate,
-    admin_user: dict = Depends(verify_admin_token)
+    admin_email: str = Depends(verify_admin_token)
 ):
     """Create a new Health-Aid dictionary term."""
     
@@ -67,7 +67,7 @@ async def create_health_aid_term(
             "related_terms": term_data.related_terms or [],
             "etymology": term_data.etymology or "",
             "examples": [term_data.usage_examples] if term_data.usage_examples else [],
-            "created_by": admin_user.get('email', 'admin'),
+            "created_by": admin_email,
             "created_at": datetime.utcnow(),
             "updated_at": datetime.utcnow()
         }
