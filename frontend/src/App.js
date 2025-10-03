@@ -270,10 +270,14 @@ function App() {
     const hasValidToken = localStorage.getItem('access_token');
     const hasValidUserData = localStorage.getItem('user_data');
     
+    // Declare variables in proper scope
+    let lawEnforcementVerified = null;
+    let reentryVerified = null;
+    
     if (hasValidToken && hasValidUserData) {
       // User has valid session - restore verification states
-      const lawEnforcementVerified = sessionStorage.getItem('law_enforcement_verified');
-      const reentryVerified = sessionStorage.getItem('reentry_verified');
+      lawEnforcementVerified = sessionStorage.getItem('law_enforcement_verified');
+      reentryVerified = sessionStorage.getItem('reentry_verified');
       
       if (lawEnforcementVerified === 'true') {
         setIsLawEnforcementVerified(true);
@@ -292,8 +296,8 @@ function App() {
     console.log('App useEffect - Verification states:', { 
       lawEnforcementVerified, 
       reentryVerified,
-      hasToken: !!localStorage.getItem('access_token'),
-      hasUserData: !!localStorage.getItem('user_data')
+      hasToken: !!hasValidToken,
+      hasUserData: !!hasValidUserData
     });
     
     setIsSuperAdminMode(false); // No super admin bypasses allowed
