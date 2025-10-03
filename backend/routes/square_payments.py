@@ -67,17 +67,17 @@ async def create_square_order(
         
         # Create order with proper Square SDK format
         idempotency_key = str(uuid.uuid4())
-        create_order_body = {
-            'idempotency_key': idempotency_key,
-            'order': {
-                'location_id': location_id,
-                'line_items': order_line_items,
-                'reference_id': str(uuid.uuid4())
-            }
+        order_data = {
+            'location_id': location_id,
+            'line_items': order_line_items,
+            'reference_id': str(uuid.uuid4())
         }
         
         orders_api = client.orders
-        order_result = orders_api.create(body=create_order_body)
+        order_result = orders_api.create(
+            order=order_data,
+            idempotency_key=idempotency_key
+        )
         
         if order_result.is_error():
             error_message = str(order_result.errors)
