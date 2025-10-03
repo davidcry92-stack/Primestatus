@@ -80,12 +80,9 @@ async def create_square_order(
             idempotency_key=idempotency_key
         )
         
-        if order_result.is_error():
-            error_message = str(order_result.errors)
-            raise HTTPException(status_code=400, detail=f"Square order creation failed: {error_message}")
-        
-        square_order = order_result.body.get('order')
-        square_order_id = square_order.get('id')
+        # Square SDK raises exceptions for errors, so if we get here, it succeeded
+        square_order = order_result.order
+        square_order_id = square_order.id
         
         # Create payment
         payment_idempotency_key = str(uuid.uuid4())
