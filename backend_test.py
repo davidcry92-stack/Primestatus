@@ -1570,7 +1570,7 @@ class AuthenticationTester:
         print("\n=== TESTING SQUARE PAYMENT INTEGRATION ===")
         
         # Test 1: Square Connection Test
-        success, response, status = await self.make_request("GET", "/square/test-connection")
+        success, response, status = await self.make_request("POST", "/square/test-connection")
         
         if success and response.get("success"):
             locations = response.get("locations", [])
