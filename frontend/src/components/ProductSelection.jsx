@@ -68,6 +68,8 @@ const ProductSelection = ({ user, cartItems, setCartItems, onCategorySelect }) =
             category={selectedCategory.category} 
             tier={selectedCategory.tier}
             user={user}
+            cartItems={cartItems}
+            setCartItems={setCartItems}
             showTitle={true}
           />
         </div>
