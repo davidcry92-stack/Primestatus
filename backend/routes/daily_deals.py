@@ -77,7 +77,7 @@ async def create_daily_deal(
             video_url=video_url,
             video_filename=video_filename,
             expires_at=expires_at_dt,
-            created_by=admin_user.get('id', 'admin')
+            created_by=admin_email
         )
         
         # Save to database
