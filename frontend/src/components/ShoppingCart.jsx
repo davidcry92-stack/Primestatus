@@ -257,13 +257,15 @@ const ShoppingCart = ({ cartItems, setCartItems, user }) => {
 
       {/* Square Checkout Modal */}
       {showCheckout && (
-        <SquareCheckout
-          cartItems={cartItems}
-          totalAmount={getTotalPrice()}
-          onSuccess={handlePaymentSuccess}
-          onCancel={handlePaymentCancel}
-          user={user}
-        />
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+          <div className="max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <SquareCheckout
+              cartItems={cartItems}
+              onSuccess={handlePaymentSuccess}
+              onCancel={handlePaymentCancel}
+            />
+          </div>
+        </div>
       )}
     </div>
   );
