@@ -87,20 +87,21 @@ async def create_square_order(
         square_order_id = square_order.get('id')
         
         # Create payment
-        payment_body = {
-            'source_id': order_request.payment_source_id,
-            'amount_money': {
+        payment_idempotency_key = str(uuid.uuid4())
+        
+        payments_api = client.payments
+        payment_result = payments_api.create(
+            source_id=order_request.payment_source_id,
+            idempotency_key=payment_idempotency_key,
+            amount_money={
                 'amount': total_amount,
                 'currency': 'USD'
             },
-            'location_id': location_id,
-            'reference_id': f"StatusX-{uuid.uuid4()}",
-            'note': f"StatusXSmoakland Order - {order_request.user_name}",
-            'order_id': square_order_id
-        }
-        
-        payments_api = client.payments
-        payment_result = payments_api.create(body=payment_body)
+            location_id=location_id,
+            reference_id=f"StatusX-{uuid.uuid4()}",
+            note=f"StatusXSmoakland Order - {order_request.user_name}",
+            order_id=square_order_id
+        )
         
         if payment_result.is_error():
             error_message = str(payment_result.errors)
