@@ -490,6 +490,18 @@ test_plan:
           agent: "testing"
           comment: "✅ COMPREHENSIVE AUTHENTICATION & AUTHORIZATION TESTING COMPLETE: All critical security requirements verified. NO content accessible without login - Login Required screen properly blocks all content. All demo accounts working: Admin has full access to products, Wictionary, AND admin dashboard button visible. Premium has access to products AND Wictionary with 'PREMIUM EXCLUSIVE' badge. Basic has access to products ONLY with upgrade prompt for Wictionary. Tier-based authorization working correctly with proper access control for each user type. 100% success rate on all security tests."
 
+  - task: "Square Payment Integration"
+    implemented: true
+    working: false
+    file: "/app/backend/routes/square_payments.py"
+    stuck_count: 1
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: false
+          agent: "testing"
+          comment: "🎯 SQUARE PAYMENT INTEGRATION TESTING COMPLETE - PARTIAL SUCCESS WITH AUTHENTICATION ISSUE! Square API connection working with production credentials, but user authentication failing in order creation endpoints. SUCCESSFUL: ✅ Square API connection (POST /api/square/test-connection) ✅ Square SDK client initialization fixed ✅ Production credentials authenticate with Square ✅ Error handling working. FAILED: ❌ Location ID L9JFNQSBZAW4Y not found in Square account ❌ User JWT token validation failing in Square order routes - 'Invalid token' errors for authenticated users. TECHNICAL FIXES APPLIED: Fixed Square SDK initialization (token parameter), corrected API method names (locations.list), improved error handling. CRITICAL ISSUE: User authentication verification in Square payment routes needs debugging. SUCCESS RATE: 4/8 tests passed (50%)."
+
 agent_communication:
     - agent: "main"
       message: "HEALTH-AID INTEGRATION COMPLETE: Successfully implemented Health-Aid visual card and bubble button placement within ProductSelection.jsx grid. Health-Aid card positioned after Wellness/Suppositories card as requested. Updated click handlers to use handleCategoryClick('health-aid') instead of URL redirects. Modified ProductSelection component to display WellnessCenter/Health-Aid dictionary interface when health-aid category is selected. Removed separate Health-Aid section from App.js - now only accessible through product grid selection. Need comprehensive frontend testing to verify: 1) Health-Aid card appears after Wellness card in grid, 2) Clicking Health-Aid card or button displays dictionary interface within ProductSelection view, 3) Back navigation works correctly, 4) Tier-based access control works (Premium users see full content, Basic users see upgrade prompt)."
