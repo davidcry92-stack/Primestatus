@@ -15,7 +15,7 @@ import {
 import { mockProducts, mockDailyDeals, inStockProducts, outOfStockProducts } from '../data/actual-inventory';
 import ProductRating from './ProductRating';
 
-const ProductGrid = ({ category = 'all', tier = null, user, showTitle = false }) => {
+const ProductGrid = ({ category = 'all', tier = null, user, cartItems, setCartItems, showTitle = false }) => {
   const [selectedCategory, setSelectedCategory] = useState(category);
   const [cart, setCart] = useState([]);
   const [showOutOfStock, setShowOutOfStock] = useState(false);
