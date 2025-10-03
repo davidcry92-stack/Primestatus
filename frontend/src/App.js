@@ -223,9 +223,9 @@ const LoginOnlyApp = () => {
         setCartItems={setCartItems}
         onAuthClick={handleAuthClick}
       />
+      <DeliveryComingSoon />
       <main>
         <HeroSection onAuthClick={handleAuthClick} />
-        <DeliveryComingSoon />
         <div className="container mx-auto px-4 py-8">
           <DailyUpdates />
         </div>
