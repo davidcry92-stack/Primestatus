@@ -101,14 +101,11 @@ async def create_square_order(
             order_id=square_order_id
         )
         
-        if payment_result.is_error():
-            error_message = str(payment_result.errors)
-            raise HTTPException(status_code=400, detail=f"Square payment failed: {error_message}")
-        
-        payment = payment_result.body.get('payment')
-        payment_id = payment.get('id')
-        payment_status = payment.get('status')
-        receipt_url = payment.get('receipt_url')
+        # Square SDK raises exceptions for errors, so if we get here, it succeeded
+        payment = payment_result.payment
+        payment_id = payment.id
+        payment_status = payment.status
+        receipt_url = payment.receipt_url
         
         # Save order to database
         db_order = SquareOrder(
