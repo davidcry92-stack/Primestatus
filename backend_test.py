@@ -1565,6 +1565,391 @@ class AuthenticationTester:
             f"Metadata properly processed: {status_code}"
         )
     
+    async def test_admin_health_aid_management(self):
+        """Test the new admin Health-Aid management endpoints."""
+        print("\n=== TESTING ADMIN HEALTH-AID MANAGEMENT ===")
+        
+        if not self.admin_token:
+            self.log_test("Admin Health-Aid Management", False, "No admin token available")
+            return False
+        
+        headers = {"Authorization": f"Bearer {self.admin_token}"}
+        test_term_id = None
+        
+        try:
+            # Test 1: Get all Health-Aid terms
+            success, terms_response, status = await self.make_request(
+                "GET", 
+                "/admin/wictionary/terms", 
+                headers=headers
+            )
+            
+            if success and "terms" in terms_response:
+                terms = terms_response["terms"]
+                self.log_test(
+                    "Get All Health-Aid Terms",
+                    True,
+                    f"Retrieved {len(terms)} Health-Aid terms"
+                )
+            else:
+                self.log_test(
+                    "Get All Health-Aid Terms",
+                    False,
+                    f"Failed to retrieve Health-Aid terms: {terms_response}",
+                    terms_response
+                )
+            
+            # Test 2: Create new Health-Aid term
+            new_term_data = {
+                "term": "OG Kush",
+                "definition": "Classic cannabis strain known for its potent effects and distinctive aroma. A hybrid strain that provides both relaxing and euphoric effects.",
+                "category": "strain",
+                "related_terms": ["Kush", "Hybrid", "Classic"],
+                "etymology": "Named after the original grower 'OG' meaning 'Original Gangster'",
+                "usage_examples": "OG Kush is perfect for evening relaxation and stress relief."
+            }
+            
+            success, create_response, status = await self.make_request(
+                "POST", 
+                "/admin/wictionary/terms", 
+                new_term_data, 
+                headers=headers
+            )
+            
+            if success and create_response.get("success"):
+                test_term_id = create_response.get("term_id")
+                self.log_test(
+                    "Create Health-Aid Term",
+                    True,
+                    f"Successfully created Health-Aid term 'OG Kush' with ID: {test_term_id}"
+                )
+            else:
+                self.log_test(
+                    "Create Health-Aid Term",
+                    False,
+                    f"Failed to create Health-Aid term: {create_response}",
+                    create_response
+                )
+            
+            # Test 3: Update Health-Aid term
+            if test_term_id:
+                update_data = {
+                    "term": "OG Kush",
+                    "definition": "Updated: Classic cannabis strain known for its potent effects, distinctive aroma, and therapeutic benefits. A hybrid strain that provides both relaxing and euphoric effects.",
+                    "category": "strain",
+                    "related_terms": ["Kush", "Hybrid", "Classic", "Therapeutic"],
+                    "etymology": "Named after the original grower 'OG' meaning 'Original Gangster'",
+                    "usage_examples": "OG Kush is perfect for evening relaxation, stress relief, and pain management."
+                }
+                
+                success, update_response, status = await self.make_request(
+                    "PUT", 
+                    f"/admin/wictionary/terms/{test_term_id}", 
+                    update_data, 
+                    headers=headers
+                )
+                
+                if success and update_response.get("success"):
+                    self.log_test(
+                        "Update Health-Aid Term",
+                        True,
+                        f"Successfully updated Health-Aid term {test_term_id}"
+                    )
+                else:
+                    self.log_test(
+                        "Update Health-Aid Term",
+                        False,
+                        f"Failed to update Health-Aid term: {update_response}",
+                        update_response
+                    )
+            
+            # Test 4: Get Health-Aid statistics
+            success, stats_response, status = await self.make_request(
+                "GET", 
+                "/admin/wictionary/stats", 
+                headers=headers
+            )
+            
+            if success and "total_terms" in stats_response:
+                total_terms = stats_response["total_terms"]
+                categories = stats_response.get("categories", [])
+                self.log_test(
+                    "Get Health-Aid Statistics",
+                    True,
+                    f"Retrieved statistics: {total_terms} total terms across {len(categories)} categories"
+                )
+            else:
+                self.log_test(
+                    "Get Health-Aid Statistics",
+                    False,
+                    f"Failed to retrieve Health-Aid statistics: {stats_response}",
+                    stats_response
+                )
+            
+            # Test 5: Search Health-Aid terms
+            success, search_response, status = await self.make_request(
+                "GET", 
+                "/admin/wictionary/terms/search/kush", 
+                headers=headers
+            )
+            
+            if success and "terms" in search_response:
+                search_results = search_response["terms"]
+                self.log_test(
+                    "Search Health-Aid Terms",
+                    True,
+                    f"Search for 'kush' returned {len(search_results)} results"
+                )
+            else:
+                self.log_test(
+                    "Search Health-Aid Terms",
+                    False,
+                    f"Failed to search Health-Aid terms: {search_response}",
+                    search_response
+                )
+            
+            # Test 6: Delete Health-Aid term (cleanup)
+            if test_term_id:
+                success, delete_response, status = await self.make_request(
+                    "DELETE", 
+                    f"/admin/wictionary/terms/{test_term_id}", 
+                    headers=headers
+                )
+                
+                if success and delete_response.get("success"):
+                    self.log_test(
+                        "Delete Health-Aid Term",
+                        True,
+                        f"Successfully deleted Health-Aid term {test_term_id}"
+                    )
+                else:
+                    self.log_test(
+                        "Delete Health-Aid Term",
+                        False,
+                        f"Failed to delete Health-Aid term: {delete_response}",
+                        delete_response
+                    )
+            
+            return True
+            
+        except Exception as e:
+            self.log_test(
+                "Admin Health-Aid Management Error",
+                False,
+                f"Unexpected error in Health-Aid management testing: {str(e)}"
+            )
+            return False
+
+    async def test_admin_strains_management(self):
+        """Test the new admin Strains management endpoints."""
+        print("\n=== TESTING ADMIN STRAINS MANAGEMENT ===")
+        
+        if not self.admin_token:
+            self.log_test("Admin Strains Management", False, "No admin token available")
+            return False
+        
+        headers = {"Authorization": f"Bearer {self.admin_token}"}
+        test_strain_id = None
+        
+        try:
+            # Test 1: Get all strains
+            success, strains_response, status = await self.make_request(
+                "GET", 
+                "/admin/strains", 
+                headers=headers
+            )
+            
+            if success and "strains" in strains_response:
+                strains = strains_response["strains"]
+                self.log_test(
+                    "Get All Strains",
+                    True,
+                    f"Retrieved {len(strains)} strains from admin endpoint"
+                )
+            else:
+                self.log_test(
+                    "Get All Strains",
+                    False,
+                    f"Failed to retrieve strains: {strains_response}",
+                    strains_response
+                )
+            
+            # Test 2: Create new strain (without image upload for testing)
+            strain_form_data = {
+                "name": "Blue Dream",
+                "category": "za",
+                "type": "hybrid",
+                "thc_content": "17-24%",
+                "cbd_content": "0.1-0.2%",
+                "effects": "Euphoric, Relaxed, Happy, Uplifted, Creative",
+                "flavors": "Berry, Sweet, Blueberry",
+                "ailments": "Stress, Depression, Pain, Fatigue, Lack of Appetite",
+                "description": "Blue Dream is a sativa-dominant hybrid originating in California. It achieves a perfect balance between full-body relaxation and gentle cerebral invigoration.",
+                "price_range": "$35-45",
+                "availability": True
+            }
+            
+            success, create_response, status = await self.make_request_form(
+                "POST", 
+                "/admin/strains", 
+                strain_form_data, 
+                headers=headers
+            )
+            
+            if success and create_response.get("success"):
+                test_strain_id = create_response.get("strain_id")
+                self.log_test(
+                    "Create Strain",
+                    True,
+                    f"Successfully created strain 'Blue Dream' with ID: {test_strain_id}"
+                )
+            else:
+                self.log_test(
+                    "Create Strain",
+                    False,
+                    f"Failed to create strain: {create_response}",
+                    create_response
+                )
+            
+            # Test 3: Update strain
+            if test_strain_id:
+                update_form_data = {
+                    "name": "Blue Dream",
+                    "category": "za",
+                    "type": "hybrid",
+                    "thc_content": "18-25%",  # Updated THC content
+                    "cbd_content": "0.1-0.2%",
+                    "effects": "Euphoric, Relaxed, Happy, Uplifted, Creative, Focused",  # Added Focused
+                    "flavors": "Berry, Sweet, Blueberry, Vanilla",  # Added Vanilla
+                    "ailments": "Stress, Depression, Pain, Fatigue, Lack of Appetite, Anxiety",  # Added Anxiety
+                    "description": "Updated: Blue Dream is a sativa-dominant hybrid originating in California. It achieves a perfect balance between full-body relaxation and gentle cerebral invigoration. Popular among both novice and experienced users.",
+                    "price_range": "$40-50",  # Updated price range
+                    "availability": True
+                }
+                
+                success, update_response, status = await self.make_request_form(
+                    "PUT", 
+                    f"/admin/strains/{test_strain_id}", 
+                    update_form_data, 
+                    headers=headers
+                )
+                
+                if success and update_response.get("success"):
+                    self.log_test(
+                        "Update Strain",
+                        True,
+                        f"Successfully updated strain {test_strain_id}"
+                    )
+                else:
+                    self.log_test(
+                        "Update Strain",
+                        False,
+                        f"Failed to update strain: {update_response}",
+                        update_response
+                    )
+            
+            # Test 4: Get strains statistics
+            success, stats_response, status = await self.make_request(
+                "GET", 
+                "/admin/strains/stats", 
+                headers=headers
+            )
+            
+            if success and "total_strains" in stats_response:
+                total_strains = stats_response["total_strains"]
+                available_strains = stats_response.get("available_strains", 0)
+                categories = stats_response.get("categories", [])
+                types = stats_response.get("types", [])
+                
+                self.log_test(
+                    "Get Strains Statistics",
+                    True,
+                    f"Retrieved statistics: {total_strains} total strains ({available_strains} available), {len(categories)} categories, {len(types)} types"
+                )
+            else:
+                self.log_test(
+                    "Get Strains Statistics",
+                    False,
+                    f"Failed to retrieve strains statistics: {stats_response}",
+                    stats_response
+                )
+            
+            # Test 5: Search strains
+            success, search_response, status = await self.make_request(
+                "GET", 
+                "/admin/strains/search/blue", 
+                headers=headers
+            )
+            
+            if success and "strains" in search_response:
+                search_results = search_response["strains"]
+                self.log_test(
+                    "Search Strains",
+                    True,
+                    f"Search for 'blue' returned {len(search_results)} results"
+                )
+            else:
+                self.log_test(
+                    "Search Strains",
+                    False,
+                    f"Failed to search strains: {search_response}",
+                    search_response
+                )
+            
+            # Test 6: Get strains by category
+            success, category_response, status = await self.make_request(
+                "GET", 
+                "/admin/strains/category/za", 
+                headers=headers
+            )
+            
+            if success and "strains" in category_response:
+                category_strains = category_response["strains"]
+                self.log_test(
+                    "Get Strains by Category",
+                    True,
+                    f"Retrieved {len(category_strains)} strains in 'za' category"
+                )
+            else:
+                self.log_test(
+                    "Get Strains by Category",
+                    False,
+                    f"Failed to get strains by category: {category_response}",
+                    category_response
+                )
+            
+            # Test 7: Delete strain (cleanup)
+            if test_strain_id:
+                success, delete_response, status = await self.make_request(
+                    "DELETE", 
+                    f"/admin/strains/{test_strain_id}", 
+                    headers=headers
+                )
+                
+                if success and delete_response.get("success"):
+                    self.log_test(
+                        "Delete Strain",
+                        True,
+                        f"Successfully deleted strain {test_strain_id}"
+                    )
+                else:
+                    self.log_test(
+                        "Delete Strain",
+                        False,
+                        f"Failed to delete strain: {delete_response}",
+                        delete_response
+                    )
+            
+            return True
+            
+        except Exception as e:
+            self.log_test(
+                "Admin Strains Management Error",
+                False,
+                f"Unexpected error in strains management testing: {str(e)}"
+            )
+            return False
+
     async def test_square_payment_integration(self):
         """Test Square payment integration backend endpoints."""
         print("\n=== TESTING SQUARE PAYMENT INTEGRATION ===")
