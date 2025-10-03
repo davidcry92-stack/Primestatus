@@ -187,7 +187,7 @@ const ProductSelection = ({ onCategorySelect, user }) => {
                   "SMOOTH INTRODUCTION FOR BEGINNERS"
                 </div>
                 <div className="text-sm text-black font-bold mb-2">
-                  "BASIC BUD, BUT STILL GETS THE JOB DONE"
+                  "SMOOTH INTRODUCTION FOR BEGINNERS"
                 </div>
                 {/* Character face with sunglasses */}
                 <div className="flex justify-center mt-4">
