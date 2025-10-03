@@ -370,23 +370,27 @@ const ProductGrid = ({ category = 'all', tier = null, user, cartItems, setCartIt
                       <span className="text-gray-400 text-sm">per 1/8 (3.5g)</span>
                     </div>
                     
-                    <Button 
-                      onClick={() => {
+                    <button 
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
                         console.log('Button clicked for:', product.name);
                         console.log('Button disabled?', !product.inStock || !user?.is_verified);
+                        console.log('User:', user);
                         handleAddToCartClick(product);
                       }}
                       disabled={!product.inStock || !user?.is_verified}
-                      className={`flex items-center space-x-2 ${
-                        !user?.is_verified 
-                          ? 'bg-gray-600 hover:bg-gray-700 cursor-not-allowed' 
-                          : 'bg-green-600 hover:bg-green-700'
-                      } text-white`}
-                      title={!user?.is_verified ? 'Verification required to purchase' : 'Pickup only - no delivery'}
+                      className={`w-full font-bold py-2 px-4 rounded transition-colors flex items-center justify-center ${
+                        !product.inStock || !user?.is_verified
+                          ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
+                          : 'bg-green-600 hover:bg-green-700 text-white'
+                      }`}
                     >
-                      <ShoppingCart className="h-4 w-4" />
-                      <span>{!user?.is_verified ? 'Verification Required' : 'Select Quantity'}</span>
-                    </Button>
+                      <ShoppingCart className="w-4 h-4 mr-2" />
+                      {!user?.is_verified ? 'Verification Required' : 
+                       !product.inStock ? 'Out of Stock' : 
+                       'Select Quantity'}
+                    </button>
                   </div>
                   
                   {/* Product Rating Component */}
