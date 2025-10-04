@@ -58,6 +58,12 @@ const CashPickupManagement = () => {
       return;
     }
 
+    // Validate that it's a C code
+    if (!pickupCode.toUpperCase().startsWith('C')) {
+      alert('Cash pickup codes start with "C". For pre-paid codes starting with "P", use the Pre-paid Lookup Verification tab.');
+      return;
+    }
+
     setLoading(true);
     try {
       const backendUrl = process.env.REACT_APP_BACKEND_URL || '';
