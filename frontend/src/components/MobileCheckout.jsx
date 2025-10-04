@@ -107,7 +107,7 @@ const MobileCheckout = ({ cartItems, onSuccess, onCancel }) => {
       style={{
         width: '100%',
         minHeight: '100vh',
-        backgroundColor: 'white',
+        backgroundColor: '#1f2937',
         color: 'black',
         padding: '10px',
         paddingTop: '20px',
