@@ -180,7 +180,14 @@ const ProductGrid = ({ category = 'all', tier = null, user, cartItems, setCartIt
     
     setShowQuantityModal(false);
     setSelectedProduct(null);
-    alert(`Added ${product.name} to cart!`);
+    
+    // Automatically open cart after adding item
+    setTimeout(() => {
+      if (onOpenCart) {
+        onOpenCart();
+      }
+    }, 100); // Small delay to ensure state updates
+    
     console.log('Added to cart:', cartItem);
   };
 
