@@ -104,6 +104,7 @@ const Header = ({ user, cartItems = [], setCartItems, onAuthClick, onOpenCart, s
                 cartItems={cartItems} 
                 setCartItems={setCartItems} 
                 user={user} 
+                setOpenCartCallback={setOpenCartCallback}
               />
 
               {/* Admin Dashboard Button */}
