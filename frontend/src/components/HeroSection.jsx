@@ -16,21 +16,7 @@ const HeroSection = ({ onAuthClick, cartItems, setCartItems, user }) => {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-20">
         <div className="text-center">
-          {/* Logo moved from header */}
-          <div className="flex justify-center mb-8">
-            <div className="flex items-center space-x-4">
-              <img 
-                src="https://customer-assets.emergentagent.com/job_herbal-memberhub/artifacts/g7wqgiz2_Logo.png" 
-                alt="StatusXSmoakland Logo" 
-                className="h-16 w-auto"
-              />
-              <div className="text-3xl font-bold text-white">
-                <span className="text-green-400">Status</span>
-                <span className="text-yellow-400">X</span>
-                <span className="text-green-400">Smoakland</span>
-              </div>
-            </div>
-          </div>
+          {/* Logo moved back to header */}
 
           {/* Main Headline */}
           <h1 className="text-5xl md:text-7xl font-black text-white mb-4 leading-tight">
