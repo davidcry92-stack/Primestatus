@@ -406,7 +406,7 @@ const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) =>
             </div>
           </div>
         </div>
-      END OF OLD MODAL COMMENT */}
+      END OF OLD MODAL COMMENT */ }
 
       {/* Square Checkout Modal */}
       {showCheckout && (
