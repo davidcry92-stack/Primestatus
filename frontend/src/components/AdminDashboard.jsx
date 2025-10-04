@@ -10,6 +10,8 @@ import ProductSelection from './ProductSelection';
 import DailyDealsManagement from './DailyDealsManagement';
 import HealthAidManagement from './HealthAidManagement';
 import StrainsManagement from './StrainsManagement';
+import CashPickupManagement from './CashPickupManagement';
+import DailyReportsManagement from './DailyReportsManagement';
 
 // Error Boundary Component
 class ErrorBoundary extends React.Component {
