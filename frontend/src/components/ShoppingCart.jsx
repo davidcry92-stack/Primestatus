@@ -250,8 +250,8 @@ const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) =>
         </div>
       ) : null}
 
-      {/* OLD COMPLEX MODAL - COMMENTED OUT 
-      {isOpen ? (
+      {/* OLD COMPLEX MODAL - COMMENTED OUT */}
+      {/* {isOpen ? (
         <div 
           className="fixed inset-0 overflow-hidden"
           style={{
