@@ -290,7 +290,7 @@ function App() {
     setIsLawEnforcementVerified(false);
     setIsReEntryCodeVerified(false);
     
-    console.log('App loaded - verification states cleared, authentication required');
+    // Verification states cleared, authentication required
     
     console.log('App useEffect - Verification states:', { 
       lawEnforcementVerified, 
