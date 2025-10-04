@@ -475,8 +475,18 @@ const ProductGrid = ({ category = 'all', tier = null, user, cartItems, setCartIt
 
       {/* Quantity Selection Modal */}
       {showQuantityModal && selectedProduct && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-          <div className="bg-gray-900 rounded-xl border border-gray-700 max-w-md w-full max-h-[80vh] overflow-y-auto">
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setShowQuantityModal(false);
+            }
+          }}
+        >
+          <div 
+            className="bg-gray-900 rounded-xl border border-gray-700 max-w-md w-full max-h-[80vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="p-6">
               {/* Modal Header */}
               <div className="flex items-center justify-between mb-6">
