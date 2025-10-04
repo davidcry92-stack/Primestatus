@@ -4,7 +4,7 @@ from typing import List, Optional, Dict, Any
 from datetime import datetime, date, timedelta
 import uuid
 from utils.database import db
-from routes.auth import get_current_user
+from routes.admin_auth import verify_admin_token
 
 router = APIRouter()
 
