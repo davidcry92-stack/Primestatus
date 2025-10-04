@@ -15,6 +15,17 @@ const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
 
   useEffect(() => {
     initSquarePaymentForm();
+    
+    // Cleanup function to prevent multiple initializations
+    return () => {
+      if (card) {
+        try {
+          card.destroy();
+        } catch (error) {
+          console.log('Card cleanup error:', error);
+        }
+      }
+    };
   }, []);
 
   const initSquarePaymentForm = async () => {
