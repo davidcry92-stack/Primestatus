@@ -79,7 +79,7 @@ const CashPickupManagement = () => {
         setCashAmount(data.total_amount.toString());
       } else if (response.status === 404) {
         setSearchResult(null);
-        alert('Pickup code not found');
+        alert('Cash pickup code not found. Make sure the code starts with "C" or check the Pre-paid Lookup tab for "P" codes.');
       } else {
         throw new Error('Failed to lookup pickup code');
       }
