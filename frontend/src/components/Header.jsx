@@ -30,18 +30,8 @@ const Header = ({ user, cartItems = [], setCartItems, onAuthClick, onOpenCart, s
       <header className="bg-black/95 backdrop-blur-sm border-b border-gray-800 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            {/* Logo */}
+            {/* Logo moved to hero section */}
             <div className="flex items-center space-x-4">
-              <img 
-                src="https://customer-assets.emergentagent.com/job_herbal-memberhub/artifacts/g7wqgiz2_Logo.png" 
-                alt="StatusXSmoakland Logo" 
-                className="h-12 w-auto"
-              />
-              <div className="text-2xl font-bold text-white">
-                <span className="text-green-400">Status</span>
-                <span className="text-yellow-400">X</span>
-                <span className="text-green-400">Smoakland</span>
-              </div>
               {/* Sign In Button - Keep consistent width */}
               <div style={{ minWidth: '80px' }}>
                 {!user ? (
