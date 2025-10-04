@@ -158,7 +158,7 @@ const CashPickupManagement = () => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-2xl font-bold text-white">Cash Pickup Management</h2>
+          <h2 className="text-2xl font-bold text-white">Cash Pickup Lookup</h2>
           <p className="text-gray-300 text-sm">For pickup codes starting with "C" (Cash pickup orders)</p>
         </div>
         <button
@@ -169,79 +169,21 @@ const CashPickupManagement = () => {
         </button>
       </div>
 
-      {/* Cash Pickup System Instructions Banner */}
-      <div className="bg-gradient-to-r from-orange-900/40 to-orange-800/40 border border-orange-600 rounded-lg p-6 mb-6">
+      {/* Cash Pickup System Info Banner - Matching Pre-paid Design */}
+      <div className="bg-gray-800 rounded-lg p-6">
         <div className="flex items-start space-x-4">
           <div className="flex-shrink-0">
-            <div className="bg-orange-600 text-white rounded-full p-3 text-xl">
+            <div className="bg-orange-600 text-white rounded-full p-2">
               💵
             </div>
           </div>
           <div className="flex-1">
-            <h3 className="text-orange-400 font-bold text-xl mb-3">💰 Cash Pickup System Instructions</h3>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* How It Works */}
-              <div>
-                <h4 className="text-white font-semibold text-lg mb-3">🔄 How Cash Pickup Works</h4>
-                <div className="space-y-2 text-orange-100">
-                  <div className="flex items-start space-x-2">
-                    <span className="text-orange-400 font-bold">1.</span>
-                    <span>Customer selects "Cash In-Person Pick-Up" at checkout</span>
-                  </div>
-                  <div className="flex items-start space-x-2">
-                    <span className="text-orange-400 font-bold">2.</span>
-                    <span>System generates <strong>C-code</strong> (e.g., C123456)</span>
-                  </div>
-                  <div className="flex items-start space-x-2">
-                    <span className="text-orange-400 font-bold">3.</span>
-                    <span>Customer brings cash + pickup code to location</span>
-                  </div>
-                  <div className="flex items-start space-x-2">
-                    <span className="text-orange-400 font-bold">4.</span>
-                    <span>Staff processes payment and marks order complete</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Code System */}
-              <div>
-                <h4 className="text-white font-semibold text-lg mb-3">🏷️ Pickup Code System</h4>
-                <div className="space-y-3">
-                  <div className="bg-orange-800/30 rounded-lg p-3 border border-orange-600/50">
-                    <div className="flex items-center space-x-2 mb-1">
-                      <span className="text-2xl">💵</span>
-                      <span className="text-white font-bold">C-codes</span>
-                    </div>
-                    <p className="text-orange-200 text-sm">Cash pickup orders (payment due on arrival)</p>
-                    <p className="text-orange-300 text-xs">Example: C123456, C789012</p>
-                  </div>
-                  
-                  <div className="bg-blue-800/30 rounded-lg p-3 border border-blue-600/50">
-                    <div className="flex items-center space-x-2 mb-1">
-                      <span className="text-2xl">💳</span>
-                      <span className="text-white font-bold">P-codes</span>
-                    </div>
-                    <p className="text-blue-200 text-sm">Pre-paid orders (use Pre-paid Lookup tab)</p>
-                    <p className="text-blue-300 text-xs">Example: P123456, P789012</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Quick Tips */}
-            <div className="mt-4 pt-4 border-t border-orange-600/50">
-              <h4 className="text-white font-semibold mb-2">💡 Quick Tips for Staff</h4>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
-                <div className="text-orange-200">
-                  <span className="font-medium">✓ Verify Code:</span> Always lookup C-code in this tab
-                </div>
-                <div className="text-orange-200">
-                  <span className="font-medium">💰 Exact Change:</span> Confirm cash amount matches total
-                </div>
-                <div className="text-orange-200">
-                  <span className="font-medium">📝 Mark Complete:</span> Process payment after cash received
-                </div>
+            <div className="bg-orange-900/30 border border-orange-500/30 rounded-lg p-3">
+              <h4 className="text-orange-400 font-medium mb-2">💵 Cash Pickup System</h4>
+              <div className="text-orange-200 space-y-1 text-sm">
+                <p>• <strong>C-codes:</strong> Cash pickup orders (customer pays at pickup)</p>
+                <p>• <strong>P-codes:</strong> Pre-paid orders (use Pre-paid Lookup Verification tab)</p>
+                <p>• Verify code and complete transaction at pickup</p>
               </div>
             </div>
           </div>
