@@ -295,8 +295,8 @@ function App() {
     console.log('App useEffect - Verification states:', { 
       isLawEnforcementVerified, 
       isReEntryCodeVerified,
-      hasToken: !!token,
-      hasUserData: !!user
+      hasToken: !!localStorage.getItem('access_token'),
+      hasUserData: !!localStorage.getItem('user_data')
     });
     
     setIsSuperAdminMode(false); // No super admin bypasses allowed
