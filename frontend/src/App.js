@@ -361,7 +361,8 @@ function App() {
             <Route path="/checkout/cancel" element={<CheckoutCancel />} />
             <Route path="/admin" element={
               <ScreenshotProtection>
-                <AdminOnlyApp />
+                {/* SECURITY: Admin must go through same verification as main app */}
+                {getAppContent()}
               </ScreenshotProtection>
             } />
           </Routes>
