@@ -58,7 +58,6 @@ async def create_prepaid_order(order: PrepaidOrder, current_user_email: str = De
 async def get_all_prepaid_orders(skip: int = 0, limit: int = 100):
     """Get all pre-paid orders for admin dashboard"""
     try:
-        db = await get_database()
         
         # Get orders sorted by creation date (newest first)
         orders_cursor = db.prepaid_orders.find().sort("created_at", -1).skip(skip).limit(limit)
