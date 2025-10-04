@@ -29,7 +29,7 @@ class SquareSalesReport(BaseModel):
 async def generate_daily_report(request: DailyReportRequest, current_user: dict = Depends(get_current_user)):
     """Generate daily Square sales report"""
     try:
-        db = await get_database()
+        # db is already imported
         
         # Parse the date
         report_date = datetime.strptime(request.report_date, "%Y-%m-%d").date()
@@ -116,7 +116,7 @@ async def get_daily_reports(
 ):
     """Get daily reports with optional date filtering"""
     try:
-        db = await get_database()
+        # db is already imported
         
         # Build query
         query = {"report_type": report_type}
@@ -149,7 +149,7 @@ async def get_daily_reports(
 async def get_daily_report(report_id: str):
     """Get a specific daily report by ID"""
     try:
-        db = await get_database()
+        # db is already imported
         
         report = await db.daily_reports.find_one({"report_id": report_id})
         
@@ -171,7 +171,7 @@ async def get_daily_report(report_id: str):
 async def get_today_quick_stats():
     """Get quick stats for today's Square sales"""
     try:
-        db = await get_database()
+        # db is already imported
         
         today = date.today()
         start_datetime = datetime.combine(today, datetime.min.time())
@@ -206,7 +206,7 @@ async def get_today_quick_stats():
 async def delete_daily_report(report_id: str, current_user: dict = Depends(get_current_user)):
     """Delete a daily report"""
     try:
-        db = await get_database()
+        # db is already imported
         
         result = await db.daily_reports.delete_one({"report_id": report_id})
         
