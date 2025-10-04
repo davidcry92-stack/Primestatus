@@ -53,11 +53,15 @@ const CheckoutPage = ({ cartItems, onBack, onSuccess }) => {
 
   return (
     <div style={{ 
-      width: '100%', 
-      minHeight: '100vh', 
-      backgroundColor: 'white', 
-      padding: '20px',
-      boxSizing: 'border-box'
+      width: '100%',
+      minHeight: '100vh',
+      backgroundColor: 'white',
+      color: 'black',
+      padding: '15px',
+      paddingTop: '10px',
+      paddingBottom: '100px', // Extra space at bottom
+      boxSizing: 'border-box',
+      overflow: 'auto'
     }}>
       
       {/* Back Button */}
@@ -69,19 +73,28 @@ const CheckoutPage = ({ cartItems, onBack, onSuccess }) => {
           gap: '8px',
           background: 'none',
           border: 'none',
-          fontSize: '16px',
-          color: '#374151',
-          marginBottom: '20px',
-          cursor: 'pointer'
+          fontSize: '18px',
+          color: '#059669',
+          marginBottom: '15px',
+          cursor: 'pointer',
+          fontWeight: 'bold'
         }}
       >
-        <ArrowLeft size={20} />
-        Back to Cart
+        <ArrowLeft size={24} />
+        ← Back to Cart
       </button>
 
-      {/* Title */}
-      <h1 style={{ fontSize: '28px', fontWeight: 'bold', marginBottom: '30px' }}>
-        Checkout
+      {/* Title - BIG AND VISIBLE */}
+      <h1 style={{ 
+        fontSize: '32px', 
+        fontWeight: 'bold', 
+        marginBottom: '25px',
+        color: 'black',
+        textAlign: 'center',
+        borderBottom: '2px solid #059669',
+        paddingBottom: '10px'
+      }}>
+        💳 CHECKOUT
       </h1>
 
       {/* Order Summary */}
