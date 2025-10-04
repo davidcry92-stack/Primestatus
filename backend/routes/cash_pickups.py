@@ -30,7 +30,7 @@ class ProcessPickupRequest(BaseModel):
 async def create_cash_pickup_order(order: CashPickupOrder, current_user: dict = Depends(get_current_user)):
     """Create a new cash pickup order"""
     try:
-        db = await get_database()
+        # db is already imported
         
         # Add unique ID and ensure user matches
         order_data = order.dict()
@@ -54,7 +54,7 @@ async def create_cash_pickup_order(order: CashPickupOrder, current_user: dict = 
 async def get_all_cash_pickups(skip: int = 0, limit: int = 100):
     """Get all cash pickup orders for admin dashboard"""
     try:
-        db = await get_database()
+        # db is already imported
         
         # Get orders sorted by creation date (newest first)
         orders_cursor = db.cash_pickup_orders.find().sort("created_at", -1).skip(skip).limit(limit)
@@ -82,7 +82,7 @@ async def get_all_cash_pickups(skip: int = 0, limit: int = 100):
 async def lookup_cash_pickup(pickup_code: str):
     """Look up a specific cash pickup order by code"""
     try:
-        db = await get_database()
+        # db is already imported
         
         order = await db.cash_pickup_orders.find_one({"pickup_code": pickup_code})
         
@@ -104,7 +104,7 @@ async def lookup_cash_pickup(pickup_code: str):
 async def process_cash_pickup(request: ProcessPickupRequest):
     """Process a cash pickup order (admin action)"""
     try:
-        db = await get_database()
+        # db is already imported
         
         # Find the order
         order = await db.cash_pickup_orders.find_one({"pickup_code": request.pickup_code})
@@ -144,7 +144,7 @@ async def process_cash_pickup(request: ProcessPickupRequest):
 async def get_cash_pickup_stats():
     """Get cash pickup statistics for admin dashboard"""
     try:
-        db = await get_database()
+        # db is already imported
         
         total_orders = await db.cash_pickup_orders.count_documents({})
         pending_orders = await db.cash_pickup_orders.count_documents({"status": "pending_pickup"})
