@@ -117,6 +117,40 @@ const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) =>
     setShowCheckout(false);
   };
 
+  const handlePaymentMethodSelect = (paymentMethod) => {
+    if (paymentMethod === 'card') {
+      // Handle credit/debit card payment - can integrate with Square or Stripe
+      handleCardPayment();
+    } else if (paymentMethod === 'cash') {
+      // Handle cash in-person pickup
+      handleCashPickup();
+    }
+  };
+
+  const handleCardPayment = async () => {
+    // For now, simulate card payment success
+    // This can be replaced with actual Square/Stripe integration later
+    const pickupCode = Math.floor(100000 + Math.random() * 900000).toString();
+    const orderId = 'ORD-' + Date.now();
+    
+    setCartItems([]);
+    setShowCheckout(false);
+    setIsOpen(false);
+    
+    alert(`🎉 Card Payment Successful!\n\n📋 Your Pickup Code: ${pickupCode}\n\n📍 Show this code at our pickup location\n💳 Order ID: ${orderId}\n💰 Amount: $${getTotalPrice()}\n\n📧 Confirmation sent to your email\n\n⏰ Present this code when you arrive for pickup.`);
+  };
+
+  const handleCashPickup = () => {
+    const pickupCode = Math.floor(100000 + Math.random() * 900000).toString();
+    const orderId = 'ORD-CASH-' + Date.now();
+    
+    setCartItems([]);
+    setShowCheckout(false);
+    setIsOpen(false);
+    
+    alert(`✅ Cash Pickup Order Confirmed!\n\n📋 Your Pickup Code: ${pickupCode}\n\n💵 Payment: Cash on pickup ($${getTotalPrice()})\n📍 Bring exact cash amount to pickup location\n💼 Order ID: ${orderId}\n\n📧 Confirmation sent to your email\n\n⏰ Present this code and cash when you arrive.`);
+  };
+
   return (
     <div className="relative">
       {/* Cart Toggle Button */}
