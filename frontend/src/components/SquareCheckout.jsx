@@ -118,6 +118,7 @@ const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
           user_email: user.email,
           user_name: user.full_name || user.email,
           pickup_notes: pickupNotes,
+          save_payment_method: saveToProfile,
           items: cartItems.map(item => ({
             product_id: item.id,
             product_name: item.name,
