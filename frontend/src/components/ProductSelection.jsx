@@ -3,7 +3,7 @@ import ProductGrid from './ProductGrid';
 import WellnessCenter from './Wictionary';
 import DailyUpdates from './DailyUpdates';
 
-const ProductSelection = ({ user, cartItems, setCartItems, onCategorySelect }) => {
+const ProductSelection = ({ user, cartItems, setCartItems, onCategorySelect, onOpenCart }) => {
   const [selectedCategory, setSelectedCategory] = useState(null);
   
   // Debug: Check if cart props are received
