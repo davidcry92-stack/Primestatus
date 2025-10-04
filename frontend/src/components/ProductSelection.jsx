@@ -388,11 +388,11 @@ const ProductSelection = ({ user, cartItems, setCartItems, onCategorySelect, onO
                 </div>
                 {/* Joint illustrations */}
                 <div className="flex justify-center space-x-2 mt-4">
-                  <div className="w-1 h-8 bg-white rounded-full opacity-80"></div>
+                  <div className="w-1 h-8 bg-gray-800 rounded-full opacity-80"></div>
                   <div className="w-1 h-8 bg-orange-300 rounded-full opacity-80"></div>
                   <div className="w-1 h-8 bg-yellow-200 rounded-full opacity-80"></div>
                   <div className="w-1 h-8 bg-green-300 rounded-full opacity-80"></div>
-                  <div className="w-1 h-8 bg-white rounded-full opacity-80"></div>
+                  <div className="w-1 h-8 bg-gray-800 rounded-full opacity-80"></div>
                 </div>
               </div>
               {/* Smoke decoration */}
