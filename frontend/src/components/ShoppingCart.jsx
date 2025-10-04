@@ -140,7 +140,117 @@ const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) =>
         )}
       </button>
 
-      {/* Cart Sidebar */}
+      {/* DEBUG: Show when cart should be open */}
+      {isOpen && (
+        <div style={{
+          position: 'fixed',
+          top: '10px',
+          left: '10px',
+          background: 'red',
+          color: 'white',
+          padding: '10px',
+          zIndex: 999999,
+          fontSize: '20px'
+        }}>
+          CART IS OPEN
+        </div>
+      )}
+
+      {/* Cart Sidebar - SIMPLIFIED */}
+      {isOpen && (
+        <div 
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0,0,0,0.8)',
+            zIndex: 99999,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
+          onClick={() => setIsOpen(false)}
+        >
+          <div 
+            style={{
+              backgroundColor: 'white',
+              padding: '20px',
+              borderRadius: '10px',
+              maxWidth: '500px',
+              width: '90%',
+              maxHeight: '80vh',
+              overflow: 'auto'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 style={{color: 'black', marginBottom: '20px', textAlign: 'center'}}>
+              🛒 YOUR CART ({getTotalItems()} items)
+            </h2>
+            
+            {/* Cart Items */}
+            {cartItems.length === 0 ? (
+              <p style={{color: 'black', textAlign: 'center'}}>Your cart is empty</p>
+            ) : (
+              <div>
+                {cartItems.map((item, index) => (
+                  <div key={index} style={{
+                    border: '1px solid #ccc',
+                    padding: '10px',
+                    margin: '10px 0',
+                    borderRadius: '5px',
+                    backgroundColor: '#f9f9f9'
+                  }}>
+                    <p style={{color: 'black', fontWeight: 'bold'}}>{item.name}</p>
+                    <p style={{color: 'black'}}>Quantity: {item.quantity}</p>
+                    <p style={{color: 'black'}}>Price: ${item.price}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+            
+            {/* Checkout Button */}
+            {cartItems.length > 0 && (
+              <button
+                onClick={handleCheckout}
+                style={{
+                  backgroundColor: '#4CAF50',
+                  color: 'white',
+                  padding: '15px 30px',
+                  border: 'none',
+                  borderRadius: '5px',
+                  fontSize: '16px',
+                  width: '100%',
+                  marginTop: '20px',
+                  cursor: 'pointer'
+                }}
+              >
+                🚀 PROCEED TO CHECKOUT
+              </button>
+            )}
+            
+            {/* Close Button */}
+            <button
+              onClick={() => setIsOpen(false)}
+              style={{
+                backgroundColor: '#f44336',
+                color: 'white',
+                padding: '10px 20px',
+                border: 'none',
+                borderRadius: '5px',
+                marginTop: '10px',
+                width: '100%',
+                cursor: 'pointer'
+              }}
+            >
+              ✖ Close Cart
+            </button>
+          </div>
+        </div>
+      ) : null}
+
+      {/* OLD COMPLEX MODAL - COMMENTED OUT 
       {isOpen ? (
         <div 
           className="fixed inset-0 overflow-hidden"
