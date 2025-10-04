@@ -203,7 +203,7 @@ async def get_today_quick_stats():
         raise HTTPException(status_code=500, detail="Failed to get today's statistics")
 
 @router.delete("/admin/reports/{report_id}")
-async def delete_daily_report(report_id: str, current_user: dict = Depends(get_current_user)):
+async def delete_daily_report(report_id: str, admin_email: str = Depends(verify_admin_token)):
     """Delete a daily report"""
     try:
         # db is already imported
