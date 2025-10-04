@@ -15,7 +15,7 @@ import {
 import { mockProducts, mockDailyDeals, inStockProducts, outOfStockProducts } from '../data/actual-inventory';
 import ProductRating from './ProductRating';
 
-const ProductGrid = ({ category = 'all', tier = null, user, cartItems, setCartItems, showTitle = false }) => {
+const ProductGrid = ({ category = 'all', tier = null, user, cartItems, setCartItems, onOpenCart, showTitle = false }) => {
   const [selectedCategory, setSelectedCategory] = useState(category);
   // Use cart props from parent instead of local state
   
