@@ -176,18 +176,19 @@ const SimpleCart = ({ cartItems = [], setCartItems, user }) => {
         </div>
       )}
 
-      {/* Mobile Checkout Modal - FULL SCREEN */}
+      {/* Mobile Checkout - SIMPLE FULL SCREEN */}
       {showCheckout && (
         <div 
           style={{
             position: 'fixed',
             top: 0,
             left: 0,
-            right: 0,
-            bottom: 0,
+            width: '100vw',
+            height: '100vh',
             backgroundColor: 'white',
             zIndex: 100000,
-            overflow: 'auto'
+            overflow: 'scroll',
+            WebkitOverflowScrolling: 'touch'
           }}
         >
           <MobileCheckout
