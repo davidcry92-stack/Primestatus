@@ -66,7 +66,7 @@ async def test_login_and_user():
         "password": "password123"
     }
     
-    backend_url = "https://statusapp-fix.preview.emergentagent.com/api"
+    backend_url = "https://blank-screen-fix-1.preview.emergentagent.com/api"
     
     async with aiohttp.ClientSession() as session:
         try:
