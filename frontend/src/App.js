@@ -298,29 +298,17 @@ function App() {
     
     console.log('Verification states reset - user must complete fresh verification');
     
-    // SECURITY FIX: Clear bypass mechanisms but preserve legitimate auth tokens
+    // Clear any potential bypass mechanisms
     const bypassKeys = [
       'super_admin_bypass', 
       'super_admin_demo_token',
       'demo_admin_token'
-      // NOTE: Preserved admin_token, access_token and user_data to allow session persistence
     ];
     
     bypassKeys.forEach(key => {
       localStorage.removeItem(key);
       sessionStorage.removeItem(key);
     });
-    
-    // For main app path, ALWAYS require fresh verification (even for admins)
-    if (window.location.pathname === '/') {
-      sessionStorage.removeItem('law_enforcement_verified');
-      sessionStorage.removeItem('reentry_verified');
-      sessionStorage.removeItem('app_session_active');
-      
-      // Always start with verification screens on main app
-      setIsLawEnforcementVerified(false);
-      setIsReEntryCodeVerified(false);
-    }
     
     // Verification states cleared, authentication required
     
