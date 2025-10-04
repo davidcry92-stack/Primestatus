@@ -43,8 +43,8 @@ const SimpleCart = ({ cartItems = [], setCartItems, user }) => {
         Cart ({getTotalItems()})
       </button>
 
-      {/* Cart Modal */}
-      {isOpen && (
+      {/* Cart Modal - Only show if user is logged in */}
+      {isOpen && user && (
         <div
           style={{
             position: 'fixed',
