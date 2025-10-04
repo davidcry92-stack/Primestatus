@@ -23,9 +23,31 @@ const SimpleCart = ({ cartItems = [], setCartItems, user }) => {
     setIsOpen(!isOpen);
   };
 
+  // If checkout is open, show ONLY checkout page
+  if (showCheckout) {
+    return (
+      <CheckoutPage
+        cartItems={cartItems}
+        onBack={() => setShowCheckout(false)}
+        onSuccess={(paymentResult) => {
+          // Clear cart and close checkout
+          setCartItems([]);
+          setShowCheckout(false);
+          
+          // Show success message with pickup code
+          if (paymentResult.paymentMethod === 'cash') {
+            alert(`🎉 Order Confirmed!\n\n📋 Your Pickup Code: ${paymentResult.pickupCode}\n\n💰 Amount to Pay in Store: $${paymentResult.amount.toFixed(2)}\n📍 Bring cash payment to our NYC pickup location\n💳 Order ID: ${paymentResult.orderId}\n\n⏰ Show your pickup code to staff when you arrive.`);
+          } else {
+            alert(`🎉 Payment Successful!\n\n📋 Your Pickup Code: ${paymentResult.pickupCode}\n\n📍 Show this code at our NYC pickup location\n💳 Order ID: ${paymentResult.orderId}\n💰 Amount: $${paymentResult.amount.toFixed(2)}\n\n📧 Receipt sent to your email\n\n⏰ Admin will verify this code when you pickup your order.`);
+          }
+        }}
+      />
+    );
+  }
+
   return (
     <div>
-      {/* Cart Button - Always visible to prevent layout shift */}
+      {/* Cart Button - Always visible */}
       <button
         onClick={handleCartClick}
         style={{
@@ -38,14 +60,14 @@ const SimpleCart = ({ cartItems = [], setCartItems, user }) => {
           display: 'flex',
           alignItems: 'center',
           gap: '8px',
-          minWidth: '100px' // Fixed width to prevent shifting
+          minWidth: '100px'
         }}
       >
         <ShoppingCartIcon size={20} />
         Cart ({getTotalItems()})
       </button>
 
-      {/* Cart Modal - Mobile Responsive */}
+      {/* Cart Modal */}
       {isOpen && user && (
         <div
           style={{
@@ -83,27 +105,6 @@ const SimpleCart = ({ cartItems = [], setCartItems, user }) => {
               <div style={{textAlign: 'center', padding: '40px'}}>
                 <p style={{color: 'black', fontSize: '18px'}}>Your cart is empty</p>
                 <p style={{color: 'gray', marginTop: '10px'}}>Add some items to get started!</p>
-                
-                {/* TEST CHECKOUT BUTTON - For testing layout */}
-                <button
-                  onClick={() => {
-                    setIsOpen(false);
-                    setShowCheckout(true);
-                  }}
-                  style={{
-                    backgroundColor: '#4CAF50',
-                    color: 'white',
-                    padding: '15px 30px',
-                    border: 'none',
-                    borderRadius: '8px',
-                    fontSize: '16px',
-                    fontWeight: 'bold',
-                    cursor: 'pointer',
-                    marginTop: '20px'
-                  }}
-                >
-                  🧪 TEST CHECKOUT LAYOUT
-                </button>
               </div>
             ) : (
               <div>
@@ -195,26 +196,6 @@ const SimpleCart = ({ cartItems = [], setCartItems, user }) => {
             </button>
           </div>
         </div>
-      )}
-
-      {/* Simple Checkout - NO POSITIONING TRICKS */}
-      {showCheckout && (
-        <CheckoutPage
-          cartItems={cartItems}
-          onBack={() => setShowCheckout(false)}
-          onSuccess={(paymentResult) => {
-            // Clear cart and close checkout
-            setCartItems([]);
-            setShowCheckout(false);
-            
-            // Show success message with pickup code
-            if (paymentResult.paymentMethod === 'cash') {
-              alert(`🎉 Order Confirmed!\n\n📋 Your Pickup Code: ${paymentResult.pickupCode}\n\n💰 Amount to Pay in Store: $${paymentResult.amount.toFixed(2)}\n📍 Bring cash payment to our NYC pickup location\n💳 Order ID: ${paymentResult.orderId}\n\n⏰ Show your pickup code to staff when you arrive.`);
-            } else {
-              alert(`🎉 Payment Successful!\n\n📋 Your Pickup Code: ${paymentResult.pickupCode}\n\n📍 Show this code at our NYC pickup location\n💳 Order ID: ${paymentResult.orderId}\n💰 Amount: $${paymentResult.amount.toFixed(2)}\n\n📧 Receipt sent to your email\n\n⏰ Admin will verify this code when you pickup your order.`);
-            }
-          }}
-        />
       )}
     </div>
   );
