@@ -35,7 +35,7 @@ async def create_cash_pickup_order(order: CashPickupOrder, admin_email: str = De
         # Add unique ID and ensure user matches
         order_data = order.dict()
         order_data["_id"] = str(uuid.uuid4())
-        order_data["user_id"] = current_user.get("user_id", current_user.get("id"))
+        order_data["user_id"] = order.user_id
         
         # Insert order into database
         await db.cash_pickup_orders.insert_one(order_data)
