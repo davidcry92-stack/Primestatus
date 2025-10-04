@@ -248,7 +248,7 @@ const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) =>
             </button>
           </div>
         </div>
-      ) : null}
+      )}
 
       {/* OLD COMPLEX MODAL - COMMENTED OUT */}
       {/* {isOpen ? (
