@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ShoppingCart as ShoppingCartIcon } from 'lucide-react';
 
-const SimpleCart = ({ cartItems, setCartItems, user }) => {
+const SimpleCart = ({ cartItems = [], setCartItems, user }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const getTotalItems = () => {
@@ -12,14 +12,20 @@ const SimpleCart = ({ cartItems, setCartItems, user }) => {
     return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
   };
 
+  const handleCartClick = () => {
+    if (!user) {
+      alert('Please login to access your cart');
+      return;
+    }
+    console.log('SimpleCart: Cart button clicked');
+    setIsOpen(!isOpen);
+  };
+
   return (
     <div>
-      {/* Cart Button */}
+      {/* Cart Button - Always visible to prevent layout shift */}
       <button
-        onClick={() => {
-          console.log('SimpleCart: Cart button clicked');
-          setIsOpen(!isOpen);
-        }}
+        onClick={handleCartClick}
         style={{
           backgroundColor: '#059669',
           color: 'white',
@@ -29,7 +35,8 @@ const SimpleCart = ({ cartItems, setCartItems, user }) => {
           cursor: 'pointer',
           display: 'flex',
           alignItems: 'center',
-          gap: '8px'
+          gap: '8px',
+          minWidth: '100px' // Fixed width to prevent shifting
         }}
       >
         <ShoppingCartIcon size={20} />
