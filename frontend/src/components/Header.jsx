@@ -67,49 +67,11 @@ const Header = ({ user, cartItems = [], setCartItems, onAuthClick, onOpenCart, s
               )}
             </nav>
 
-            {/* Right side */}
-            <div className="flex items-center space-x-4">
-              {/* Social Media Links */}
-              <div className="hidden sm:flex items-center space-x-2">
-                <a 
-                  href="https://www.instagram.com/smoaklandnycbx" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-pink-400 transition-colors"
-                >
-                  <Instagram className="h-5 w-5" />
-                </a>
-                <a 
-                  href="https://www.tiktok.com/@smoaklandnycbx" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="text-gray-400 hover:text-white transition-colors"
-                >
-                  <Music className="h-5 w-5" />
-                </a>
-              </div>
-
-              {/* Sign In Button */}
-              <div style={{ minWidth: '80px' }}>
-                {!user ? (
-                  <Button 
-                    onClick={onAuthClick}
-                    className="bg-green-600 hover:bg-green-700 text-white font-bold px-4 py-2 text-sm"
-                  >
-                    Sign In
-                  </Button>
-                ) : (
-                  user.email === 'admin@statusxsmoakland.com' ? (
-                    <Badge className="bg-yellow-500 text-black font-bold text-xs">
-                      ADMIN
-                    </Badge>
-                  ) : null
-                )}
-              </div>
-
-              {/* Admin-only elements */}
-              {user && user.email === 'admin@statusxsmoakland.com' && (
-                <>
+            {/* Right side - FIXED LAYOUT NO SHIFTING */}
+            <div className="flex items-center space-x-4" style={{ minWidth: '200px', justifyContent: 'flex-end' }}>
+              {/* Admin-only elements - ONLY for admin, regular users get empty space */}
+              {user && user.email === 'admin@statusxsmoakland.com' ? (
+                <div className="flex items-center space-x-2">
                   <Button
                     onClick={() => {
                       window.location.href = '/admin';
@@ -118,27 +80,19 @@ const Header = ({ user, cartItems = [], setCartItems, onAuthClick, onOpenCart, s
                   >
                     🛡️ Admin
                   </Button>
-                  
-                  <div className="flex items-center space-x-2">
-                    <div className="hidden sm:block text-right">
-                      <p className="text-white text-sm font-medium">{user.username}</p>
-                      <div className="flex items-center space-x-1">
-                        <p className="text-xs text-gray-400 capitalize">
-                          Admin
-                        </p>
-                      </div>
-                    </div>
-                    <Button variant="ghost" className="text-white hover:text-green-400">
-                      <User className="h-5 w-5" />
-                    </Button>
-                  </div>
-                </>
+                  <Button variant="ghost" className="text-white hover:text-green-400">
+                    <User className="h-5 w-5" />
+                  </Button>
+                </div>
+              ) : (
+                // Empty space for non-admin users - PREVENTS SHIFTING
+                <div style={{ width: '120px' }}></div>
               )}
 
-              {/* Mobile menu button */}
+              {/* Mobile menu button - ALWAYS PRESENT */}
               <Button
                 variant="ghost"
-                className="md:hidden text-white"
+                className="text-white"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
               >
                 {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
