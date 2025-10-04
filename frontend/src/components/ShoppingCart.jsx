@@ -322,7 +322,7 @@ const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) =>
       {/* Commented section removed to fix syntax error */}
 
       {/* Payment Method Selection Modal */}
-      {showCheckout && (
+      {showPaymentSelection && (
         <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
           <div className="max-w-md w-full mx-4">
             <div className="bg-gray-900 border border-green-400 rounded-lg p-8">
