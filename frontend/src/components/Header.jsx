@@ -50,6 +50,28 @@ const Header = ({ user, cartItems = [], setCartItems, onAuthClick, onOpenCart, s
                 user={user} 
               />
             </div>
+            
+            {/* Center Navigation */}
+            <nav className="hidden md:flex items-center space-x-8 flex-1 justify-center">
+              <a href="#products" className="text-gray-300 hover:text-white transition-colors">
+                Products
+              </a>
+              {user?.membershipTier === 'premium' && (
+                <>
+                  <a href="#wellness-center" className="text-purple-400 hover:text-purple-300 transition-colors flex items-center space-x-1">
+                    <span>📖</span>
+                    <span>Wellness Center</span>
+                  </a>
+                  <a href="#health-aid" className="text-emerald-400 hover:text-emerald-300 transition-colors flex items-center space-x-1">
+                    <span>💊</span>
+                    <span>Health-Aid</span>
+                  </a>
+                </>
+              )}
+            </nav>
+
+            {/* Right side */}
+            <div className="flex items-center space-x-4">
               {/* Sign In Button - Keep consistent width */}
               <div style={{ minWidth: '80px' }}>
                 {!user ? (
