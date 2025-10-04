@@ -99,12 +99,7 @@ const Header = ({ user, cartItems = [], setCartItems, onAuthClick, onOpenCart, s
                 </a>
               </div>
 
-              {/* Cart */}
-              <SimpleCart 
-                cartItems={cartItems} 
-                setCartItems={setCartItems} 
-                user={user} 
-              />
+              {/* Cart moved to HeroSection */}
 
               {/* Admin Dashboard Button */}
               {user && user.email === 'admin@statusxsmoakland.com' && (
