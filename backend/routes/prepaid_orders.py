@@ -35,7 +35,7 @@ async def create_prepaid_order(order: PrepaidOrder, current_user_email: str = De
         # Add unique ID and ensure user matches
         order_data = order.dict()
         order_data["_id"] = str(uuid.uuid4())
-        order_data["user_id"] = current_user.get("user_id", current_user.get("id"))
+        order_data["user_email"] = current_user_email
         
         # Ensure pickup code starts with P
         if not order_data["pickup_code"].startswith('P'):
