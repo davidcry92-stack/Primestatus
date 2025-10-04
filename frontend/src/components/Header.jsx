@@ -82,7 +82,7 @@ const Header = ({ user, cartItems = [], setCartItems, onAuthClick, onOpenCart, s
               )}
             </nav>
 
-            {/* Right side */}
+            {/* Right side - Fixed layout to prevent shifting */}
             <div className="flex items-center space-x-4">
               {/* Social Media Links */}
               <div className="hidden sm:flex items-center space-x-2">
@@ -104,49 +104,31 @@ const Header = ({ user, cartItems = [], setCartItems, onAuthClick, onOpenCart, s
                 </a>
               </div>
 
-              {/* Cart - positioned for mobile */}
+              {/* Cart - Always visible to prevent layout shift */}
               <SimpleCart 
                 cartItems={cartItems} 
                 setCartItems={setCartItems} 
                 user={user} 
               />
 
-              {/* Admin-only elements */}
-              {user && user.email === 'admin@statusxsmoakland.com' && (
-                <>
-                  <Button
-                    onClick={() => {
-                      // Navigate to admin dashboard - authenticated users only can reach this
-                      window.location.href = '/admin';
-                    }}
-                    className="bg-red-600 hover:bg-red-700 text-white font-bold px-3 py-2 text-sm"
-                  >
-                    🛡️ Admin Dashboard
-                  </Button>
-                  
-                  {/* Admin User Profile */}
+              {/* Fixed space for admin elements to prevent layout shift */}
+              <div style={{ minWidth: '200px' }}>
+                {user && user.email === 'admin@statusxsmoakland.com' && (
                   <div className="flex items-center space-x-2">
-                    <div className="hidden sm:block text-right">
-                      <p className="text-white text-sm font-medium">{user.username}</p>
-                      <div className="flex items-center space-x-1">
-                        <p className="text-xs text-gray-400 capitalize">
-                          Admin
-                        </p>
-                      </div>
-                    </div>
+                    <Button
+                      onClick={() => {
+                        window.location.href = '/admin';
+                      }}
+                      className="bg-red-600 hover:bg-red-700 text-white font-bold px-3 py-2 text-sm"
+                    >
+                      🛡️ Admin
+                    </Button>
                     <Button variant="ghost" className="text-white hover:text-green-400">
                       <User className="h-5 w-5" />
                     </Button>
                   </div>
-                </>
-              )}
-
-              {/* Regular User Profile (hidden to prevent layout shift) */}
-              {user && user.email !== 'admin@statusxsmoakland.com' && (
-                <div className="flex items-center space-x-2" style={{ opacity: 0, pointerEvents: 'none' }}>
-                  {/* Hidden placeholder to maintain layout */}
-                </div>
-              )}
+                )}
+              </div>
 
               {/* Mobile menu button */}
               <Button
