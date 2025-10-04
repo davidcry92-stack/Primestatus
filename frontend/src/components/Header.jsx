@@ -48,23 +48,32 @@ const Header = ({ user, cartItems = [], setCartItems, onAuthClick, onOpenCart, s
               />
             </div>
             
-            {/* Center Navigation */}
-            <nav className="hidden md:flex items-center space-x-8 flex-1 justify-center">
+            {/* Center Navigation - FIXED SPACE NO SHIFTING */}
+            <nav className="hidden md:flex items-center space-x-8 flex-1 justify-center" style={{ minWidth: '300px' }}>
               <a href="#products" className="text-gray-300 hover:text-white transition-colors">
                 Products
               </a>
-              {user?.membershipTier === 'premium' && (
-                <>
-                  <a href="#wellness-center" className="text-purple-400 hover:text-purple-300 transition-colors flex items-center space-x-1">
-                    <span>📖</span>
-                    <span>Wellness Center</span>
-                  </a>
-                  <a href="#health-aid" className="text-emerald-400 hover:text-emerald-300 transition-colors flex items-center space-x-1">
-                    <span>💊</span>
-                    <span>Health-Aid</span>
-                  </a>
-                </>
-              )}
+              {/* Always reserve space for premium links - show as disabled if not premium */}
+              <a 
+                href={user?.membershipTier === 'premium' ? "#wellness-center" : "#"} 
+                className={user?.membershipTier === 'premium' ? 
+                  "text-purple-400 hover:text-purple-300 transition-colors flex items-center space-x-1" : 
+                  "text-gray-600 flex items-center space-x-1 cursor-not-allowed"
+                }
+              >
+                <span>📖</span>
+                <span>Wellness Center</span>
+              </a>
+              <a 
+                href={user?.membershipTier === 'premium' ? "#health-aid" : "#"} 
+                className={user?.membershipTier === 'premium' ? 
+                  "text-emerald-400 hover:text-emerald-300 transition-colors flex items-center space-x-1" : 
+                  "text-gray-600 flex items-center space-x-1 cursor-not-allowed"
+                }
+              >
+                <span>💊</span>
+                <span>Health-Aid</span>
+              </a>
             </nav>
 
             {/* Right side - FIXED LAYOUT NO SHIFTING */}
