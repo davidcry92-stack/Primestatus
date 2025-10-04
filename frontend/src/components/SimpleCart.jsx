@@ -87,7 +87,7 @@ const SimpleCart = ({ cartItems = [], setCartItems, user }) => {
         >
           <div
             style={{
-              backgroundColor: 'white',
+              backgroundColor: '#1f2937',
               padding: '20px',
               borderRadius: '10px',
               width: '100%',
