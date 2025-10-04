@@ -20,8 +20,19 @@ const SimpleHeader = ({ user, cartItems = [], setCartItems, onAuthClick, onOpenC
           </div>
         </div>
         
-        {/* Right side - Cart and Menu */}
+        {/* Right side - Cart, Admin Button, and Menu */}
         <div className="flex items-center space-x-4">
+          {/* Admin Dashboard Button - only show for admin users */}
+          {user && (user.email === 'admin@statusxsmoakland.com' || user.role === 'super_admin') && (
+            <button
+              onClick={() => window.location.href = '/admin'}
+              className="bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-lg transition-colors flex items-center space-x-2"
+            >
+              <span>⚙️</span>
+              <span className="hidden md:inline">Admin Dashboard</span>
+            </button>
+          )}
+          
           <ShoppingCart 
             cartItems={cartItems}
             setCartItems={setCartItems}
