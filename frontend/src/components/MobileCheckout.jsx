@@ -127,19 +127,32 @@ const MobileCheckout = ({ cartItems, onSuccess, onCancel }) => {
       {/* Order Summary */}
       <div className="bg-gray-50 rounded-lg p-4 mb-6">
         <h3 className="font-bold mb-3">Order Summary</h3>
-        {cartItems.map((item, index) => (
-          <div key={index} className="flex justify-between items-center mb-2">
-            <div>
-              <p className="font-medium">{item.name}</p>
-              <p className="text-sm text-gray-600">Qty: {item.quantity}</p>
+        {cartItems.length === 0 ? (
+          <div className="text-center py-4">
+            <p className="text-gray-600 mb-2">TEST MODE - Sample Order</p>
+            <div className="flex justify-between items-center mb-2">
+              <div>
+                <p className="font-medium">Sample Product</p>
+                <p className="text-sm text-gray-600">Qty: 1</p>
+              </div>
+              <p className="font-bold">$25.00</p>
             </div>
-            <p className="font-bold">${(item.price * item.quantity).toFixed(2)}</p>
           </div>
-        ))}
+        ) : (
+          cartItems.map((item, index) => (
+            <div key={index} className="flex justify-between items-center mb-2">
+              <div>
+                <p className="font-medium">{item.name}</p>
+                <p className="text-sm text-gray-600">Qty: {item.quantity}</p>
+              </div>
+              <p className="font-bold">${(item.price * item.quantity).toFixed(2)}</p>
+            </div>
+          ))
+        )}
         <div className="border-t pt-2 mt-2">
           <div className="flex justify-between items-center">
             <p className="font-bold text-lg">Total:</p>
-            <p className="font-bold text-lg">${calculateTotal().toFixed(2)}</p>
+            <p className="font-bold text-lg">${cartItems.length === 0 ? '25.00' : calculateTotal().toFixed(2)}</p>
           </div>
         </div>
       </div>
