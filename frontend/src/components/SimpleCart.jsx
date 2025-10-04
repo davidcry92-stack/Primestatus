@@ -83,6 +83,27 @@ const SimpleCart = ({ cartItems = [], setCartItems, user }) => {
               <div style={{textAlign: 'center', padding: '40px'}}>
                 <p style={{color: 'black', fontSize: '18px'}}>Your cart is empty</p>
                 <p style={{color: 'gray', marginTop: '10px'}}>Add some items to get started!</p>
+                
+                {/* TEST CHECKOUT BUTTON - For testing layout */}
+                <button
+                  onClick={() => {
+                    setIsOpen(false);
+                    setShowCheckout(true);
+                  }}
+                  style={{
+                    backgroundColor: '#4CAF50',
+                    color: 'white',
+                    padding: '15px 30px',
+                    border: 'none',
+                    borderRadius: '8px',
+                    fontSize: '16px',
+                    fontWeight: 'bold',
+                    cursor: 'pointer',
+                    marginTop: '20px'
+                  }}
+                >
+                  🧪 TEST CHECKOUT LAYOUT
+                </button>
               </div>
             ) : (
               <div>
