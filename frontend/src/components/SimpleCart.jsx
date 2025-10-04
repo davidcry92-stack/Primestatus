@@ -4,6 +4,7 @@ import SquareCheckout from './SquareCheckout';
 
 const SimpleCart = ({ cartItems = [], setCartItems, user }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [showCheckout, setShowCheckout] = useState(false);
 
   const getTotalItems = () => {
     return cartItems.reduce((total, item) => total + item.quantity, 0);
