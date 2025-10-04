@@ -88,6 +88,8 @@ const AdminDashboard = ({ adminUser, onLogout }) => {
     { id: 'dashboard', label: 'Dashboard', icon: '📊' },
     { id: 'members', label: 'Members', icon: '👥' },
     { id: 'daily-deals', label: 'Daily Deals', icon: '📱' },
+    { id: 'cash-pickups', label: 'Cash Pickup Lookup', icon: '💵' },
+    { id: 'daily-reports', label: 'Daily Square Reports', icon: '📈' },
     { id: 'health-aid-mgmt', label: 'Health-Aid Management', icon: '📚' },
     { id: 'strains-mgmt', label: 'Strains Management', icon: '🌿' },
     { id: 'pickup', label: 'Pickup Verification', icon: '📦' },
