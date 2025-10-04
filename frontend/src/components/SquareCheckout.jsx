@@ -279,6 +279,20 @@ const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
         <p>🔒 Secure payment powered by Square</p>
         <p>Your payment information is encrypted and secure</p>
       </div>
+
+      {/* Custom CSS to prevent Square field duplication */}
+      <style jsx>{`
+        #card-container .sq-input {
+          margin-bottom: 0 !important;
+        }
+        #card-container iframe {
+          max-height: 100px !important;
+        }
+        /* Ensure no duplicate containers */
+        #card-container > div:nth-child(n+2) {
+          display: none !important;
+        }
+      `}</style>
     </div>
   );
 };
