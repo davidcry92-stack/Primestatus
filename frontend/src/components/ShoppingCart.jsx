@@ -136,7 +136,7 @@ const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) =>
 
   const handleCashPickup = async () => {
     try {
-      const pickupCode = Math.floor(100000 + Math.random() * 900000).toString();
+      const pickupCode = 'C' + Math.floor(100000 + Math.random() * 900000).toString();
       const orderId = 'CASH-' + Date.now();
       
       // Store cash pickup order in backend
