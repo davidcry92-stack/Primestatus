@@ -193,22 +193,20 @@ const ProductGrid = ({ category = 'all', tier = null, user, cartItems, setCartIt
     alert(`✅ ${product.name} added to cart!`);
     
     // Automatically open cart modal after adding item
-    setTimeout(() => {
-      // Scroll to top where cart is located
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      
-      // Find and click the cart button to show the added item
+    if (onOpenCart && typeof onOpenCart === 'function') {
+      console.log('Cart modal opened at', new Date().toISOString());
+      onOpenCart();
+    } else {
+      console.log('onOpenCart callback not available, trying fallback method');
+      // Fallback: try to trigger cart opening via DOM
       setTimeout(() => {
-        const cartButtons = document.querySelectorAll('button');
-        for (let button of cartButtons) {
-          if (button.textContent && button.textContent.includes('Cart (')) {
-            console.log('Cart modal opened at', new Date().toISOString());
-            button.click();
-            break;
-          }
+        const cartButton = document.querySelector('[data-cart-button="true"]');
+        if (cartButton) {
+          cartButton.click();
+          console.log('Cart modal opened via fallback at', new Date().toISOString());
         }
-      }, 300);
-    }, 200);
+      }, 100);
+    }
     
     console.log('Added to cart:', cartItem);
   };
