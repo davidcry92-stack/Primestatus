@@ -115,6 +115,13 @@ const Header = ({ user, cartItems = [], setCartItems, onAuthClick, onOpenCart, s
                 )}
               </div>
 
+              {/* Cart - Right next to hamburger menu */}
+              <SimpleCart 
+                cartItems={cartItems} 
+                setCartItems={setCartItems} 
+                user={user} 
+              />
+
               {/* Mobile menu button */}
               <Button
                 variant="ghost"
