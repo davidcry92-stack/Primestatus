@@ -141,9 +141,20 @@ const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) =>
       </button>
 
       {/* Cart Sidebar */}
-      {console.log('ShoppingCart render: isOpen =', isOpen)}
-      {isOpen && (
-        <div className="fixed inset-0 z-[9999] overflow-hidden" style={{display: 'block'}}>
+      {isOpen ? (
+        <div 
+          className="fixed inset-0 overflow-hidden"
+          style={{
+            zIndex: 99999,
+            display: 'block',
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0,0,0,0.5)'
+          }}
+        >
           <div className="absolute inset-0 bg-black bg-opacity-50" onClick={() => setIsOpen(false)} />
           
           <div className="absolute right-0 top-0 h-full w-full max-w-md bg-gray-900 shadow-xl">
