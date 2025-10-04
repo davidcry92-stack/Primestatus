@@ -163,6 +163,31 @@ async def create_square_order(
         
         await db.square_orders.insert_one(db_order.dict())
         
+        # Create prepaid order entry for admin lookup (if payment successful)
+        if payment_status == "COMPLETED":
+            prepaid_order = {
+                "_id": str(uuid.uuid4()),
+                "user_id": user_data.get("user_id", user_data.get("id")),
+                "user_email": order_request.user_email,
+                "pickup_code": payment_code,  # P-code
+                "order_id": square_order_id,
+                "payment_id": payment_id,
+                "items": [
+                    {
+                        "name": item.product_name,
+                        "quantity": item.quantity,
+                        "price": item.unit_price / 100  # Convert back from cents
+                    } for item in order_request.items
+                ],
+                "total_amount": total_amount,
+                "payment_method": "square",
+                "status": "ready_for_pickup",
+                "created_at": datetime.utcnow().isoformat(),
+                "pickup_notes": order_request.pickup_notes
+            }
+            
+            await db.prepaid_orders.insert_one(prepaid_order)
+        
         return SquarePaymentResponse(
             success=True,
             payment_id=payment_id,
