@@ -16,7 +16,10 @@ const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) =>
   // Register cart opening function with parent
   useEffect(() => {
     if (setOpenCartCallback) {
-      setOpenCartCallback(() => () => setIsOpen(true));
+      setOpenCartCallback(() => () => {
+        console.log('ShoppingCart: Opening cart modal, setting isOpen to true');
+        setIsOpen(true);
+      });
     }
   }, [setOpenCartCallback]);
 
