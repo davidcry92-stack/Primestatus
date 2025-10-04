@@ -42,8 +42,8 @@ def get_square_client():
     return client
 
 def generate_payment_code():
-    """Generate a unique 6-digit payment code."""
-    return ''.join(random.choices(string.digits, k=6))
+    """Generate a unique 6-digit payment code starting with P for pre-paid orders."""
+    return 'P' + ''.join(random.choices(string.digits, k=6))
 
 @router.post("/create-order", response_model=SquarePaymentResponse)
 async def create_square_order(
