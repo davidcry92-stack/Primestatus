@@ -7,8 +7,6 @@ const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) =>
   const [packages, setPackages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showCheckout, setShowCheckout] = useState(false);
-  const [showPaymentSelection, setShowPaymentSelection] = useState(false);
-  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
 
   // Fetch available payment packages
   useEffect(() => {
