@@ -46,6 +46,12 @@ const AdminOnlyApp = () => {
   )) || (adminToken && adminUser);
   
   if (!isAuthenticated || !user) {
+    // Check if there's a separate admin token
+    if (adminToken && adminUser) {
+      // Admin is logged in through separate admin system
+      return <AdminApp />;
+    }
+    
     // Not authenticated - redirect to main app for login
     return (
       <div className="min-h-screen bg-black flex items-center justify-center">
@@ -56,12 +62,17 @@ const AdminOnlyApp = () => {
             <p className="text-gray-300 mb-6">
               You must be logged in as an administrator to access this area.
             </p>
-            <button
-              onClick={() => window.location.href = '/'}
-              className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
-            >
-              Go to Main App
-            </button>
+            <div className="space-y-3">
+              <button
+                onClick={() => window.location.href = '/'}
+                className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
+              >
+                Go to Main App
+              </button>
+              <p className="text-gray-400 text-sm">
+                Login as admin: admin@statusxsmoakland.com
+              </p>
+            </div>
           </div>
         </div>
       </div>
