@@ -101,8 +101,8 @@ const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) =>
       return;
     }
 
-    // Show payment method selection first
-    setShowPaymentSelection(true);
+    // Go directly to Square checkout (credit/debit only)
+    setShowCheckout(true);
   };
 
   const handlePaymentSuccess = (paymentResult) => {
