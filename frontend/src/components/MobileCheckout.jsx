@@ -103,7 +103,15 @@ const MobileCheckout = ({ cartItems, onSuccess, onCancel }) => {
   };
 
   return (
-    <div className="bg-white text-black p-6 max-h-screen overflow-y-auto">
+    <div 
+      className="bg-white text-black min-h-screen overflow-y-auto"
+      style={{
+        padding: '20px',
+        paddingTop: '60px', // Account for mobile browser bar
+        paddingBottom: '40px', // Extra space at bottom
+        minHeight: '100vh'
+      }}
+    >
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-2xl font-bold">Checkout</h2>
