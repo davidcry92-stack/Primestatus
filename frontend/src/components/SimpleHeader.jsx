@@ -1,8 +1,8 @@
 import React from 'react';
 import { Menu } from 'lucide-react';
-import SimpleCart from './SimpleCart';
+import ShoppingCart from './ShoppingCart';
 
-const SimpleHeader = ({ user, cartItems = [], setCartItems, onAuthClick }) => {
+const SimpleHeader = ({ user, cartItems = [], setCartItems, onAuthClick, onOpenCart, setOpenCartCallback }) => {
   return (
     <header className="bg-black text-white p-4">
       <div className="flex items-center justify-between">
@@ -18,12 +18,18 @@ const SimpleHeader = ({ user, cartItems = [], setCartItems, onAuthClick }) => {
             <span className="text-yellow-400">X</span>
             <span className="text-green-400">Smoakland</span>
           </div>
-          
-          {/* Cart temporarily removed for debugging */}
         </div>
         
-        {/* Menu */}
-        <Menu className="h-6 w-6" />
+        {/* Right side - Cart and Menu */}
+        <div className="flex items-center space-x-4">
+          <ShoppingCart 
+            cartItems={cartItems}
+            setCartItems={setCartItems}
+            user={user}
+            setOpenCartCallback={setOpenCartCallback}
+          />
+          <Menu className="h-6 w-6" />
+        </div>
       </div>
     </header>
   );
