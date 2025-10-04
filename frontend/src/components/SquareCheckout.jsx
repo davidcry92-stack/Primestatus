@@ -280,17 +280,30 @@ const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
         <p>Your payment information is encrypted and secure</p>
       </div>
 
-      {/* Custom CSS to prevent Square field duplication */}
+      {/* Custom CSS to prevent Square field duplication and force dark theme */}
       <style jsx>{`
         #card-container .sq-input {
           margin-bottom: 0 !important;
+          background-color: #1f2937 !important;
+          color: white !important;
         }
         #card-container iframe {
           max-height: 100px !important;
+          background-color: #1f2937 !important;
+        }
+        #card-container input {
+          background-color: #374151 !important;
+          color: white !important;
+          border: 1px solid #6b7280 !important;
         }
         /* Ensure no duplicate containers */
         #card-container > div:nth-child(n+2) {
           display: none !important;
+        }
+        /* Force dark theme on all Square elements */
+        #card-container * {
+          background-color: #1f2937 !important;
+          color: white !important;
         }
       `}</style>
     </div>
