@@ -152,8 +152,8 @@ const PrepaidLookupManagement = () => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <div>
-          <h2 className="text-2xl font-bold text-white">Order Lookup</h2>
-          <p className="text-gray-300 text-sm">Lookup customer orders by pickup code</p>
+          <h2 className="text-2xl font-bold text-white">Pre-paid Lookup Verification</h2>
+          <p className="text-gray-300 text-sm">For pickup codes starting with "P" (Pre-paid orders)</p>
         </div>
         <button
           onClick={loadAllOrders}
