@@ -284,9 +284,18 @@ const MobileCheckout = ({ cartItems, onSuccess, onCancel }) => {
         </div>
       )}
 
-      {/* Action Buttons */}
+      {/* Action Buttons - Fixed at bottom */}
       {paymentMethod && (
-        <div className="space-y-3">
+        <div 
+          className="bg-white border-t border-gray-200 p-4 space-y-3"
+          style={{
+            position: 'fixed',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            zIndex: 1000
+          }}
+        >
           <button
             onClick={paymentMethod === 'card' ? handleCardPayment : handleCashPayment}
             disabled={loading}
@@ -305,6 +314,9 @@ const MobileCheckout = ({ cartItems, onSuccess, onCancel }) => {
           </button>
         </div>
       )}
+
+      {/* Spacer for fixed buttons */}
+      {paymentMethod && <div style={{ height: '140px' }}></div>}
 
       {/* Security Notice */}
       <div className="text-center text-xs text-gray-500 mt-4">
