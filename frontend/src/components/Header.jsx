@@ -92,28 +92,7 @@ const Header = ({ user, cartItems = [], setCartItems, onAuthClick, onOpenCart, s
               </div>
             </div>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
-              <a href="#products" className="text-gray-300 hover:text-white transition-colors">
-                Products
-              </a>
-              {/* Daily Deals removed per admin request */}
-              {user?.membershipTier === 'premium' && (
-                <>
-                  <a href="#wellness-center" className="text-purple-400 hover:text-purple-300 transition-colors flex items-center space-x-1">
-                    <span>📖</span>
-                    <span>Wellness Center</span>
-                  </a>
-                  <a href="#health-aid" className="text-emerald-400 hover:text-emerald-300 transition-colors flex items-center space-x-1">
-                    <span>💊</span>
-                    <span>Health-Aid</span>
-                  </a>
-                </>
-              )}
-            </nav>
-
-            {/* Right side - Fixed layout to prevent shifting */}
-            <div className="flex items-center space-x-4">
+            {/* Navigation moved above */}
               {/* Social Media Links */}
               <div className="hidden sm:flex items-center space-x-2">
                 <a 
