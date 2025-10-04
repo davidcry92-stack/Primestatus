@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ShoppingCart as ShoppingCartIcon } from 'lucide-react';
-import SquareCheckout from './SquareCheckout';
+import MobileCheckout from './MobileCheckout';
 
 const SimpleCart = ({ cartItems = [], setCartItems, user }) => {
   const [isOpen, setIsOpen] = useState(false);
