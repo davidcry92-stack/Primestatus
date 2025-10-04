@@ -175,6 +175,52 @@ const SimpleCart = ({ cartItems = [], setCartItems, user }) => {
           </div>
         </div>
       )}
+
+      {/* Square Checkout Modal */}
+      {showCheckout && (
+        <div 
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0,0,0,0.8)',
+            zIndex: 100000,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: '10px'
+          }}
+        >
+          <div 
+            style={{
+              backgroundColor: 'white',
+              borderRadius: '10px',
+              width: '100%',
+              maxWidth: '600px',
+              maxHeight: '90vh',
+              overflow: 'auto'
+            }}
+          >
+            <SquareCheckout
+              cartItems={cartItems}
+              user={user}
+              onSuccess={(paymentResult) => {
+                // Clear cart and close modals
+                setCartItems([]);
+                setShowCheckout(false);
+                
+                // Show success message with pickup code
+                alert(`🎉 Payment Successful!\n\n📋 Your Pickup Code: ${paymentResult.pickupCode}\n\n📍 Show this code at our NYC pickup location\n💳 Order ID: ${paymentResult.orderId}\n💰 Amount: $${paymentResult.amount.toFixed(2)}\n\n📧 Receipt sent to your email\n\n⏰ Admin will verify this code when you pickup your order.`);
+              }}
+              onCancel={() => {
+                setShowCheckout(false);
+              }}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
