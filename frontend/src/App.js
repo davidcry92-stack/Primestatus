@@ -282,13 +282,41 @@ function App() {
 
   // Check verification states on load - STRICT SECURITY MODE
   useEffect(() => {
+    // Check if user is already authenticated as admin
+    const accessToken = localStorage.getItem('access_token');
+    const userData = localStorage.getItem('user_data');
+    const adminToken = localStorage.getItem('admin_token');
+    
+    let isAuthenticatedAdmin = false;
+    
+    if (accessToken && userData) {
+      try {
+        const user = JSON.parse(userData);
+        if (user.email === 'admin@statusxsmoakland.com' || user.role === 'super_admin') {
+          isAuthenticatedAdmin = true;
+        }
+      } catch (error) {
+        console.log('Error parsing user data:', error);
+      }
+    }
+    
+    if (adminToken) {
+      isAuthenticatedAdmin = true;
+    }
+    
+    // If user is authenticated admin, skip verification for admin routes
+    if (isAuthenticatedAdmin && window.location.pathname === '/admin') {
+      setIsLawEnforcementVerified(true);
+      setIsReEntryCodeVerified(true);
+      return;
+    }
+    
     // SECURITY FIX: Clear bypass mechanisms but preserve legitimate auth tokens
     const bypassKeys = [
-      'admin_token', 
       'super_admin_bypass', 
       'super_admin_demo_token',
       'demo_admin_token'
-      // NOTE: Removed access_token and user_data to allow session persistence
+      // NOTE: Preserved admin_token, access_token and user_data to allow session persistence
     ];
     
     bypassKeys.forEach(key => {
@@ -296,14 +324,16 @@ function App() {
       sessionStorage.removeItem(key);
     });
     
-    // ALWAYS require fresh verification - clear all states on app load
-    sessionStorage.removeItem('law_enforcement_verified');
-    sessionStorage.removeItem('reentry_verified');
-    sessionStorage.removeItem('app_session_active');
-    
-    // Always start with verification screens
-    setIsLawEnforcementVerified(false);
-    setIsReEntryCodeVerified(false);
+    // For non-admin users or main app, require fresh verification
+    if (!isAuthenticatedAdmin || window.location.pathname === '/') {
+      sessionStorage.removeItem('law_enforcement_verified');
+      sessionStorage.removeItem('reentry_verified');
+      sessionStorage.removeItem('app_session_active');
+      
+      // Always start with verification screens
+      setIsLawEnforcementVerified(false);
+      setIsReEntryCodeVerified(false);
+    }
     
     // Verification states cleared, authentication required
     
