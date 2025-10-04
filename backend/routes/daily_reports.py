@@ -26,7 +26,7 @@ class SquareSalesReport(BaseModel):
     generated_by: str
 
 @router.post("/admin/reports/generate")
-async def generate_daily_report(request: DailyReportRequest, current_user: dict = Depends(get_current_user)):
+async def generate_daily_report(request: DailyReportRequest, admin_email: str = Depends(verify_admin_token)):
     """Generate daily Square sales report"""
     try:
         # db is already imported
