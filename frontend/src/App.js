@@ -242,6 +242,7 @@ const LoginOnlyApp = () => {
           user={user} 
           cartItems={cartItems}
           setCartItems={setCartItems}
+          onOpenCart={handleOpenCart}
         />
       </main>
       <Footer />
