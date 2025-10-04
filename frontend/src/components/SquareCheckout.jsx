@@ -220,8 +220,22 @@ const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
         <div 
           id="card-container" 
           className="bg-white rounded-md p-4 border border-gray-600"
-          style={{ minHeight: '100px' }}
+          style={{ minHeight: '120px' }}
         />
+        
+        {/* Save to Profile Option */}
+        <div className="mt-3 flex items-center">
+          <input
+            type="checkbox"
+            id="save-to-profile"
+            checked={saveToProfile}
+            onChange={(e) => setSaveToProfile(e.target.checked)}
+            className="h-4 w-4 text-emerald-600 focus:ring-emerald-500 border-gray-300 rounded"
+          />
+          <label htmlFor="save-to-profile" className="ml-2 block text-sm text-gray-300">
+            💳 Save payment method to my profile for faster checkout
+          </label>
+        </div>
       </div>
 
       {/* Error Display */}
