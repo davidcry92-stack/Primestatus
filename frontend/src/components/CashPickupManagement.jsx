@@ -67,7 +67,7 @@ const CashPickupManagement = () => {
     setLoading(true);
     try {
       const backendUrl = process.env.REACT_APP_BACKEND_URL || '';
-      const response = await fetch(`${backendUrl}/api/admin/cash-pickups/lookup/${pickupCode}`, {
+      const response = await fetch(`${backendUrl}/api/admin/cash-pickups/lookup/${pickupCode.toUpperCase()}`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('admin_token')}`
         }
