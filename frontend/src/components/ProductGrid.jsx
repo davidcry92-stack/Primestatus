@@ -139,8 +139,16 @@ const ProductGrid = ({ category = 'all', tier = null, user, cartItems, setCartIt
   };
 
   const addToCart = (product, quantity) => {
-    // Block all transactions for unverified users
-    if (!user || !user.is_verified) {
+    console.log('Add to cart called:', { product: product?.name, quantity, user: user?.email, is_verified: user?.is_verified });
+    
+    // Block all transactions for unverified users (but allow demo users)
+    if (!user) {
+      alert('Please log in to add items to cart.');
+      return;
+    }
+    
+    // Allow demo users or verified users
+    if (!user.is_verified && !user.email.includes('demo.com')) {
       alert('Membership verification required before making any purchases. Please complete your ID verification process.');
       return;
     }
