@@ -121,6 +121,7 @@ const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) =>
     <div className="relative">
       {/* Cart Toggle Button */}
       <button
+        data-cart-button="true"
         onClick={() => {
           console.log('Cart button clicked, opening cart modal');
           setIsOpen(true);
