@@ -55,7 +55,7 @@ const CheckoutPage = ({ cartItems, onBack, onSuccess }) => {
     <div style={{ 
       width: '100%',
       minHeight: '100vh',
-      backgroundColor: 'white',
+      backgroundColor: '#1f2937',
       color: 'black',
       padding: '15px',
       paddingTop: '10px',
@@ -156,7 +156,7 @@ const CheckoutPage = ({ cartItems, onBack, onSuccess }) => {
               padding: '20px',
               border: '2px solid #d1d5db',
               borderRadius: '8px',
-              backgroundColor: 'white',
+              backgroundColor: '#1f2937',
               marginBottom: '15px',
               cursor: 'pointer',
               fontSize: '16px',
@@ -178,7 +178,7 @@ const CheckoutPage = ({ cartItems, onBack, onSuccess }) => {
               padding: '20px',
               border: '2px solid #d1d5db',
               borderRadius: '8px',
-              backgroundColor: 'white',
+              backgroundColor: '#1f2937',
               cursor: 'pointer',
               fontSize: '16px',
               fontWeight: '500'
