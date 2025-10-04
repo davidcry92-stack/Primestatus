@@ -247,6 +247,56 @@ const LoginOnlyApp = () => {
         onOpenCart={handleOpenCart}
         setOpenCartCallback={setOpenCartCallback}
       />
+      {/* System Instructions Banner */}
+      <div className="bg-gradient-to-r from-orange-900/30 to-blue-900/30 border-b border-orange-600/50 px-4 py-3">
+        <div className="container mx-auto">
+          <div className="flex items-start space-x-4">
+            <div className="flex-shrink-0">
+              <div className="bg-orange-600 text-white rounded-full p-2">
+                💡
+              </div>
+            </div>
+            <div className="flex-1">
+              <h3 className="text-orange-400 font-semibold text-lg mb-2">📋 System Instructions - StatusXSmoakland</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div className="bg-black/20 rounded-lg p-3 border border-orange-500/30">
+                  <h4 className="text-white font-medium mb-2">💳 Payment & Pickup System</h4>
+                  <div className="text-orange-200 space-y-1">
+                    <p>• <strong>Credit/Debit:</strong> Generates <strong>P-codes</strong> (e.g., P123456) - Pre-paid orders</p>
+                    <p>• <strong>Cash Pickup:</strong> Generates <strong>C-codes</strong> (e.g., C123456) - Pay on pickup</p>
+                    <p>• Both methods provide pickup codes for order collection</p>
+                  </div>
+                </div>
+                <div className="bg-black/20 rounded-lg p-3 border border-blue-500/30">
+                  <h4 className="text-white font-medium mb-2">🛠️ Admin Code Management</h4>
+                  <div className="text-blue-200 space-y-1">
+                    <p>• <strong>P-codes:</strong> Use "Pre-paid Lookup Verification" tab</p>
+                    <p>• <strong>C-codes:</strong> Use "Cash Pickup Lookup" tab</p>
+                    <p>• Admin dashboard accessible via ⚙️ button (admin users)</p>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-3 flex items-center space-x-4 text-xs text-gray-400">
+                <span>🔒 Members-only platform</span>
+                <span>📍 Pickup only service</span>
+                <span>💰 Cash accepted</span>
+                <span>🆔 ID verification required</span>
+              </div>
+            </div>
+            <button 
+              onClick={() => {
+                const banner = document.querySelector('[data-instruction-banner]');
+                if (banner) banner.style.display = 'none';
+                localStorage.setItem('instruction_banner_dismissed', 'true');
+              }}
+              className="flex-shrink-0 text-gray-400 hover:text-white transition-colors"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      </div>
+
       <main>
         <HeroSection 
           onAuthClick={handleAuthClick} 
