@@ -112,8 +112,18 @@ const MobileCheckout = ({ cartItems, onSuccess, onCancel }) => {
         minHeight: '100vh'
       }}
     >
-      {/* Header */}
-      <div className="flex items-center justify-between mb-6">
+      {/* Header - Fixed at top */}
+      <div 
+        className="bg-white flex items-center justify-between py-4 border-b border-gray-200 mb-6"
+        style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1000,
+          padding: '15px 20px'
+        }}
+      >
         <h2 className="text-2xl font-bold">Checkout</h2>
         <button
           onClick={onCancel}
@@ -122,6 +132,9 @@ const MobileCheckout = ({ cartItems, onSuccess, onCancel }) => {
           <X className="h-6 w-6" />
         </button>
       </div>
+
+      {/* Spacer for fixed header */}
+      <div style={{ height: '70px' }}></div>
 
       {/* Order Summary */}
       <div className="bg-gray-50 rounded-lg p-4 mb-6">
