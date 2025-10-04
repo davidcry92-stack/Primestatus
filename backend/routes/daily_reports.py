@@ -3,8 +3,8 @@ from pydantic import BaseModel
 from typing import List, Optional, Dict, Any
 from datetime import datetime, date, timedelta
 import uuid
-from ..database import get_database
-from .auth import get_current_user
+from database import get_database
+from routes.auth import get_current_user
 
 router = APIRouter()
 
