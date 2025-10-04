@@ -236,6 +236,12 @@ const LoginOnlyApp = () => {
     );
   }
 
+  // Check if authenticated user is admin and on admin route
+  const isAdminUser = user && (user.email === 'admin@statusxsmoakland.com' || user.role === 'super_admin');
+  if (isAdminUser && window.location.pathname === '/admin') {
+    return <AdminApp />;
+  }
+
   // ONLY AUTHENTICATED USERS SEE THIS CONTENT
   return (
     <div className="min-h-screen bg-black">
