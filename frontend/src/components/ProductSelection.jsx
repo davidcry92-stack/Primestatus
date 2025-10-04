@@ -73,6 +73,7 @@ const ProductSelection = ({ user, cartItems, setCartItems, onCategorySelect, onO
             user={user}
             cartItems={cartItems}
             setCartItems={setCartItems}
+            onOpenCart={onOpenCart}
             showTitle={true}
           />
         </div>
