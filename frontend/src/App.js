@@ -224,7 +224,7 @@ const LoginOnlyApp = () => {
   // ONLY AUTHENTICATED USERS SEE THIS CONTENT
   return (
     <div className="min-h-screen bg-black">
-      <StaticHeader 
+      <Header 
         user={user} 
         cartItems={cartItems} 
         setCartItems={setCartItems}
