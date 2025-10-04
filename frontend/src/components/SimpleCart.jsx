@@ -176,7 +176,7 @@ const SimpleCart = ({ cartItems = [], setCartItems, user }) => {
         </div>
       )}
 
-      {/* Square Checkout Modal */}
+      {/* Mobile Checkout Modal - FULL SCREEN */}
       {showCheckout && (
         <div 
           style={{
@@ -185,43 +185,29 @@ const SimpleCart = ({ cartItems = [], setCartItems, user }) => {
             left: 0,
             right: 0,
             bottom: 0,
-            backgroundColor: 'rgba(0,0,0,0.8)',
+            backgroundColor: 'white',
             zIndex: 100000,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            padding: '10px'
+            overflow: 'auto'
           }}
         >
-          <div 
-            style={{
-              backgroundColor: 'white',
-              borderRadius: '10px',
-              width: '100%',
-              maxWidth: '600px',
-              maxHeight: '90vh',
-              overflow: 'auto'
+          <MobileCheckout
+            cartItems={cartItems}
+            onSuccess={(paymentResult) => {
+              // Clear cart and close modals
+              setCartItems([]);
+              setShowCheckout(false);
+              
+              // Show success message with pickup code
+              if (paymentResult.paymentMethod === 'cash') {
+                alert(`🎉 Order Confirmed!\n\n📋 Your Pickup Code: ${paymentResult.pickupCode}\n\n💰 Amount to Pay in Store: $${paymentResult.amount.toFixed(2)}\n📍 Bring cash payment to our NYC pickup location\n💳 Order ID: ${paymentResult.orderId}\n\n⏰ Show your pickup code to staff when you arrive.`);
+              } else {
+                alert(`🎉 Payment Successful!\n\n📋 Your Pickup Code: ${paymentResult.pickupCode}\n\n📍 Show this code at our NYC pickup location\n💳 Order ID: ${paymentResult.orderId}\n💰 Amount: $${paymentResult.amount.toFixed(2)}\n\n📧 Receipt sent to your email\n\n⏰ Admin will verify this code when you pickup your order.`);
+              }
             }}
-          >
-            <MobileCheckout
-              cartItems={cartItems}
-              onSuccess={(paymentResult) => {
-                // Clear cart and close modals
-                setCartItems([]);
-                setShowCheckout(false);
-                
-                // Show success message with pickup code
-                if (paymentResult.paymentMethod === 'cash') {
-                  alert(`🎉 Order Confirmed!\n\n📋 Your Pickup Code: ${paymentResult.pickupCode}\n\n💰 Amount to Pay in Store: $${paymentResult.amount.toFixed(2)}\n📍 Bring cash payment to our NYC pickup location\n💳 Order ID: ${paymentResult.orderId}\n\n⏰ Show your pickup code to staff when you arrive.`);
-                } else {
-                  alert(`🎉 Payment Successful!\n\n📋 Your Pickup Code: ${paymentResult.pickupCode}\n\n📍 Show this code at our NYC pickup location\n💳 Order ID: ${paymentResult.orderId}\n💰 Amount: $${paymentResult.amount.toFixed(2)}\n\n📧 Receipt sent to your email\n\n⏰ Admin will verify this code when you pickup your order.`);
-                }
-              }}
-              onCancel={() => {
-                setShowCheckout(false);
-              }}
-            />
-          </div>
+            onCancel={() => {
+              setShowCheckout(false);
+            }}
+          />
         </div>
       )}
     </div>
