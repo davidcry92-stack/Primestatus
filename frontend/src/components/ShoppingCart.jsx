@@ -297,7 +297,7 @@ const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) =>
             </div>
           </div>
         </div>
-      )}
+      ) : null}
 
       {/* Square Checkout Modal */}
       {showCheckout && (
