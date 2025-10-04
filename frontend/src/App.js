@@ -229,6 +229,8 @@ const LoginOnlyApp = () => {
         cartItems={cartItems} 
         setCartItems={setCartItems}
         onAuthClick={handleAuthClick}
+        onOpenCart={handleOpenCart}
+        setOpenCartCallback={setOpenCartCallback}
       />
       <main>
         <HeroSection onAuthClick={handleAuthClick} />
