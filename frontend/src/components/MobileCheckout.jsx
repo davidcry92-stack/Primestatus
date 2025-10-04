@@ -104,13 +104,14 @@ const MobileCheckout = ({ cartItems, onSuccess, onCancel }) => {
 
   return (
     <div 
-      className="bg-white text-black"
       style={{
         width: '100%',
         minHeight: '100vh',
-        padding: '20px',
-        paddingBottom: '150px', // Extra space for buttons at bottom
-        overflow: 'auto'
+        backgroundColor: 'white',
+        color: 'black',
+        padding: '10px',
+        paddingTop: '20px',
+        boxSizing: 'border-box'
       }}
     >
       {/* Header - Simple, not fixed */}
