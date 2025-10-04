@@ -226,12 +226,13 @@ const CashPickupManagement = () => {
           <div className="flex-1">
             <input
               type="text"
-              placeholder="Enter pickup code (e.g., 123456)"
+              placeholder="Enter cash pickup code (starts with C, e.g., C123456)"
               value={pickupCode}
-              onChange={(e) => setPickupCode(e.target.value)}
+              onChange={(e) => setPickupCode(e.target.value.toUpperCase())}
               className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               onKeyPress={(e) => e.key === 'Enter' && handleLookupCode()}
             />
+            <p className="text-xs text-gray-400 mt-1">💡 Tip: C-codes = Cash pickup, P-codes = Pre-paid (different tab)</p>
           </div>
           <button
             onClick={handleLookupCode}
