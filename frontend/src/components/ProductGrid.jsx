@@ -182,9 +182,13 @@ const ProductGrid = ({ category = 'all', tier = null, user, cartItems, setCartIt
     setSelectedProduct(null);
     
     // Automatically open cart after adding item
+    console.log('About to call onOpenCart, function exists:', !!onOpenCart);
     setTimeout(() => {
       if (onOpenCart) {
+        console.log('Calling onOpenCart function now');
         onOpenCart();
+      } else {
+        console.error('onOpenCart function not available');
       }
     }, 100); // Small delay to ensure state updates
     
