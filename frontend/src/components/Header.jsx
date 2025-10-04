@@ -42,19 +42,24 @@ const Header = ({ user, cartItems = [], setCartItems, onAuthClick, onOpenCart, s
                 <span className="text-yellow-400">X</span>
                 <span className="text-green-400">Smoakland</span>
               </div>
-              {/* Sign In Button or NYC EXCLUSIVE Badge */}
-              {!user ? (
-                <Button 
-                  onClick={onAuthClick}
-                  className="bg-green-600 hover:bg-green-700 text-white font-bold px-4 py-2 text-sm"
-                >
-                  Sign In
-                </Button>
-              ) : (
-                <Badge className="bg-yellow-500 text-black font-bold text-xs">
-                  NYC EXCLUSIVE
-                </Badge>
-              )}
+              {/* Sign In Button - Keep consistent width */}
+              <div style={{ minWidth: '80px' }}>
+                {!user ? (
+                  <Button 
+                    onClick={onAuthClick}
+                    className="bg-green-600 hover:bg-green-700 text-white font-bold px-4 py-2 text-sm"
+                  >
+                    Sign In
+                  </Button>
+                ) : (
+                  // Empty space for non-admin users to prevent layout shift
+                  user.email === 'admin@statusxsmoakland.com' ? (
+                    <Badge className="bg-yellow-500 text-black font-bold text-xs">
+                      ADMIN
+                    </Badge>
+                  ) : null
+                )}
+              </div>
             </div>
 
             {/* Desktop Navigation */}
