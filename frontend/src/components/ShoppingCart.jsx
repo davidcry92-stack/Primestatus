@@ -13,6 +13,13 @@ const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) =>
     fetchPackages();
   }, []);
 
+  // Register cart opening function with parent
+  useEffect(() => {
+    if (setOpenCartCallback) {
+      setOpenCartCallback(() => () => setIsOpen(true));
+    }
+  }, [setOpenCartCallback]);
+
   const fetchPackages = async () => {
     try {
       const backendUrl = process.env.REACT_APP_BACKEND_URL || '';
