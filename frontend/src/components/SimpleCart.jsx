@@ -43,7 +43,7 @@ const SimpleCart = ({ cartItems = [], setCartItems, user }) => {
         Cart ({getTotalItems()})
       </button>
 
-      {/* Cart Modal - Only show if user is logged in */}
+      {/* Cart Modal - Mobile Responsive */}
       {isOpen && user && (
         <div
           style={{
@@ -56,18 +56,19 @@ const SimpleCart = ({ cartItems = [], setCartItems, user }) => {
             zIndex: 99999,
             display: 'flex',
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            padding: '10px'
           }}
           onClick={() => setIsOpen(false)}
         >
           <div
             style={{
               backgroundColor: 'white',
-              padding: '30px',
+              padding: '20px',
               borderRadius: '10px',
-              maxWidth: '600px',
-              width: '90%',
-              maxHeight: '80vh',
+              width: '100%',
+              maxWidth: '500px',
+              maxHeight: '90vh',
               overflow: 'auto'
             }}
             onClick={(e) => e.stopPropagation()}
