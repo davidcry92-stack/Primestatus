@@ -153,7 +153,6 @@ async def complete_prepaid_pickup(request: CompletePickupRequest):
 async def get_prepaid_orders_stats():
     """Get pre-paid orders statistics for admin dashboard"""
     try:
-        db = await get_database()
         
         total_orders = await db.prepaid_orders.count_documents({})
         pending_pickup = await db.prepaid_orders.count_documents({"status": "ready_for_pickup"})
