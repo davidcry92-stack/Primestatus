@@ -121,7 +121,10 @@ const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) =>
     <div className="relative">
       {/* Cart Toggle Button */}
       <button
-        onClick={() => setIsOpen(true)}
+        onClick={() => {
+          console.log('Cart button clicked, opening cart modal');
+          setIsOpen(true);
+        }}
         className="relative p-2 text-white hover:text-green-400 transition-colors"
       >
         <ShoppingCartIcon className="h-6 w-6" />
