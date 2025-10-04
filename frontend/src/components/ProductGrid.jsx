@@ -184,29 +184,23 @@ const ProductGrid = ({ category = 'all', tier = null, user, cartItems, setCartIt
     // Show success message 
     alert(`✅ ${product.name} added to cart!`);
     
-    // Navigate to cart by scrolling to top and triggering cart visibility
+    // Automatically open cart
     setTimeout(() => {
       // Scroll to top where cart is located
       window.scrollTo({ top: 0, behavior: 'smooth' });
       
-      // Try multiple approaches to open cart
-      const cartButton = document.querySelector('[data-cart-button="true"]');
-      const cartIcon = document.querySelector('[data-lucide="shopping-cart"]');
-      const anyCartButton = document.querySelector('button:has([data-lucide="shopping-cart"])');
-      
-      if (cartButton) {
-        console.log('Clicking cart button via data attribute');
-        cartButton.click();
-      } else if (cartIcon) {
-        console.log('Clicking cart via icon');
-        cartIcon.closest('button').click();
-      } else if (anyCartButton) {
-        console.log('Clicking any cart button found');
-        anyCartButton.click();
-      } else {
-        console.error('No cart button found to click');
-      }
-    }, 500);
+      // Find and click the simple cart button
+      setTimeout(() => {
+        const cartButtons = document.querySelectorAll('button');
+        for (let button of cartButtons) {
+          if (button.textContent && button.textContent.includes('Cart (')) {
+            console.log('Found SimpleCart button, clicking it');
+            button.click();
+            break;
+          }
+        }
+      }, 300);
+    }, 200);
     
     console.log('Added to cart:', cartItem);
   };
