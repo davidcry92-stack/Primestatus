@@ -16,14 +16,7 @@ const HeroSection = ({ onAuthClick, cartItems, setCartItems, user }) => {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-20">
         <div className="text-center">
-          {/* Cart */}
-          <div className="flex justify-center mb-8">
-            <SimpleCart 
-              cartItems={cartItems} 
-              setCartItems={setCartItems} 
-              user={user} 
-            />
-          </div>
+          {/* Cart removed - moved to header */}
 
           {/* Main Headline */}
           <h1 className="text-5xl md:text-7xl font-black text-white mb-4 leading-tight">
