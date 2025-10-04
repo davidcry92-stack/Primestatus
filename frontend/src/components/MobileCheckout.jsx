@@ -125,12 +125,18 @@ const MobileCheckout = ({ cartItems, onSuccess, onCancel }) => {
           borderBottom: '1px solid #e5e7eb'
         }}
       >
-        <h2 className="text-2xl font-bold">Checkout</h2>
+        <h2 style={{fontSize: '24px', fontWeight: 'bold', margin: 0}}>Checkout</h2>
         <button
           onClick={onCancel}
-          className="p-2 hover:bg-gray-100 rounded-full"
+          style={{
+            padding: '8px',
+            backgroundColor: '#f3f4f6',
+            border: 'none',
+            borderRadius: '50%',
+            cursor: 'pointer'
+          }}
         >
-          <X className="h-6 w-6" />
+          <X style={{width: '24px', height: '24px'}} />
         </button>
       </div>
 
