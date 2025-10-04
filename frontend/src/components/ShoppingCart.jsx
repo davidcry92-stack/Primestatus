@@ -122,9 +122,13 @@ const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) =>
       {/* Cart Toggle Button */}
       <button
         data-cart-button="true"
-        onClick={() => {
-          console.log('Cart button clicked, opening cart modal');
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('Cart button clicked - current isOpen:', isOpen);
+          console.log('Setting isOpen to true');
           setIsOpen(true);
+          console.log('Cart should now be open');
         }}
         className="relative p-2 text-white hover:text-green-400 transition-colors"
       >
