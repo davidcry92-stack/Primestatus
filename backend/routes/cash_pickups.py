@@ -27,7 +27,7 @@ class ProcessPickupRequest(BaseModel):
     processed_by: str
 
 @router.post("/cash-pickups")
-async def create_cash_pickup_order(order: CashPickupOrder, current_user: dict = Depends(get_current_user)):
+async def create_cash_pickup_order(order: CashPickupOrder, admin_email: str = Depends(verify_admin_token)):
     """Create a new cash pickup order"""
     try:
         # db is already imported
