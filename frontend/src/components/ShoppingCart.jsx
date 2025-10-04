@@ -155,9 +155,23 @@ const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) =>
             backgroundColor: 'rgba(0,0,0,0.5)'
           }}
         >
-          <div className="absolute inset-0 bg-black bg-opacity-50" onClick={() => setIsOpen(false)} />
+          <div 
+            className="absolute inset-0 bg-black bg-opacity-50" 
+            onClick={() => setIsOpen(false)} 
+          />
           
-          <div className="absolute right-0 top-0 h-full w-full max-w-md bg-gray-900 shadow-xl">
+          <div 
+            className="absolute right-0 top-0 h-full w-full max-w-md bg-gray-900 shadow-xl"
+            style={{
+              position: 'fixed',
+              right: 0,
+              top: 0,
+              height: '100vh',
+              maxWidth: '400px',
+              backgroundColor: '#111827',
+              zIndex: 100000
+            }}
+          >
             <div className="flex flex-col h-full">
               {/* Header */}
               <div className="flex items-center justify-between p-4 border-b border-gray-700">
