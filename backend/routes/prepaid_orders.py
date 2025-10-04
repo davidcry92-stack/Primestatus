@@ -85,7 +85,6 @@ async def get_all_prepaid_orders(skip: int = 0, limit: int = 100):
 async def lookup_prepaid_order(pickup_code: str):
     """Look up a specific pre-paid order by code"""
     try:
-        db = await get_database()
         
         # Ensure pickup code starts with P
         if not pickup_code.upper().startswith('P'):
