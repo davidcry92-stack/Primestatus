@@ -181,16 +181,24 @@ const ProductGrid = ({ category = 'all', tier = null, user, cartItems, setCartIt
     setShowQuantityModal(false);
     setSelectedProduct(null);
     
-    // Automatically open cart after adding item
-    console.log('About to call onOpenCart, function exists:', !!onOpenCart);
+    // Automatically redirect to cart after adding item
+    console.log('Item added to cart, triggering cart navigation');
+    
+    // Force cart to open by dispatching a custom event
     setTimeout(() => {
-      if (onOpenCart) {
-        console.log('Calling onOpenCart function now');
-        onOpenCart();
+      const cartButton = document.querySelector('[data-cart-button]');
+      if (cartButton) {
+        console.log('Found cart button, clicking it programmatically');
+        cartButton.click();
       } else {
-        console.error('onOpenCart function not available');
+        console.error('Cart button not found');
+        // Fallback: try calling the callback
+        if (onOpenCart) {
+          console.log('Using callback fallback');
+          onOpenCart();
+        }
       }
-    }, 100); // Small delay to ensure state updates
+    }, 200);
     
     console.log('Added to cart:', cartItem);
   };
