@@ -37,7 +37,7 @@ async def generate_daily_report(request: DailyReportRequest, admin_email: str = 
         end_datetime = datetime.combine(report_date, datetime.max.time())
         
         if request.report_type == "square_sales":
-            return await generate_square_sales_report(db, report_date, start_datetime, end_datetime, current_user)
+            return await generate_square_sales_report(db, report_date, start_datetime, end_datetime, admin_email)
         else:
             raise HTTPException(status_code=400, detail="Invalid report type")
             
