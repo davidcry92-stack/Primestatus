@@ -49,6 +49,7 @@ api_router.include_router(admin_health_aid.router, prefix="/admin/wictionary")
 api_router.include_router(admin_strains.router, prefix="/admin")
 api_router.include_router(cash_pickups.router)
 api_router.include_router(daily_reports.router)
+api_router.include_router(prepaid_orders.router)
 
 # Include the main router in the app
 app.include_router(api_router)
