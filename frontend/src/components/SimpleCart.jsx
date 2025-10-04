@@ -197,27 +197,24 @@ const SimpleCart = ({ cartItems = [], setCartItems, user }) => {
         </div>
       )}
 
-      {/* Mobile Checkout - ACTUALLY SIMPLE */}
+      {/* Checkout Page - NO MODAL ISSUES */}
       {showCheckout && (
         <div 
           style={{
             position: 'fixed',
             top: 0,
             left: 0,
-            width: '100%',
-            height: '100%',
+            width: '100vw',
+            height: '100vh',
             backgroundColor: 'white',
-            zIndex: 999999,
-            padding: 0,
-            margin: 0,
-            overflowY: 'auto',
-            overflowX: 'hidden'
+            zIndex: 999999
           }}
         >
-          <MobileCheckout
+          <CheckoutPage
             cartItems={cartItems}
+            onBack={() => setShowCheckout(false)}
             onSuccess={(paymentResult) => {
-              // Clear cart and close modals
+              // Clear cart and close checkout
               setCartItems([]);
               setShowCheckout(false);
               
@@ -227,9 +224,6 @@ const SimpleCart = ({ cartItems = [], setCartItems, user }) => {
               } else {
                 alert(`🎉 Payment Successful!\n\n📋 Your Pickup Code: ${paymentResult.pickupCode}\n\n📍 Show this code at our NYC pickup location\n💳 Order ID: ${paymentResult.orderId}\n💰 Amount: $${paymentResult.amount.toFixed(2)}\n\n📧 Receipt sent to your email\n\n⏰ Admin will verify this code when you pickup your order.`);
               }
-            }}
-            onCancel={() => {
-              setShowCheckout(false);
             }}
           />
         </div>
