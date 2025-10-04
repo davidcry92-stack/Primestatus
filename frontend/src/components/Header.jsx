@@ -72,7 +72,6 @@ const Header = ({ user, cartItems = [], setCartItems, onAuthClick, onOpenCart, s
 
             {/* Right side */}
             <div className="flex items-center space-x-4">
-              {/* Sign In Button - Keep consistent width */}
               <div style={{ minWidth: '80px' }}>
                 {!user ? (
                   <Button 
