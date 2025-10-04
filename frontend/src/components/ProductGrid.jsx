@@ -515,7 +515,11 @@ const ProductGrid = ({ category = 'all', tier = null, user, cartItems, setCartIt
                   return (
                     <button
                       key={index}
-                      onClick={() => addToCart(selectedProduct, option)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        addToCart(selectedProduct, option);
+                      }}
                       className="w-full flex items-center justify-between p-4 bg-gray-800 hover:bg-gray-700 rounded-lg border border-gray-600 hover:border-green-400 transition-all duration-200 group"
                     >
                       <div className="flex items-center space-x-3">
