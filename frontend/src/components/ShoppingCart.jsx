@@ -252,15 +252,71 @@ const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) =>
 
       {/* Commented section removed to fix syntax error */}
 
-      {/* Square Checkout Modal */}
+      {/* Payment Method Selection Modal */}
       {showCheckout && (
         <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
-          <div className="max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
-            <SquareCheckout
-              cartItems={cartItems}
-              onSuccess={handlePaymentSuccess}
-              onCancel={handlePaymentCancel}
-            />
+          <div className="max-w-md w-full mx-4">
+            <div className="bg-gray-900 border border-green-400 rounded-lg p-8">
+              <h2 className="text-2xl font-bold text-white text-center mb-6">Choose Payment Method</h2>
+              
+              {/* Order Summary */}
+              <div className="bg-gray-800 rounded-lg p-4 mb-6">
+                <h3 className="text-white font-semibold mb-2">Order Summary</h3>
+                {cartItems.map(item => (
+                  <div key={item.id} className="flex justify-between text-gray-300 text-sm mb-1">
+                    <span>{item.name} x{item.quantity}</span>
+                    <span>${(item.price * item.quantity).toFixed(2)}</span>
+                  </div>
+                ))}
+                <div className="border-t border-gray-600 pt-2 mt-2">
+                  <div className="flex justify-between text-white font-bold">
+                    <span>Total</span>
+                    <span>${getTotalPrice()}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Payment Options */}
+              <div className="space-y-4">
+                {/* Credit/Debit Card Option */}
+                <button
+                  onClick={() => handlePaymentMethodSelect('card')}
+                  className="w-full p-4 bg-green-600 hover:bg-green-700 text-white rounded-lg border-2 border-green-400 transition-colors flex items-center justify-between"
+                >
+                  <div className="flex items-center">
+                    <CreditCard className="h-6 w-6 mr-3" />
+                    <div className="text-left">
+                      <div className="font-semibold">Credit/Debit Card</div>
+                      <div className="text-sm text-green-100">Pay online with card</div>
+                    </div>
+                  </div>
+                  <span className="text-xl">💳</span>
+                </button>
+
+                {/* Cash In-Person Pickup Option */}
+                <button
+                  onClick={() => handlePaymentMethodSelect('cash')}
+                  className="w-full p-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg border-2 border-blue-400 transition-colors flex items-center justify-between"
+                >
+                  <div className="flex items-center">
+                    <Package className="h-6 w-6 mr-3" />
+                    <div className="text-left">
+                      <div className="font-semibold">Cash In-Person Pick-Up</div>
+                      <div className="text-sm text-blue-100">Pay cash when you pick up</div>
+                    </div>
+                  </div>
+                  <span className="text-xl">💵</span>
+                </button>
+              </div>
+
+              {/* Cancel Button */}
+              <button
+                onClick={handlePaymentCancel}
+                className="w-full mt-6 p-3 bg-gray-600 hover:bg-gray-700 text-white rounded-lg transition-colors"
+              >
+                Cancel
+              </button>
+            </div>
           </div>
         </div>
       )}
