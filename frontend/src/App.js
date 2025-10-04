@@ -345,13 +345,19 @@ function App() {
   }, []);
 
   const handleLawEnforcementVerification = () => {
+    const now = Date.now();
     setIsLawEnforcementVerified(true);
+    setLastActivityTime(now);
     sessionStorage.setItem('law_enforcement_verified', 'true');
+    sessionStorage.setItem('last_verification_time', now.toString());
   };
 
   const handleReEntryCodeVerification = () => {
+    const now = Date.now();
     setIsReEntryCodeVerified(true);
+    setLastActivityTime(now);
     sessionStorage.setItem('reentry_verified', 'true');
+    sessionStorage.setItem('last_verification_time', now.toString());
   };
 
   const getAppContent = () => {
