@@ -230,7 +230,7 @@ const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
         </label>
         <div 
           id="card-container" 
-          className="bg-white rounded-md p-4 border border-gray-600"
+          className="bg-gray-800 rounded-md p-4 border border-gray-600"
           style={{ minHeight: '120px' }}
         />
         
