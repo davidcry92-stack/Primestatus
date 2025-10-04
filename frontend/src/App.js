@@ -322,48 +322,7 @@ function App() {
     setIsSuperAdminMode(false); // No super admin bypasses allowed
   }, []);
 
-  // Track user activity to extend 60-second window
-  useEffect(() => {
-    const handleUserActivity = () => {
-      setLastActivityTime(Date.now());
-    };
-
-    // Listen for user activity events
-    const activityEvents = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'];
-    
-    activityEvents.forEach(event => {
-      document.addEventListener(event, handleUserActivity, { passive: true });
-    });
-
-    return () => {
-      activityEvents.forEach(event => {
-        document.removeEventListener(event, handleUserActivity);
-      });
-    };
-  }, []);
-
-  // Check for timeout every 10 seconds
-  useEffect(() => {
-    const checkTimeout = () => {
-      if (isLawEnforcementVerified && isReEntryCodeVerified) {
-        const now = Date.now();
-        const timeSinceActivity = now - lastActivityTime;
-        const TIMEOUT_DURATION = 60 * 1000; // 60 seconds
-        
-        if (timeSinceActivity > TIMEOUT_DURATION) {
-          console.log('60-second timeout reached, clearing verification');
-          setIsLawEnforcementVerified(false);
-          setIsReEntryCodeVerified(false);
-          sessionStorage.removeItem('law_enforcement_verified');
-          sessionStorage.removeItem('reentry_verified');
-          sessionStorage.removeItem('last_verification_time');
-        }
-      }
-    };
-
-    const interval = setInterval(checkTimeout, 10000); // Check every 10 seconds
-    return () => clearInterval(interval);
-  }, [isLawEnforcementVerified, isReEntryCodeVerified, lastActivityTime]);
+  // Removed 60-second timeout logic to prevent security bypasses
 
   const handleLawEnforcementVerification = () => {
     const now = Date.now();
