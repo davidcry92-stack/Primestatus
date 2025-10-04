@@ -106,6 +106,12 @@ const LoginOnlyApp = () => {
     setShowAuthModal(false);
   };
 
+  const handleOpenCart = () => {
+    if (openCartCallback) {
+      openCartCallback();
+    }
+  };
+
   // Show loading while checking auth
   if (loading) {
     return (
