@@ -281,32 +281,22 @@ function App() {
   const [isSuperAdminMode, setIsSuperAdminMode] = useState(false);
   const [lastActivityTime, setLastActivityTime] = useState(Date.now());
 
-  // Check verification states on load - STRICT SECURITY MODE
+  // STRICT SECURITY MODE - ALWAYS REQUIRE FRESH VERIFICATION
   useEffect(() => {
-    // Check for 60-second timeout rule
-    const lastVerificationTime = sessionStorage.getItem('last_verification_time');
-    const lawEnforcementVerified = sessionStorage.getItem('law_enforcement_verified');
-    const reentryVerified = sessionStorage.getItem('reentry_verified');
+    console.log('App loading - enforcing strict security verification');
     
-    const now = Date.now();
-    const TIMEOUT_DURATION = 60 * 1000; // 60 seconds in milliseconds
+    // SECURITY FIX: ALWAYS clear all verification states on app load
+    // This prevents any cached verification from bypassing security
+    sessionStorage.removeItem('law_enforcement_verified');
+    sessionStorage.removeItem('reentry_verified');
+    sessionStorage.removeItem('last_verification_time');
+    sessionStorage.removeItem('app_session_active');
     
-    // If user was verified and it's been less than 60 seconds, restore verification states
-    if (lastVerificationTime && lawEnforcementVerified && reentryVerified) {
-      const timeSinceLastVerification = now - parseInt(lastVerificationTime);
-      
-      if (timeSinceLastVerification < TIMEOUT_DURATION) {
-        console.log('Within 60-second window, restoring verification states');
-        setIsLawEnforcementVerified(true);
-        setIsReEntryCodeVerified(true);
-        setLastActivityTime(now);
-        return;
-      } else {
-        console.log('60-second timeout expired, requiring fresh verification');
-      }
-    }
+    // FORCE fresh verification for every session
+    setIsLawEnforcementVerified(false);
+    setIsReEntryCodeVerified(false);
     
-    // SECURITY: NO ADMIN BYPASSES - Everyone must verify, regardless of role
+    console.log('Verification states reset - user must complete fresh verification');
     
     // SECURITY FIX: Clear bypass mechanisms but preserve legitimate auth tokens
     const bypassKeys = [
