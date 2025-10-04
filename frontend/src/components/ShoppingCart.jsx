@@ -389,6 +389,19 @@ const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) =>
           </div>
         </div>
       )}
+
+      {/* Square Checkout Modal */}
+      {showCheckout && selectedPaymentMethod === 'card' && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+          <div className="max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <SquareCheckout
+              cartItems={cartItems}
+              onSuccess={handleSquarePaymentSuccess}
+              onCancel={handlePaymentCancel}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
