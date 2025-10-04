@@ -371,7 +371,7 @@ const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) =>
                     <Package className="h-6 w-6 mr-3" />
                     <div className="text-left">
                       <div className="font-semibold">Cash In-Person Pick-Up</div>
-                      <div className="text-sm text-blue-100">Pay cash when you pick up</div>
+                      <div className="text-sm text-blue-100">Reserve order • Get pickup code • Pay cash at location</div>
                     </div>
                   </div>
                   <span className="text-xl">💵</span>
