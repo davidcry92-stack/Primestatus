@@ -151,7 +151,10 @@ const CashPickupManagement = () => {
     <div className="space-y-6">
       {/* Header */}
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold text-white">Cash Pickup Management</h2>
+        <div>
+          <h2 className="text-2xl font-bold text-white">Cash Pickup Management</h2>
+          <p className="text-gray-300 text-sm">For pickup codes starting with "C" (Cash pickup orders)</p>
+        </div>
         <button
           onClick={loadAllPickups}
           className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors"
