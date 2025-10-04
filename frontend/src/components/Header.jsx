@@ -94,12 +94,7 @@ const Header = ({ user, cartItems = [], setCartItems, onAuthClick, onOpenCart, s
                 </a>
               </div>
 
-              {/* Cart - Always visible to prevent layout shift */}
-              <SimpleCart 
-                cartItems={cartItems} 
-                setCartItems={setCartItems} 
-                user={user} 
-              />
+              {/* Cart moved to be next to hamburger menu */}
 
               {/* Fixed space for admin elements to prevent layout shift */}
               <div style={{ minWidth: '200px' }}>
