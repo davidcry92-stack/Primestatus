@@ -19,12 +19,7 @@ const SimpleHeader = ({ user, cartItems = [], setCartItems, onAuthClick }) => {
             <span className="text-green-400">Smoakland</span>
           </div>
           
-          {/* Cart next to logo */}
-          <SimpleCart 
-            cartItems={cartItems} 
-            setCartItems={setCartItems} 
-            user={user} 
-          />
+          {/* Cart temporarily removed for debugging */}
         </div>
         
         {/* Menu */}
