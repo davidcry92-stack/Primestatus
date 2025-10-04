@@ -95,6 +95,7 @@ const LoginOnlyApp = () => {
   const { user, isAuthenticated, loading, login } = useAuth();
   const [cartItems, setCartItems] = useState([]);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [openCartCallback, setOpenCartCallback] = useState(null);
 
   const handleAuthClick = () => {
     console.log('Auth button clicked!'); // Debug log
