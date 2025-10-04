@@ -28,10 +28,9 @@ class CompletePickupRequest(BaseModel):
     completed_by: str
 
 @router.post("/prepaid-orders")
-async def create_prepaid_order(order: PrepaidOrder, current_user: dict = Depends(get_current_user)):
+async def create_prepaid_order(order: PrepaidOrder, current_user_email: str = Depends(verify_token)):
     """Create a new pre-paid order (called from Square checkout)"""
     try:
-        db = await get_database()
         
         # Add unique ID and ensure user matches
         order_data = order.dict()
