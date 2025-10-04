@@ -15,6 +15,12 @@ const CheckoutPage = ({ cartItems, onBack, onSuccess }) => {
     return cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
   };
 
+  // SIMPLE CHECKOUT - Show payment selection immediately
+  React.useEffect(() => {
+    // Auto-scroll to top when component loads
+    window.scrollTo(0, 0);
+  }, []);
+
   const handleCardPayment = async () => {
     setLoading(true);
     setTimeout(() => {
