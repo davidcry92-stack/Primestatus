@@ -279,6 +279,7 @@ function App() {
   const [isLawEnforcementVerified, setIsLawEnforcementVerified] = useState(false);
   const [isReEntryCodeVerified, setIsReEntryCodeVerified] = useState(false);
   const [isSuperAdminMode, setIsSuperAdminMode] = useState(false);
+  const [lastActivityTime, setLastActivityTime] = useState(Date.now());
 
   // Check verification states on load - STRICT SECURITY MODE
   useEffect(() => {
