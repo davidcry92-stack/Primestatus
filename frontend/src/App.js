@@ -293,10 +293,10 @@ function App() {
     // Verification states cleared, authentication required
     
     console.log('App useEffect - Verification states:', { 
-      lawEnforcementVerified, 
-      reentryVerified,
-      hasToken: !!hasValidToken,
-      hasUserData: !!hasValidUserData
+      isLawEnforcementVerified, 
+      isReEntryCodeVerified,
+      hasToken: !!token,
+      hasUserData: !!user
     });
     
     setIsSuperAdminMode(false); // No super admin bypasses allowed
