@@ -283,30 +283,30 @@ function App() {
 
   // Check verification states on load - STRICT SECURITY MODE
   useEffect(() => {
-    // Check if user is already authenticated as admin
-    const accessToken = localStorage.getItem('access_token');
-    const userData = localStorage.getItem('user_data');
-    const adminToken = localStorage.getItem('admin_token');
+    // Check for 60-second timeout rule
+    const lastVerificationTime = sessionStorage.getItem('last_verification_time');
+    const lawEnforcementVerified = sessionStorage.getItem('law_enforcement_verified');
+    const reentryVerified = sessionStorage.getItem('reentry_verified');
     
-    let isAuthenticatedAdmin = false;
+    const now = Date.now();
+    const TIMEOUT_DURATION = 60 * 1000; // 60 seconds in milliseconds
     
-    if (accessToken && userData) {
-      try {
-        const user = JSON.parse(userData);
-        if (user.email === 'admin@statusxsmoakland.com' || user.role === 'super_admin') {
-          isAuthenticatedAdmin = true;
-        }
-      } catch (error) {
-        console.log('Error parsing user data:', error);
+    // If user was verified and it's been less than 60 seconds, restore verification states
+    if (lastVerificationTime && lawEnforcementVerified && reentryVerified) {
+      const timeSinceLastVerification = now - parseInt(lastVerificationTime);
+      
+      if (timeSinceLastVerification < TIMEOUT_DURATION) {
+        console.log('Within 60-second window, restoring verification states');
+        setIsLawEnforcementVerified(true);
+        setIsReEntryCodeVerified(true);
+        setLastActivityTime(now);
+        return;
+      } else {
+        console.log('60-second timeout expired, requiring fresh verification');
       }
     }
     
-    if (adminToken) {
-      isAuthenticatedAdmin = true;
-    }
-    
-    // SECURITY: NO BYPASSES ALLOWED - Even admins must complete verification
-    // Remove any admin verification bypasses for security
+    // SECURITY: NO ADMIN BYPASSES - Everyone must verify, regardless of role
     
     // SECURITY FIX: Clear bypass mechanisms but preserve legitimate auth tokens
     const bypassKeys = [
