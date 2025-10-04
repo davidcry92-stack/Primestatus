@@ -100,11 +100,10 @@ const Header = ({ user, cartItems = [], setCartItems, onAuthClick, onOpenCart, s
               </div>
 
               {/* Cart */}
-              <ShoppingCartComponent 
+              <SimpleCart 
                 cartItems={cartItems} 
                 setCartItems={setCartItems} 
                 user={user} 
-                setOpenCartCallback={setOpenCartCallback}
               />
 
               {/* Admin Dashboard Button */}
