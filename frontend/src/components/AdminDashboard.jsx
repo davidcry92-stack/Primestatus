@@ -12,6 +12,7 @@ import HealthAidManagement from './HealthAidManagement';
 import StrainsManagement from './StrainsManagement';
 import CashPickupManagement from './CashPickupManagement';
 import DailyReportsManagement from './DailyReportsManagement';
+import PrepaidLookupManagement from './PrepaidLookupManagement';
 
 // Error Boundary Component
 class ErrorBoundary extends React.Component {
