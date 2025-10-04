@@ -230,8 +230,8 @@ const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
         </label>
         <div 
           id="card-container" 
-          className="bg-gray-800 rounded-md p-4 border border-gray-600"
-          style={{ minHeight: '120px' }}
+          className="bg-gray-900 border border-gray-600 rounded-md p-4"
+          style={{ minHeight: '120px', backgroundColor: '#1f2937' }}
         />
         
         {/* Save to Profile Option */}
