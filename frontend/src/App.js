@@ -248,7 +248,7 @@ const LoginOnlyApp = () => {
         setOpenCartCallback={setOpenCartCallback}
       />
       {/* System Instructions Banner */}
-      <div className="bg-gradient-to-r from-orange-900/30 to-blue-900/30 border-b border-orange-600/50 px-4 py-3">
+      <div data-instruction-banner className="bg-gradient-to-r from-orange-900/30 to-blue-900/30 border-b border-orange-600/50 px-4 py-3">
         <div className="container mx-auto">
           <div className="flex items-start space-x-4">
             <div className="flex-shrink-0">
