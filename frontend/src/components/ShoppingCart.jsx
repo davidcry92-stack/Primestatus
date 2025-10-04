@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingCart as ShoppingCartIcon, Plus, Minus, X, CreditCard, Package } from 'lucide-react';
+import { ShoppingCart as ShoppingCartIcon, Plus, Minus, X } from 'lucide-react';
 import SquareCheckout from './SquareCheckout';
 
 const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) => {
