@@ -117,6 +117,63 @@ const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) =>
 
   const handlePaymentCancel = () => {
     setShowCheckout(false);
+    setShowPaymentSelection(false);
+    setSelectedPaymentMethod(null);
+  };
+
+  const handlePaymentMethodSelect = (paymentMethod) => {
+    setSelectedPaymentMethod(paymentMethod);
+    setShowPaymentSelection(false);
+    
+    if (paymentMethod === 'card') {
+      // Use Square for credit/debit card payments
+      setShowCheckout(true);
+    } else if (paymentMethod === 'cash') {
+      // Handle cash in-person pickup
+      handleCashPickup();
+    }
+  };
+
+  const handleCashPickup = async () => {
+    try {
+      const pickupCode = 'C' + Math.floor(100000 + Math.random() * 900000).toString();
+      const orderId = 'CASH-' + Date.now();
+      
+      // Store cash pickup order in backend
+      const backendUrl = process.env.REACT_APP_BACKEND_URL || '';
+      const orderData = {
+        user_id: user.id,
+        user_email: user.email,
+        pickup_code: pickupCode,
+        order_id: orderId,
+        items: cartItems,
+        total_amount: getTotalPrice(),
+        payment_method: 'cash_pickup',
+        status: 'pending_pickup',
+        created_at: new Date().toISOString()
+      };
+
+      const response = await fetch(`${backendUrl}/api/admin/cash-pickups`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+        },
+        body: JSON.stringify(orderData)
+      });
+
+      if (response.ok) {
+        setCartItems([]);
+        setIsOpen(false);
+        
+        alert(`✅ Cash Pickup Order Reserved!\n\n📋 Your Pickup Code: ${pickupCode}\n\n💵 PAYMENT PROCESS:\n• Bring exact cash amount: $${getTotalPrice()}\n• Present this pickup code to our staff\n• Staff will verify your code and process payment\n• You'll receive your order after payment\n\n📍 Pickup Location: [Your Location]\n💼 Order ID: ${orderId}\n\n⏰ Orders held for 24 hours\n📧 Confirmation sent to ${user.email}`);
+      } else {
+        throw new Error('Failed to create cash pickup order');
+      }
+    } catch (error) {
+      console.error('Error creating cash pickup order:', error);
+      alert('Error creating cash pickup order. Please try again.');
+    }
   };
 
   const handleSquarePaymentSuccess = (paymentResult) => {
@@ -126,7 +183,7 @@ const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) =>
     setIsOpen(false);
     
     // Show success message with pickup code
-    alert(`🎉 Payment Successful!\n\n📋 Your Pickup Code: ${paymentResult.pickupCode}\n\n💳 Payment processed securely\n📍 Show this code at our pickup location\n💼 Order ID: ${paymentResult.orderId}\n💰 Amount: $${paymentResult.amount.toFixed(2)}\n\n📧 Receipt sent to your email\n\n⏰ Present this code when you arrive for pickup.`);
+    alert(`🎉 Credit/Debit Payment Successful!\n\n📋 Your Pickup Code: ${paymentResult.pickupCode}\n\n💳 Payment processed via Square\n📍 Show this code at our pickup location\n💼 Order ID: ${paymentResult.orderId}\n💰 Amount: $${paymentResult.amount.toFixed(2)}\n\n📧 Receipt sent to your email\n\n⏰ Present this code when you arrive for pickup.`);
   };
 
   return (
