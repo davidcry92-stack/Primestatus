@@ -8,7 +8,7 @@ import ScreenshotProtection from "./components/ScreenshotProtection";
 import LawEnforcementScreen from "./components/LawEnforcementScreen";
 import ReEntryCodeScreen from "./components/ReEntryCodeScreen";
 import VerificationPending from "./components/VerificationPending";
-import StaticHeader from "./components/StaticHeader";
+import Header from "./components/Header";
 import HeroSection from "./components/HeroSection";
 import ProductGrid from "./components/ProductGrid";
 import ProductSelection from "./components/ProductSelection";
