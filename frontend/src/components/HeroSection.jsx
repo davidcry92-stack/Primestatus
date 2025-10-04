@@ -16,11 +16,13 @@ const HeroSection = ({ onAuthClick, cartItems, setCartItems, user }) => {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-20">
         <div className="text-center">
-          {/* NYC Badge */}
+          {/* Cart */}
           <div className="flex justify-center mb-8">
-            <Badge className="bg-gradient-to-r from-yellow-400 to-orange-500 text-black font-bold text-sm px-6 py-2 rounded-full">
-              🗽 NEW YORK CITY EXCLUSIVE 🗽
-            </Badge>
+            <SimpleCart 
+              cartItems={cartItems} 
+              setCartItems={setCartItems} 
+              user={user} 
+            />
           </div>
 
           {/* Main Headline */}
