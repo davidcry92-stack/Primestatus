@@ -38,22 +38,21 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Load user from localStorage on mount
+  // STRICT SECURITY: Do NOT auto-load user from localStorage
   useEffect(() => {
-    const token = localStorage.getItem('access_token');
-    const userData = localStorage.getItem('user_data');
+    console.log('AuthContext initializing - STRICT MODE');
     
-    if (token && userData) {
-      try {
-        setUser(JSON.parse(userData));
-      } catch (error) {
-        console.error('Error parsing user data:', error);
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('user_data');
-      }
-    }
+    // SECURITY FIX: Clear any existing authentication on app load
+    // This prevents bypasses from cached tokens
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('user_data');
+    sessionStorage.clear();
     
+    // Force user to null - no auto-authentication allowed
+    setUser(null);
     setLoading(false);
+    
+    console.log('Authentication cleared - user must login fresh');
   }, []);
 
   const login = async (credentials) => {
