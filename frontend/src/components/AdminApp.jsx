@@ -28,11 +28,11 @@ const AdminApp = () => {
   }, [adminUser]);
 
   useEffect(() => {
-    // Check if admin is already logged in
-    const token = localStorage.getItem('admin_token');
+    // Check if admin is already logged in via admin_token
+    const adminToken = localStorage.getItem('admin_token');
     const storedAdmin = localStorage.getItem('admin_user');
     
-    if (token && storedAdmin) {
+    if (adminToken && storedAdmin) {
       try {
         const adminData = JSON.parse(storedAdmin);
         setAdminUser(adminData);
@@ -40,6 +40,34 @@ const AdminApp = () => {
         console.error('Failed to parse stored admin data:', error);
         localStorage.removeItem('admin_token');
         localStorage.removeItem('admin_user');
+      }
+    } else {
+      // Check if admin is logged in via regular access_token
+      const regularToken = localStorage.getItem('access_token');
+      const regularUser = localStorage.getItem('user_data');
+      
+      if (regularToken && regularUser) {
+        try {
+          const userData = JSON.parse(regularUser);
+          // Check if this is an admin user
+          if (userData.email === 'admin@statusxsmoakland.com' || userData.role === 'super_admin') {
+            setAdminUser({
+              username: userData.username || "admin",
+              email: userData.email,
+              role: userData.role || "super_admin",
+              fullAccess: true,
+              permissions: {
+                manage_users: true,
+                manage_inventory: true,
+                manage_transactions: true,
+                view_analytics: true,
+                manage_wictionary: true
+              }
+            });
+          }
+        } catch (error) {
+          console.error('Failed to parse regular user data:', error);
+        }
       }
     }
     
