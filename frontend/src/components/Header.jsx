@@ -13,7 +13,7 @@ import {
 import { mockUserProfile } from '../data/actual-inventory';
 import ShoppingCartComponent from './ShoppingCart';
 
-const Header = ({ user, cartItems = [], setCartItems, onAuthClick }) => {
+const Header = ({ user, cartItems = [], setCartItems, onAuthClick, onOpenCart, setOpenCartCallback }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const cartItemCount = cartItems.reduce((total, item) => total + item.quantity, 0);
