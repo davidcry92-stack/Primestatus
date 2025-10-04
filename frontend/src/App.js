@@ -304,12 +304,8 @@ function App() {
       isAuthenticatedAdmin = true;
     }
     
-    // If user is authenticated admin, skip verification for admin routes
-    if (isAuthenticatedAdmin && window.location.pathname === '/admin') {
-      setIsLawEnforcementVerified(true);
-      setIsReEntryCodeVerified(true);
-      return;
-    }
+    // SECURITY: NO BYPASSES ALLOWED - Even admins must complete verification
+    // Remove any admin verification bypasses for security
     
     // SECURITY FIX: Clear bypass mechanisms but preserve legitimate auth tokens
     const bypassKeys = [
