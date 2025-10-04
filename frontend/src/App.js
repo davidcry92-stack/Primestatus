@@ -325,19 +325,13 @@ function App() {
   // Removed 60-second timeout logic to prevent security bypasses
 
   const handleLawEnforcementVerification = () => {
-    const now = Date.now();
+    console.log('Law enforcement verification completed');
     setIsLawEnforcementVerified(true);
-    setLastActivityTime(now);
-    sessionStorage.setItem('law_enforcement_verified', 'true');
-    sessionStorage.setItem('last_verification_time', now.toString());
   };
 
   const handleReEntryCodeVerification = () => {
-    const now = Date.now();
+    console.log('Re-entry code verification completed');
     setIsReEntryCodeVerified(true);
-    setLastActivityTime(now);
-    sessionStorage.setItem('reentry_verified', 'true');
-    sessionStorage.setItem('last_verification_time', now.toString());
   };
 
   const getAppContent = () => {
