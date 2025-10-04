@@ -165,11 +165,11 @@ const PrepaidLookupManagement = () => {
 
       {/* Info Banner */}
       <div className="bg-blue-900/30 border border-blue-600 rounded-lg p-4">
-        <h3 className="text-blue-400 font-semibold mb-2">💳 Pre-paid Order System</h3>
+        <h3 className="text-blue-400 font-semibold mb-2">💳 Order Management System</h3>
         <div className="text-blue-300 text-sm space-y-1">
-          <p>• <strong>P-codes:</strong> Pre-paid orders (credit/debit card payments via Square)</p>
-          <p>• <strong>C-codes:</strong> Cash pickup orders (use Cash Pickup Lookup tab)</p>
-          <p>• Payment already processed - just verify code and complete pickup</p>
+          <p>• All orders are pre-paid via credit/debit card (Square)</p>
+          <p>• Payment already processed - verify code and complete pickup</p>
+          <p>• Pickup codes start with "P" followed by 6 digits</p>
         </div>
       </div>
 
