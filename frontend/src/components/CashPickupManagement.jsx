@@ -209,8 +209,18 @@ const CashPickupManagement = () => {
       )}
 
       {/* Pickup Code Lookup */}
+      {/* Info Banner */}
+      <div className="bg-orange-900/30 border border-orange-600 rounded-lg p-4">
+        <h3 className="text-orange-400 font-semibold mb-2">💵 Cash Pickup System</h3>
+        <div className="text-orange-300 text-sm space-y-1">
+          <p>• <strong>C-codes:</strong> Cash pickup orders (payment due on pickup)</p>
+          <p>• <strong>P-codes:</strong> Pre-paid orders (use Pre-paid Lookup Verification tab)</p>
+          <p>• Process cash payment when customer picks up</p>
+        </div>
+      </div>
+
       <div className="bg-gray-800 rounded-lg p-6">
-        <h3 className="text-xl font-semibold text-white mb-4">Lookup Pickup Code</h3>
+        <h3 className="text-xl font-semibold text-white mb-4">Lookup Cash Pickup Code</h3>
         
         <div className="flex gap-4 mb-4">
           <div className="flex-1">
