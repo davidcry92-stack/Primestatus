@@ -39,6 +39,12 @@ const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
 
   const initializeSquareForm = async () => {
     try {
+      // Clear any existing card container content
+      const cardContainer = document.getElementById('card-container');
+      if (cardContainer) {
+        cardContainer.innerHTML = '';
+      }
+
       const payments = window.Square.payments(SQUARE_APPLICATION_ID, SQUARE_LOCATION_ID);
       
       const paymentRequest = payments.paymentRequest({
@@ -52,10 +58,27 @@ const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
 
       setPaymentForm(payments);
 
-      // Initialize card payment form
-      const cardForm = await payments.card();
-      await cardForm.attach('#card-container');
-      setCard(cardForm);
+      // Initialize card payment form with custom styling
+      const cardForm = await payments.card({
+        style: {
+          '.input-container': {
+            borderColor: '#6B7280',
+            borderRadius: '6px',
+          },
+          '.input-container.is-focus': {
+            borderColor: '#10B981',
+          },
+          '.input-container.is-error': {
+            borderColor: '#EF4444',
+          },
+        }
+      });
+      
+      // Ensure only one attachment
+      if (cardContainer && !cardContainer.hasChildNodes()) {
+        await cardForm.attach('#card-container');
+        setCard(cardForm);
+      }
 
     } catch (error) {
       console.error('Square initialization error:', error);
