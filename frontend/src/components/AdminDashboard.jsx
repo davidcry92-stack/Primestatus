@@ -157,7 +157,12 @@ const AdminDashboard = ({ adminUser, onLogout }) => {
               <DailyDealsManagement />
             </ErrorBoundary>
           )}
-          {activeTab === 'order-lookup' && (
+          {activeTab === 'cash-pickups' && (
+            <ErrorBoundary>
+              <CashPickupManagement />
+            </ErrorBoundary>
+          )}
+          {activeTab === 'prepaid-lookup' && (
             <ErrorBoundary>
               <PrepaidLookupManagement />
             </ErrorBoundary>
