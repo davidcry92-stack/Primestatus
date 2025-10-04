@@ -7,6 +7,7 @@ const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [pickupNotes, setPickupNotes] = useState('');
+  const [saveToProfile, setSaveToProfile] = useState(false);
   const { user, apiCall } = useContext(AuthContext);
 
   const SQUARE_APPLICATION_ID = 'sq0idp-A8bi8F9_FRdPQiCQVCa5dg';
