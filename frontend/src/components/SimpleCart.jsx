@@ -135,8 +135,8 @@ const SimpleCart = ({ cartItems = [], setCartItems, user }) => {
 
                   <button
                     onClick={() => {
-                      alert('🚀 Redirecting to checkout...\n\nSquare payment integration will process your order and generate a pickup code!');
-                      // Here you would integrate with Square checkout
+                      setIsOpen(false);
+                      setShowCheckout(true);
                     }}
                     style={{
                       backgroundColor: '#4CAF50',
