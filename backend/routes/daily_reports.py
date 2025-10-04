@@ -96,7 +96,7 @@ async def generate_square_sales_report(db, report_date, start_datetime, end_date
             } for t in transactions
         ],
         "generated_at": datetime.now().isoformat(),
-        "generated_by": current_user.get("email", "admin")
+        "generated_by": admin_email
     }
     
     # Save report to database
