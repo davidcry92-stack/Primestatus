@@ -110,7 +110,6 @@ async def lookup_prepaid_order(pickup_code: str):
 async def complete_prepaid_pickup(request: CompletePickupRequest):
     """Complete a pre-paid pickup order (admin action)"""
     try:
-        db = await get_database()
         
         # Ensure pickup code starts with P
         pickup_code = request.pickup_code.upper()
