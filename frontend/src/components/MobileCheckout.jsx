@@ -114,8 +114,17 @@ const MobileCheckout = ({ cartItems, onSuccess, onCancel }) => {
         boxSizing: 'border-box'
       }}
     >
-      {/* Header - Simple, not fixed */}
-      <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-200">
+      {/* Header - ALWAYS VISIBLE */}
+      <div 
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          marginBottom: '20px',
+          paddingBottom: '15px',
+          borderBottom: '1px solid #e5e7eb'
+        }}
+      >
         <h2 className="text-2xl font-bold">Checkout</h2>
         <button
           onClick={onCancel}
