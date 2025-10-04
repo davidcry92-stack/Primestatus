@@ -184,17 +184,17 @@ const ProductGrid = ({ category = 'all', tier = null, user, cartItems, setCartIt
     // Show success message 
     alert(`✅ ${product.name} added to cart!`);
     
-    // Automatically open cart
+    // Automatically open cart modal after adding item
     setTimeout(() => {
       // Scroll to top where cart is located
       window.scrollTo({ top: 0, behavior: 'smooth' });
       
-      // Find and click the simple cart button
+      // Find and click the cart button to show the added item
       setTimeout(() => {
         const cartButtons = document.querySelectorAll('button');
         for (let button of cartButtons) {
           if (button.textContent && button.textContent.includes('Cart (')) {
-            console.log('Found SimpleCart button, clicking it');
+            console.log('Cart modal opened at', new Date().toISOString());
             button.click();
             break;
           }
