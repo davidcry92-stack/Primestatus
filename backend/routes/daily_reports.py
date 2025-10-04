@@ -47,7 +47,7 @@ async def generate_daily_report(request: DailyReportRequest, admin_email: str = 
         print(f"Error generating daily report: {e}")
         raise HTTPException(status_code=500, detail="Failed to generate daily report")
 
-async def generate_square_sales_report(db, report_date, start_datetime, end_datetime, current_user):
+async def generate_square_sales_report(db, report_date, start_datetime, end_datetime, admin_email):
     """Generate Square sales report for a specific date"""
     
     # Query Square transactions for the date
