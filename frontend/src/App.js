@@ -324,13 +324,13 @@ function App() {
       sessionStorage.removeItem(key);
     });
     
-    // For non-admin users or main app, require fresh verification
-    if (!isAuthenticatedAdmin || window.location.pathname === '/') {
+    // For main app path, ALWAYS require fresh verification (even for admins)
+    if (window.location.pathname === '/') {
       sessionStorage.removeItem('law_enforcement_verified');
       sessionStorage.removeItem('reentry_verified');
       sessionStorage.removeItem('app_session_active');
       
-      // Always start with verification screens
+      // Always start with verification screens on main app
       setIsLawEnforcementVerified(false);
       setIsReEntryCodeVerified(false);
     }
