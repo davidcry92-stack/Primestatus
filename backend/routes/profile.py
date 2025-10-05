@@ -77,7 +77,7 @@ async def update_user_profile(
         raise HTTPException(status_code=404, detail="User not found")
     
     # Return updated profile
-    return await get_user_profile(current_user, db)
+    return await get_user_profile(current_user)
 
 @router.post("/photo")
 async def upload_profile_photo(
