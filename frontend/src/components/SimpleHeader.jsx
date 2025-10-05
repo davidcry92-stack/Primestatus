@@ -2,8 +2,15 @@ import React, { useState } from 'react';
 import { Menu, User, X, LogOut } from 'lucide-react';
 import ShoppingCart from './ShoppingCart';
 
-const SimpleHeader = ({ user, cartItems = [], setCartItems, onAuthClick, onOpenCart, setOpenCartCallback }) => {
+const SimpleHeader = ({ user, cartItems = [], setCartItems, onAuthClick, onOpenCart, setOpenCartCallback, onShowProfile, onLogout }) => {
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setShowMobileMenu(!showMobileMenu);
+  };
+
   return (
+    <div className="relative">{/* Add wrapper for positioning */}
     <header className="bg-black text-white p-4">
       <div className="flex items-center justify-between">
         {/* Logo */}
