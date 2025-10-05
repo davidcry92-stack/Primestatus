@@ -272,6 +272,8 @@ const LoginOnlyApp = () => {
         onAuthClick={handleAuthClick}
         onOpenCart={handleOpenCart}
         setOpenCartCallback={setOpenCartCallback}
+        onShowProfile={handleShowProfile}
+        onLogout={handleLogout}
       />
       <main>
         <HeroSection 
