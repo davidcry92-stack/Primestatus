@@ -9,7 +9,7 @@ from models.user import UserResponse, ProfileUpdateRequest, TokenInfo
 from models.transaction import TransactionResponse
 from models.product import ProductResponse
 from utils.auth import get_verified_user_data
-from utils.database import get_database
+from utils.database import db
 
 router = APIRouter(prefix="/api/profile", tags=["profile"])
 
