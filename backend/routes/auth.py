@@ -193,6 +193,16 @@ async def login(user_credentials: UserLogin):
     user_response_data["requires_medical"] = user.get("id_verification", {}).get("requires_medical", False)
     user_response_data["age_verified"] = user.get("id_verification", {}).get("age_verified")
     
+    # Ensure profile field exists for backward compatibility
+    if "profile" not in user_response_data:
+        user_response_data["profile"] = {
+            "address": None,
+            "phone": None,
+            "profile_photo_url": None,
+            "purchases_count": 0,
+            "tokens_balance": 0
+        }
+    
     # Ensure member_since is present (use created_at if member_since is missing)
     if "member_since" not in user_response_data:
         user_response_data["member_since"] = user_response_data.get("created_at", datetime.utcnow())
