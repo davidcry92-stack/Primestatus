@@ -11,7 +11,7 @@ from models.product import ProductResponse
 from utils.auth import get_verified_user_data
 from utils.database import db
 
-router = APIRouter(prefix="/api/profile", tags=["profile"])
+router = APIRouter(prefix="/profile", tags=["profile"])
 
 @router.get("/", response_model=UserResponse)
 async def get_user_profile(
