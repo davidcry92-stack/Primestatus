@@ -150,6 +150,10 @@ async def create_square_order(
         # Save transaction to database
         await db.transactions.insert_one(transaction_data)
         
+        # Update user purchases and award tokens if payment is successful
+        if payment_status == "COMPLETED":
+            await update_user_purchases_and_tokens(order_request.user_email, db)
+        
         # Save Square order to database (for Square-specific tracking)
         db_order = SquareOrder(
             square_order_id=square_order_id,
