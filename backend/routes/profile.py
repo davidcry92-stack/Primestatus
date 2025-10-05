@@ -16,7 +16,7 @@ router = APIRouter(prefix="/api/profile", tags=["profile"])
 @router.get("/", response_model=UserResponse)
 async def get_user_profile(
     current_user: dict = Depends(get_verified_user_data),
-    db: AsyncIOMotorDatabase = Depends(get_database)
+    db: AsyncIOMotorDatabase = Depends(lambda: db)
 ):
     """Get current user's complete profile"""
     user = await db.users.find_one({"email": current_user["email"]})
@@ -55,7 +55,7 @@ async def get_user_profile(
 async def update_user_profile(
     profile_update: ProfileUpdateRequest,
     current_user: dict = Depends(get_verified_user_data),
-    db: AsyncIOMotorDatabase = Depends(get_database)
+    db: AsyncIOMotorDatabase = Depends(lambda: db)
 ):
     """Update user's profile information"""
     update_data = {}
@@ -82,7 +82,7 @@ async def update_user_profile(
 async def upload_profile_photo(
     photo: UploadFile = File(...),
     current_user: dict = Depends(get_verified_user_data),
-    db: AsyncIOMotorDatabase = Depends(get_database)
+    db: AsyncIOMotorDatabase = Depends(lambda: db)
 ):
     """Upload user's ID photo"""
     if not photo.content_type.startswith('image/'):
@@ -130,7 +130,7 @@ async def get_profile_photo(filename: str):
 @router.get("/tokens", response_model=TokenInfo)
 async def get_token_info(
     current_user: dict = Depends(get_verified_user_data),
-    db: AsyncIOMotorDatabase = Depends(get_database)
+    db: AsyncIOMotorDatabase = Depends(lambda: db)
 ):
     """Get user's token balance and purchase information"""
     user = await db.users.find_one({"email": current_user["email"]})
@@ -157,7 +157,7 @@ async def get_token_info(
 async def redeem_tokens(
     tokens_to_redeem: int,
     current_user: dict = Depends(get_verified_user_data),
-    db: AsyncIOMotorDatabase = Depends(get_database)
+    db: AsyncIOMotorDatabase = Depends(lambda: db)
 ):
     """Redeem tokens for discount (internal use by payment system)"""
     if tokens_to_redeem <= 0 or tokens_to_redeem % 10 != 0:
@@ -190,7 +190,7 @@ async def redeem_tokens(
 async def get_order_history(
     limit: int = 20,
     current_user: dict = Depends(get_verified_user_data),
-    db: AsyncIOMotorDatabase = Depends(get_database)
+    db: AsyncIOMotorDatabase = Depends(lambda: db)
 ):
     """Get user's order history"""
     transactions = await db.transactions.find(
@@ -218,7 +218,7 @@ async def get_order_history(
 async def get_purchase_suggestions(
     limit: int = 10,
     current_user: dict = Depends(get_verified_user_data),
-    db: AsyncIOMotorDatabase = Depends(get_database)
+    db: AsyncIOMotorDatabase = Depends(lambda: db)
 ):
     """Get product suggestions based on purchase history"""
     # Get user's transaction history
