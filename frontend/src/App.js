@@ -257,6 +257,11 @@ const LoginOnlyApp = () => {
     return <AdminApp />;
   }
 
+  // Show profile if requested
+  if (showProfile) {
+    return <MemberProfile user={user} onBack={handleBackFromProfile} />;
+  }
+
   // ONLY AUTHENTICATED USERS SEE THIS CONTENT
   return (
     <div className="min-h-screen bg-black">
