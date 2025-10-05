@@ -172,7 +172,7 @@ async def create_square_order(
         if payment_status == "COMPLETED":
             prepaid_order = {
                 "_id": str(uuid.uuid4()),
-                "user_id": user_data.get("user_id", user_data.get("id")),
+                "user_id": user.get("id"),
                 "user_email": order_request.user_email,
                 "pickup_code": payment_code,  # P-code
                 "order_id": square_order_id,
