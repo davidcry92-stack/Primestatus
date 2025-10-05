@@ -3746,7 +3746,7 @@ class AuthenticationTester:
                 # Verify token calculation logic
                 purchases_count = token_response.get("purchases_count", 0)
                 purchases_to_next = token_response.get("purchases_to_next_token", 0)
-                expected_to_next = 12 - (purchases_count % 12) if purchases_count % 12 != 0 else 0
+                expected_to_next = 12 - (purchases_count % 12) if purchases_count % 12 != 0 else (12 if purchases_count == 0 else 0)
                 
                 self.log_test(
                     "Token Calculation Logic",
