@@ -70,6 +70,7 @@ class UserResponse(BaseModel):
     username: str
     email: str
     full_name: str
+    date_of_birth: str
     membership_tier: str
     member_since: datetime
     preferences: UserPreferences
@@ -79,6 +80,17 @@ class UserResponse(BaseModel):
     verification_status: str
     requires_medical: bool
     age_verified: Optional[int] = None
+    profile: UserProfile
+
+class ProfileUpdateRequest(BaseModel):
+    address: Optional[str] = None
+    phone: Optional[str] = None
+    
+class TokenInfo(BaseModel):
+    tokens_balance: int
+    purchases_count: int
+    purchases_to_next_token: int
+    token_value_dollars: int = 10
 
 class Token(BaseModel):
     access_token: str
