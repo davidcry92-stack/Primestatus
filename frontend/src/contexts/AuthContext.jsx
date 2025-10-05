@@ -38,25 +38,21 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Load user from localStorage on mount - but only if valid
+  // SECURITY FIX: DO NOT auto-restore authentication - force fresh login
   useEffect(() => {
-    const token = localStorage.getItem('access_token');
-    const userData = localStorage.getItem('user_data');
+    console.log('🔒 SECURITY: AuthContext - NO auto-login, forcing fresh authentication');
     
-    if (token && userData) {
-      try {
-        const parsedUser = JSON.parse(userData);
-        // Only restore authentication for current session, not cached from previous sessions
-        setUser(parsedUser);
-        console.log('Authentication restored for current session');
-      } catch (error) {
-        console.error('Error parsing user data:', error);
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('user_data');
-      }
-    }
+    // CRITICAL: Clear any existing authentication to force fresh login
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('user_data');
+    localStorage.removeItem('admin_token');
+    localStorage.removeItem('admin_user');
     
+    // Ensure user starts as null (not authenticated)
+    setUser(null);
     setLoading(false);
+    
+    console.log('🔒 SECURITY: All authentication cleared - fresh login required');
   }, []);
 
   const login = async (credentials) => {
