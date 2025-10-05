@@ -49,10 +49,76 @@ const SimpleHeader = ({ user, cartItems = [], setCartItems, onAuthClick, onOpenC
             user={user}
             setOpenCartCallback={setOpenCartCallback}
           />
-          <Menu className="h-6 w-6" />
+          
+          {/* Hamburger Menu Button */}
+          <button onClick={toggleMobileMenu} className="text-white hover:text-gray-300">
+            {showMobileMenu ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
         </div>
       </div>
+      
+      {/* Mobile Menu Dropdown */}
+      {showMobileMenu && (
+        <div className="absolute top-full right-0 w-64 bg-gray-900 border border-gray-700 rounded-lg shadow-lg z-50 m-4">
+          <div className="p-4">
+            {user && (
+              <div className="border-b border-gray-600 pb-4 mb-4">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center">
+                    <User className="h-5 w-5 text-white" />
+                  </div>
+                  <div>
+                    <div className="font-semibold text-white">{user.full_name || user.username}</div>
+                    <div className="text-sm text-gray-400">{user.email}</div>
+                    <div className="text-xs text-blue-400 capitalize">{user.membership_tier} Member</div>
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            <div className="space-y-2">
+              {user && (
+                <button
+                  onClick={() => {
+                    setShowMobileMenu(false);
+                    onShowProfile && onShowProfile();
+                  }}
+                  className="w-full text-left px-3 py-2 text-white hover:bg-gray-800 rounded-lg flex items-center space-x-3"
+                >
+                  <User className="h-4 w-4" />
+                  <span>My Profile</span>
+                </button>
+              )}
+              
+              {user ? (
+                <button
+                  onClick={() => {
+                    setShowMobileMenu(false);
+                    onLogout && onLogout();
+                  }}
+                  className="w-full text-left px-3 py-2 text-red-400 hover:bg-gray-800 rounded-lg flex items-center space-x-3"
+                >
+                  <LogOut className="h-4 w-4" />
+                  <span>Logout</span>
+                </button>
+              ) : (
+                <button
+                  onClick={() => {
+                    setShowMobileMenu(false);
+                    onAuthClick && onAuthClick();
+                  }}
+                  className="w-full text-left px-3 py-2 text-white hover:bg-gray-800 rounded-lg flex items-center space-x-3"
+                >
+                  <User className="h-4 w-4" />
+                  <span>Login</span>
+                </button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </header>
+    </div>
   );
 };
 
