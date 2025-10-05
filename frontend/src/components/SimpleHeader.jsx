@@ -26,12 +26,15 @@ const SimpleHeader = ({ user, cartItems = [], setCartItems, onAuthClick, onOpenC
           {user && (user.email === 'admin@statusxsmoakland.com' || user.role === 'super_admin') && (
             <button
               onClick={() => window.location.href = '/admin'}
-              className="bg-red-600 hover:bg-red-700 text-white px-3 py-2 rounded-lg transition-colors flex items-center space-x-2"
+              className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center space-x-2 font-bold border-2 border-red-500"
             >
-              <span>⚙️</span>
-              <span className="hidden md:inline">Admin Dashboard</span>
+              <span className="text-lg">⚙️</span>
+              <span>Admin Dashboard</span>
             </button>
           )}
+          
+          {/* DEBUG: Show if we have user data */}
+          {user && console.log('SimpleHeader user:', user.email, user.role)}
           
           <ShoppingCart 
             cartItems={cartItems}
