@@ -266,14 +266,102 @@ const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) =>
                 {cartItems.map((item, index) => (
                   <div key={index} style={{
                     border: '1px solid #ccc',
-                    padding: '10px',
+                    padding: '15px',
                     margin: '10px 0',
-                    borderRadius: '5px',
+                    borderRadius: '8px',
                     backgroundColor: '#f9f9f9'
                   }}>
-                    <p style={{color: 'black', fontWeight: 'bold'}}>{item.name}</p>
-                    <p style={{color: 'black'}}>Quantity: {item.quantity}</p>
-                    <p style={{color: 'black'}}>Price: ${item.price}</p>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                      <div style={{ flex: 1 }}>
+                        <p style={{color: 'black', fontWeight: 'bold', margin: '0 0 8px 0'}}>{item.name}</p>
+                        <p style={{color: 'black', margin: '0 0 4px 0'}}>Price: ${item.price}</p>
+                        <p style={{color: 'black', margin: '0 0 8px 0'}}>Total: ${(item.price * item.quantity).toFixed(2)}</p>
+                      </div>
+                      
+                      {/* Remove button */}
+                      <button
+                        onClick={() => removeFromCart(item.id)}
+                        style={{
+                          backgroundColor: '#ff4444',
+                          color: 'white',
+                          border: 'none',
+                          borderRadius: '50%',
+                          width: '30px',
+                          height: '30px',
+                          cursor: 'pointer',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontSize: '16px',
+                          marginLeft: '10px'
+                        }}
+                        title="Remove from cart"
+                      >
+                        <X size={16} />
+                      </button>
+                    </div>
+                    
+                    {/* Quantity controls */}
+                    <div style={{ 
+                      display: 'flex', 
+                      alignItems: 'center', 
+                      justifyContent: 'space-between',
+                      marginTop: '10px',
+                      padding: '8px',
+                      backgroundColor: '#ffffff',
+                      borderRadius: '4px',
+                      border: '1px solid #ddd'
+                    }}>
+                      <span style={{ color: 'black', fontWeight: '500' }}>Quantity:</span>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                        <button
+                          onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                          style={{
+                            backgroundColor: '#6c757d',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '4px',
+                            width: '32px',
+                            height: '32px',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                          }}
+                          title="Decrease quantity"
+                        >
+                          <Minus size={16} />
+                        </button>
+                        
+                        <span style={{ 
+                          color: 'black', 
+                          fontWeight: 'bold',
+                          minWidth: '30px',
+                          textAlign: 'center'
+                        }}>
+                          {item.quantity}
+                        </span>
+                        
+                        <button
+                          onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                          style={{
+                            backgroundColor: '#28a745',
+                            color: 'white',
+                            border: 'none',
+                            borderRadius: '4px',
+                            width: '32px',
+                            height: '32px',
+                            cursor: 'pointer',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                          }}
+                          title="Increase quantity"
+                        >
+                          <Plus size={16} />
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
