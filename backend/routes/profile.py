@@ -5,11 +5,11 @@ import uuid
 from datetime import datetime, timezone
 from motor.motor_asyncio import AsyncIOMotorDatabase
 
-from ..models.user import UserResponse, ProfileUpdateRequest, TokenInfo
-from ..models.transaction import TransactionResponse
-from ..models.product import ProductResponse
-from ..utils.auth import get_current_user
-from ..utils.database import get_database
+from models.user import UserResponse, ProfileUpdateRequest, TokenInfo
+from models.transaction import TransactionResponse
+from models.product import ProductResponse
+from utils.auth import get_current_user
+from utils.database import get_database
 
 router = APIRouter(prefix="/api/profile", tags=["profile"])
 
