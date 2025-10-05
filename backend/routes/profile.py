@@ -15,7 +15,7 @@ router = APIRouter(prefix="/api/profile", tags=["profile"])
 
 @router.get("/", response_model=UserResponse)
 async def get_user_profile(
-    current_user: dict = Depends(get_current_user),
+    current_user: dict = Depends(get_verified_user_data),
     db: AsyncIOMotorDatabase = Depends(get_database)
 ):
     """Get current user's complete profile"""
@@ -54,7 +54,7 @@ async def get_user_profile(
 @router.put("/", response_model=UserResponse)
 async def update_user_profile(
     profile_update: ProfileUpdateRequest,
-    current_user: dict = Depends(get_current_user),
+    current_user: dict = Depends(get_verified_user_data),
     db: AsyncIOMotorDatabase = Depends(get_database)
 ):
     """Update user's profile information"""
@@ -81,7 +81,7 @@ async def update_user_profile(
 @router.post("/photo")
 async def upload_profile_photo(
     photo: UploadFile = File(...),
-    current_user: dict = Depends(get_current_user),
+    current_user: dict = Depends(get_verified_user_data),
     db: AsyncIOMotorDatabase = Depends(get_database)
 ):
     """Upload user's ID photo"""
@@ -129,7 +129,7 @@ async def get_profile_photo(filename: str):
 
 @router.get("/tokens", response_model=TokenInfo)
 async def get_token_info(
-    current_user: dict = Depends(get_current_user),
+    current_user: dict = Depends(get_verified_user_data),
     db: AsyncIOMotorDatabase = Depends(get_database)
 ):
     """Get user's token balance and purchase information"""
@@ -156,7 +156,7 @@ async def get_token_info(
 @router.post("/tokens/redeem")
 async def redeem_tokens(
     tokens_to_redeem: int,
-    current_user: dict = Depends(get_current_user),
+    current_user: dict = Depends(get_verified_user_data),
     db: AsyncIOMotorDatabase = Depends(get_database)
 ):
     """Redeem tokens for discount (internal use by payment system)"""
@@ -189,7 +189,7 @@ async def redeem_tokens(
 @router.get("/orders", response_model=List[TransactionResponse])
 async def get_order_history(
     limit: int = 20,
-    current_user: dict = Depends(get_current_user),
+    current_user: dict = Depends(get_verified_user_data),
     db: AsyncIOMotorDatabase = Depends(get_database)
 ):
     """Get user's order history"""
@@ -217,7 +217,7 @@ async def get_order_history(
 @router.get("/suggestions", response_model=List[ProductResponse])
 async def get_purchase_suggestions(
     limit: int = 10,
-    current_user: dict = Depends(get_current_user),
+    current_user: dict = Depends(get_verified_user_data),
     db: AsyncIOMotorDatabase = Depends(get_database)
 ):
     """Get product suggestions based on purchase history"""
