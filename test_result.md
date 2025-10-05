@@ -595,11 +595,25 @@ test_plan:
           agent: "testing"
           comment: "🎯 ADMIN DASHBOARD ACCESS TESTING COMPLETE - MIXED RESULTS! Comprehensive testing of admin dashboard access in StatusXSmoakland reveals both successes and issues. SUCCESSFUL COMPONENTS: ✅ TEST SCENARIO 1 - Admin Login through Main App: Law enforcement verification (click 'No') working ✅, Re-entry code (1234) verification successful ✅, Admin login (admin@statusxsmoakland.com / Admin123!) successful ✅, Admin button with ⚙️ icon and 'Admin Dashboard' text appears in header ✅, Clicking admin button successfully redirects to /admin URL ✅. ✅ TEST SCENARIO 2 - Direct Admin URL Access: Direct access to /admin shows 'Admin Login Required' screen ✅, Properly protected with authentication requirement ✅. CRITICAL ISSUES IDENTIFIED: ❌ Admin dashboard shows incomplete interface - only 1/6 expected tabs found (Dashboard tab present, but missing Members, Daily Deals, Cash Pickup Lookup 💵, Daily Square Reports 📈, Health-Aid Management). ❌ Admin authentication not persisting properly - direct /admin access restarts verification flow instead of showing dashboard. CONCLUSION: Core admin access flow working (admin button appears, redirects to /admin), but admin dashboard interface incomplete and authentication persistence needs fixing. Admin button functionality verified but dashboard content needs investigation."
 
+  - task: "Member Profile System"
+    implemented: false
+    working: "NA"
+    file: "/app/backend/routes/profile.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "NA"
+          agent: "main"
+          comment: "NEW FEATURE: Implementing member profiles for Premium and Basic users. Requirements: Profile info (name, email, tier, address, phone, DOB, member_since, verification_status), Token system (12 purchases = 10 tokens = $10 cash value), Access via hamburger dropdown, Order history, Purchase-based suggestions, Local ID photo storage. Starting with backend models and endpoints."
+
 agent_communication:
     - agent: "main"
       message: "CRITICAL BLANK SCREEN ISSUE FIXED: User reported 'Preview is white' - React app not rendering. ROOT CAUSE: Undefined variable references in App.js lines 296-299 causing JavaScript runtime errors. FIXES APPLIED: 1) Fixed lawEnforcementVerified → isLawEnforcementVerified, 2) Fixed reentryVerified → isReEntryCodeVerified, 3) Fixed undefined token/user variables to use localStorage access. RESULT: App now renders correctly showing Law Enforcement Security Verification screen. Next step: Test full cart functionality and address other UI issues."
     - agent: "main"
       message: "ADD-TO-CART FUNCTIONALITY FIX COMPLETE: User reported critical issue 'In preview once I click on select quantity it goes right back to the strain no check out process'. FIXES APPLIED: 1) Connected ProductGrid to main shopping cart state (cartItems, setCartItems) instead of local state, 2) Fixed addToCart function to properly use cart props, 3) Added comprehensive cart item structure with product details, 4) Implemented quantity handling and duplicate item checking, 5) Verified cart integration with Header component for item count display, 6) Cart props properly passed through App.js -> ProductSelection -> ProductGrid chain. TESTING REQUIRED: Comprehensive end-to-end testing of add-to-cart flow: Navigate to products -> Select quantity -> Verify items add to cart (not return to strain view) -> Check cart icon shows count -> Verify cart contents -> Test checkout flow with Square integration."
+    - agent: "main"
+      message: "MEMBER PROFILE SYSTEM IMPLEMENTATION STARTED: User requested member profiles for Premium/Basic users with requirements: Profile fields (name, email, tier, address, phone, DOB, member_since, verification_status, tokens), Token system (12 purchases = 10 tokens = $10 in-app value), Hamburger menu access, Order history, Purchase suggestions, ID photo storage. Starting Phase 1: Backend development with profile models, endpoints, and token system integration."
     - agent: "testing"
       message: "🎉 SQUARE CHECKOUT DUPLICATE PAYMENT FIELDS TESTING COMPLETE - ISSUE FIXED! Comprehensive end-to-end testing of StatusXSmoakland Square checkout confirms the duplicate payment fields issue has been resolved. TESTING RESULTS: ✅ AUTHENTICATION FLOW: Law enforcement verification + re-entry code (1234) + premium user login (premium@demo.com / Premium123!) working perfectly ✅ PRODUCT SELECTION & CART: Successfully navigated to Za tier, added Lemon Cherry Gelato to cart, cart count badge working, cart modal opens correctly ✅ PAYMENT METHOD SELECTION: 'Choose Payment Method' modal working, Credit/Debit Card option selectable ✅ SQUARE CHECKOUT VERIFICATION: Square checkout modal loads successfully with proper integration ✅ CRITICAL DUPLICATE FIELDS CHECK: Only 1 card container found ✅, Only 1 Square iframe found ✅, No duplicate card input fields (0 fo"
     - agent: "testing"
