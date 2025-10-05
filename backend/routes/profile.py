@@ -15,8 +15,7 @@ router = APIRouter(prefix="/api/profile", tags=["profile"])
 
 @router.get("/", response_model=UserResponse)
 async def get_user_profile(
-    current_user: dict = Depends(get_verified_user_data),
-    db: AsyncIOMotorDatabase = Depends(lambda: db)
+    current_user: dict = Depends(get_verified_user_data)
 ):
     """Get current user's complete profile"""
     user = await db.users.find_one({"email": current_user["email"]})
