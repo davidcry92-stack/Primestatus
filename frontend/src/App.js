@@ -309,16 +309,23 @@ function App() {
   const [isSuperAdminMode, setIsSuperAdminMode] = useState(false);
   const [lastActivityTime, setLastActivityTime] = useState(Date.now());
 
-  // STRICT SECURITY MODE - ALWAYS REQUIRE FRESH VERIFICATION
+  // CRITICAL SECURITY MODE - FORCE FRESH VERIFICATION ALWAYS
   useEffect(() => {
-    console.log('App loading - enforcing strict security verification');
+    console.log('🔒 SECURITY: App loading - enforcing STRICT verification');
     
-    // SECURITY FIX: ALWAYS clear all verification states on app load
-    // This prevents any cached verification from bypassing security
+    // CRITICAL SECURITY FIX: ALWAYS clear ALL authentication states on app load
+    // This prevents ANY cached verification from bypassing security
+    sessionStorage.clear();
+    localStorage.removeItem('admin_token');
+    localStorage.removeItem('admin_user');
+    
+    // Clear any additional security bypass attempts
     sessionStorage.removeItem('law_enforcement_verified');
     sessionStorage.removeItem('reentry_verified');
     sessionStorage.removeItem('last_verification_time');
     sessionStorage.removeItem('app_session_active');
+    sessionStorage.removeItem('verification_bypassed');
+    sessionStorage.removeItem('admin_access_granted');
     
     // FORCE fresh verification for every session
     setIsLawEnforcementVerified(false);
