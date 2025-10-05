@@ -129,6 +129,19 @@ const LoginOnlyApp = () => {
     }
   };
 
+  const handleShowProfile = () => {
+    setShowProfile(true);
+  };
+
+  const handleBackFromProfile = () => {
+    setShowProfile(false);
+  };
+
+  const handleLogout = () => {
+    logout();
+    setShowProfile(false);
+  };
+
   // Show loading while checking auth
   if (loading) {
     return (
