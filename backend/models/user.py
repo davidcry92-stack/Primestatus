@@ -19,6 +19,13 @@ class IDVerification(BaseModel):
     age_verified: Optional[int] = None  # Age from ID verification
     requires_medical: bool = Field(default=False)  # True if under 21
 
+class UserProfile(BaseModel):
+    address: Optional[str] = None
+    phone: Optional[str] = None
+    profile_photo_url: Optional[str] = None  # ID photo storage
+    purchases_count: int = Field(default=0)
+    tokens_balance: int = Field(default=0)
+    
 class UserBase(BaseModel):
     username: str = Field(..., min_length=3, max_length=50)
     email: EmailStr
@@ -32,6 +39,7 @@ class UserBase(BaseModel):
     is_verified: bool = Field(default=False)
     parent_email: Optional[str] = None  # For under 21 users
     re_entry_code_hash: Optional[str] = None  # Hashed re-entry verification code
+    profile: UserProfile = Field(default_factory=UserProfile)
 
 class UserCreate(UserBase):
     password: str = Field(..., min_length=8)
