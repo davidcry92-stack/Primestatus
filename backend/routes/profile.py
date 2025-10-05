@@ -163,6 +163,7 @@ async def redeem_tokens(
     db: AsyncIOMotorDatabase = Depends(lambda: db)
 ):
     """Redeem tokens for discount (internal use by payment system)"""
+    tokens_to_redeem = request.tokens_to_redeem
     if tokens_to_redeem <= 0 or tokens_to_redeem % 10 != 0:
         raise HTTPException(status_code=400, detail="Can only redeem tokens in multiples of 10")
     
