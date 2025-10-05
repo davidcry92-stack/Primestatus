@@ -347,14 +347,19 @@ function App() {
     
     // Verification states cleared, authentication required
     
-    console.log('App useEffect - Verification states:', { 
-      isLawEnforcementVerified, 
-      isReEntryCodeVerified,
+    console.log('🔒 SECURITY: App verification states enforced:', { 
+      isLawEnforcementVerified: false, // ALWAYS START FALSE
+      isReEntryCodeVerified: false,    // ALWAYS START FALSE
       hasToken: !!localStorage.getItem('access_token'),
-      hasUserData: !!localStorage.getItem('user_data')
+      hasUserData: !!localStorage.getItem('user_data'),
+      adminTokenCleared: !localStorage.getItem('admin_token'),
+      sessionStorageCleared: Object.keys(sessionStorage).length === 0
     });
     
-    setIsSuperAdminMode(false); // No super admin bypasses allowed
+    // CRITICAL: Force verification states to FALSE
+    setIsLawEnforcementVerified(false);
+    setIsReEntryCodeVerified(false);
+    setIsSuperAdminMode(false); // No admin bypasses allowed EVER
   }, []);
 
   // Removed 60-second timeout logic to prevent security bypasses
