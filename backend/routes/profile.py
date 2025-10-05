@@ -41,7 +41,7 @@ async def get_user_profile(
         full_name=user["full_name"],
         date_of_birth=user["date_of_birth"],
         membership_tier=user["membership_tier"],
-        member_since=user["member_since"],
+        member_since=user.get("member_since", user.get("created_at", datetime.now(timezone.utc))),
         preferences=user.get("preferences", {"categories": [], "vendors": [], "price_range": [0, 200]}),
         wictionary_access=user.get("wictionary_access", False),
         order_history=[str(oid) for oid in user.get("order_history", [])],
