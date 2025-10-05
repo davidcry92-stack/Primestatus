@@ -153,9 +153,12 @@ async def get_token_info(
         token_value_dollars=10
     )
 
+class TokenRedemptionRequest(BaseModel):
+    tokens_to_redeem: int
+
 @router.post("/tokens/redeem")
 async def redeem_tokens(
-    tokens_to_redeem: int,
+    request: TokenRedemptionRequest,
     current_user: dict = Depends(get_verified_user_data),
     db: AsyncIOMotorDatabase = Depends(lambda: db)
 ):
