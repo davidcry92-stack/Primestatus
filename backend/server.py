@@ -7,7 +7,7 @@ import logging
 from pathlib import Path
 
 # Import route modules
-from routes import auth, products, daily_deals, wictionary, orders, cart, admin, admin_auth, ratings, payments, transactions, square_payments, admin_health_aid, admin_strains, cash_pickups, daily_reports, prepaid_orders
+from routes import auth, products, daily_deals, wictionary, orders, cart, admin, admin_auth, ratings, payments, transactions, square_payments, admin_health_aid, admin_strains, cash_pickups, daily_reports, prepaid_orders, profile
 from utils.database import DatabaseManager
 
 ROOT_DIR = Path(__file__).parent
