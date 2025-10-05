@@ -85,7 +85,7 @@ async def create_verified_user():
         
         async with aiohttp.ClientSession() as session:
             login_data = {"email": email, "password": password}
-            backend_url = "https://blank-screen-fix-1.preview.emergentagent.com/api"
+            backend_url = "https://secure-pickup.preview.emergentagent.com/api"
             
             try:
                 async with session.post(f"{backend_url}/auth/login", json=login_data) as response:

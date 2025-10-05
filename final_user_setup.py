@@ -68,7 +68,7 @@ async def final_user_setup():
         
         curl_command = [
             'curl', '-X', 'POST',
-            'https://blank-screen-fix-1.preview.emergentagent.com/api/auth/login',
+            'https://secure-pickup.preview.emergentagent.com/api/auth/login',
             '-H', 'Content-Type: application/json',
             '-d', f'{{"email": "{email}", "password": "{password}"}}',
             '-s'  # Silent mode

@@ -61,7 +61,7 @@ async def check_and_create_admin():
         print(f"Email: {admin_email}")
         print(f"Password: {admin_password}")
         print("Role: Super Admin")
-        print("URL: https://blank-screen-fix-1.preview.emergentagent.com/admin")
+        print("URL: https://secure-pickup.preview.emergentagent.com/admin")
         print("="*60)
         
         # Test admin login
@@ -69,7 +69,7 @@ async def check_and_create_admin():
         
         async with aiohttp.ClientSession() as session:
             login_data = {"email": admin_email, "password": admin_password}
-            backend_url = "https://blank-screen-fix-1.preview.emergentagent.com/api"
+            backend_url = "https://secure-pickup.preview.emergentagent.com/api"
             
             try:
                 async with session.post(f"{backend_url}/admin/auth/login", json=login_data) as response:

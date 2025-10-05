@@ -76,7 +76,7 @@ if cors_origins == ['*']:
         cors_origins.extend([
             f"https://{app_domain}",
             f"https://{app_domain}.emergent.host",
-            "https://blank-screen-fix-1.preview.emergentagent.com"
+            "https://secure-pickup.preview.emergentagent.com"
         ])
 
 app.add_middleware(
