@@ -18,6 +18,7 @@ async def get_user_profile(
     current_user: dict = Depends(get_verified_user_data)
 ):
     """Get current user's complete profile"""
+    from utils.database import db
     user = await db.users.find_one({"email": current_user["email"]})
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
