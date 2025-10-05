@@ -3633,6 +3633,276 @@ class AuthenticationTester:
         }
         return password_map.get(email, "Unknown123!")
 
+    async def test_member_profile_system(self):
+        """Test the comprehensive member profile system backend endpoints."""
+        print("\n=== TESTING MEMBER PROFILE SYSTEM ===")
+        
+        # Get user tokens for testing
+        premium_token = await self.test_premium_user_authentication()
+        basic_token = await self.test_basic_user_authentication()
+        
+        if not premium_token:
+            self.log_test("Member Profile System", False, "Failed to get premium user token")
+            return False
+        
+        headers_premium = {"Authorization": f"Bearer {premium_token}"}
+        headers_basic = {"Authorization": f"Bearer {basic_token}"} if basic_token else None
+        
+        # Test 1: Get User Profile - Premium User
+        success, profile_response, status = await self.make_request("GET", "/profile/", headers=headers_premium)
+        
+        if success:
+            # Verify profile structure
+            required_fields = ["id", "username", "email", "full_name", "membership_tier", "profile"]
+            missing_fields = [field for field in required_fields if field not in profile_response]
+            
+            if not missing_fields:
+                profile_data = profile_response.get("profile", {})
+                profile_fields = ["address", "phone", "profile_photo_url", "purchases_count", "tokens_balance"]
+                missing_profile_fields = [field for field in profile_fields if field not in profile_data]
+                
+                self.log_test(
+                    "Get User Profile - Premium",
+                    len(missing_profile_fields) == 0,
+                    f"Profile structure {'complete' if not missing_profile_fields else f'missing: {missing_profile_fields}'}"
+                )
+                
+                # Log profile details
+                print(f"   Profile: {profile_response.get('email')} ({profile_response.get('membership_tier')})")
+                print(f"   Purchases: {profile_data.get('purchases_count', 0)}, Tokens: {profile_data.get('tokens_balance', 0)}")
+            else:
+                self.log_test(
+                    "Get User Profile - Premium",
+                    False,
+                    f"Missing required fields: {missing_fields}",
+                    profile_response
+                )
+        else:
+            self.log_test(
+                "Get User Profile - Premium",
+                False,
+                f"Failed to get profile: {profile_response}",
+                profile_response
+            )
+        
+        # Test 2: Get User Profile - Basic User (if available)
+        if headers_basic:
+            success, basic_profile_response, status = await self.make_request("GET", "/profile/", headers=headers_basic)
+            
+            if success:
+                self.log_test(
+                    "Get User Profile - Basic",
+                    True,
+                    f"Basic user profile retrieved: {basic_profile_response.get('email')} ({basic_profile_response.get('membership_tier')})"
+                )
+            else:
+                self.log_test(
+                    "Get User Profile - Basic",
+                    False,
+                    f"Failed to get basic profile: {basic_profile_response}",
+                    basic_profile_response
+                )
+        
+        # Test 3: Update Profile Information
+        update_data = {
+            "address": "123 Test Street, New York, NY 10001",
+            "phone": "+1-555-0123"
+        }
+        
+        success, update_response, status = await self.make_request("PUT", "/profile/", update_data, headers_premium)
+        
+        if success:
+            updated_profile = update_response.get("profile", {})
+            address_updated = updated_profile.get("address") == update_data["address"]
+            phone_updated = updated_profile.get("phone") == update_data["phone"]
+            
+            self.log_test(
+                "Update Profile Information",
+                address_updated and phone_updated,
+                f"Profile updated - Address: {address_updated}, Phone: {phone_updated}"
+            )
+        else:
+            self.log_test(
+                "Update Profile Information",
+                False,
+                f"Failed to update profile: {update_response}",
+                update_response
+            )
+        
+        # Test 4: Get Token Balance and Purchase Information
+        success, token_response, status = await self.make_request("GET", "/profile/tokens", headers=headers_premium)
+        
+        if success:
+            required_token_fields = ["tokens_balance", "purchases_count", "purchases_to_next_token", "token_value_dollars"]
+            missing_token_fields = [field for field in required_token_fields if field not in token_response]
+            
+            if not missing_token_fields:
+                self.log_test(
+                    "Get Token Information",
+                    True,
+                    f"Token info: {token_response.get('tokens_balance')} tokens, {token_response.get('purchases_count')} purchases, {token_response.get('purchases_to_next_token')} to next reward"
+                )
+                
+                # Verify token calculation logic
+                purchases_count = token_response.get("purchases_count", 0)
+                purchases_to_next = token_response.get("purchases_to_next_token", 0)
+                expected_to_next = 12 - (purchases_count % 12) if purchases_count % 12 != 0 else 0
+                
+                self.log_test(
+                    "Token Calculation Logic",
+                    purchases_to_next == expected_to_next,
+                    f"Token calculation correct: {purchases_to_next} = {expected_to_next}"
+                )
+            else:
+                self.log_test(
+                    "Get Token Information",
+                    False,
+                    f"Missing token fields: {missing_token_fields}",
+                    token_response
+                )
+        else:
+            self.log_test(
+                "Get Token Information",
+                False,
+                f"Failed to get token info: {token_response}",
+                token_response
+            )
+        
+        # Test 5: Token Redemption System
+        # First, check if user has tokens to redeem
+        if success and token_response.get("tokens_balance", 0) >= 10:
+            redeem_data = {"tokens_to_redeem": 10}
+            success, redeem_response, status = await self.make_request("POST", "/profile/tokens/redeem", redeem_data, headers_premium)
+            
+            if success:
+                self.log_test(
+                    "Token Redemption",
+                    True,
+                    f"Successfully redeemed tokens: {redeem_response.get('message')}"
+                )
+            else:
+                self.log_test(
+                    "Token Redemption",
+                    False,
+                    f"Failed to redeem tokens: {redeem_response}",
+                    redeem_response
+                )
+        else:
+            # Test with insufficient tokens (should fail gracefully)
+            redeem_data = {"tokens_to_redeem": 10}
+            success, redeem_response, status = await self.make_request("POST", "/profile/tokens/redeem", redeem_data, headers_premium)
+            
+            expected_failure = not success and status == 400
+            self.log_test(
+                "Token Redemption - Insufficient Balance",
+                expected_failure,
+                f"Correctly handled insufficient tokens: {redeem_response.get('detail', 'Unknown error')}"
+            )
+        
+        # Test 6: Get Order History
+        success, orders_response, status = await self.make_request("GET", "/profile/orders", headers=headers_premium)
+        
+        if success and isinstance(orders_response, list):
+            self.log_test(
+                "Get Order History",
+                True,
+                f"Retrieved {len(orders_response)} orders from history"
+            )
+            
+            # Verify order structure if orders exist
+            if orders_response:
+                sample_order = orders_response[0]
+                required_order_fields = ["id", "user_email", "total_amount", "status", "created_at"]
+                missing_order_fields = [field for field in required_order_fields if field not in sample_order]
+                
+                self.log_test(
+                    "Order History Structure",
+                    len(missing_order_fields) == 0,
+                    f"Order structure {'complete' if not missing_order_fields else f'missing: {missing_order_fields}'}"
+                )
+        else:
+            self.log_test(
+                "Get Order History",
+                False,
+                f"Failed to get order history: {orders_response}",
+                orders_response
+            )
+        
+        # Test 7: Get Purchase-based Suggestions
+        success, suggestions_response, status = await self.make_request("GET", "/profile/suggestions", headers=headers_premium)
+        
+        if success and isinstance(suggestions_response, list):
+            self.log_test(
+                "Get Purchase Suggestions",
+                True,
+                f"Retrieved {len(suggestions_response)} product suggestions"
+            )
+            
+            # Verify suggestion structure if suggestions exist
+            if suggestions_response:
+                sample_suggestion = suggestions_response[0]
+                required_suggestion_fields = ["id", "name", "category", "tier", "price"]
+                missing_suggestion_fields = [field for field in required_suggestion_fields if field not in sample_suggestion]
+                
+                self.log_test(
+                    "Suggestion Structure",
+                    len(missing_suggestion_fields) == 0,
+                    f"Suggestion structure {'complete' if not missing_suggestion_fields else f'missing: {missing_suggestion_fields}'}"
+                )
+        else:
+            self.log_test(
+                "Get Purchase Suggestions",
+                False,
+                f"Failed to get suggestions: {suggestions_response}",
+                suggestions_response
+            )
+        
+        # Test 8: Profile Photo Upload (simulate with test data)
+        # Note: This would require actual file upload, so we'll test the endpoint availability
+        success, photo_response, status = await self.make_request("POST", "/profile/photo", headers=headers_premium)
+        
+        # Should fail with 422 (missing file) but endpoint should exist
+        expected_error = status == 422 or status == 400
+        self.log_test(
+            "Profile Photo Upload Endpoint",
+            expected_error,
+            f"Photo upload endpoint available (expected validation error: {status})"
+        )
+        
+        # Test 9: Profile Photo Retrieval (test with non-existent file)
+        success, photo_get_response, status = await self.make_request("GET", "/profile/photo/nonexistent.jpg")
+        
+        # Should return 404 for non-existent photo
+        expected_404 = status == 404
+        self.log_test(
+            "Profile Photo Retrieval",
+            expected_404,
+            f"Photo retrieval endpoint working (correctly returned 404 for non-existent photo)"
+        )
+        
+        # Test 10: Authentication Required for All Endpoints
+        # Test without authentication headers
+        endpoints_to_test = [
+            "/profile/",
+            "/profile/tokens",
+            "/profile/orders",
+            "/profile/suggestions"
+        ]
+        
+        auth_protected_count = 0
+        for endpoint in endpoints_to_test:
+            success, response, status = await self.make_request("GET", endpoint)
+            if status == 401 or status == 403:
+                auth_protected_count += 1
+        
+        self.log_test(
+            "Authentication Protection",
+            auth_protected_count == len(endpoints_to_test),
+            f"{auth_protected_count}/{len(endpoints_to_test)} endpoints properly protected"
+        )
+        
+        return True
+
     async def run_all_tests(self):
         """Run all comprehensive system tests."""
         print("🚀 Starting StatusXSmoakland Database Seeding and Authentication Tests")
@@ -3680,6 +3950,9 @@ class AuthenticationTester:
             
             # Test Daily Deals Management System
             await self.test_daily_deals_management_system()
+            
+            # Test Member Profile System
+            await self.test_member_profile_system()
         else:
             print("❌ Authentication failed - skipping other tests")
         
