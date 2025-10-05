@@ -18,7 +18,7 @@ from models.square_payment import (
 from models.transaction import Transaction, TransactionItem, PaymentMethod, TransactionStatus
 from utils.database import db
 from utils.auth import verify_token, get_verified_user_data
-from routes.profile import update_user_purchases_and_tokens
+# Import will be added after fixing circular dependency
 import random
 import string
 
