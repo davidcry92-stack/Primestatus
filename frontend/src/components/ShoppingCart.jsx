@@ -367,6 +367,27 @@ const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) =>
               </div>
             )}
             
+            {/* Clear Cart Button */}
+            {cartItems.length > 0 && (
+              <div style={{ textAlign: 'center', margin: '15px 0' }}>
+                <button
+                  onClick={() => setCartItems([])}
+                  style={{
+                    backgroundColor: '#dc3545',
+                    color: 'white',
+                    padding: '8px 16px',
+                    border: 'none',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    fontSize: '14px'
+                  }}
+                  title="Clear all items from cart"
+                >
+                  Clear Cart
+                </button>
+              </div>
+            )}
+            
             {/* Checkout Button */}
             {cartItems.length > 0 && (
               <button
