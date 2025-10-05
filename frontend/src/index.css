@@ -83,6 +83,13 @@ code {
     @apply border-border;
     }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-black text-white;
+    background-color: #000000 !important;
+    }
+  html {
+    background-color: #000000 !important;
+    }
+  #root {
+    background-color: #000000 !important;
     }
 }
