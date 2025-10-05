@@ -1,5 +1,5 @@
-import React from 'react';
-import { Menu } from 'lucide-react';
+import React, { useState } from 'react';
+import { Menu, User, X, LogOut } from 'lucide-react';
 import ShoppingCart from './ShoppingCart';
 
 const SimpleHeader = ({ user, cartItems = [], setCartItems, onAuthClick, onOpenCart, setOpenCartCallback }) => {
