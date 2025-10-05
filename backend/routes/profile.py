@@ -4,6 +4,7 @@ import os
 import uuid
 from datetime import datetime, timezone
 from motor.motor_asyncio import AsyncIOMotorDatabase
+from pydantic import BaseModel
 
 from models.user import UserResponse, ProfileUpdateRequest, TokenInfo
 from models.transaction import TransactionResponse
