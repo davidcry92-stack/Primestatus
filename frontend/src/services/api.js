@@ -1,6 +1,20 @@
 import axios from 'axios';
 
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
+// Get backend URL - use environment variable or infer from current location
+const getBackendUrl = () => {
+  if (process.env.REACT_APP_BACKEND_URL) {
+    return process.env.REACT_APP_BACKEND_URL;
+  }
+  
+  // In deployment, use relative URL. In local dev, use localhost
+  if (typeof window !== 'undefined') {
+    return window.location.hostname === 'localhost' ? 'http://localhost:8001' : '';
+  }
+  
+  return '';
+};
+
+const BACKEND_URL = getBackendUrl();
 const API_BASE = `${BACKEND_URL}/api`;
 
 // Create axios instance with default config
