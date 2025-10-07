@@ -172,16 +172,34 @@ const LoginOnlyApp = () => {
         <div className="max-w-md w-full mx-4">
           <div className="bg-gray-900 border border-red-600 rounded-lg p-8 text-center">
             <div className="text-6xl mb-4">🔒</div>
-            <h2 className="text-2xl font-bold text-white mb-4">Login Required</h2>
+            <h2 className="text-2xl font-bold text-white mb-4">Access Required</h2>
             <p className="text-gray-300 mb-6">
-              You must log in to access StatusXSmoakland content.
+              You must be a verified member to access StatusXSmoakland.
             </p>
-            <button
-              onClick={handleAuthClick}
-              className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
-            >
-              Login to Continue
-            </button>
+            
+            <div className="space-y-4">
+              {/* Login Button */}
+              <button
+                onClick={handleAuthClick}
+                className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg transition-colors"
+              >
+                Login (Existing Members)
+              </button>
+              
+              {/* Join Now Button */}
+              <button
+                onClick={handleSignupClick}
+                className="w-full bg-yellow-600 hover:bg-yellow-700 text-black font-bold py-3 px-6 rounded-lg transition-colors"
+              >
+                Join Now (New Members)
+              </button>
+            </div>
+            
+            <div className="mt-6 pt-4 border-t border-gray-600">
+              <p className="text-sm text-gray-400">
+                New members must complete ID verification for membership approval
+              </p>
+            </div>
           </div>
         </div>
         
