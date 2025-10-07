@@ -15,7 +15,7 @@ import string
 # Note: Using mock implementation for testing
 # In production, you would use: from square.client import Client
 
-router = APIRouter(prefix="/api/payments", tags=["digital-wallet-payments"])
+router = APIRouter(prefix="/payments", tags=["digital-wallet-payments"])
 
 class DigitalWalletPaymentRequest(BaseModel):
     token: str
