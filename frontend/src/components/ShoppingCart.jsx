@@ -437,7 +437,18 @@ const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) =>
       {showPaymentSelection && (
         <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
           <div className="max-w-md w-full mx-4">
-            <div className="bg-gray-900 border border-green-400 rounded-lg p-8">
+            <div className="bg-gray-900 border border-green-400 rounded-lg p-8 relative">
+              {/* Close button */}
+              <button
+                onClick={() => {
+                  setShowPaymentSelection(false);
+                  setIsOpen(true); // Reopen cart if user cancels
+                }}
+                className="absolute top-4 right-4 text-gray-400 hover:text-white"
+              >
+                <X size={24} />
+              </button>
+              
               <h2 className="text-2xl font-bold text-white text-center mb-6">Choose Payment Method</h2>
               
               {/* Order Summary */}
