@@ -250,7 +250,12 @@ const LoginOnlyApp = () => {
         
         {showAuthModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
-            <div className="bg-gray-900 border border-red-600 rounded-lg p-8 max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div 
+              className="bg-gray-900 border border-red-600 rounded-lg p-8 max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto"
+              onMouseMove={resetAuthTimeout}
+              onClick={resetAuthTimeout}
+              onKeyDown={resetAuthTimeout}
+            >
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-bold text-white">Login to StatusXSmoakland</h2>
                 <button
