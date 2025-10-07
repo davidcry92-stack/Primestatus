@@ -191,6 +191,19 @@ const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) =>
     alert(`🎉 Credit/Debit Payment Successful!\n\n📋 Your Pickup Code: ${paymentResult.pickupCode}\n\n💳 Payment processed via Square\n📍 Show this code at our pickup location\n💼 Order ID: ${paymentResult.orderId}\n💰 Amount: $${paymentResult.amount.toFixed(2)}\n\n📧 Receipt sent to your email\n\n⏰ Present this code when you arrive for pickup.`);
   };
 
+  const handleDigitalWalletSuccess = (paymentResult) => {
+    console.log('Digital wallet payment successful:', paymentResult);
+    
+    const paymentMethodName = paymentResult.paymentMethod === 'apple-pay' ? 'Apple Pay' : 'Google Pay';
+    alert(`🎉 ${paymentMethodName} payment successful! Your order has been processed.\n\nPayment Code: ${paymentResult.paymentCode}`);
+    
+    // Clear cart after successful payment
+    setCartItems([]);
+    setShowCheckout(false);
+    setShowPaymentSelection(false);
+    setIsOpen(false);
+  };
+
   return (
     <div className="relative">
       {/* Cart Toggle Button */}
