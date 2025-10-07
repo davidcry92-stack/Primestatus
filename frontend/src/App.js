@@ -661,6 +661,56 @@ const LoginOnlyApp = () => {
     );
   }
 
+  // INACTIVITY SECURITY: Show re-entry code if 60 seconds of inactivity detected
+  if (user && isAuthenticated && isInactiveReentryRequired) {
+    return (
+      <div className="min-h-screen bg-black flex items-center justify-center">
+        <div className="max-w-md w-full mx-4">
+          <div className="bg-gray-900 border border-orange-600 rounded-lg p-8 text-center">
+            <div className="text-6xl mb-4">⏰</div>
+            <h2 className="text-2xl font-bold text-white mb-4">Session Timeout</h2>
+            <p className="text-gray-300 mb-6">
+              You've been inactive for 60 seconds. Please enter your re-entry code to continue.
+            </p>
+            
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              const code = new FormData(e.target).get('reentry_code');
+              handleInactiveReentryVerification(code);
+            }}>
+              <input
+                type="text"
+                name="reentry_code"
+                placeholder="Enter your re-entry code"
+                className="w-full px-4 py-3 bg-black border border-gray-600 rounded text-white text-center focus:border-orange-400 focus:outline-none mb-4"
+                maxLength="8"
+                required
+              />
+              <button
+                type="submit"
+                className="w-full bg-orange-600 hover:bg-orange-700 text-white font-bold py-3 px-6 rounded-lg transition-colors mb-4"
+              >
+                Continue Session
+              </button>
+            </form>
+            
+            <button
+              onClick={handleLogout}
+              className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition-colors text-sm"
+            >
+              Logout Instead
+            </button>
+            
+            <div className="mt-4 text-xs text-gray-400">
+              <p>Security timeout after 60 seconds of inactivity</p>
+              <p>Accepted codes: 1234 or 0000</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   // Check if authenticated user is admin and on admin route
   const isAdminUser = user && (user.email === 'admin@statusxsmoakland.com' || user.role === 'super_admin');
   if (isAdminUser && window.location.pathname === '/admin') {
