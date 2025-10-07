@@ -111,6 +111,7 @@ const LoginOnlyApp = () => {
   const { user, isAuthenticated, loading, login, logout } = useAuth();
   const [cartItems, setCartItems] = useState([]);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showSignupModal, setShowSignupModal] = useState(false);
   const [openCartCallback, setOpenCartCallback] = useState(null);
   const [showProfile, setShowProfile] = useState(false);
 
