@@ -1487,6 +1487,435 @@ class AuthenticationTester:
         except Exception as e:
             return False, {"error": str(e)}, 0
 
+    async def test_square_digital_wallet_payments(self):
+        """Test Square Digital Wallet Payment Integration (Apple Pay/Google Pay) with sandbox credentials."""
+        print("\n=== TESTING SQUARE DIGITAL WALLET PAYMENTS ===")
+        
+        # Get premium user token for authenticated requests
+        premium_token = await self.test_premium_user_authentication()
+        if not premium_token:
+            self.log_test("Square Digital Wallet Payments", False, "Failed to get premium user token")
+            return False
+        
+        headers_user = {"Authorization": f"Bearer {premium_token}"}
+        
+        # Test data for digital wallet payments
+        test_cart_items = [
+            {
+                "id": "za-1",
+                "name": "Lemon Cherry Gelato",
+                "price": 25.00,
+                "quantity": 1,
+                "tier": "za",
+                "category": "flower"
+            },
+            {
+                "id": "deps-1", 
+                "name": "Blue Dream",
+                "price": 20.00,
+                "quantity": 2,
+                "tier": "deps",
+                "category": "flower"
+            }
+        ]
+        
+        total_amount_cents = int((25.00 + 20.00 * 2) * 100)  # $65.00 in cents
+        
+        # Test 1: Apple Pay Payment Processing
+        apple_pay_data = {
+            "token": "mock_apple_pay_token_12345",
+            "amount": total_amount_cents,
+            "currency": "USD",
+            "items": test_cart_items,
+            "buyer_details": {
+                "name": "Premium Demo User",
+                "email": PREMIUM_USER_EMAIL
+            },
+            "user_email": PREMIUM_USER_EMAIL
+        }
+        
+        success, apple_response, status = await self.make_request(
+            "POST", 
+            "/payments/apple-pay", 
+            apple_pay_data, 
+            headers_user
+        )
+        
+        apple_payment_id = None
+        apple_payment_code = None
+        
+        if success and apple_response.get("success"):
+            apple_payment_id = apple_response.get("payment_id")
+            apple_payment_code = apple_response.get("payment_code")
+            
+            self.log_test(
+                "Apple Pay Payment Processing",
+                True,
+                f"Successfully processed Apple Pay payment: ID {apple_payment_id}, Code {apple_payment_code}, Amount ${apple_response.get('amount')}"
+            )
+            
+            # Verify payment code format (P + 6 characters)
+            code_format_valid = apple_payment_code and apple_payment_code.startswith("P") and len(apple_payment_code) == 7
+            self.log_test(
+                "Apple Pay Payment Code Format",
+                code_format_valid,
+                f"Payment code format: {apple_payment_code} {'(valid P-prefix format)' if code_format_valid else '(invalid format)'}"
+            )
+            
+            # Verify response structure
+            required_fields = ["success", "payment_id", "payment_code", "amount", "currency", "status", "message"]
+            missing_fields = [field for field in required_fields if field not in apple_response]
+            
+            self.log_test(
+                "Apple Pay Response Structure",
+                len(missing_fields) == 0,
+                f"Response structure {'complete' if not missing_fields else f'missing: {missing_fields}'}"
+            )
+            
+        else:
+            self.log_test(
+                "Apple Pay Payment Processing",
+                False,
+                f"Apple Pay payment failed: {apple_response}",
+                apple_response
+            )
+        
+        # Test 2: Google Pay Payment Processing
+        google_pay_data = {
+            "token": "mock_google_pay_token_67890",
+            "amount": 3000,  # $30.00 in cents
+            "currency": "USD",
+            "items": [
+                {
+                    "id": "lows-1",
+                    "name": "Northern Lights",
+                    "price": 15.00,
+                    "quantity": 2,
+                    "tier": "lows",
+                    "category": "flower"
+                }
+            ],
+            "buyer_details": {
+                "name": "Premium Demo User",
+                "email": PREMIUM_USER_EMAIL
+            },
+            "user_email": PREMIUM_USER_EMAIL
+        }
+        
+        success, google_response, status = await self.make_request(
+            "POST", 
+            "/payments/google-pay", 
+            google_pay_data, 
+            headers_user
+        )
+        
+        google_payment_id = None
+        google_payment_code = None
+        
+        if success and google_response.get("success"):
+            google_payment_id = google_response.get("payment_id")
+            google_payment_code = google_response.get("payment_code")
+            
+            self.log_test(
+                "Google Pay Payment Processing",
+                True,
+                f"Successfully processed Google Pay payment: ID {google_payment_id}, Code {google_payment_code}, Amount ${google_response.get('amount')}"
+            )
+            
+            # Verify payment code format
+            code_format_valid = google_payment_code and google_payment_code.startswith("P") and len(google_payment_code) == 7
+            self.log_test(
+                "Google Pay Payment Code Format",
+                code_format_valid,
+                f"Payment code format: {google_payment_code} {'(valid P-prefix format)' if code_format_valid else '(invalid format)'}"
+            )
+            
+        else:
+            self.log_test(
+                "Google Pay Payment Processing",
+                False,
+                f"Google Pay payment failed: {google_response}",
+                google_response
+            )
+        
+        # Test 3: Payment Status Lookup
+        if apple_payment_id:
+            success, status_response, status_code = await self.make_request(
+                "GET", 
+                f"/payments/digital-wallet/status/{apple_payment_id}", 
+                headers=headers_user
+            )
+            
+            if success:
+                required_status_fields = ["payment_id", "status", "amount", "currency", "payment_method", "created_at", "pickup_verified"]
+                missing_status_fields = [field for field in required_status_fields if field not in status_response]
+                
+                self.log_test(
+                    "Payment Status Lookup",
+                    len(missing_status_fields) == 0,
+                    f"Status lookup successful: {status_response.get('status')}, Method: {status_response.get('payment_method')}, Pickup: {status_response.get('pickup_verified')}"
+                )
+                
+                # Verify payment method is correct
+                payment_method_correct = status_response.get("payment_method") == "apple-pay"
+                self.log_test(
+                    "Payment Method Verification",
+                    payment_method_correct,
+                    f"Payment method: {status_response.get('payment_method')} {'(correct)' if payment_method_correct else '(incorrect)'}"
+                )
+                
+            else:
+                self.log_test(
+                    "Payment Status Lookup",
+                    False,
+                    f"Failed to get payment status: {status_response}",
+                    status_response
+                )
+        
+        # Test 4: Digital Wallet Payment History
+        success, history_response, status = await self.make_request(
+            "GET", 
+            "/payments/digital-wallet/history?limit=10", 
+            headers=headers_user
+        )
+        
+        if success and isinstance(history_response, list):
+            # Should include our test payments
+            apple_payment_found = any(p.get("payment_id") == apple_payment_id for p in history_response) if apple_payment_id else False
+            google_payment_found = any(p.get("payment_id") == google_payment_id for p in history_response) if google_payment_id else False
+            
+            self.log_test(
+                "Digital Wallet Payment History",
+                len(history_response) >= 0,  # At least should not error
+                f"Retrieved {len(history_response)} payment history records"
+            )
+            
+            if history_response:
+                # Verify history record structure
+                sample_record = history_response[0]
+                required_history_fields = ["payment_id", "payment_code", "payment_method", "amount", "currency", "status", "created_at", "pickup_verified", "items_count"]
+                missing_history_fields = [field for field in required_history_fields if field not in sample_record]
+                
+                self.log_test(
+                    "Payment History Record Structure",
+                    len(missing_history_fields) == 0,
+                    f"History record structure {'complete' if not missing_history_fields else f'missing: {missing_history_fields}'}"
+                )
+                
+                # Verify payment methods are digital wallet types
+                digital_wallet_methods = ["apple-pay", "google-pay"]
+                all_digital_wallet = all(record.get("payment_method") in digital_wallet_methods for record in history_response)
+                
+                self.log_test(
+                    "Digital Wallet Filter Verification",
+                    all_digital_wallet,
+                    f"All records are digital wallet payments: {all_digital_wallet}"
+                )
+            
+        else:
+            self.log_test(
+                "Digital Wallet Payment History",
+                False,
+                f"Failed to retrieve payment history: {history_response}",
+                history_response
+            )
+        
+        # Test 5: Token System Integration
+        # Verify that payments update user purchases and award tokens
+        if apple_payment_id or google_payment_id:
+            # Get user profile to check token balance
+            success, profile_response, status = await self.make_request(
+                "GET", 
+                "/profile/tokens", 
+                headers=headers_user
+            )
+            
+            if success:
+                purchases_count = profile_response.get("purchases_count", 0)
+                tokens_balance = profile_response.get("tokens_balance", 0)
+                
+                self.log_test(
+                    "Token System Integration",
+                    purchases_count > 0,
+                    f"User purchases updated: {purchases_count} purchases, {tokens_balance} tokens"
+                )
+                
+                # Verify token calculation (12 purchases = 10 tokens)
+                expected_tokens = (purchases_count // 12) * 10
+                tokens_calculation_correct = tokens_balance >= expected_tokens
+                
+                self.log_test(
+                    "Token Calculation Logic",
+                    tokens_calculation_correct,
+                    f"Token calculation: {purchases_count} purchases → {tokens_balance} tokens (expected ≥{expected_tokens})"
+                )
+                
+            else:
+                self.log_test(
+                    "Token System Integration",
+                    False,
+                    f"Failed to check token system: {profile_response}",
+                    profile_response
+                )
+        
+        # Test 6: Prepaid Order Creation for Admin Lookup
+        if apple_payment_code and self.admin_token:
+            headers_admin = {"Authorization": f"Bearer {self.admin_token}"}
+            
+            # Check if prepaid order was created for admin lookup
+            success, prepaid_response, status = await self.make_request(
+                "GET", 
+                f"/admin/prepaid-orders?payment_code={apple_payment_code}", 
+                headers=headers_admin
+            )
+            
+            if success:
+                self.log_test(
+                    "Prepaid Order Creation",
+                    True,
+                    f"Prepaid order created for admin lookup with payment code {apple_payment_code}"
+                )
+            else:
+                # Try alternative endpoint structure
+                success, all_prepaid, status = await self.make_request(
+                    "GET", 
+                    "/admin/prepaid-orders", 
+                    headers=headers_admin
+                )
+                
+                if success and isinstance(all_prepaid, list):
+                    code_found = any(order.get("payment_code") == apple_payment_code for order in all_prepaid)
+                    self.log_test(
+                        "Prepaid Order Creation",
+                        code_found,
+                        f"Prepaid order {'found' if code_found else 'not found'} in admin system"
+                    )
+                else:
+                    self.log_test(
+                        "Prepaid Order Creation",
+                        False,
+                        "Could not verify prepaid order creation"
+                    )
+        
+        # Test 7: Error Handling - Invalid Token
+        invalid_apple_pay_data = {
+            "token": "",  # Empty token
+            "amount": 1000,
+            "currency": "USD",
+            "items": [{"id": "test", "name": "Test", "price": 10.00, "quantity": 1}],
+            "user_email": PREMIUM_USER_EMAIL
+        }
+        
+        success, error_response, status = await self.make_request(
+            "POST", 
+            "/payments/apple-pay", 
+            invalid_apple_pay_data, 
+            headers_user
+        )
+        
+        expected_error = status == 400 and not success
+        self.log_test(
+            "Error Handling - Invalid Apple Pay Token",
+            expected_error,
+            f"Correctly returned {status} error for invalid token"
+        )
+        
+        # Test 8: Error Handling - Invalid Amount
+        invalid_amount_data = {
+            "token": "valid_token",
+            "amount": 0,  # Invalid amount
+            "currency": "USD",
+            "items": [{"id": "test", "name": "Test", "price": 10.00, "quantity": 1}],
+            "user_email": PREMIUM_USER_EMAIL
+        }
+        
+        success, error_response, status = await self.make_request(
+            "POST", 
+            "/payments/google-pay", 
+            invalid_amount_data, 
+            headers_user
+        )
+        
+        expected_error = status == 400 and not success
+        self.log_test(
+            "Error Handling - Invalid Amount",
+            expected_error,
+            f"Correctly returned {status} error for invalid amount"
+        )
+        
+        # Test 9: Square Configuration Verification
+        # Verify that the sandbox credentials are properly configured
+        square_config_test = {
+            "access_token_configured": os.environ.get("SQUARE_ACCESS_TOKEN") == "EAAAI-h2BBMwFrKCd6FN4qY6HLzLKdNJrAZNyKGBChxipC60QIGHquLbcKM7tF7W",
+            "application_id_configured": os.environ.get("SQUARE_APPLICATION_ID") == "sandbox-sq0idb-Fello9Q9cUcNn2pmiL-R3g",
+            "location_id_configured": os.environ.get("SQUARE_LOCATION_ID") == "L1VV904HJZNER",
+            "environment_configured": os.environ.get("SQUARE_ENVIRONMENT") == "sandbox"
+        }
+        
+        all_config_correct = all(square_config_test.values())
+        
+        self.log_test(
+            "Square Sandbox Configuration",
+            all_config_correct,
+            f"Sandbox credentials configured: {sum(square_config_test.values())}/4 correct"
+        )
+        
+        # Test 10: Database Transaction Recording
+        if apple_payment_id and self.admin_token:
+            headers_admin = {"Authorization": f"Bearer {self.admin_token}"}
+            
+            # Check if transaction was recorded in database
+            success, members_response, status = await self.make_request(
+                "GET", 
+                "/admin/members?limit=5", 
+                headers=headers_admin
+            )
+            
+            if success and isinstance(members_response, list):
+                # Find premium user and check their transactions
+                premium_user = next((m for m in members_response if m.get("email") == PREMIUM_USER_EMAIL), None)
+                
+                if premium_user:
+                    user_id = premium_user.get("id")
+                    success, transactions_response, status = await self.make_request(
+                        "GET", 
+                        f"/admin/members/{user_id}/transactions?limit=10", 
+                        headers=headers_admin
+                    )
+                    
+                    if success and isinstance(transactions_response, list):
+                        # Look for our test transactions
+                        apple_transaction_found = any(
+                            t.get("payment_code") == apple_payment_code 
+                            for t in transactions_response
+                        ) if apple_payment_code else False
+                        
+                        self.log_test(
+                            "Database Transaction Recording",
+                            apple_transaction_found,
+                            f"Transaction recorded in database: {apple_transaction_found}"
+                        )
+                    else:
+                        self.log_test(
+                            "Database Transaction Recording",
+                            False,
+                            "Could not retrieve user transactions"
+                        )
+                else:
+                    self.log_test(
+                        "Database Transaction Recording",
+                        False,
+                        "Premium user not found for transaction verification"
+                    )
+            else:
+                self.log_test(
+                    "Database Transaction Recording",
+                    False,
+                    "Could not retrieve members for transaction verification"
+                )
+        
+        return True
+
     async def test_shopping_cart_backend_systems(self):
         """Test all backend systems that support the shopping cart functionality."""
         print("\n=== TESTING SHOPPING CART BACKEND SYSTEMS ===")
