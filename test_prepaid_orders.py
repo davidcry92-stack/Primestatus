@@ -199,7 +199,8 @@ class PrepaidOrderTester:
         )
         
         if success:
-            order = response.get("order", {})
+            # The response IS the order object, not wrapped in an "order" field
+            order = response
             
             self.log_test(
                 "Prepaid Order Lookup",
@@ -218,11 +219,11 @@ class PrepaidOrderTester:
             )
             
             # Verify payment code matches
-            code_matches = order.get("pickup_code") == payment_code or order.get("payment_code") == payment_code
+            code_matches = order.get("pickup_code") == payment_code
             self.log_test(
                 "Payment Code Verification",
                 code_matches,
-                f"Payment code matches: {code_matches}"
+                f"Payment code matches: {code_matches} (expected: {payment_code}, got: {order.get('pickup_code')})"
             )
             
             return order
