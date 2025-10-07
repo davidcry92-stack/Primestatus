@@ -274,6 +274,222 @@ const LoginOnlyApp = () => {
             </div>
           </div>
         )}
+
+        {/* Signup Modal */}
+        {showSignupModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
+            <div className="bg-gray-900 border border-yellow-600 rounded-lg p-8 max-w-lg w-full mx-4 max-h-[90vh] overflow-y-auto">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold text-white">Join StatusXSmoakland</h2>
+                <button
+                  onClick={handleCloseSignup}
+                  className="text-gray-400 hover:text-white text-2xl"
+                >
+                  ×
+                </button>
+              </div>
+
+              <form onSubmit={async (e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                
+                try {
+                  const backendUrl = process.env.REACT_APP_BACKEND_URL || import.meta.env.VITE_BACKEND_URL;
+                  const response = await fetch(`${backendUrl}/api/auth/register`, {
+                    method: 'POST',
+                    body: formData // Using FormData for file uploads
+                  });
+                  
+                  if (response.ok) {
+                    alert('🎉 Registration successful! Please wait for admin verification of your ID documents. You will be notified when your account is approved.');
+                    handleCloseSignup();
+                  } else {
+                    const errorData = await response.json();
+                    throw new Error(errorData.detail || 'Registration failed');
+                  }
+                } catch (error) {
+                  console.error('Registration error:', error);
+                  alert('Registration failed: ' + error.message);
+                }
+              }} className="space-y-4">
+                
+                {/* Personal Information */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-white mb-2">Full Name *</label>
+                    <input
+                      type="text"
+                      name="full_name"
+                      placeholder="Your full legal name"
+                      className="w-full px-4 py-2 bg-black border border-gray-600 rounded text-white focus:border-yellow-400 focus:outline-none"
+                      required
+                    />
+                  </div>
+                  
+                  <div>
+                    <label className="block text-white mb-2">Username *</label>
+                    <input
+                      type="text"
+                      name="username"
+                      placeholder="Choose a username"
+                      className="w-full px-4 py-2 bg-black border border-gray-600 rounded text-white focus:border-yellow-400 focus:outline-none"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-white mb-2">Email Address *</label>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="your.email@example.com"
+                    className="w-full px-4 py-2 bg-black border border-gray-600 rounded text-white focus:border-yellow-400 focus:outline-none"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-white mb-2">Date of Birth *</label>
+                  <input
+                    type="date"
+                    name="date_of_birth"
+                    className="w-full px-4 py-2 bg-black border border-gray-600 rounded text-white focus:border-yellow-400 focus:outline-none"
+                    required
+                  />
+                  <p className="text-sm text-gray-400 mt-1">Must be 21+ for membership</p>
+                </div>
+
+                <div>
+                  <label className="block text-white mb-2">Password *</label>
+                  <input
+                    type="password"
+                    name="password"
+                    placeholder="Create a secure password"
+                    className="w-full px-4 py-2 bg-black border border-gray-600 rounded text-white focus:border-yellow-400 focus:outline-none"
+                    required
+                    minLength="8"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-white mb-2">Re-Entry Code *</label>
+                  <input
+                    type="text"
+                    name="re_entry_code"
+                    placeholder="4-8 digit personal verification code"
+                    className="w-full px-4 py-2 bg-black border border-gray-600 rounded text-white focus:border-yellow-400 focus:outline-none"
+                    required
+                    minLength="4"
+                    maxLength="8"
+                  />
+                  <p className="text-sm text-gray-400 mt-1">Create a personal code for app re-entry</p>
+                </div>
+
+                {/* Membership Tier Selection */}
+                <div>
+                  <label className="block text-white mb-2">Membership Tier *</label>
+                  <select 
+                    name="membership_tier"
+                    className="w-full px-4 py-2 bg-black border border-gray-600 rounded text-white focus:border-yellow-400 focus:outline-none"
+                    required
+                  >
+                    <option value="">Select membership tier</option>
+                    <option value="basic">Basic Membership ($Free)</option>
+                    <option value="premium">Premium Membership ($7.99/month)</option>
+                  </select>
+                </div>
+
+                {/* ID Verification Section */}
+                <div className="bg-gray-800 p-4 rounded-lg border border-yellow-600">
+                  <h3 className="text-lg font-semibold text-yellow-400 mb-3">🆔 ID Verification Required</h3>
+                  
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-white mb-2">ID Front Photo *</label>
+                      <input
+                        type="file"
+                        name="id_front"
+                        accept="image/*"
+                        className="w-full px-4 py-2 bg-black border border-gray-600 rounded text-white focus:border-yellow-400 focus:outline-none"
+                        required
+                      />
+                      <p className="text-sm text-gray-400 mt-1">Clear photo of front of driver's license or state ID</p>
+                    </div>
+
+                    <div>
+                      <label className="block text-white mb-2">ID Back Photo *</label>
+                      <input
+                        type="file"
+                        name="id_back"
+                        accept="image/*"
+                        className="w-full px-4 py-2 bg-black border border-gray-600 rounded text-white focus:border-yellow-400 focus:outline-none"
+                        required
+                      />
+                      <p className="text-sm text-gray-400 mt-1">Clear photo of back of driver's license or state ID</p>
+                    </div>
+
+                    <div>
+                      <label className="block text-white mb-2">Medical Document (If Under 21)</label>
+                      <input
+                        type="file"
+                        name="medical_document"
+                        accept="image/*,.pdf"
+                        className="w-full px-4 py-2 bg-black border border-gray-600 rounded text-white focus:border-yellow-400 focus:outline-none"
+                      />
+                      <p className="text-sm text-gray-400 mt-1">Medical recommendation required for users under 21</p>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 p-3 bg-yellow-900 rounded border border-yellow-600">
+                    <p className="text-yellow-200 text-sm">
+                      <strong>⚠️ Verification Process:</strong><br/>
+                      • All ID documents will be manually reviewed by our admin team<br/>
+                      • Verification typically takes 24-48 hours<br/>
+                      • You will receive email notification when approved<br/>
+                      • Must be 21+ with valid government-issued ID
+                    </p>
+                  </div>
+                </div>
+
+                {/* Terms and Conditions */}
+                <div className="flex items-start space-x-3">
+                  <input
+                    type="checkbox"
+                    id="terms"
+                    name="terms"
+                    className="mt-1"
+                    required
+                  />
+                  <label htmlFor="terms" className="text-sm text-gray-300">
+                    I agree to the Terms & Conditions and Privacy Policy. I confirm that I am 21+ years old and legally authorized to purchase cannabis products in NYC. *
+                  </label>
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full bg-yellow-600 hover:bg-yellow-700 text-black font-bold py-3 px-6 rounded-lg transition-colors"
+                >
+                  Submit Application for Verification
+                </button>
+
+                <div className="text-center text-sm text-gray-400">
+                  Already a member? 
+                  <button 
+                    type="button"
+                    onClick={() => {
+                      handleCloseSignup();
+                      handleAuthClick();
+                    }}
+                    className="text-green-400 hover:text-green-300 ml-1"
+                  >
+                    Login here
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
       </div>
     );
   }
