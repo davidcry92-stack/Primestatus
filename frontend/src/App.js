@@ -151,6 +151,15 @@ const LoginOnlyApp = () => {
     if (authTimeoutRef.current) {
       clearTimeout(authTimeoutRef.current);
     }
+    
+    // Warning at 1 minute 45 seconds (15 seconds before closing)
+    setTimeout(() => {
+      if (showAuthModal) {
+        console.log('⚠️ Login modal will close in 15 seconds due to inactivity');
+        // Could add visual warning here if needed
+      }
+    }, 105000); // 1 minute 45 seconds
+    
     authTimeoutRef.current = setTimeout(() => {
       console.log('🕒 Auto-closing login modal due to 2 minute inactivity');
       setShowAuthModal(false);
@@ -162,6 +171,15 @@ const LoginOnlyApp = () => {
     if (signupTimeoutRef.current) {
       clearTimeout(signupTimeoutRef.current);
     }
+    
+    // Warning at 1 minute 45 seconds (15 seconds before closing)
+    setTimeout(() => {
+      if (showSignupModal) {
+        console.log('⚠️ Signup modal will close in 15 seconds due to inactivity');
+        // Could add visual warning here if needed
+      }
+    }, 105000); // 1 minute 45 seconds
+    
     signupTimeoutRef.current = setTimeout(() => {
       console.log('🕒 Auto-closing signup modal due to 2 minute inactivity');
       setShowSignupModal(false);
