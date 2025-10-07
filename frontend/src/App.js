@@ -292,6 +292,20 @@ const LoginOnlyApp = () => {
   const handleLogout = () => {
     logout();
     setShowProfile(false);
+    setIsInactiveReentryRequired(false);
+    clearInactivityTimeout();
+  };
+
+  const handleInactiveReentryVerification = (code) => {
+    // Verify the re-entry code (same codes as initial verification)
+    if (code === '1234' || code === '0000') {
+      console.log('🔒 Re-entry code verified after inactivity');
+      setIsInactiveReentryRequired(false);
+      // Restart inactivity tracking
+      startInactivityTimeout();
+    } else {
+      alert('Invalid re-entry code. Please try again.');
+    }
   };
 
   // Show loading while checking auth
