@@ -568,6 +568,36 @@ const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) =>
           </div>
         </div>
       )}
+
+      {/* Apple Pay Checkout Modal */}
+      {showCheckout && selectedPaymentMethod === 'apple-pay' && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+          <div className="max-w-lg w-full mx-4">
+            <ApplePayCheckout
+              cartItems={cartItems}
+              totalAmount={getTotalPrice()}
+              onSuccess={handleDigitalWalletSuccess}
+              onCancel={handlePaymentCancel}
+              user={user}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Google Pay Checkout Modal */}
+      {showCheckout && selectedPaymentMethod === 'google-pay' && (
+        <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50">
+          <div className="max-w-lg w-full mx-4">
+            <GooglePayCheckout
+              cartItems={cartItems}
+              totalAmount={getTotalPrice()}
+              onSuccess={handleDigitalWalletSuccess}
+              onCancel={handlePaymentCancel}
+              user={user}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
