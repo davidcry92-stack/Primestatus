@@ -48,26 +48,66 @@ async def process_digital_wallet_payment(
     """Common function to process Apple Pay and Google Pay payments"""
     
     try:
-        # Note: In a real implementation, you would use Square Web Payments SDK
-        # to process the actual payment token. For now, we'll simulate success.
-        # 
-        # Example Square API call would be:
-        # client = Client(
-        #     access_token=os.environ.get("SQUARE_ACCESS_TOKEN"),
-        #     environment='sandbox'  # or 'production'
-        # )
-        # 
-        # result = client.payments.create_payment(
-        #     source_id=payment_request.token,
-        #     idempotency_key=str(uuid.uuid4()),
-        #     amount_money={
-        #         "amount": payment_request.amount,
-        #         "currency": payment_request.currency
-        #     }
-        # )
+        # Initialize Square client with environment variables
+        square_environment = os.environ.get("SQUARE_ENVIRONMENT", "sandbox")
+        access_token = os.environ.get("SQUARE_ACCESS_TOKEN")
+        location_id = os.environ.get("SQUARE_LOCATION_ID")
         
-        # For now, simulate successful payment processing
-        payment_id = str(uuid.uuid4())
+        if not access_token:
+            raise HTTPException(status_code=500, detail="Square access token not configured")
+        if not location_id:
+            raise HTTPException(status_code=500, detail="Square location ID not configured")
+        
+        # Initialize Square client
+        client = Client(
+            access_token=access_token,
+            environment=square_environment
+        )
+        
+        # Create payment with Square API
+        idempotency_key = str(uuid.uuid4())
+        
+        # Create money object for Square API
+        money = Money(
+            amount=payment_request.amount,
+            currency=payment_request.currency
+        )
+        
+        # Create payment request
+        create_payment_request = CreatePaymentRequest(
+            source_id=payment_request.token,
+            idempotency_key=idempotency_key,
+            amount_money=money,
+            location_id=location_id,
+            autocomplete=True,
+            note=f"{payment_method} payment for StatusXSmoakland order"
+        )
+        
+        print(f"🔄 Processing {payment_method} payment with Square API...")
+        print(f"   Amount: ${payment_request.amount/100:.2f}")
+        print(f"   Environment: {square_environment}")
+        
+        # Make the Square API call
+        result = client.payments.create_payment(create_payment_request)
+        
+        if result.is_success():
+            payment = result.body['payment']
+            payment_id = payment['id']
+            payment_status = payment['status']
+            
+            print(f"✅ Square payment successful!")
+            print(f"   Payment ID: {payment_id}")
+            print(f"   Status: {payment_status}")
+            
+        else:
+            print(f"❌ Square payment failed:")
+            for error in result.errors:
+                print(f"   Error: {error}")
+            raise HTTPException(
+                status_code=400, 
+                detail=f"Square payment failed: {', '.join([error['detail'] for error in result.errors])}"
+            )
+        
         payment_code = generate_payment_code("P")  # P for prepaid
         
         # Create transaction record
