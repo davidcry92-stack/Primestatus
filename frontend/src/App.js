@@ -177,6 +177,18 @@ const LoginOnlyApp = () => {
     startSignupTimeout();
   };
 
+  // Cleanup timeouts on component unmount
+  useEffect(() => {
+    return () => {
+      if (authTimeoutRef.current) {
+        clearTimeout(authTimeoutRef.current);
+      }
+      if (signupTimeoutRef.current) {
+        clearTimeout(signupTimeoutRef.current);
+      }
+    };
+  }, []);
+
   const handleOpenCart = () => {
     if (openCartCallback) {
       openCartCallback();
