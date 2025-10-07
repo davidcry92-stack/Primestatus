@@ -118,6 +118,10 @@ const LoginOnlyApp = () => {
   // Timeout refs for modal auto-close
   const authTimeoutRef = useRef(null);
   const signupTimeoutRef = useRef(null);
+  
+  // App-wide inactivity timeout
+  const inactivityTimeoutRef = useRef(null);
+  const [isInactiveReentryRequired, setIsInactiveReentryRequired] = useState(false);
 
   const handleAuthClick = () => {
     console.log('Auth button clicked!'); // Debug log
