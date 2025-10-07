@@ -10,8 +10,8 @@ const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
   const [saveToProfile, setSaveToProfile] = useState(false);
   const { user, apiCall } = useContext(AuthContext);
 
-  const SQUARE_APPLICATION_ID = 'sq0idp-A8bi8F9_FRdPQiCQVCa5dg';
-  const SQUARE_LOCATION_ID = 'L9JFNQSBZAW4Y';
+  const SQUARE_APPLICATION_ID = process.env.REACT_APP_SQUARE_APPLICATION_ID || import.meta.env.VITE_SQUARE_APPLICATION_ID;
+  const SQUARE_LOCATION_ID = process.env.REACT_APP_SQUARE_LOCATION_ID || import.meta.env.VITE_SQUARE_LOCATION_ID;
 
   useEffect(() => {
     initSquarePaymentForm();
