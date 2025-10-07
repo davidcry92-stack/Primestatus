@@ -134,6 +134,41 @@ const LoginOnlyApp = () => {
 
   const handleCloseSignup = () => {
     setShowSignupModal(false);
+    if (signupTimeoutRef.current) {
+      clearTimeout(signupTimeoutRef.current);
+      signupTimeoutRef.current = null;
+    }
+  };
+
+  // Auto-close modal functions
+  const startAuthTimeout = () => {
+    if (authTimeoutRef.current) {
+      clearTimeout(authTimeoutRef.current);
+    }
+    authTimeoutRef.current = setTimeout(() => {
+      console.log('🕒 Auto-closing login modal due to 2 minute inactivity');
+      setShowAuthModal(false);
+      authTimeoutRef.current = null;
+    }, 120000); // 2 minutes
+  };
+
+  const startSignupTimeout = () => {
+    if (signupTimeoutRef.current) {
+      clearTimeout(signupTimeoutRef.current);
+    }
+    signupTimeoutRef.current = setTimeout(() => {
+      console.log('🕒 Auto-closing signup modal due to 2 minute inactivity');
+      setShowSignupModal(false);
+      signupTimeoutRef.current = null;
+    }, 120000); // 2 minutes
+  };
+
+  const resetAuthTimeout = () => {
+    startAuthTimeout();
+  };
+
+  const resetSignupTimeout = () => {
+    startSignupTimeout();
   };
 
   const handleOpenCart = () => {
