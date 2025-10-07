@@ -328,7 +328,12 @@ const LoginOnlyApp = () => {
         {/* Signup Modal */}
         {showSignupModal && (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
-            <div className="bg-gray-900 border border-yellow-600 rounded-lg p-8 max-w-lg w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div 
+              className="bg-gray-900 border border-yellow-600 rounded-lg p-8 max-w-lg w-full mx-4 max-h-[90vh] overflow-y-auto"
+              onMouseMove={resetSignupTimeout}
+              onClick={resetSignupTimeout}
+              onKeyDown={resetSignupTimeout}
+            >
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-bold text-white">Join StatusXSmoakland</h2>
                 <button
