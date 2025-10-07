@@ -4377,6 +4377,9 @@ class AuthenticationTester:
             # Test Square payment integration
             await self.test_square_payment_integration()
             
+            # Test Square Digital Wallet Payments (Apple Pay/Google Pay)
+            await self.test_square_digital_wallet_payments()
+            
             # Test Daily Deals Management System
             await self.test_daily_deals_management_system()
             
