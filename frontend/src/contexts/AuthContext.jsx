@@ -12,7 +12,10 @@ export const useAuth = () => {
 
 // Simple API call helper
 const apiCall = async (url, options = {}) => {
-  const backendUrl = process.env.REACT_APP_BACKEND_URL || '';
+  // In deployment, use relative URL. In local dev, use localhost
+  const backendUrl = process.env.REACT_APP_BACKEND_URL || (
+    window.location.hostname === 'localhost' ? 'http://localhost:8001' : ''
+  );
   
   const defaultHeaders = {
     'Content-Type': 'application/json',
