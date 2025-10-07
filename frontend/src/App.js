@@ -122,14 +122,20 @@ const LoginOnlyApp = () => {
   const handleAuthClick = () => {
     console.log('Auth button clicked!'); // Debug log
     setShowAuthModal(true);
+    startAuthTimeout();
   };
 
   const handleCloseAuth = () => {
     setShowAuthModal(false);
+    if (authTimeoutRef.current) {
+      clearTimeout(authTimeoutRef.current);
+      authTimeoutRef.current = null;
+    }
   };
 
   const handleSignupClick = () => {
     setShowSignupModal(true);
+    startSignupTimeout();
   };
 
   const handleCloseSignup = () => {
