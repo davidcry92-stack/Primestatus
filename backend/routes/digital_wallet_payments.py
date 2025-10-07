@@ -113,7 +113,7 @@ async def process_digital_wallet_payment(
             "_id": str(uuid.uuid4()),
             "user_id": user.get("id"),
             "user_email": payment_request.user_email,
-            "payment_code": payment_code,
+            "pickup_code": payment_code,  # Use pickup_code for consistency with admin lookup
             "payment_method": payment_method,
             "payment_id": payment_id,
             "total_amount": payment_request.amount / 100,
