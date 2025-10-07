@@ -124,6 +124,14 @@ const LoginOnlyApp = () => {
     setShowAuthModal(false);
   };
 
+  const handleSignupClick = () => {
+    setShowSignupModal(true);
+  };
+
+  const handleCloseSignup = () => {
+    setShowSignupModal(false);
+  };
+
   const handleOpenCart = () => {
     if (openCartCallback) {
       openCartCallback();
