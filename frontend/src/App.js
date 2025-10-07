@@ -199,7 +199,68 @@ const LoginOnlyApp = () => {
     startSignupTimeout();
   };
 
-  // Cleanup timeouts on component unmount
+  // App-wide inactivity management
+  const startInactivityTimeout = () => {
+    if (inactivityTimeoutRef.current) {
+      clearTimeout(inactivityTimeoutRef.current);
+    }
+    
+    inactivityTimeoutRef.current = setTimeout(() => {
+      console.log('🕒 60 seconds of inactivity detected - requiring re-entry code');
+      setIsInactiveReentryRequired(true);
+      inactivityTimeoutRef.current = null;
+    }, 60000); // 60 seconds
+  };
+
+  const resetInactivityTimeout = () => {
+    if (user && isAuthenticated && !isInactiveReentryRequired) {
+      startInactivityTimeout();
+    }
+  };
+
+  const clearInactivityTimeout = () => {
+    if (inactivityTimeoutRef.current) {
+      clearTimeout(inactivityTimeoutRef.current);
+      inactivityTimeoutRef.current = null;
+    }
+  };
+
+  // Start inactivity tracking when user is authenticated
+  useEffect(() => {
+    if (user && isAuthenticated && !isInactiveReentryRequired) {
+      console.log('🕒 Starting inactivity timeout tracking (60 seconds)');
+      startInactivityTimeout();
+    } else {
+      clearInactivityTimeout();
+    }
+
+    return () => clearInactivityTimeout();
+  }, [user, isAuthenticated, isInactiveReentryRequired]);
+
+  // Add global activity listeners when authenticated
+  useEffect(() => {
+    if (user && isAuthenticated && !isInactiveReentryRequired) {
+      const activityEvents = ['mousedown', 'mousemove', 'keypress', 'scroll', 'touchstart', 'click'];
+      
+      const handleActivity = () => {
+        resetInactivityTimeout();
+      };
+
+      // Add event listeners to track user activity
+      activityEvents.forEach(event => {
+        document.addEventListener(event, handleActivity, true);
+      });
+
+      return () => {
+        // Clean up event listeners
+        activityEvents.forEach(event => {
+          document.removeEventListener(event, handleActivity, true);
+        });
+      };
+    }
+  }, [user, isAuthenticated, isInactiveReentryRequired]);
+
+  // Cleanup all timeouts on component unmount
   useEffect(() => {
     return () => {
       if (authTimeoutRef.current) {
@@ -207,6 +268,9 @@ const LoginOnlyApp = () => {
       }
       if (signupTimeoutRef.current) {
         clearTimeout(signupTimeoutRef.current);
+      }
+      if (inactivityTimeoutRef.current) {
+        clearTimeout(inactivityTimeoutRef.current);
       }
     };
   }, []);
