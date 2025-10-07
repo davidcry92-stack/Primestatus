@@ -101,7 +101,10 @@ const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) =>
       return;
     }
 
-    // Show payment method selection first
+    // Close the cart modal first
+    setIsOpen(false);
+    
+    // Then show payment method selection
     setShowPaymentSelection(true);
   };
 
