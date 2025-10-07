@@ -12,9 +12,8 @@ from utils.tokens import update_user_purchases_and_tokens
 import random
 import string
 
-# Square SDK import
-from squareup import Client
-from squareup.models import CreatePaymentRequest, Money
+# Note: Using mock implementation for testing
+# In production, you would use: from square.client import Client
 
 router = APIRouter(prefix="/api/payments", tags=["digital-wallet-payments"])
 
