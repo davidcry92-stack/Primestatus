@@ -281,6 +281,7 @@ class PrepaidOrderTester:
         
         completion_data = {
             "pickup_code": payment_code,
+            "completed_by": ADMIN_EMAIL,
             "admin_notes": "Test completion - order picked up successfully"
         }
         
