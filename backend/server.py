@@ -51,6 +51,7 @@ api_router.include_router(cash_pickups.router)
 api_router.include_router(daily_reports.router)
 api_router.include_router(prepaid_orders.router)
 api_router.include_router(profile.router)
+api_router.include_router(digital_wallet_payments.router)
 
 # Include the main router in the app
 app.include_router(api_router)
