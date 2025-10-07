@@ -48,6 +48,9 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('admin_token');
     localStorage.removeItem('admin_user');
     
+    // Also clear any session storage for complete security
+    sessionStorage.clear();
+    
     // Ensure user starts as null (not authenticated)
     setUser(null);
     setLoading(false);
