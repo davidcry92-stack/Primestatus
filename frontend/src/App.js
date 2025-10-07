@@ -114,6 +114,10 @@ const LoginOnlyApp = () => {
   const [showSignupModal, setShowSignupModal] = useState(false);
   const [openCartCallback, setOpenCartCallback] = useState(null);
   const [showProfile, setShowProfile] = useState(false);
+  
+  // Timeout refs for modal auto-close
+  const authTimeoutRef = useRef(null);
+  const signupTimeoutRef = useRef(null);
 
   const handleAuthClick = () => {
     console.log('Auth button clicked!'); // Debug log
