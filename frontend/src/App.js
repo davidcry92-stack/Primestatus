@@ -838,6 +838,12 @@ function App() {
     // For normal login flow, automatically set re-entry as verified
     // Re-entry code will only be required for inactivity timeout
     setIsReEntryCodeVerified(true);
+    
+    // CRITICAL: Clear any existing authentication to force fresh login
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('user_data');
+    localStorage.removeItem('admin_token');
+    localStorage.removeItem('admin_user');
   };
 
   const handleReEntryCodeVerification = () => {
