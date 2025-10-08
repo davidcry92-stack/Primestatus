@@ -27,6 +27,18 @@ const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
     checkSquareSDK();
   }, []);
 
+  // Create payment request for Square
+  const createPaymentRequest = () => {
+    return {
+      countryCode: 'US',
+      currencyCode: 'USD',
+      total: {
+        amount: Math.round(calculateTotal() * 100).toString(), // Convert to cents
+        label: 'StatusXSmoakland Order',
+      },
+    };
+  };
+
   const calculateTotal = () => {
     return cartItems.reduce((total, item) => {
       return total + (item.price * item.quantity);
