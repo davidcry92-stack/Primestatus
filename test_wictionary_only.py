@@ -9,7 +9,7 @@ import json
 from datetime import datetime
 
 # Configuration
-BACKEND_URL = "https://secure-pickup.preview.emergentagent.com/api"
+BACKEND_URL = "https://statusx-cannabis-1.preview.emergentagent.com/api"
 ADMIN_EMAIL = "admin@statusxsmoakland.com"
 ADMIN_PASSWORD = "Admin123!"
 

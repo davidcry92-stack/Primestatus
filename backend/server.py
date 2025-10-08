@@ -78,7 +78,7 @@ if cors_origins == ['*']:
         cors_origins.extend([
             f"https://{app_domain}",
             f"https://{app_domain}.emergent.host",
-            "https://secure-pickup.preview.emergentagent.com"
+            "https://statusx-cannabis-1.preview.emergentagent.com"
         ])
 
 app.add_middleware(

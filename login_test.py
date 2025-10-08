@@ -9,7 +9,7 @@ import aiohttp
 import json
 
 # Deployed backend URL
-BACKEND_URL = "https://secure-pickup.preview.emergentagent.com/api"
+BACKEND_URL = "https://statusx-cannabis-1.preview.emergentagent.com/api"
 
 # Demo credentials from review request
 DEMO_CREDENTIALS = [
@@ -113,7 +113,7 @@ async def test_cors_configuration():
     async with aiohttp.ClientSession() as session:
         # Test preflight request
         headers = {
-            "Origin": "https://secure-pickup.preview.emergentagent.com",
+            "Origin": "https://statusx-cannabis-1.preview.emergentagent.com",
             "Access-Control-Request-Method": "POST",
             "Access-Control-Request-Headers": "Content-Type,Authorization"
         }

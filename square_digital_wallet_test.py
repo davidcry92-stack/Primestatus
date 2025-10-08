@@ -13,7 +13,7 @@ from datetime import datetime
 from typing import Dict, Any, Optional
 
 # Configuration - Using deployed backend URL from frontend .env
-BACKEND_URL = "https://secure-pickup.preview.emergentagent.com/api"
+BACKEND_URL = "https://statusx-cannabis-1.preview.emergentagent.com/api"
 
 # Test credentials from review request
 PREMIUM_USER_EMAIL = "premium@demo.com"

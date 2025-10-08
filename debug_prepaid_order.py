@@ -7,7 +7,7 @@ import asyncio
 import aiohttp
 import json
 
-BACKEND_URL = "https://secure-pickup.preview.emergentagent.com/api"
+BACKEND_URL = "https://statusx-cannabis-1.preview.emergentagent.com/api"
 PREMIUM_USER_EMAIL = "premium@demo.com"
 PREMIUM_USER_PASSWORD = "Premium123!"
 ADMIN_EMAIL = "admin@statusxsmoakland.com"
