@@ -12,7 +12,7 @@ from utils.tokens import update_user_purchases_and_tokens
 import random
 import string
 
-from square import Square
+from square.client import Client
 
 router = APIRouter(prefix="/payments", tags=["digital-wallet-payments"])
 
