@@ -408,7 +408,7 @@ const ProductGrid = ({ category = 'all', tier = null, user, cartItems, setCartIt
                       }}
                       disabled={!product.inStock}
                       className={`w-full font-bold py-2 px-4 rounded transition-colors flex items-center justify-center ${
-                        !product.inStock || !user?.is_verified
+                        !product.inStock
                           ? 'bg-gray-700 text-gray-400 cursor-not-allowed'
                           : 'bg-green-600 hover:bg-green-700 text-white'
                       }`}
