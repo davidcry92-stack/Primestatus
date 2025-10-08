@@ -4604,15 +4604,15 @@ class SquarePaymentTester:
         return passed_tests, failed_tests, daily_deals_tests
 
 async def main():
-    """Main test runner for StatusXSmoakland shopping cart backend systems testing."""
-    print("🛒 STARTING STATUSXSMOAKLAND SHOPPING CART BACKEND SYSTEMS TESTING")
+    """Run comprehensive Square payment integration tests."""
+    print("🔍 STARTING COMPREHENSIVE SQUARE PAYMENT INTEGRATION TESTING")
     print("=" * 80)
     print(f"Backend URL: {BACKEND_URL}")
     print(f"Testing Premium User: {PREMIUM_USER_EMAIL}")
-    print("FOCUS: Authentication, Payment Integration, Product APIs, Cart Support")
+    print("FOCUS: Square API Connection, Payment Processing, Digital Wallets, Admin Management")
     print("=" * 80)
     
-    async with AuthenticationTester() as tester:
+    async with SquarePaymentTester() as tester:
         # Test sequence based on review request priorities
         test_results = []
         
