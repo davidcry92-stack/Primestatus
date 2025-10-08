@@ -37,21 +37,13 @@ const AdminOnlyApp = () => {
   }
   
   // Check if user is authenticated and is admin
-  // Also check for admin_token for separate admin authentication
-  const adminToken = localStorage.getItem('admin_token');
-  const adminUser = localStorage.getItem('admin_user');
-  
+  // Check if user is admin (unified authentication system)
   const isAdmin = (isAuthenticated && user && (
     user.email === 'admin@statusxsmoakland.com' || 
     user.role === 'super_admin'
-  )) || (adminToken && adminUser);
+  ));
   
   if (!isAuthenticated || !user) {
-    // Check if there's a separate admin token
-    if (adminToken && adminUser) {
-      // Admin is logged in through separate admin system
-      return <AdminApp />;
-    }
     
     // Not authenticated - redirect to main app for login
     return (
