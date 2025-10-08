@@ -576,6 +576,30 @@ test_plan:
           agent: "testing"
           comment: "🎯 COMPREHENSIVE SHOPPING CART FUNCTIONALITY TESTING COMPLETE - ALL REPORTED ISSUES RESOLVED! Conducted thorough end-to-end testing of all three user-reported cart issues and confirmed complete functionality. DETAILED TESTING RESULTS: ✅ ISSUE 1 - CART ICON CLICKABLE: Cart icon successfully found in header using selector '[class*=\"shopping-cart\"]', clicks properly and opens cart modal displaying 'Your cart is empty' message and payment packages ($25, $50, $100, $200) ✅ ISSUE 2 - QUANTITY MODAL APPEARING: 'Select Quantity' buttons working perfectly - found 4 functional buttons in Za category, clicking opens quantity selection modal with proper options (1/8, 1/2 oz, 1 oz, 1/4 lb, 1/2 lb, 1 lb) and tier-specific pricing (Za tier: $25.00 - $1625.00) ✅ ISSUE 3 - ADD-TO-CART FLOW WORKING: Items successfully added to cart with proper state management - console logs confirm 'Added to cart: {id: za-1, name: Lemon Cherry Gelato, price: 25, quantity: 1}' and 'Added to cart: {id: za-2, name: Playmaker, price: 25, quantity: 1}' ✅ CART COUNT DISPLAY: Cart icon shows correct item count badge (red badge with '2' visible in header after adding two items) ✅ CART STATE MANAGEMENT: Console confirms proper prop passing throughout component hierarchy - 'ProductGrid props: {cartItems: true, setCartItems: true, user: true}' ✅ MULTIPLE ITEMS SUPPORT: Successfully added two different products (Lemon Cherry Gelato and Playmaker), cart count updated correctly from 1 to 2 ✅ AUTHENTICATION PERSISTENCE: Premium user (premium@demo.com / Premium123!) remains logged in throughout entire cart flow ✅ PRODUCT NAVIGATION: Za category navigation working perfectly - console shows 'Filtered za flower products: 8' confirming proper product filtering and display. CONCLUSION: All three originally reported cart issues are completely RESOLVED. Cart icon is clickable and opens modal, quantity modal appears correctly when 'Select Quantity' is clicked, and add-to-cart flow works perfectly with proper state management, item persistence, and cart count updates. SUCCESS RATE: 100% - All shopping cart functionality working as expected."
 
+  - task: "Square Payment Integration V2"
+    implemented: true
+    working: "unknown"
+    file: "/app/backend/routes/square_payments.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "unknown"
+          agent: "main"
+          comment: "Phase 2 COMPLETED: Fixed Square SDK integration - Updated from mock implementation to use actual squareup SDK. Fixed API method calls to use correct squareup client format (create_payment, list_locations, get_payment). Removed duplicate squareup entry from requirements.txt. Backend restarted successfully. Need comprehensive testing to verify Square payment integration is functional."
+
+  - task: "Digital Wallet Payments V2"
+    implemented: true
+    working: "unknown"
+    file: "/app/backend/routes/digital_wallet_payments.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+        - working: "unknown"
+          agent: "main"
+          comment: "Phase 2 COMPLETED: Replaced mock Square implementation with actual squareup SDK integration. Updated Apple Pay and Google Pay processing to use real Square API calls with proper error handling and fallback to sandbox mode. Need comprehensive testing to verify digital wallet payment integration is functional."
+
   - task: "Automatic Cart Navigation After Adding Item"
     implemented: true
     working: true
