@@ -218,16 +218,29 @@ const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
         />
       </div>
 
-      {/* Square Card Form */}
+      {/* Square Payment Form */}
       <div>
         <label className="block text-sm font-medium text-gray-300 mb-2">
           Payment Information
         </label>
-        <div 
-          id="card-container" 
-          className="bg-gray-900 border border-gray-600 rounded-md p-4"
-          style={{ minHeight: '120px', backgroundColor: '#1f2937' }}
-        />
+        <PaymentForm
+          applicationId={SQUARE_APPLICATION_ID}
+          locationId={SQUARE_LOCATION_ID}
+          cardTokenizeResponseReceived={handlePayment}
+        >
+          <CreditCard
+            style={{
+              input: {
+                color: '#FFFFFF',
+                backgroundColor: '#1f2937',
+                fontSize: '16px'
+              },
+              'input::placeholder': {
+                color: '#9CA3AF'
+              }
+            }}
+          />
+        </PaymentForm>
         
         {/* Save to Profile Option */}
         <div className="mt-3 flex items-center">
