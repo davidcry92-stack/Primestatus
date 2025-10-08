@@ -169,7 +169,7 @@ const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
             locationId={SQUARE_LOCATION_ID}
             cardTokenizeResponseReceived={handlePayment}
             createPaymentRequest={createPaymentRequest}
-            environment={process.env.REACT_APP_SQUARE_ENVIRONMENT || "sandbox"}
+            environment="sandbox"
           >
             <CreditCard
               style={{
