@@ -3,7 +3,7 @@ import { Button } from './ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { AlertTriangle, Shield } from 'lucide-react';
 
-const LawEnforcementScreen = ({ onVerified }) => {
+const LawEnforcementScreen = ({ onVerified, onSkipToLogin }) => {
   const [response, setResponse] = useState(null);
   const [showError, setShowError] = useState(false);
 
