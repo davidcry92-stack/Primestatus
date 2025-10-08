@@ -3,8 +3,15 @@ import React from 'react';
 const HealthAid = ({ user = null }) => {
   // Check if user has premium access
   const hasAccess = user?.membershipTier === 'premium' || user?.role === 'super_admin' || user?.role === 'admin';
+  const isBasicMember = user && (user.membershipTier === 'basic' || user.membership_tier === 'basic');
+  const isPremiumMember = hasAccess;
 
-  if (!hasAccess) {
+  // Premium members get full access, no upgrade needed
+  if (isPremiumMember) {
+    // Continue to full HealthAid content below
+  }
+  // Basic members see upgrade option
+  else if (isBasicMember) {
     return (
       <section className="py-20 bg-gradient-to-b from-purple-900 to-emerald-900" id="health-aid">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
