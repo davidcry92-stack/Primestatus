@@ -83,21 +83,6 @@ const LawEnforcementScreen = ({ onVerified, onSkipToLogin }) => {
             </Button>
           </div>
           
-          {/* Skip verification for existing users */}
-          <div className="mt-6 pt-4 border-t border-gray-600">
-            <p className="text-center text-sm text-gray-400 mb-3">
-              Already a verified member?
-            </p>
-            <Button
-              onClick={onSkipToLogin}
-              variant="outline"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white border-blue-600"
-              size="lg"
-            >
-              Login with Existing Account
-            </Button>
-          </div>
-          
           <div className="text-center pt-4">
             <p className="text-gray-500 text-xs">
               By proceeding, you acknowledge that you are legally authorized to access this platform.
