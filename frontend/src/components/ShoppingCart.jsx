@@ -144,21 +144,16 @@ const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) =>
       const pickupCode = 'C' + Math.floor(100000 + Math.random() * 900000).toString();
       const orderId = 'CASH-' + Date.now();
       
-      // Store cash pickup order in backend
+      // Store cash pickup order in backend using user endpoint
       const backendUrl = process.env.REACT_APP_BACKEND_URL || '';
       const orderData = {
-        user_id: user.id,
-        user_email: user.email,
-        pickup_code: pickupCode,
-        order_id: orderId,
         items: cartItems,
         total_amount: getTotalPrice(),
-        payment_method: 'cash_pickup',
-        status: 'pending_pickup',
-        created_at: new Date().toISOString()
+        user_name: user.first_name + ' ' + user.last_name || user.email,
+        user_email: user.email
       };
 
-      const response = await fetch(`${backendUrl}/api/admin/cash-pickups`, {
+      const response = await fetch(`${backendUrl}/api/user/cash-pickup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
