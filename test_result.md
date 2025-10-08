@@ -57,8 +57,8 @@
 ##   test_priority: "high_first"  # or "sequential" or "stuck_first"
 ##
 ## agent_communication:
-##     -agent: "main"  # or "testing" or "user"
-##     -message: "Communication message between agents"
+##     - agent: "main"
+##       message: "Phase 2: Completed Square SDK integration fixes - Updated square_payments.py and digital_wallet_payments.py to use proper squareup SDK instead of mock implementations. Fixed API method calls to use correct squareup client format (create_payment, list_locations, get_payment). Removed duplicate squareup entry from requirements.txt. Backend restarted successfully. Ready for comprehensive Square payment testing."
 
 # Protocol Guidelines for Main agent
 #
