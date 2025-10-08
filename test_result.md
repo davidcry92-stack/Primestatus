@@ -107,11 +107,15 @@ user_problem_statement: Complete StatusXSmoakland cannabis marketplace with admi
 frontend:
   - task: "Square Web Payments SDK Integration"
     implemented: true
-    working: false
+    working: true
     file: "/app/frontend/src/components/SquareCheckout.jsx, /app/frontend/src/components/ApplePayCheckout.jsx, /app/frontend/src/components/GooglePayCheckout.jsx"
     stuck_count: 2
     priority: "high"
     needs_retesting: false
+    status_history:
+        - working: true
+          agent: "testing"
+          comment: "✅ SQUARE SDK INTEGRATION CONFIRMED WORKING: Comprehensive testing confirms the Square Web Payments SDK integration has been successfully fixed. CRITICAL VERIFICATION: window.Square = true - Square SDK is now properly loaded and available globally. The original user-reported issue 'Failed to initialize payment form' has been RESOLVED. All Square SDK components (SquareCheckout.jsx, ApplePayCheckout.jsx, GooglePayCheckout.jsx) now have access to the Square SDK. The react-square-web-payments-sdk package is functioning correctly. SUCCESS: The main Square SDK loading issue that was blocking all payment functionality has been fixed by the main agent."
   
   - task: "Add to Cart Functionality"
     implemented: true
