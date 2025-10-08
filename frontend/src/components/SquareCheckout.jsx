@@ -266,13 +266,9 @@ const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
         >
           Cancel
         </button>
-        <button
-          onClick={handlePayment}
-          disabled={loading || !card}
-          className="flex-1 bg-emerald-600 hover:bg-emerald-700 disabled:bg-gray-600 text-white font-bold py-3 px-6 rounded-md transition-colors"
-        >
-          {loading ? 'Processing...' : `Pay $${calculateTotal().toFixed(2)}`}
-        </button>
+        <div className="flex-1 text-center text-gray-300 py-3">
+          {loading ? 'Processing payment...' : 'Fill out payment form above to complete purchase'}
+        </div>
       </div>
 
       {/* Payment Info */}
