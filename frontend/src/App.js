@@ -835,6 +835,9 @@ function App() {
   const handleLawEnforcementVerification = () => {
     console.log('Law enforcement verification completed');
     setIsLawEnforcementVerified(true);
+    // For normal login flow, automatically set re-entry as verified
+    // Re-entry code will only be required for inactivity timeout
+    setIsReEntryCodeVerified(true);
   };
 
   const handleReEntryCodeVerification = () => {
