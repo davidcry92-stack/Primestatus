@@ -872,12 +872,7 @@ function App() {
             } />
             <Route path="/checkout/success" element={<CheckoutSuccess />} />
             <Route path="/checkout/cancel" element={<CheckoutCancel />} />
-            <Route path="/admin" element={
-              <ScreenshotProtection>
-                {/* ADMIN ROUTE: Direct access without verification requirements */}
-                <LoginOnlyApp />
-              </ScreenshotProtection>
-            } />
+            <Route path="/admin" element={<AdminApp />} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>
