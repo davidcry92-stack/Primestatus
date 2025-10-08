@@ -37,12 +37,6 @@ const AdminOnlyApp = () => {
   }
   
   // Check if user is authenticated and is admin
-  // Check if user is admin (unified authentication system)
-  const isAdmin = (isAuthenticated && user && (
-    user.email === 'admin@statusxsmoakland.com' || 
-    user.role === 'super_admin'
-  ));
-  
   if (!isAuthenticated || !user) {
     
     // Not authenticated - redirect to main app for login
