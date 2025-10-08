@@ -103,7 +103,7 @@ async def process_digital_wallet_payment(
             payment_id = payment['id']
             payment_status = payment['status']
             
-            print(f"✅ Square payment successful!")
+            print("✅ Square payment successful!")
             print(f"   Payment ID: {payment_id}")
             print(f"   Status: {payment_status}")
             
