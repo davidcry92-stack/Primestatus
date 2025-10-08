@@ -169,6 +169,7 @@ const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
             locationId={SQUARE_LOCATION_ID}
             cardTokenizeResponseReceived={handlePayment}
             createPaymentRequest={createPaymentRequest}
+            environment="sandbox"
           >
             <CreditCard
               style={{
