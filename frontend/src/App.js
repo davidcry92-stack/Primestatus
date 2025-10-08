@@ -9,7 +9,7 @@ import LawEnforcementScreen from "./components/LawEnforcementScreen";
 import ReEntryCodeScreen from "./components/ReEntryCodeScreen";
 import VerificationPending from "./components/VerificationPending";
 import SimpleHeader from "./components/SimpleHeader";
-import HeroSection from "./components/HeroSection";
+// import HeroSection from "./components/HeroSection"; // Removed - going directly to products
 import ProductGrid from "./components/ProductGrid";
 import ProductSelection from "./components/ProductSelection";
 import Footer from "./components/Footer";
