@@ -100,7 +100,7 @@ async def create_square_order(
         payment_idempotency_key = str(uuid.uuid4())
         
         payments_api = client.payments
-        payment_result = payments_api.create_payment(
+        payment_result = payments_api.create(
             body={
                 'source_id': order_request.payment_source_id,
                 'idempotency_key': payment_idempotency_key,
