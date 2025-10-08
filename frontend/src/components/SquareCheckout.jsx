@@ -102,9 +102,9 @@ const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
     return Math.round(calculateTotal() * 100);
   };
 
-  const handlePayment = async () => {
-    if (!card || !user) {
-      setError('Payment form not ready or user not authenticated');
+  const handlePayment = async (token, verifiedBuyer) => {
+    if (!user) {
+      setError('User not authenticated');
       return;
     }
 
@@ -112,11 +112,7 @@ const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
     setError(null);
 
     try {
-      // Tokenize card information
-      const result = await card.tokenize();
-      
-      if (result.status === 'OK') {
-        const token = result.token;
+      // Token is already provided by the PaymentForm component
         
         // Prepare order data
         const orderData = {
