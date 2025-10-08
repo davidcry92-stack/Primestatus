@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Shopping Cart Backend Systems Testing for StatusXSmoakland
-Tests the backend systems that support the shopping cart functionality.
-Focus: Authentication, Payment Integration, Product APIs, and Cart Support Systems
+Square Payment Integration Testing for StatusXSmoakland
+Comprehensive testing of Square payment endpoints after Phase 2 SDK integration.
+Focus: Square API connection, payment processing, digital wallet payments, and admin management.
 """
 
 import asyncio
