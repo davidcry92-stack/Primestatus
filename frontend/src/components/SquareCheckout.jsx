@@ -3,8 +3,6 @@ import { PaymentForm, CreditCard } from 'react-square-web-payments-sdk';
 import { AuthContext } from '../contexts/AuthContext';
 
 const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
-  const [paymentForm, setPaymentForm] = useState(null);
-  const [card, setCard] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [pickupNotes, setPickupNotes] = useState('');
@@ -13,21 +11,6 @@ const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
 
   const SQUARE_APPLICATION_ID = process.env.REACT_APP_SQUARE_APPLICATION_ID || import.meta.env.VITE_SQUARE_APPLICATION_ID;
   const SQUARE_LOCATION_ID = process.env.REACT_APP_SQUARE_LOCATION_ID || import.meta.env.VITE_SQUARE_LOCATION_ID;
-
-  useEffect(() => {
-    initSquarePaymentForm();
-    
-    // Cleanup function to prevent multiple initializations
-    return () => {
-      if (card) {
-        try {
-          card.destroy();
-        } catch (error) {
-          console.log('Card cleanup error:', error);
-        }
-      }
-    };
-  }, []);
 
   const initSquarePaymentForm = async () => {
     try {
