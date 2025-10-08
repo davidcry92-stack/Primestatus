@@ -852,13 +852,7 @@ function App() {
     // CRITICAL SECURITY: ALWAYS check verification in sequence
     if (!isLawEnforcementVerified) {
       console.log('🔒 SECURITY: Showing law enforcement verification (Step 1/3)');
-      return <LawEnforcementScreen 
-        onVerified={handleLawEnforcementVerification} 
-        onSkipToLogin={() => {
-          setIsLawEnforcementVerified(true);
-          setIsReEntryCodeVerified(true);
-        }}
-      />;
+      return <LawEnforcementScreen onVerified={handleLawEnforcementVerification} />;
     }
     
     if (!isReEntryCodeVerified) {
