@@ -8,6 +8,7 @@ from enum import Enum
 class PaymentMethod(str, Enum):
     IN_APP = "in_app"
     CASH_IN_STORE = "cash_in_store"
+    SQUARE = "square"
 
 class TransactionStatus(str, Enum):
     PENDING = "pending"
