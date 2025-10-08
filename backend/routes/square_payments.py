@@ -325,7 +325,7 @@ async def test_square_connection():
         client = get_square_client()
         locations_api = client.locations
         
-        result = locations_api.list_locations()
+        result = locations_api.list()
         
         # Check if response has errors
         if result.is_error():
