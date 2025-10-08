@@ -242,6 +242,11 @@ async def get_all_orders(
         orders_cursor = db.square_orders.find({}).sort("created_at", -1)
         orders = await orders_cursor.to_list(length=None)
         
+        # Convert ObjectId to string for JSON serialization
+        for order in orders:
+            if "_id" in order:
+                order["_id"] = str(order["_id"])
+        
         return {
             "orders": orders,
             "count": len(orders)
