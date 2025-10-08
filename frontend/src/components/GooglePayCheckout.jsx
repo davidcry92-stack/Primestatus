@@ -150,13 +150,22 @@ const GooglePayCheckout = ({
 
       {/* Google Pay Payment Form */}
       <div className="mb-6">
-        {isGooglePaySupported ? (
-          <div id="google-pay-button" className="w-full min-h-[48px]"></div>
-        ) : (
-          <div className="bg-gray-800 rounded-lg p-4 text-center text-gray-400">
-            Google Pay is not supported on this device
+        <PaymentForm
+          applicationId={process.env.REACT_APP_SQUARE_APPLICATION_ID || import.meta.env.VITE_SQUARE_APPLICATION_ID}
+          locationId={process.env.REACT_APP_SQUARE_LOCATION_ID || import.meta.env.VITE_SQUARE_LOCATION_ID}
+          cardTokenizeResponseReceived={handleGooglePaySuccess}
+          createPaymentRequest={createPaymentRequest}
+        >
+          <div className="w-full">
+            <GooglePay
+              buttonColor="default"
+              buttonType="pay"
+              buttonWidth={undefined}
+              buttonHeight="48px"
+              onError={handleGooglePayError}
+            />
           </div>
-        )}
+        </PaymentForm>
       </div>
 
       {/* Processing Indicator */}
