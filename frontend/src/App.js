@@ -836,31 +836,7 @@ function App() {
   };
 
   const getAppContent = () => {
-    console.log('🔒 SECURITY CHECK: getAppContent called', {
-      lawEnforcement: isLawEnforcementVerified,
-      reEntry: isReEntryCodeVerified,
-      currentPath: window.location.pathname
-    });
-    
-    // CRITICAL SECURITY: ALWAYS check verification in sequence
-    if (!isLawEnforcementVerified) {
-      console.log('🔒 SECURITY: Showing law enforcement verification (Step 1/3)');
-      return <LawEnforcementScreen 
-        onVerified={handleLawEnforcementVerification} 
-        onSkipToLogin={() => {
-          setIsLawEnforcementVerified(true);
-          setIsReEntryCodeVerified(true);
-        }}
-      />;
-    }
-    
-    if (!isReEntryCodeVerified) {
-      console.log('🔒 SECURITY: Showing re-entry code verification (Step 2/3)');
-      return <ReEntryCodeScreen onVerified={handleReEntryCodeVerification} userEmail="demo@example.com" />;
-    }
-    
-    console.log('🔒 SECURITY: Verification complete - showing login-only app (Step 3/3)');
-    // After ALL verification steps, show login-only access
+    // No verification required - go straight to main app
     return <LoginOnlyApp />;
   };
 
