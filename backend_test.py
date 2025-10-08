@@ -1487,6 +1487,103 @@ class SquarePaymentTester:
         except Exception as e:
             return False, {"error": str(e)}, 0
 
+    async def test_square_api_connection(self):
+        """Test Square API connection and authentication."""
+        print("\n=== TESTING SQUARE API CONNECTION ===")
+        
+        # Test Square connection endpoint
+        success, response, status = await self.make_request("POST", "/square/test-connection")
+        
+        if success and response.get("success"):
+            locations = response.get("locations", [])
+            self.log_test(
+                "Square API Connection",
+                True,
+                f"Successfully connected to Square API with {len(locations)} locations"
+            )
+            
+            # Log location details
+            for location in locations:
+                location_id = location.get("id")
+                location_name = location.get("name", "Unknown")
+                print(f"   Location: {location_name} (ID: {location_id})")
+                
+        else:
+            self.log_test(
+                "Square API Connection",
+                False,
+                f"Square API connection failed: {response}",
+                response
+            )
+            return False
+        
+        return True
+
+    async def test_square_order_creation(self):
+        """Test Square order creation and payment processing."""
+        print("\n=== TESTING SQUARE ORDER CREATION ===")
+        
+        # Get premium user token for authenticated requests
+        premium_token = await self.test_premium_user_authentication()
+        if not premium_token:
+            self.log_test("Square Order Creation", False, "Failed to get premium user token")
+            return False
+        
+        headers_user = {"Authorization": f"Bearer {premium_token}"}
+        
+        # Test order creation with proper Square payment data
+        order_data = {
+            "payment_source_id": "cnon:card-nonce-ok",  # Square test nonce
+            "user_name": "Premium Demo User",
+            "user_email": PREMIUM_USER_EMAIL,
+            "items": [
+                {
+                    "product_id": "za-1",
+                    "product_name": "Lemon Cherry Gelato",
+                    "quantity": 1,
+                    "unit_price": 2500,  # $25.00 in cents
+                    "total_price": 2500
+                }
+            ],
+            "pickup_notes": "Test order for Square integration"
+        }
+        
+        success, response, status = await self.make_request(
+            "POST", 
+            "/square/create-order", 
+            order_data, 
+            headers_user
+        )
+        
+        if success and response.get("success"):
+            payment_id = response.get("payment_id")
+            order_id = response.get("order_id")
+            pickup_code = response.get("pickup_code")
+            
+            self.log_test(
+                "Square Order Creation",
+                True,
+                f"Successfully created order: Payment ID {payment_id}, Order ID {order_id}, Pickup Code {pickup_code}"
+            )
+            
+            # Verify pickup code format
+            code_format_valid = pickup_code and pickup_code.startswith("P") and len(pickup_code) == 7
+            self.log_test(
+                "Square Payment Code Format",
+                code_format_valid,
+                f"Payment code format: {pickup_code} {'(valid P-prefix format)' if code_format_valid else '(invalid format)'}"
+            )
+            
+            return {"payment_id": payment_id, "order_id": order_id, "pickup_code": pickup_code}
+        else:
+            self.log_test(
+                "Square Order Creation",
+                False,
+                f"Square order creation failed: {response}",
+                response
+            )
+            return None
+
     async def test_square_digital_wallet_payments(self):
         """Test Square Digital Wallet Payment Integration (Apple Pay/Google Pay) with sandbox credentials."""
         print("\n=== TESTING SQUARE DIGITAL WALLET PAYMENTS ===")
