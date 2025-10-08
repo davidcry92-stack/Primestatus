@@ -86,10 +86,8 @@ async def create_square_order(
         
         orders_api = client.orders
         order_result = orders_api.create(
-            body={
-                'order': order_data,
-                'idempotency_key': idempotency_key
-            }
+            order=order_data,
+            idempotency_key=idempotency_key
         )
         
         # Square SDK raises exceptions for errors, so if we get here, it succeeded
