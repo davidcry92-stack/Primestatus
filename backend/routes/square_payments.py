@@ -108,13 +108,10 @@ async def create_square_order(
         )
         
         # Square SDK raises exceptions for errors, so if we get here, it succeeded
-        if payment_result.is_error():
-            raise HTTPException(status_code=400, detail=f"Square payment creation failed: {payment_result.errors}")
-        
-        payment = payment_result.body['payment']
-        payment_id = payment['id']
-        payment_status = payment['status']
-        receipt_url = payment.get('receipt_url')
+        payment = payment_result.payment
+        payment_id = payment.id
+        payment_status = payment.status
+        receipt_url = payment.receipt_url
         
         # Generate unique pickup code
         payment_code = generate_payment_code()
