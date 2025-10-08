@@ -871,23 +871,9 @@ function App() {
         <AuthProvider>
           <Routes>
             <Route path="/" element={
-              <div>
-                {/* Daily Deals visible without verification */}
-                <HeroSection 
-                  onAuthClick={handleAuthClick} 
-                  cartItems={[]}
-                  setCartItems={() => {}}
-                  user={null}
-                />
-                <DeliveryComingSoon />
-                
-                {/* Rest of app requires verification */}
-                <div className="border-t border-gray-600 mt-8">
-                  <ScreenshotProtection>
-                    {getAppContent()}
-                  </ScreenshotProtection>
-                </div>
-              </div>
+              <ScreenshotProtection>
+                {getAppContent()}
+              </ScreenshotProtection>
             } />
             <Route path="/checkout/success" element={<CheckoutSuccess />} />
             <Route path="/checkout/cancel" element={<CheckoutCancel />} />
