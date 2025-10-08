@@ -44,7 +44,7 @@ async def create_user_cash_pickup(request: UserCashPickupRequest, user_data: dic
         # Create cash pickup order
         cash_pickup_order = {
             "id": order_id,
-            "user_id": user_data.get("id", "unknown"),
+            "user_id": user_data if isinstance(user_data, str) else user_data.get("id", "unknown"),
             "user_email": request.user_email,
             "pickup_code": pickup_code,
             "order_id": order_id,
