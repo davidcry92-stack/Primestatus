@@ -29,12 +29,11 @@ def get_square_client():
     access_token = os.environ.get('SQUARE_ACCESS_TOKEN')
     environment = os.environ.get('SQUARE_ENVIRONMENT', 'production')
     
-    # Temporarily disabled for admin login testing
-    # client = Client(
-    #     access_token=access_token,
-    #     environment=environment
-    # )
-    return None  # Mock client for now
+    client = Client(
+        access_token=access_token,
+        environment=environment
+    )
+    return client
     
     return client
 
