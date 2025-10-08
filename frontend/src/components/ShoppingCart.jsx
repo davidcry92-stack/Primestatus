@@ -163,10 +163,11 @@ const ShoppingCart = ({ cartItems, setCartItems, user, setOpenCartCallback }) =>
       });
 
       if (response.ok) {
+        const result = await response.json();
         setCartItems([]);
         setIsOpen(false);
         
-        alert(`✅ Cash Pickup Order Reserved!\n\n📋 Your Pickup Code: ${pickupCode}\n\n💵 PAYMENT PROCESS:\n• Bring exact cash amount: $${getTotalPrice()}\n• Present this pickup code to our staff\n• Staff will verify your code and process payment\n• You'll receive your order after payment\n\n📍 Pickup Location: [Your Location]\n💼 Order ID: ${orderId}\n\n⏰ Orders held for 24 hours\n📧 Confirmation sent to ${user.email}`);
+        alert(`✅ Cash Pickup Order Reserved!\n\n📋 Your Pickup Code: ${result.pickup_code}\n\n💵 PAYMENT PROCESS:\n• Bring exact cash amount: $${getTotalPrice()}\n• Present this pickup code to our staff\n• Staff will verify your code and process payment\n• You'll receive your order after payment\n\n📍 Pickup Location: [Your Location]\n💼 Order ID: ${result.order_id}\n\n⏰ Orders held for 24 hours\n📧 Confirmation sent to ${user.email}`);
       } else {
         throw new Error('Failed to create cash pickup order');
       }
