@@ -51,11 +51,11 @@ const DailyDeals = ({ user }) => {
       const newTimeLeft = {};
       
       dailyDeals.forEach(deal => {
-        const endTime = new Date(deal.validUntil).getTime();
+        const endTime = new Date(deal.valid_until || deal.validUntil).getTime();
         const difference = endTime - now;
         
         if (difference > 0) {
-          newTimeLeft[deal.id] = {
+          newTimeLeft[deal.id || deal._id] = {
             hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
             minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
             seconds: Math.floor((difference % (1000 * 60)) / 1000)
