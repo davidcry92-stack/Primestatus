@@ -12,77 +12,8 @@ const ApplePayCheckout = ({
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
-  const [applePayButton, setApplePayButton] = useState(null);
-  const [isApplePaySupported, setIsApplePaySupported] = useState(false);
 
   const backendUrl = process.env.REACT_APP_BACKEND_URL || import.meta.env.VITE_BACKEND_URL;
-  const SQUARE_APPLICATION_ID = process.env.REACT_APP_SQUARE_APPLICATION_ID || import.meta.env.VITE_SQUARE_APPLICATION_ID;
-  const SQUARE_LOCATION_ID = process.env.REACT_APP_SQUARE_LOCATION_ID || import.meta.env.VITE_SQUARE_LOCATION_ID;
-
-  useEffect(() => {
-    initApplePay();
-  }, []);
-
-  const initApplePay = async () => {
-    try {
-      // Load Square SDK if not already loaded
-      if (!window.Square) {
-        const script = document.createElement('script');
-        script.src = 'https://web.squarecdn.com/v1/square.js';
-        script.async = true;
-        script.onload = () => {
-          setupApplePay();
-        };
-        document.head.appendChild(script);
-      } else {
-        setupApplePay();
-      }
-    } catch (error) {
-      console.error('Error loading Square SDK for Apple Pay:', error);
-      setError('Apple Pay not available');
-    }
-  };
-
-  const setupApplePay = async () => {
-    try {
-      const payments = window.Square.payments(SQUARE_APPLICATION_ID, SQUARE_LOCATION_ID);
-      
-      // Check if Apple Pay is supported
-      const paymentRequest = payments.paymentRequest({
-        countryCode: 'US',
-        currencyCode: 'USD',
-        total: {
-          amount: Math.round(totalAmount * 100).toString(), // Convert to cents
-          label: 'StatusXSmoakland Order',
-        },
-      });
-
-      const applePay = await payments.applePay(paymentRequest);
-      setApplePayButton(applePay);
-      setIsApplePaySupported(true);
-      
-      // Attach Apple Pay button with event handlers
-      const applePayContainer = document.getElementById('apple-pay-button');
-      if (applePayContainer) {
-        await applePay.attach('#apple-pay-button');
-        
-        // Add event listeners
-        applePay.addEventListener('ontokenization', (event) => {
-          const { tokenResult } = event.detail;
-          if (tokenResult.status === 'OK') {
-            handleApplePaySuccess(tokenResult, {});
-          } else {
-            handleApplePayError(tokenResult.errors);
-          }
-        });
-      }
-      
-    } catch (error) {
-      console.error('Apple Pay setup error:', error);
-      setError('Apple Pay not supported on this device');
-      setIsApplePaySupported(false);
-    }
-  };
 
   const handleApplePaySuccess = async (token, buyer) => {
     setIsProcessing(true);
