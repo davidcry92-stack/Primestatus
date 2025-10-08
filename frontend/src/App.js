@@ -703,7 +703,10 @@ const LoginOnlyApp = () => {
     );
   }
 
-  // Admin users see the main interface with admin dashboard button (no bypass)
+  // Admin users go directly to admin dashboard (bypass main interface)
+  if (isAdmin) {
+    return <AdminApp />;
+  }
 
   // Show profile if requested
   if (showProfile) {
