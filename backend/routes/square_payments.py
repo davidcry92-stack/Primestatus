@@ -39,7 +39,7 @@ def get_square_client():
         env = SquareEnvironment.PRODUCTION
     
     client = Square(
-        access_token=access_token,
+        token=access_token,
         environment=env
     )
     return client
