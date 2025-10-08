@@ -151,24 +151,31 @@ const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
         <label className="block text-sm font-medium text-gray-300 mb-2">
           Payment Information
         </label>
-        <PaymentForm
-          applicationId={SQUARE_APPLICATION_ID}
-          locationId={SQUARE_LOCATION_ID}
-          cardTokenizeResponseReceived={handlePayment}
-        >
-          <CreditCard
-            style={{
-              input: {
-                color: '#FFFFFF',
-                backgroundColor: '#1f2937',
-                fontSize: '16px'
-              },
-              'input::placeholder': {
-                color: '#9CA3AF'
-              }
-            }}
-          />
-        </PaymentForm>
+        {squareLoaded ? (
+          <PaymentForm
+            applicationId={SQUARE_APPLICATION_ID}
+            locationId={SQUARE_LOCATION_ID}
+            cardTokenizeResponseReceived={handlePayment}
+          >
+            <CreditCard
+              style={{
+                input: {
+                  color: '#FFFFFF',
+                  backgroundColor: '#1f2937',
+                  fontSize: '16px'
+                },
+                'input::placeholder': {
+                  color: '#9CA3AF'
+                }
+              }}
+            />
+          </PaymentForm>
+        ) : (
+          <div className="bg-gray-800 rounded-lg p-4 text-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white mx-auto mb-2"></div>
+            <div className="text-gray-300">Loading payment form...</div>
+          </div>
+        )}
         
         {/* Save to Profile Option */}
         <div className="mt-3 flex items-center">
