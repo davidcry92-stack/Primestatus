@@ -744,7 +744,7 @@ const LoginOnlyApp = () => {
         />
         <DeliveryComingSoon />
         <div className="container mx-auto px-4 py-8">
-          <DailyUpdates />
+          {/* <DailyUpdates /> - Removed per user request */}
         </div>
         <ProductSelection 
           user={user} 
