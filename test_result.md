@@ -104,6 +104,19 @@
 
 user_problem_statement: Complete StatusXSmoakland cannabis marketplace with admin system, visual product selection, actual inventory integration, and comprehensive Health-Aid (formerly Wictionary). CURRENT TASK: Health-Aid visual card and bubble button placement within ProductSelection.jsx grid - should appear after Wellness/Suppositories card and display Health-Aid dictionary interface when selected.
 
+frontend:
+  - task: "Square Web Payments SDK Integration"
+    implemented: true
+    working: false
+    file: "/app/frontend/src/components/SquareCheckout.jsx, /app/frontend/src/components/ApplePayCheckout.jsx, /app/frontend/src/components/GooglePayCheckout.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+        - working: false
+          agent: "testing"
+          comment: "❌ CRITICAL ISSUE IDENTIFIED: Square Web Payments SDK not loading properly. Comprehensive testing revealed: 1) window.Square is undefined globally - SDK script not being loaded, 2) All payment components (Apple Pay, Google Pay, Square Checkout) fail to initialize due to missing SDK, 3) User reports of 'Failed to initialize payment form' confirmed, 4) Payment flow completely non-functional. ROOT CAUSE: Square SDK script (https://web.squarecdn.com/v1/square.js) not loading in browser. COMPONENTS AFFECTED: SquareCheckout.jsx (lines 34-44), ApplePayCheckout.jsx (lines 28-38), GooglePayCheckout.jsx (lines 28-38). All components attempt to load Square SDK but it's not available globally. IMMEDIATE FIX NEEDED: Ensure Square SDK loads before payment components initialize."
+
 backend:
   - task: "User Authentication System"
     implemented: true
