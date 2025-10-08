@@ -50,6 +50,18 @@ const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
 
   const initializeSquareForm = async () => {
     try {
+      console.log('Initializing Square form...');
+      console.log('SQUARE_APPLICATION_ID:', SQUARE_APPLICATION_ID);
+      console.log('SQUARE_LOCATION_ID:', SQUARE_LOCATION_ID);
+      
+      if (!SQUARE_APPLICATION_ID || !SQUARE_LOCATION_ID) {
+        throw new Error('Square configuration missing');
+      }
+      
+      if (!window.Square) {
+        throw new Error('Square SDK not loaded');
+      }
+
       // Clear any existing card container content
       const cardContainer = document.getElementById('card-container');
       if (cardContainer) {
@@ -58,15 +70,6 @@ const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
 
       const payments = window.Square.payments(SQUARE_APPLICATION_ID, SQUARE_LOCATION_ID);
       
-      const paymentRequest = payments.paymentRequest({
-        countryCode: 'US',
-        currencyCode: 'USD',
-        total: {
-          amount: calculateTotal().toString(),
-          label: 'StatusXSmoakland Order',
-        },
-      });
-
       setPaymentForm(payments);
 
       // Initialize card payment form with custom styling
@@ -75,6 +78,8 @@ const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
           '.input-container': {
             borderColor: '#6B7280',
             borderRadius: '6px',
+            backgroundColor: '#111827',
+            color: '#FFFFFF',
           },
           '.input-container.is-focus': {
             borderColor: '#10B981',
@@ -82,6 +87,10 @@ const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
           '.input-container.is-error': {
             borderColor: '#EF4444',
           },
+          'input': {
+            color: '#FFFFFF',
+            backgroundColor: '#111827',
+          }
         }
       });
       
@@ -89,11 +98,13 @@ const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
       if (cardContainer && !cardContainer.hasChildNodes()) {
         await cardForm.attach('#card-container');
         setCard(cardForm);
+        console.log('Square card form attached successfully');
+        setError(null); // Clear any previous errors
       }
 
     } catch (error) {
       console.error('Square initialization error:', error);
-      setError('Failed to initialize payment form');
+      setError(`Failed to initialize payment form: ${error.message}`);
     }
   };
 
