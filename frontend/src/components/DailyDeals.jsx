@@ -94,6 +94,10 @@ const DailyDeals = ({ user }) => {
       name: deal.product_name || deal.name,
       price: deal.original_price || deal.price,
       image_url: deal.image_url || deal.imageUrl,
+      vendor: deal.vendor || 'Premium Cannabis',
+      thc: deal.thc || deal.thc_content || '20-25%',
+      description: deal.description || deal.product_description || 'Premium quality cannabis product',
+      rating: deal.rating || 4.8,
       deal: deal
     }));
   };
