@@ -18,7 +18,7 @@ import CheckoutCancel from "./components/CheckoutCancel";
 import AdminApp from "./components/AdminApp";
 import AuthModal from "./components/AuthModal";
 import DeliveryComingSoon from "./components/DeliveryComingSoon";
-import DailyUpdates from "./components/DailyUpdates";
+// import DailyUpdates from "./components/DailyUpdates"; // Removed per user request
 import MemberProfile from "./components/MemberProfile";
 
 // Auth Context
