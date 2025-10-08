@@ -85,7 +85,7 @@ async def create_square_order(
         }
         
         orders_api = client.orders
-        order_result = orders_api.create_order(
+        order_result = orders_api.create(
             body={
                 'order': order_data,
                 'idempotency_key': idempotency_key
