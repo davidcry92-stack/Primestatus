@@ -5,8 +5,7 @@ import uuid
 from datetime import datetime
 from typing import List
 
-# Temporarily disable squareup import for admin login testing
-# from squareup import Client
+from squareup import Client
 
 from models.square_payment import (
     SquarePaymentRequest, 
