@@ -296,11 +296,11 @@ async def get_payment_details(payment_id: str):
         
         payment = result.payment
         return {
-            "payment_id": payment.get('id'),
-            "status": payment.get('status'),
-            "amount_money": payment.get('amount_money'),
-            "created_at": payment.get('created_at'),
-            "receipt_url": payment.get('receipt_url')
+            "payment_id": payment.id,
+            "status": payment.status,
+            "amount_money": payment.amount_money,
+            "created_at": payment.created_at,
+            "receipt_url": payment.receipt_url
         }
         
     except Exception as e:
