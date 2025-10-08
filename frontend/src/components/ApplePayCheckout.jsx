@@ -60,10 +60,20 @@ const ApplePayCheckout = ({
       setApplePayButton(applePay);
       setIsApplePaySupported(true);
       
-      // Attach Apple Pay button
+      // Attach Apple Pay button with event handlers
       const applePayContainer = document.getElementById('apple-pay-button');
       if (applePayContainer) {
         await applePay.attach('#apple-pay-button');
+        
+        // Add event listeners
+        applePay.addEventListener('ontokenization', (event) => {
+          const { tokenResult } = event.detail;
+          if (tokenResult.status === 'OK') {
+            handleApplePaySuccess(tokenResult, {});
+          } else {
+            handleApplePayError(tokenResult.errors);
+          }
+        });
       }
       
     } catch (error) {
