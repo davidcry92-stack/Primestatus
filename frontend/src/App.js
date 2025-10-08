@@ -736,12 +736,7 @@ const LoginOnlyApp = () => {
         onLogout={handleLogout}
       />
       <main>
-        <HeroSection 
-          onAuthClick={handleAuthClick} 
-          cartItems={cartItems}
-          setCartItems={setCartItems}
-          user={user}
-        />
+        {/* HeroSection removed - users go directly to product selection */}
         <DeliveryComingSoon />
         <div className="container mx-auto px-4 py-8">
           {/* <DailyUpdates /> - Removed per user request */}
