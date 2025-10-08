@@ -880,21 +880,7 @@ function App() {
           <Routes>
             <Route path="/" element={
               <ScreenshotProtection>
-                <div>
-                  {/* Daily Deals - visible without verification */}
-                  <HeroSection 
-                    onAuthClick={handleAuthClick} 
-                    cartItems={cartItems}
-                    setCartItems={setCartItems}
-                    user={user}
-                  />
-                  <DeliveryComingSoon />
-                  
-                  {/* App functionality - requires verification */}
-                  <div className="border-t border-gray-700 mt-8 pt-8">
-                    {getAppContent()}
-                  </div>
-                </div>
+                {getAppContent()}
               </ScreenshotProtection>
             } />
             <Route path="/checkout/success" element={<CheckoutSuccess />} />
