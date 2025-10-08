@@ -66,29 +66,8 @@ const HeroSection = ({ onAuthClick, cartItems, setCartItems, user }) => {
           {/* CTA Buttons */}
           {/* Join button removed - available at login screen */}
 
-          {/* App Store Buttons */}
-          <div className="space-y-4">
-            <p className="text-white text-lg font-semibold">DOWNLOAD PRIMESTATUS</p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button className="flex items-center space-x-3 bg-black hover:bg-gray-900 text-white border border-gray-600 px-6 py-3 rounded-xl">
-                <Apple className="h-8 w-8" />
-                <div className="text-left">
-                  <p className="text-xs text-gray-400">Download PrimeStatus on the</p>
-                  <p className="font-semibold">App Store</p>
-                </div>
-              </Button>
-              <Button className="flex items-center space-x-3 bg-black hover:bg-gray-900 text-white border border-gray-600 px-6 py-3 rounded-xl">
-                <Play className="h-8 w-8" />
-                <div className="text-left">
-                  <p className="text-xs text-gray-400">Get PrimeStatus on</p>
-                  <p className="font-semibold">Google Play</p>
-                </div>
-              </Button>
-            </div>
-            <p className="text-gray-400 text-sm">
-              Search "PrimeStatus" in your app store
-            </p>
-          </div>
+          {/* Daily Deals Section */}
+          <DailyDeals />
         </div>
       </div>
 
