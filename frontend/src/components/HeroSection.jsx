@@ -4,8 +4,6 @@ import { Smartphone, Apple, Play, Crown, Zap } from 'lucide-react';
 import SimpleCart from './SimpleCart';
 
 const HeroSection = ({ onAuthClick, cartItems, setCartItems, user }) => {
-  // COMPONENT COMPLETELY DISABLED - NO PRICING FOR LOGGED-IN USERS
-  return null;
   return (
     <section className="relative min-h-screen bg-gradient-to-br from-green-900 via-black to-yellow-900 overflow-hidden">
       {/* Background Pattern */}
