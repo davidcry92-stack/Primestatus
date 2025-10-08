@@ -165,22 +165,29 @@ const GooglePayCheckout = ({
 
       {/* Google Pay Payment Form */}
       <div className="mb-6">
-        <PaymentForm
-          applicationId={process.env.REACT_APP_SQUARE_APPLICATION_ID || import.meta.env.VITE_SQUARE_APPLICATION_ID}
-          locationId={process.env.REACT_APP_SQUARE_LOCATION_ID || import.meta.env.VITE_SQUARE_LOCATION_ID}
-          cardTokenizeResponseReceived={handleGooglePaySuccess}
-          createPaymentRequest={createPaymentRequest}
-        >
-          <div className="w-full">
-            <GooglePay
-              buttonColor="default"
-              buttonType="pay"
-              buttonWidth={undefined}
-              buttonHeight="48px"
-              onError={handleGooglePayError}
-            />
+        {squareLoaded ? (
+          <PaymentForm
+            applicationId={process.env.REACT_APP_SQUARE_APPLICATION_ID || import.meta.env.VITE_SQUARE_APPLICATION_ID}
+            locationId={process.env.REACT_APP_SQUARE_LOCATION_ID || import.meta.env.VITE_SQUARE_LOCATION_ID}
+            cardTokenizeResponseReceived={handleGooglePaySuccess}
+            createPaymentRequest={createPaymentRequest}
+          >
+            <div className="w-full">
+              <GooglePay
+                buttonColor="default"
+                buttonType="pay"
+                buttonWidth={undefined}
+                buttonHeight="48px"
+                onError={handleGooglePayError}
+              />
+            </div>
+          </PaymentForm>
+        ) : (
+          <div className="bg-gray-800 rounded-lg p-4 text-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white mx-auto mb-2"></div>
+            <div className="text-gray-300">Loading Google Pay...</div>
           </div>
-        </PaymentForm>
+        )}
       </div>
 
       {/* Processing Indicator */}
