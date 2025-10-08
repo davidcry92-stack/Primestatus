@@ -2,6 +2,7 @@ import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Smartphone, Apple, Play, Crown, Zap } from 'lucide-react';
 import SimpleCart from './SimpleCart';
+import DailyDeals from './DailyDeals';
 
 const HeroSection = ({ onAuthClick, cartItems, setCartItems, user }) => {
   return (
