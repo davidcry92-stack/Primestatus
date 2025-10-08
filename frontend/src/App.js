@@ -711,9 +711,10 @@ const LoginOnlyApp = () => {
     );
   }
 
-  // Check if authenticated user is admin and on admin route
+  // Check if authenticated user is admin - go straight to dashboard
   const isAdminUser = user && (user.email === 'admin@statusxsmoakland.com' || user.role === 'super_admin');
-  if (isAdminUser && window.location.pathname === '/admin') {
+  if (isAdminUser) {
+    // Admin users go straight to dashboard, no buttons needed
     return <AdminApp />;
   }
 
