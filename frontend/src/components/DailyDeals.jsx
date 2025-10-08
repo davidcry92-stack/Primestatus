@@ -69,11 +69,33 @@ const DailyDeals = ({ user }) => {
     return () => clearInterval(timer);
   }, []);
 
+  // Show loading state
+  if (loading) {
+    return (
+      <div className="py-12 bg-gradient-to-b from-black to-purple-900/20 text-center">
+        <h2 className="text-3xl font-bold text-white mb-4">Loading Daily Deals...</h2>
+      </div>
+    );
+  }
+
+  // Show message when no admin deals are active
+  if (dailyDeals.length === 0) {
+    return (
+      <div className="py-12 bg-gradient-to-b from-black to-purple-900/20 text-center">
+        <h2 className="text-3xl font-bold text-white mb-4">Daily Deals</h2>
+        <p className="text-gray-400">No active deals at the moment. Check back later!</p>
+      </div>
+    );
+  }
+
   const getProductsWithDeals = () => {
-    return mockDailyDeals.map(deal => {
-      const product = mockProducts.find(p => p.id === deal.productId);
-      return { ...product, deal };
-    }).filter(Boolean);
+    return dailyDeals.map(deal => ({
+      id: deal.product_id || deal.productId,
+      name: deal.product_name || deal.name,
+      price: deal.original_price || deal.price,
+      image_url: deal.image_url || deal.imageUrl,
+      deal: deal
+    }));
   };
 
   const productsWithDeals = getProductsWithDeals();
