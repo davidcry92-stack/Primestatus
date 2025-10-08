@@ -27,6 +27,51 @@ class ProcessPickupRequest(BaseModel):
     cash_received: float
     processed_by: str
 
+class UserCashPickupRequest(BaseModel):
+    items: List[dict]
+    total_amount: float
+    user_name: str
+    user_email: str
+
+@router.post("/user/cash-pickup")
+async def create_user_cash_pickup(request: UserCashPickupRequest, user_data: dict = Depends(verify_token)):
+    """Create cash pickup order for regular users"""
+    try:
+        # Generate 6-digit pickup code
+        pickup_code = str(uuid.uuid4().int)[:6].upper()
+        order_id = str(uuid.uuid4())
+        
+        # Create cash pickup order
+        cash_pickup_order = {
+            "id": order_id,
+            "user_id": user_data.get("id", "unknown"),
+            "user_email": request.user_email,
+            "pickup_code": pickup_code,
+            "order_id": order_id,
+            "items": request.items,
+            "total_amount": request.total_amount,
+            "payment_method": "cash_pickup",
+            "status": "pending_pickup",
+            "created_at": datetime.now().isoformat(),
+            "processed_at": None,
+            "processed_by": None
+        }
+        
+        # Store in database
+        await db.cash_pickups.insert_one(cash_pickup_order)
+        
+        return {
+            "success": True,
+            "pickup_code": pickup_code,
+            "order_id": order_id,
+            "message": "Cash pickup order created successfully",
+            "total_amount": request.total_amount
+        }
+        
+    except Exception as e:
+        print(f"Error creating cash pickup: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Failed to create cash pickup: {str(e)}")
+
 @router.post("/cash-pickups")
 async def create_cash_pickup_order(order: CashPickupOrder, admin_email: str = Depends(verify_admin_token)):
     """Create a new cash pickup order"""
