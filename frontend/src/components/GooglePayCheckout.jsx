@@ -60,10 +60,20 @@ const GooglePayCheckout = ({
       setGooglePayButton(googlePay);
       setIsGooglePaySupported(true);
       
-      // Attach Google Pay button
+      // Attach Google Pay button with event handlers
       const googlePayContainer = document.getElementById('google-pay-button');
       if (googlePayContainer) {
         await googlePay.attach('#google-pay-button');
+        
+        // Add event listeners
+        googlePay.addEventListener('ontokenization', (event) => {
+          const { tokenResult } = event.detail;
+          if (tokenResult.status === 'OK') {
+            handleGooglePaySuccess(tokenResult, {});
+          } else {
+            handleGooglePayError(tokenResult.errors);
+          }
+        });
       }
       
     } catch (error) {
