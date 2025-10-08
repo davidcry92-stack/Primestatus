@@ -310,17 +310,19 @@ async def test_square_connection():
         client = get_square_client()
         locations_api = client.locations
         
-        result = locations_api.list()
+        result = locations_api.list_locations()
         
         # Check if response has errors
-        if result.is_error():
+        if hasattr(result, 'errors') and result.errors:
             return {
                 "success": False,
                 "error": str(result.errors)
             }
         
         # Success case
-        locations = result.body.get('locations', [])
+        locations = []
+        if hasattr(result, 'locations') and result.locations:
+            locations = [loc.dict() if hasattr(loc, 'dict') else loc for loc in result.locations]
         
         return {
             "success": True,
