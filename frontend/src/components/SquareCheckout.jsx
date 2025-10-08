@@ -7,12 +7,25 @@ const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
   const [error, setError] = useState(null);
   const [pickupNotes, setPickupNotes] = useState('');
   const [saveToProfile, setSaveToProfile] = useState(false);
+  const [squareLoaded, setSquareLoaded] = useState(false);
   const { user, apiCall } = useContext(AuthContext);
 
   const SQUARE_APPLICATION_ID = process.env.REACT_APP_SQUARE_APPLICATION_ID || import.meta.env.VITE_SQUARE_APPLICATION_ID;
   const SQUARE_LOCATION_ID = process.env.REACT_APP_SQUARE_LOCATION_ID || import.meta.env.VITE_SQUARE_LOCATION_ID;
 
-  // Payment form is now handled by react-square-web-payments-sdk
+  // Check if Square SDK is loaded
+  useEffect(() => {
+    const checkSquareSDK = () => {
+      if (typeof window !== 'undefined' && window.Square) {
+        setSquareLoaded(true);
+        setError(null);
+      } else {
+        // Retry after a short delay
+        setTimeout(checkSquareSDK, 100);
+      }
+    };
+    checkSquareSDK();
+  }, []);
 
   const calculateTotal = () => {
     return cartItems.reduce((total, item) => {
