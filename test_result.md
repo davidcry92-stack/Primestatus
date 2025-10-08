@@ -201,9 +201,11 @@ metadata:
 
 test_plan:
   current_focus:
+    - "Square Web Payments SDK Integration"
     - "Square Payment Integration V2"
     - "Digital Wallet Payments V2"
-  stuck_tasks: []
+  stuck_tasks: 
+    - "Square Web Payments SDK Integration"
   test_all: false
   test_priority: "high_first"
 
