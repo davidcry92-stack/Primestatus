@@ -61,7 +61,32 @@ const HeroSection = ({ onAuthClick, cartItems, setCartItems, user }) => {
             </div>
           </div>
 
-          {/* PRICING SECTION COMPLETELY REMOVED FOR LOGGED-IN USERS */}
+          <div className="grid md:grid-cols-2 gap-8 mb-12">
+            {/* Basic Membership */}
+            <div className="bg-black/40 backdrop-blur rounded-2xl p-8 border border-gray-600">
+              <h3 className="text-white font-bold text-xl mb-2">Basic Membership</h3>
+              <p className="text-green-400 text-3xl font-black mb-2">$4.99<span className="text-sm text-gray-400">/month</span></p>
+              <ul className="text-gray-300 text-sm space-y-2 mb-6">
+                <li>✓ Premium products</li>
+                <li>✓ Member-only pricing</li>
+                <li>✓ Exclusive access</li>
+                <li>✓ Priority service</li>
+              </ul>
+            </div>
+            
+            {/* Premium Membership */}
+            <div className="bg-gradient-to-br from-purple-900/40 to-yellow-900/40 backdrop-blur rounded-2xl p-8 border border-yellow-400 relative">
+              <Crown className="h-6 w-6 text-yellow-400 absolute top-4 right-4" />
+              <h3 className="text-white font-bold text-xl mb-2">Premium + Health-Aid</h3>
+              <p className="text-yellow-400 text-3xl font-black mb-2">$7.99<span className="text-sm text-gray-400">/month</span></p>
+              <ul className="text-gray-300 text-sm space-y-2 mb-6">
+                <li>✓ Everything in Basic</li>
+                <li>✓ Health-Aid access</li>
+                <li>✓ Wellness resources</li>
+                <li>✓ Priority support</li>
+              </ul>
+            </div>
+          </div>
 
           {/* CTA Buttons */}
           {/* Join button removed - available at login screen */}
