@@ -23,7 +23,7 @@ PREMIUM_USER_PASSWORD = "Premium123!"
 BASIC_USER_EMAIL = "basic@demo.com"
 BASIC_USER_PASSWORD = "Basic123!"
 
-class AuthenticationTester:
+class SquarePaymentTester:
     def __init__(self):
         self.session = None
         self.admin_token = None
