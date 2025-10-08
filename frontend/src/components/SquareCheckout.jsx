@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
+import { PaymentForm, CreditCard } from 'react-square-web-payments-sdk';
 import { AuthContext } from '../contexts/AuthContext';
 
 const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
