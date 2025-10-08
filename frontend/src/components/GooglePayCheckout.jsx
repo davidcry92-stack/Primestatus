@@ -171,7 +171,7 @@ const GooglePayCheckout = ({
             locationId={process.env.REACT_APP_SQUARE_LOCATION_ID || import.meta.env.VITE_SQUARE_LOCATION_ID}
             cardTokenizeResponseReceived={handleGooglePaySuccess}
             createPaymentRequest={createPaymentRequest}
-            environment={process.env.REACT_APP_SQUARE_ENVIRONMENT || "sandbox"}
+            environment="sandbox"
           >
             <div className="w-full">
               <GooglePay
