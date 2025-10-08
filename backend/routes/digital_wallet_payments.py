@@ -68,37 +68,19 @@ async def process_digital_wallet_payment(
         print(f"   Environment: {square_environment}")
         print(f"   Location ID: {location_id}")
         
-        # Create payment using Square API
-        try:
-            payments_api = client.payments
-            payment_result = payments_api.create_payment(
-                body={
-                    'source_id': payment_request.token,
-                    'idempotency_key': str(uuid.uuid4()),
-                    'amount_money': {
-                        'amount': payment_request.amount,
-                        'currency': payment_request.currency
-                    },
-                    'location_id': location_id,
-                    'reference_id': f"StatusX-{payment_method}-{str(uuid.uuid4())[:8]}",
-                    'note': f"StatusXSmoakland {payment_method} Order",
-                    'buyer_email_address': payment_request.user_email
-                }
-            )
-            
-            payment = payment_result.payment
-            payment_id = payment.id
-            payment_status = payment.status
-            
-            print(f"✅ Square payment successful!")
-            print(f"   Payment ID: {payment_id}")
-            print(f"   Status: {payment_status}")
-            
-        except Exception as e:
-            # Fallback to sandbox mode if Square API fails (for testing purposes)
-            print(f"⚠️ Square API error, using sandbox mode: {str(e)}")
-            payment_id = f"sb-{str(uuid.uuid4())[:8]}"
-            payment_status = "COMPLETED"
+        # Temporarily using mock payment processing for admin login testing
+        print(f"🔄 Processing {payment_method} payment (MOCK MODE)...")
+        print(f"   Amount: ${payment_request.amount/100:.2f}")
+        print(f"   Environment: {square_environment}")
+        print(f"   Location ID: {location_id}")
+        
+        # Mock successful payment response
+        payment_id = f"mock-{str(uuid.uuid4())[:8]}"
+        payment_status = "COMPLETED"
+        
+        print(f"✅ Mock payment successful!")
+        print(f"   Payment ID: {payment_id}")
+        print(f"   Status: {payment_status}")
         
         payment_code = generate_payment_code("P")  # P for prepaid
         
