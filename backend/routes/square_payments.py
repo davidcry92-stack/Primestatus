@@ -102,19 +102,17 @@ async def create_square_order(
         payment_idempotency_key = str(uuid.uuid4())
         
         payments_api = client.payments
-        payment_result = payments_api.create_payment(
-            body={
-                'source_id': order_request.payment_source_id,
-                'idempotency_key': payment_idempotency_key,
-                'amount_money': {
-                    'amount': total_amount,
-                    'currency': 'USD'
-                },
-                'location_id': location_id,
-                'reference_id': f"StatusX-{str(uuid.uuid4())[:8]}",
-                'note': f"StatusXSmoakland Order - {order_request.user_name}",
-                'order_id': square_order_id
-            }
+        payment_result = payments_api.create(
+            source_id=order_request.payment_source_id,
+            idempotency_key=payment_idempotency_key,
+            amount_money={
+                'amount': total_amount,
+                'currency': 'USD'
+            },
+            location_id=location_id,
+            reference_id=f"StatusX-{str(uuid.uuid4())[:8]}",
+            note=f"StatusXSmoakland Order - {order_request.user_name}",
+            order_id=square_order_id
         )
         
         # Square SDK raises exceptions for errors, so if we get here, it succeeded
