@@ -172,14 +172,28 @@ const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
             environment="sandbox"
           >
             <CreditCard
+              includeInputLabels={true}
+              postalCode={true}
               style={{
                 input: {
                   color: '#FFFFFF',
                   backgroundColor: '#1f2937',
-                  fontSize: '16px'
+                  fontSize: '16px',
+                  fontFamily: 'Arial, sans-serif'
                 },
                 'input::placeholder': {
                   color: '#9CA3AF'
+                },
+                '.input-container': {
+                  borderColor: '#6B7280',
+                  borderRadius: '8px',
+                  backgroundColor: '#1f2937'
+                },
+                '.input-container.is-focus': {
+                  borderColor: '#10B981'
+                },
+                '.input-container.is-error': {
+                  borderColor: '#EF4444'
                 }
               }}
             />
