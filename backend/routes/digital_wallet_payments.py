@@ -12,8 +12,7 @@ from utils.tokens import update_user_purchases_and_tokens
 import random
 import string
 
-# Note: Using mock implementation for testing
-# In production, you would use: from square.client import Client
+from squareup import Client
 
 router = APIRouter(prefix="/payments", tags=["digital-wallet-payments"])
 
