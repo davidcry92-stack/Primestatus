@@ -12,7 +12,8 @@ from utils.tokens import update_user_purchases_and_tokens
 import random
 import string
 
-from squareup import Client
+# Temporarily disable squareup import for admin login testing
+# from squareup import Client
 
 router = APIRouter(prefix="/payments", tags=["digital-wallet-payments"])
 
