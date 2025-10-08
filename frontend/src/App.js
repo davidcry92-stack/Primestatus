@@ -770,6 +770,13 @@ function App() {
   const [isSuperAdminMode, setIsSuperAdminMode] = useState(false);
   const [lastActivityTime, setLastActivityTime] = useState(Date.now());
 
+  // Simple auth handler for daily deals section
+  const handleAuthClick = () => {
+    // This will trigger the verification flow
+    setIsLawEnforcementVerified(false);
+    setIsReEntryCodeVerified(false);
+  };
+
   // CRITICAL SECURITY MODE - FORCE FRESH VERIFICATION ALWAYS
   useEffect(() => {
     console.log('🔒 SECURITY: App loading - enforcing STRICT verification');
