@@ -849,18 +849,15 @@ function App() {
       currentPath: window.location.pathname
     });
     
-    // CRITICAL SECURITY: ALWAYS check verification in sequence
+    // SECURITY: Check verification sequence
     if (!isLawEnforcementVerified) {
-      console.log('🔒 SECURITY: Showing law enforcement verification (Step 1/3)');
+      console.log('🔒 SECURITY: Showing law enforcement verification (Step 1/2)');
       return <LawEnforcementScreen onVerified={handleLawEnforcementVerification} />;
     }
     
-    if (!isReEntryCodeVerified) {
-      console.log('🔒 SECURITY: Showing re-entry code verification (Step 2/3)');
-      return <ReEntryCodeScreen onVerified={handleReEntryCodeVerification} userEmail="demo@example.com" />;
-    }
-    
-    console.log('🔒 SECURITY: Verification complete - showing login-only app (Step 3/3)');
+    // Re-entry code is ONLY for inactivity timeout, NOT initial login
+    // Skip re-entry code for normal login flow
+    console.log('🔒 SECURITY: Law enforcement verified - showing login app (Step 2/2)');
     // After ALL verification steps, show login-only access
     return <LoginOnlyApp />;
   };
