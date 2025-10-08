@@ -44,30 +44,35 @@ const DailyDeals = ({ user }) => {
 
   // Calculate time remaining for admin-generated deals
   useEffect(() => {
-    if (dailyDeals.length === 0) return;
+    if (!dailyDeals || dailyDeals.length === 0) return;
     
     const timer = setInterval(() => {
-      const now = new Date().getTime();
-      const newTimeLeft = {};
-      
-      dailyDeals.forEach(deal => {
-        const endTime = new Date(deal.valid_until || deal.validUntil).getTime();
-        const difference = endTime - now;
+      try {
+        const now = new Date().getTime();
+        const newTimeLeft = {};
         
-        if (difference > 0) {
-          newTimeLeft[deal.id || deal._id] = {
-            hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-            minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
-            seconds: Math.floor((difference % (1000 * 60)) / 1000)
-          };
-        }
-      });
-      
-      setTimeLeft(newTimeLeft);
+        dailyDeals.forEach(deal => {
+          if (!deal) return;
+          const endTime = new Date(deal.valid_until || deal.validUntil).getTime();
+          const difference = endTime - now;
+          
+          if (difference > 0) {
+            newTimeLeft[deal.id || deal._id] = {
+              hours: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+              minutes: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
+              seconds: Math.floor((difference % (1000 * 60)) / 1000)
+            };
+          }
+        });
+        
+        setTimeLeft(newTimeLeft);
+      } catch (error) {
+        console.error('Error calculating time left:', error);
+      }
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [dailyDeals]);
 
   // Show loading state
   if (loading) {
