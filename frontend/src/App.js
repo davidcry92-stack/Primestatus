@@ -309,8 +309,8 @@ const LoginOnlyApp = () => {
     );
   }
 
-  // STRICT VERIFICATION REQUIRED - NO CONTENT FOR UNVERIFIED USERS
-  if (isAuthenticated && user && (!user.is_verified || user.verification_status !== 'approved')) {
+  // STRICT VERIFICATION REQUIRED - NO CONTENT FOR UNVERIFIED USERS (EXCEPT ADMIN)
+  if (isAuthenticated && user && !isAdmin && (!user.is_verified || user.verification_status !== 'approved')) {
     return <VerificationPending user={user} />;
   }
 
