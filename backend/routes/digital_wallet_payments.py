@@ -70,28 +70,24 @@ async def process_digital_wallet_payment(
         # Create payment using Square API
         try:
             payments_api = client.payments
-            payment_result = payments_api.create(
-                source_id=payment_request.token,
-                idempotency_key=str(uuid.uuid4()),
-                amount_money={
-                    'amount': payment_request.amount,
-                    'currency': payment_request.currency
-                },
-                location_id=location_id,
-                reference_id=f"StatusX-{payment_method}-{str(uuid.uuid4())[:8]}",
-                note=f"StatusXSmoakland {payment_method} Order",
-                buyer_email_address=payment_request.user_email
+            payment_result = payments_api.create_payment(
+                body={
+                    'source_id': payment_request.token,
+                    'idempotency_key': str(uuid.uuid4()),
+                    'amount_money': {
+                        'amount': payment_request.amount,
+                        'currency': payment_request.currency
+                    },
+                    'location_id': location_id,
+                    'reference_id': f"StatusX-{payment_method}-{str(uuid.uuid4())[:8]}",
+                    'note': f"StatusXSmoakland {payment_method} Order",
+                    'buyer_email_address': payment_request.user_email
+                }
             )
             
-            if payment_result.is_error():
-                raise HTTPException(
-                    status_code=400, 
-                    detail=f"Square payment failed: {payment_result.errors}"
-                )
-            
-            payment = payment_result.body['payment']
-            payment_id = payment['id']
-            payment_status = payment['status']
+            payment = payment_result.payment
+            payment_id = payment.id
+            payment_status = payment.status
             
             print(f"✅ Square payment successful!")
             print(f"   Payment ID: {payment_id}")
