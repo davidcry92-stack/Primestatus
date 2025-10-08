@@ -414,9 +414,7 @@ const ProductGrid = ({ category = 'all', tier = null, user, cartItems, setCartIt
                       }`}
                     >
                       <ShoppingCart className="w-4 h-4 mr-2" />
-                      {!user?.is_verified ? 'Verification Required' : 
-                       !product.inStock ? 'Out of Stock' : 
-                       'Select Quantity'}
+                      {!product.inStock ? 'Out of Stock' : 'Select Quantity'}
                     </button>
                   </div>
                   
