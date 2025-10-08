@@ -113,49 +113,46 @@ const SquareCheckout = ({ cartItems, onSuccess, onCancel }) => {
 
     try {
       // Token is already provided by the PaymentForm component
-        
-        // Prepare order data
-        const orderData = {
-          payment_source_id: token,
-          user_email: user.email,
-          user_name: user.full_name || user.email,
-          pickup_notes: pickupNotes,
-          save_payment_method: saveToProfile,
-          items: cartItems.map(item => ({
-            product_id: item.id,
-            product_name: item.name,
-            quantity: item.quantity,
-            unit_price: Math.round(item.price * 100), // Convert to cents
-            total_price: Math.round(item.price * item.quantity * 100) // Convert to cents
-          }))
-        };
+      
+      // Prepare order data
+      const orderData = {
+        payment_source_id: token,
+        user_email: user.email,
+        user_name: user.full_name || user.email,
+        pickup_notes: pickupNotes,
+        save_payment_method: saveToProfile,
+        items: cartItems.map(item => ({
+          product_id: item.id,
+          product_name: item.name,
+          quantity: item.quantity,
+          unit_price: Math.round(item.price * 100), // Convert to cents
+          total_price: Math.round(item.price * item.quantity * 100) // Convert to cents
+        }))
+      };
 
-        // Process payment through backend
-        const response = await apiCall('/api/square/create-order', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('access_token')}`
-          },
-          body: JSON.stringify(orderData)
+      // Process payment through backend
+      const response = await apiCall('/api/square/create-order', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+        },
+        body: JSON.stringify(orderData)
+      });
+
+      const paymentResult = await response.json();
+
+      if (response.ok && paymentResult.success) {
+        // Payment successful
+        onSuccess({
+          paymentId: paymentResult.payment_id,
+          orderId: paymentResult.order_id,
+          receiptUrl: paymentResult.receipt_url,
+          pickupCode: paymentResult.pickup_code,
+          amount: calculateTotal()
         });
-
-        const paymentResult = await response.json();
-
-        if (response.ok && paymentResult.success) {
-          // Payment successful
-          onSuccess({
-            paymentId: paymentResult.payment_id,
-            orderId: paymentResult.order_id,
-            receiptUrl: paymentResult.receipt_url,
-            pickupCode: paymentResult.pickup_code,
-            amount: calculateTotal()
-          });
-        } else {
-          setError(paymentResult.error_message || 'Payment failed');
-        }
       } else {
-        setError(result.errors?.[0]?.message || 'Payment tokenization failed');
+        setError(paymentResult.error_message || 'Payment failed');
       }
     } catch (error) {
       console.error('Payment error:', error);
