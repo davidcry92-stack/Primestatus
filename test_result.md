@@ -112,6 +112,14 @@ frontend:
     stuck_count: 2
     priority: "high"
     needs_retesting: false
+  
+  - task: "Add to Cart Functionality"
+    implemented: true
+    working: false
+    file: "/app/frontend/src/components/ProductGrid.jsx, /app/frontend/src/components/ShoppingCart.jsx"
+    stuck_count: 1
+    priority: "critical"
+    needs_retesting: false
     status_history:
         - working: false
           agent: "testing"
