@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { PaymentForm, ApplePay } from 'react-square-web-payments-sdk';
 import { X, CheckCircle, AlertCircle } from 'lucide-react';
 
