@@ -78,7 +78,7 @@ async def process_digital_wallet_payment(
         # Create payment using Square API
         try:
             payments_api = client.payments
-            payment_result = payments_api.create_payment(
+            payment_result = payments_api.create(
                 body={
                     'source_id': payment_request.token,
                     'idempotency_key': str(uuid.uuid4()),
