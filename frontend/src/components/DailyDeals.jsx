@@ -140,7 +140,7 @@ const DailyDeals = ({ user }) => {
                   {/* Product Image */}
                   <div className="relative md:w-1/3">
                     <img 
-                      src={product.image} 
+                      src={product.image_url} 
                       alt={product.name}
                       className="w-full h-48 md:h-full object-cover group-hover:scale-110 transition-transform duration-300"
                     />
