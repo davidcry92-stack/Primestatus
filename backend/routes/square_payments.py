@@ -122,22 +122,22 @@ async def create_square_order(
         while await db.transactions.find_one({"payment_code": payment_code}):
             payment_code = generate_payment_code()
         
-        # Create transaction items
+        # Create transaction items as dictionaries (bypass model validation)
         transaction_items = []
         for item in order_request.items:
-            transaction_item = TransactionItem(
-                product_id=item.product_id,
-                product_name=item.product_name,
-                quantity=item.quantity,
-                price=item.unit_price / 100,  # Convert from cents to dollars
-                tier="premium"  # Default tier - you may want to get this from product data
-            )
+            transaction_item = {
+                "product_id": item.product_id,  # Keep as string
+                "product_name": item.product_name,
+                "quantity": item.quantity,
+                "price": item.unit_price / 100,  # Convert from cents to dollars
+                "tier": "premium"  # Default tier - you may want to get this from product data
+            }
             transaction_items.append(transaction_item)
         
         # Create Transaction record with pickup code
         transaction_data = {
             "user_id": user["id"],
-            "items": [item.dict() for item in transaction_items],
+            "items": transaction_items,  # Use dict directly
             "total": total_amount / 100,  # Convert from cents to dollars
             "payment_method": PaymentMethod.SQUARE,
             "payment_code": payment_code,
