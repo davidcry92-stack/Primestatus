@@ -416,7 +416,9 @@ metadata:
   run_ui: true
 
 test_plan:
-  current_focus: []
+  current_focus:
+    - "Square Payment Integration"
+    - "Digital Wallet Payments (Apple Pay/Google Pay)"
   stuck_tasks: []
   test_all: false
   test_priority: "high_first"
