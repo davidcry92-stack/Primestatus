@@ -57,7 +57,7 @@ async def process_digital_wallet_payment(
             raise HTTPException(status_code=500, detail="Square location ID not configured")
         
         # Initialize Square client for actual payment processing
-        client = Client(
+        client = Square(
             access_token=access_token,
             environment=square_environment
         )
