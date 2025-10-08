@@ -10,20 +10,47 @@ import {
   TrendingUp,
   Timer
 } from 'lucide-react';
-import { mockProducts, mockDailyDeals } from '../data/actual-inventory';
-
 const DailyDeals = ({ user }) => {
   const [timeLeft, setTimeLeft] = useState({});
+  const [dailyDeals, setDailyDeals] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  // Daily deals available for all logged-in users (no additional verification required)
-
-  // Calculate time remaining for deals
+  // Fetch admin-generated daily deals only
   useEffect(() => {
+    const fetchDailyDeals = async () => {
+      try {
+        const backendUrl = process.env.REACT_APP_BACKEND_URL || (
+          window.location.hostname === 'localhost' ? 'http://localhost:8001' : window.location.origin
+        );
+        
+        const response = await fetch(`${backendUrl}/api/daily-deals/active`);
+        if (response.ok) {
+          const deals = await response.json();
+          setDailyDeals(deals);
+        } else {
+          console.error('Failed to fetch daily deals');
+          setDailyDeals([]);
+        }
+      } catch (error) {
+        console.error('Error fetching daily deals:', error);
+        setDailyDeals([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDailyDeals();
+  }, []);
+
+  // Calculate time remaining for admin-generated deals
+  useEffect(() => {
+    if (dailyDeals.length === 0) return;
+    
     const timer = setInterval(() => {
       const now = new Date().getTime();
       const newTimeLeft = {};
       
-      mockDailyDeals.forEach(deal => {
+      dailyDeals.forEach(deal => {
         const endTime = new Date(deal.validUntil).getTime();
         const difference = endTime - now;
         
