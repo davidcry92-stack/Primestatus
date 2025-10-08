@@ -303,6 +303,12 @@ const LoginOnlyApp = () => {
     );
   }
 
+  // Check if user is admin (unified authentication system)
+  const isAdmin = (isAuthenticated && user && (
+    user.email === 'admin@statusxsmoakland.com' || 
+    user.role === 'super_admin'
+  ));
+
   // STRICT VERIFICATION REQUIRED - NO CONTENT FOR UNVERIFIED USERS (EXCEPT ADMIN)
   if (isAuthenticated && user && !isAdmin && (!user.is_verified || user.verification_status !== 'approved')) {
     return <VerificationPending user={user} />;
