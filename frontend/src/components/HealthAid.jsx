@@ -17,11 +17,12 @@ const HealthAid = ({ user = null }) => {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="text-6xl mb-4">🔒</div>
           <h2 className="text-4xl md:text-6xl font-black text-white mb-6">
-            Health-Aid
+            Health-Aid Premium
           </h2>
           <div className="bg-gray-900/70 backdrop-blur rounded-2xl p-8 border border-emerald-500/30">
-            <h3 className="text-white font-bold text-lg mb-2">Premium + Health-Aid</h3>
-            <p className="text-gray-300 text-sm mb-4">Everything + exclusive Health-Aid access</p>
+            <h3 className="text-white font-bold text-lg mb-2">Upgrade to Premium + Health-Aid</h3>
+            <p className="text-emerald-400 text-2xl font-black mb-4">$7.99/month</p>
+            <p className="text-gray-300 text-sm mb-4">Everything in Basic + exclusive Health-Aid access</p>
             <p className="text-emerald-400 mb-6">
               Unlock our exclusive wellness resources with premium membership
             </p>
@@ -35,6 +36,10 @@ const HealthAid = ({ user = null }) => {
         </div>
       </section>
     );
+  }
+  // Non-logged in users: Don't show on main page
+  else {
+    return null;
   }
 
   return (
