@@ -28,7 +28,7 @@ const DailyDeals = ({ user }) => {
           const deals = await response.json();
           setDailyDeals(deals);
         } else {
-          console.error('Failed to fetch daily deals');
+          console.log('Daily deals API not available yet - will show empty state');
           setDailyDeals([]);
         }
       } catch (error) {
