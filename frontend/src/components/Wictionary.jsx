@@ -34,7 +34,16 @@ const WellnessCenter = ({ user = null }) => {
     return matchesSearch && matchesCategory;
   });
 
-  if (!hasAccess) {
+  // Check membership tier for proper upgrade display
+  const isBasicMember = user && (user.membershipTier === 'basic' || user.membership_tier === 'basic');
+  const isPremiumMember = hasAccess;
+
+  // Premium members: Full access, no upgrade needed
+  if (isPremiumMember) {
+    // Don't show any upgrade section - they have full access
+  }
+  // Basic members: Show only premium upgrade option
+  else if (isBasicMember) {
     return (
       <section className="py-20 bg-gradient-to-b from-black to-purple-900" id="wellness-center">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -44,23 +53,25 @@ const WellnessCenter = ({ user = null }) => {
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
                 Health-Aid
               </span>
-              {' '}Access
+              {' '}Premium Access
             </h2>
             <p className="text-xl text-gray-300 mb-8">
-              Unlock our exclusive cannabis dictionary with premium membership
+              Upgrade to premium to unlock our exclusive cannabis dictionary
             </p>
             
-            <div className="grid md:grid-cols-2 gap-6 mb-8">
-              <div className="bg-black/30 border border-gray-600 rounded-xl p-6">
-                <h3 className="text-white font-bold text-lg mb-2">Basic Membership</h3>
-                <p className="text-green-400 text-2xl font-black mb-4">$4.99/month</p>
-                <p className="text-gray-400 text-sm">Premium products & wellness</p>
-              </div>
-              <div className="bg-gradient-to-br from-purple-900/30 to-pink-900/30 border border-purple-400/50 rounded-xl p-6 relative">
-                <Crown className="h-6 w-6 text-yellow-400 absolute top-4 right-4" />
-                <h3 className="text-white font-bold text-lg mb-2">Premium + Health-Aid</h3>
-                <p className="text-purple-400 text-2xl font-black mb-4">$7.99/month</p>
-                <p className="text-gray-300 text-sm">Everything + exclusive Health-Aid access</p>
+            {/* Show only premium upgrade - user already has basic */}
+            <div className="max-w-md mx-auto mb-8">
+              <div className="bg-gradient-to-br from-purple-900/30 to-pink-900/30 border border-purple-400/50 rounded-xl p-8 relative">
+                <Crown className="h-8 w-8 text-yellow-400 absolute top-4 right-4" />
+                <h3 className="text-white font-bold text-xl mb-3">Premium + Health-Aid</h3>
+                <p className="text-purple-400 text-3xl font-black mb-4">$7.99<span className="text-lg text-gray-400">/month</span></p>
+                <p className="text-gray-300 text-sm mb-4">Everything in Basic + exclusive Health-Aid access</p>
+                <ul className="text-left text-gray-300 text-sm space-y-2">
+                  <li>✓ All premium products</li>
+                  <li>✓ Exclusive wellness resources</li>
+                  <li>✓ Complete cannabis dictionary</li>
+                  <li>✓ Priority customer support</li>
+                </ul>
               </div>
             </div>
             
@@ -75,6 +86,10 @@ const WellnessCenter = ({ user = null }) => {
         </div>
       </section>
     );
+  }
+  // Not logged in: Should not reach here in main app (handled at login)
+  else {
+    return null; // Don't show pricing to non-logged in users on main page
   }
 
   return (
