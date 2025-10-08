@@ -12,8 +12,23 @@ const GooglePayCheckout = ({
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const [squareLoaded, setSquareLoaded] = useState(false);
 
   const backendUrl = process.env.REACT_APP_BACKEND_URL || import.meta.env.VITE_BACKEND_URL;
+
+  // Check if Square SDK is loaded
+  useEffect(() => {
+    const checkSquareSDK = () => {
+      if (typeof window !== 'undefined' && window.Square) {
+        setSquareLoaded(true);
+        setError('');
+      } else {
+        // Retry after a short delay
+        setTimeout(checkSquareSDK, 100);
+      }
+    };
+    checkSquareSDK();
+  }, []);
 
   const handleGooglePaySuccess = async (token, buyer) => {
     setIsProcessing(true);
