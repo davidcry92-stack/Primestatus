@@ -29,14 +29,17 @@ def get_square_client():
     access_token = os.environ.get('SQUARE_ACCESS_TOKEN')
     environment = os.environ.get('SQUARE_ENVIRONMENT', 'production')
     
+    # Import Square environment
+    from square.environment import SquareEnvironment
+    
     # Convert environment string to Square environment 
     if environment == 'sandbox':
-        env = 'sandbox'
+        env = SquareEnvironment.SANDBOX
     else:
-        env = 'production'
+        env = SquareEnvironment.PRODUCTION
     
     client = Square(
-        access_token=access_token,
+        token=access_token,
         environment=env
     )
     
