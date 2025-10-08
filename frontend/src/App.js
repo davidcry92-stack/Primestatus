@@ -769,6 +769,8 @@ function App() {
   const [isReEntryCodeVerified, setIsReEntryCodeVerified] = useState(false);
   const [isSuperAdminMode, setIsSuperAdminMode] = useState(false);
   const [lastActivityTime, setLastActivityTime] = useState(Date.now());
+  const [cartItems, setCartItems] = useState([]);
+  const [user, setUser] = useState(null);
 
   // Simple auth handler for daily deals section
   const handleAuthClick = () => {
