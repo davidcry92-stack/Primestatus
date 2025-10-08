@@ -79,7 +79,15 @@ const AdminApp = () => {
   };
 
   const handleLogout = () => {
+    // Clear admin authentication
+    localStorage.removeItem('admin_token');
+    localStorage.removeItem('admin_user');
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('user_data');
     setAdminUser(null);
+    
+    // Force redirect to main app
+    window.location.href = '/';
   };
 
   if (loading) {
