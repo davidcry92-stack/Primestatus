@@ -168,6 +168,7 @@ const ApplePayCheckout = ({
             locationId={process.env.REACT_APP_SQUARE_LOCATION_ID || import.meta.env.VITE_SQUARE_LOCATION_ID}
             cardTokenizeResponseReceived={handleApplePaySuccess}
             createPaymentRequest={createPaymentRequest}
+            environment="sandbox"
           >
             <div className="w-full">
               <ApplePay
