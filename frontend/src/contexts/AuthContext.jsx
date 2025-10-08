@@ -87,7 +87,9 @@ export const AuthProvider = ({ children }) => {
       }
 
       const data = await response.json();
-      const { access_token, user: userData } = data;
+      // Handle different response structures for admin vs regular users
+      const userData = isAdminLogin ? data.admin : data.user;
+      const { access_token } = data;
       
       localStorage.setItem('access_token', access_token);
       localStorage.setItem('user_data', JSON.stringify(userData));
