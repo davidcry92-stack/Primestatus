@@ -285,12 +285,12 @@ async def get_payment_details(payment_id: str):
         client = get_square_client()
         payments_api = client.payments
         
-        result = payments_api.get(payment_id)
+        result = payments_api.get_payment(payment_id)
         
-        if result.is_error():
+        if hasattr(result, 'errors') and result.errors:
             raise HTTPException(status_code=404, detail="Payment not found")
         
-        payment = result.body.get('payment')
+        payment = result.payment
         return {
             "payment_id": payment.get('id'),
             "status": payment.get('status'),
