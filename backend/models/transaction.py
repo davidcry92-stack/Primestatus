@@ -17,6 +17,7 @@ class TransactionStatus(str, Enum):
     PICKED_UP = "picked_up"
     CASH_PAID_IN_STORE = "cash_paid_in_store"
     CANCELLED = "cancelled"
+    PAID = "paid"
 
 class TransactionItem(BaseModel):
     product_id: PyObjectId
