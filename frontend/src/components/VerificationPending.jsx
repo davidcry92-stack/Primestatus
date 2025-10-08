@@ -60,7 +60,7 @@ const VerificationPending = ({ user }) => {
           <div className="flex items-center justify-center space-x-2">
             <Badge className={`${getStatusColor(user.verification_status)} text-white flex items-center space-x-2 px-4 py-2`}>
               {getStatusIcon(user.verification_status)}
-              <span className="capitalize">{user.verification_status.replace('_', ' ')}</span>
+              <span className="capitalize">{user.verification_status?.replace('_', ' ') || 'Unknown'}</span>
             </Badge>
           </div>
         </CardHeader>
