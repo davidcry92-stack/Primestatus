@@ -11,8 +11,67 @@ const GooglePayCheckout = ({
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const [googlePayButton, setGooglePayButton] = useState(null);
+  const [isGooglePaySupported, setIsGooglePaySupported] = useState(false);
 
   const backendUrl = process.env.REACT_APP_BACKEND_URL || import.meta.env.VITE_BACKEND_URL;
+  const SQUARE_APPLICATION_ID = process.env.REACT_APP_SQUARE_APPLICATION_ID || import.meta.env.VITE_SQUARE_APPLICATION_ID;
+  const SQUARE_LOCATION_ID = process.env.REACT_APP_SQUARE_LOCATION_ID || import.meta.env.VITE_SQUARE_LOCATION_ID;
+
+  useEffect(() => {
+    initGooglePay();
+  }, []);
+
+  const initGooglePay = async () => {
+    try {
+      // Load Square SDK if not already loaded
+      if (!window.Square) {
+        const script = document.createElement('script');
+        script.src = 'https://web.squarecdn.com/v1/square.js';
+        script.async = true;
+        script.onload = () => {
+          setupGooglePay();
+        };
+        document.head.appendChild(script);
+      } else {
+        setupGooglePay();
+      }
+    } catch (error) {
+      console.error('Error loading Square SDK for Google Pay:', error);
+      setError('Google Pay not available');
+    }
+  };
+
+  const setupGooglePay = async () => {
+    try {
+      const payments = window.Square.payments(SQUARE_APPLICATION_ID, SQUARE_LOCATION_ID);
+      
+      // Check if Google Pay is supported
+      const paymentRequest = payments.paymentRequest({
+        countryCode: 'US',
+        currencyCode: 'USD',
+        total: {
+          amount: Math.round(totalAmount * 100).toString(), // Convert to cents
+          label: 'StatusXSmoakland Order',
+        },
+      });
+
+      const googlePay = await payments.googlePay(paymentRequest);
+      setGooglePayButton(googlePay);
+      setIsGooglePaySupported(true);
+      
+      // Attach Google Pay button
+      const googlePayContainer = document.getElementById('google-pay-button');
+      if (googlePayContainer) {
+        await googlePay.attach('#google-pay-button');
+      }
+      
+    } catch (error) {
+      console.error('Google Pay setup error:', error);
+      setError('Google Pay not supported on this device');
+      setIsGooglePaySupported(false);
+    }
+  };
 
   const handleGooglePaySuccess = async (token, buyer) => {
     setIsProcessing(true);
