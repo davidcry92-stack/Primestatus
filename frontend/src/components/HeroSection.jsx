@@ -87,14 +87,7 @@ const HeroSection = ({ onAuthClick, cartItems, setCartItems, user }) => {
           </div>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
-            <Button 
-              onClick={onAuthClick}
-              className="bg-green-600 hover:bg-green-700 text-white text-lg px-8 py-4 rounded-full font-bold shadow-lg transform hover:scale-105 transition-all duration-200"
-            >
-              Join StatusXSmoakland
-            </Button>
-          </div>
+          {/* Join button removed - available at login screen */}
 
           {/* App Store Buttons */}
           <div className="space-y-4">
