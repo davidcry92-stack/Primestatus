@@ -66,7 +66,7 @@ async def process_digital_wallet_payment(
             env = SquareEnvironment.PRODUCTION
         
         client = Square(
-            access_token=access_token,
+            token=access_token,
             environment=env
         )
         
