@@ -72,7 +72,11 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
     try {
-      const response = await apiCall('/api/auth/login', {
+      // Determine if this is an admin login
+      const isAdminLogin = credentials.email === 'admin@statusxsmoakland.com';
+      const loginEndpoint = isAdminLogin ? '/api/admin-auth/login' : '/api/auth/login';
+      
+      const response = await apiCall(loginEndpoint, {
         method: 'POST',
         body: JSON.stringify(credentials),
       });
